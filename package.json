@@ -1,6 +1,9 @@
 {
   "private": true,
   "devDependencies": {
-    "hugo-bin": "^0.138.0"
+    "hugo-bin": "^0.149.2"
+  },
+  "hugo-bin": {
+    "buildTags": "extended"
   }
 }
