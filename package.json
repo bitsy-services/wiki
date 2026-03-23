@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "devDependencies": {
+    "hugo-bin": "^0.138.0"
+  }
+}
