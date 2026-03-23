@@ -1,0 +1,17 @@
+baseURL = 'https://wiki.bitsy.services/'
+locale = 'en-us'
+title = 'Bitsy Services Wiki'
+theme = 'hugo-book'
+
+[params]
+  BookToC = true
+  BookSection = 'docs'
+  BookSearch = true
+
+[markup]
+  [markup.highlight]
+    style = 'monokai'
+    lineNos = true
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
