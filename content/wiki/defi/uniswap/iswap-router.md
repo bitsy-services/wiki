@@ -1,9 +1,7 @@
 ---
-title: "ISwapRouter"
+title: "ISwapRouter — Uniswap V3 Swap Guide"
 weight: 1
 ---
-
-# ISwapRouter — Uniswap V3 Swap Guide
 
 `ISwapRouter` is the interface your contract (or off-chain script) calls to execute token swaps through Uniswap V3 pools. It lives at:
 
@@ -12,6 +10,8 @@ weight: 1
 ```
 
 The canonical deployment is the **SwapRouter** contract. On most chains the address is `0xE592427A0AEce92De3Edee1F18E0157C05861564`.
+
+> **Note:** Uniswap has since shipped **SwapRouter02** (combines V2 + V3 routing) and the **UniversalRouter** (V2, V3, Permit2, NFT purchases). For new integrations, evaluate those first — they offer better gas efficiency and approval flows via [Permit2](https://docs.uniswap.org/contracts/permit2/overview). This guide covers the original SwapRouter, which remains widely deployed and is the simplest to learn from.
 
 ## Installation
 
@@ -43,142 +43,9 @@ In Foundry add the remapping:
 
 All four accept a struct of parameters and return the resulting amount.
 
-## Exact-Input Single Swap
-
-The simplest case: swap a known amount of token A for token B through one pool.
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
-
-import {ISwapRouter} from "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-
-contract SimpleSwap {
-    ISwapRouter public immutable router;
-
-    constructor(address _router) {
-        router = ISwapRouter(_router);
-    }
-
-    /// @notice Swap `amountIn` of tokenIn for tokenOut.
-    /// @param tokenIn  Address of the token to sell.
-    /// @param tokenOut Address of the token to buy.
-    /// @param fee      Pool fee tier (500, 3000, or 10000).
-    /// @param amountIn Amount of tokenIn to spend.
-    /// @param amountOutMinimum Minimum acceptable output (slippage protection).
-    /// @return amountOut Actual amount of tokenOut received.
-    function swapExactInput(
-        address tokenIn,
-        address tokenOut,
-        uint24 fee,
-        uint256 amountIn,
-        uint256 amountOutMinimum
-    ) external returns (uint256 amountOut) {
-        // Transfer tokens in and approve the router.
-        IERC20(tokenIn).transferFrom(msg.sender, address(this), amountIn);
-        IERC20(tokenIn).approve(address(router), amountIn);
-
-        ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
-            .ExactInputSingleParams({
-                tokenIn: tokenIn,
-                tokenOut: tokenOut,
-                fee: fee,
-                recipient: msg.sender,
-                deadline: block.timestamp,
-                amountIn: amountIn,
-                amountOutMinimum: amountOutMinimum,
-                sqrtPriceLimitX96: 0 // no price limit
-            });
-
-        amountOut = router.exactInputSingle(params);
-    }
-}
-```
-
-### Parameter Breakdown
-
-| Parameter | Notes |
-|---|---|
-| `tokenIn` / `tokenOut` | ERC-20 addresses. Order matters — it determines swap direction. |
-| `fee` | Identifies which pool to use. Common tiers: **500** (0.05 %), **3000** (0.3 %), **10000** (1 %). |
-| `recipient` | Where the output tokens are sent. |
-| `deadline` | Unix timestamp after which the tx reverts. Use `block.timestamp` for atomic calls; add a buffer for user-submitted txs. |
-| `amountIn` | Exact number of input tokens (in the token's smallest unit). |
-| `amountOutMinimum` | Slippage guard. Set to 0 only in tests — in production derive it from a quote minus your tolerance. |
-| `sqrtPriceLimitX96` | Cap how far the price can move during the swap. `0` means no limit. |
-
-## Exact-Output Single Swap
-
-When you need **exactly N** of the output token and are willing to spend up to a maximum of the input token:
-
-```solidity
-function swapExactOutput(
-    address tokenIn,
-    address tokenOut,
-    uint24 fee,
-    uint256 amountOut,
-    uint256 amountInMaximum
-) external returns (uint256 amountIn) {
-    IERC20(tokenIn).transferFrom(msg.sender, address(this), amountInMaximum);
-    IERC20(tokenIn).approve(address(router), amountInMaximum);
-
-    ISwapRouter.ExactOutputSingleParams memory params = ISwapRouter
-        .ExactOutputSingleParams({
-            tokenIn: tokenIn,
-            tokenOut: tokenOut,
-            fee: fee,
-            recipient: msg.sender,
-            deadline: block.timestamp,
-            amountOut: amountOut,
-            amountInMaximum: amountInMaximum,
-            sqrtPriceLimitX96: 0
-        });
-
-    amountIn = router.exactOutputSingle(params);
-
-    // Refund unspent tokens.
-    if (amountIn < amountInMaximum) {
-        IERC20(tokenIn).approve(address(router), 0);
-        IERC20(tokenIn).transfer(msg.sender, amountInMaximum - amountIn);
-    }
-}
-```
-
-> **Important:** Always refund the difference. The router only pulls what it needs, but you approved and transferred `amountInMaximum`.
-
-## Multi-Hop Swaps
-
-For tokens that don't share a direct pool (or where routing through an intermediary gives a better price), use `exactInput` or `exactOutput` with an encoded path.
-
-A path is a tightly packed sequence of `(token, fee, token, fee, token, …)`:
-
-```solidity
-// DAI → (0.3 % pool) → WETH → (0.05 % pool) → USDC
-bytes memory path = abi.encodePacked(
-    DAI,
-    uint24(3000),
-    WETH,
-    uint24(500),
-    USDC
-);
-
-ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams({
-    path: path,
-    recipient: msg.sender,
-    deadline: block.timestamp,
-    amountIn: amountIn,
-    amountOutMinimum: amountOutMinimum
-});
-
-uint256 amountOut = router.exactInput(params);
-```
-
-> For `exactOutput` the path is **reversed** — it starts with the output token and ends with the input token.
-
 ## Fee Tiers
 
-Uniswap V3 pools are deployed per fee tier. Picking the right one matters for execution quality.
+Uniswap V3 pools are deployed per fee tier. You pass the fee value to every swap call, so understand these before writing any swap code.
 
 | Fee | Basis Points | Typical Use |
 |---|---|---|
@@ -187,11 +54,11 @@ Uniswap V3 pools are deployed per fee tier. Picking the right one matters for ex
 | **3000** | 0.3 % | Most standard pairs. |
 | **10000** | 1 % | Exotic or low-liquidity tokens. |
 
-If you're unsure which tier has the deepest liquidity, query the **Quoter** first.
+If you're unsure which tier has the deepest liquidity for your pair, query the **Quoter** (see below) across all tiers and pick the one that returns the best output.
 
 ## Getting a Quote
 
-Use the `QuoterV2` contract (`IQuoterV2`) to simulate a swap off-chain and get the expected output. This is how you derive `amountOutMinimum`:
+Before executing a swap you need a quote to derive a safe `amountOutMinimum`. Use the `QuoterV2` contract off-chain:
 
 ```solidity
 import {IQuoterV2} from "@uniswap/v3-periphery/contracts/interfaces/IQuoterV2.sol";
@@ -206,24 +73,176 @@ import {IQuoterV2} from "@uniswap/v3-periphery/contracts/interfaces/IQuoterV2.so
     })
 );
 
-// Apply 0.5 % slippage tolerance.
+// Apply slippage tolerance (0.5 % here — tune per pair and volatility).
 uint256 amountOutMinimum = (expectedOut * 995) / 1000;
 ```
 
-> **Note:** `QuoterV2` uses `staticcall` under the hood — it reverts and decodes the revert data to return the quote. Call it off-chain (via `eth_call`) to avoid gas costs.
+> **Note:** `QuoterV2` simulates the swap via `staticcall` — it reverts internally and decodes the revert data to return the quote. Call it off-chain (via `eth_call`) to avoid gas costs. Never call it on-chain in a transaction.
+
+A 0.5 % tolerance is a reasonable starting point for major pairs. Volatile or low-liquidity pairs may need 1–3 %. The right value depends on how long your transaction might sit in the mempool — longer waits need wider tolerances.
+
+## Exact-Input Single Swap
+
+The simplest case: swap a known amount of token A for token B through one pool.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import {ISwapRouter} from "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+
+contract SimpleSwap {
+    using SafeERC20 for IERC20;
+
+    ISwapRouter public immutable router;
+
+    constructor(address _router) {
+        router = ISwapRouter(_router);
+    }
+
+    /// @notice Swap `amountIn` of tokenIn for tokenOut.
+    /// @param tokenIn  Address of the token to sell.
+    /// @param tokenOut Address of the token to buy.
+    /// @param fee      Pool fee tier (100, 500, 3000, or 10000).
+    /// @param amountIn Amount of tokenIn to spend.
+    /// @param amountOutMinimum Minimum acceptable output — derive from a Quoter call.
+    /// @param deadline Unix timestamp after which the tx reverts.
+    /// @return amountOut Actual amount of tokenOut received.
+    function swapExactInput(
+        address tokenIn,
+        address tokenOut,
+        uint24 fee,
+        uint256 amountIn,
+        uint256 amountOutMinimum,
+        uint256 deadline
+    ) external returns (uint256 amountOut) {
+        IERC20(tokenIn).safeTransferFrom(msg.sender, address(this), amountIn);
+        IERC20(tokenIn).safeIncreaseAllowance(address(router), amountIn);
+
+        ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
+            .ExactInputSingleParams({
+                tokenIn: tokenIn,
+                tokenOut: tokenOut,
+                fee: fee,
+                recipient: msg.sender,
+                deadline: deadline,
+                amountIn: amountIn,
+                amountOutMinimum: amountOutMinimum,
+                sqrtPriceLimitX96: 0
+            });
+
+        amountOut = router.exactInputSingle(params);
+    }
+}
+```
+
+### Parameter Breakdown
+
+| Parameter | Notes |
+|---|---|
+| `tokenIn` / `tokenOut` | ERC-20 addresses. Order matters — it determines swap direction. |
+| `fee` | Identifies which pool to use. See the fee tier table above. |
+| `recipient` | Where the output tokens are sent. |
+| `deadline` | Unix timestamp after which the tx reverts. For atomic contract-to-contract calls `block.timestamp` is fine (it's always "now"). For user-submitted transactions, pass the deadline in as a parameter — otherwise a validator can hold the tx and execute it at an arbitrarily later time. |
+| `amountIn` | Exact number of input tokens (in the token's smallest unit). |
+| `amountOutMinimum` | Slippage guard. **Never set to 0 in production** — this makes you vulnerable to sandwich attacks. Derive it from a Quoter call minus your slippage tolerance. |
+| `sqrtPriceLimitX96` | Cap how far the pool price can move during the swap. Encoded as a Q64.96 fixed-point square root price. `0` means no limit. A non-zero value causes the swap to stop early (partial fill) if the price reaches the limit — useful for large swaps where you want to cap price impact. |
+
+## Exact-Output Single Swap
+
+When you need **exactly N** of the output token and are willing to spend up to a maximum of the input token. The setup is the same as exact-input — only the struct and the refund logic differ:
+
+```solidity
+function swapExactOutput(
+    address tokenIn,
+    address tokenOut,
+    uint24 fee,
+    uint256 amountOut,
+    uint256 amountInMaximum,
+    uint256 deadline
+) external returns (uint256 amountIn) {
+    IERC20(tokenIn).safeTransferFrom(msg.sender, address(this), amountInMaximum);
+    IERC20(tokenIn).safeIncreaseAllowance(address(router), amountInMaximum);
+
+    ISwapRouter.ExactOutputSingleParams memory params = ISwapRouter
+        .ExactOutputSingleParams({
+            tokenIn: tokenIn,
+            tokenOut: tokenOut,
+            fee: fee,
+            recipient: msg.sender,
+            deadline: deadline,
+            amountOut: amountOut,
+            amountInMaximum: amountInMaximum,
+            sqrtPriceLimitX96: 0
+        });
+
+    amountIn = router.exactOutputSingle(params);
+
+    // Refund unspent tokens — the router only pulls what it needs.
+    if (amountIn < amountInMaximum) {
+        IERC20(tokenIn).forceApprove(address(router), 0);
+        IERC20(tokenIn).safeTransfer(msg.sender, amountInMaximum - amountIn);
+    }
+}
+```
+
+> **Important:** Always refund the difference. You transferred `amountInMaximum` but the router may have spent less. Without the refund, the surplus is stuck in the contract.
+
+## Multi-Hop Swaps
+
+For tokens that don't share a direct pool (or where routing through an intermediary gives a better price), use `exactInput` or `exactOutput` with an encoded path.
+
+A path is a tightly packed sequence of `(token, fee, token, fee, token, …)`. You **must** use `abi.encodePacked` — standard `abi.encode` pads each element to 32 bytes and produces an invalid path that will revert.
+
+```solidity
+// DAI → (0.3 % pool) → WETH → (0.05 % pool) → USDC
+bytes memory path = abi.encodePacked(
+    DAI,
+    uint24(3000),
+    WETH,
+    uint24(500),
+    USDC
+);
+
+ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams({
+    path: path,
+    recipient: msg.sender,
+    deadline: deadline,
+    amountIn: amountIn,
+    amountOutMinimum: amountOutMinimum
+});
+
+uint256 amountOut = router.exactInput(params);
+```
+
+> For `exactOutput` the path is **reversed** — it starts with the output token and ends with the input token.
 
 ## Wrapping / Unwrapping ETH
 
 The SwapRouter does **not** accept raw ETH. Wrap it first:
 
 ```solidity
+import {IWETH9} from "@uniswap/v3-periphery/contracts/interfaces/external/IWETH9.sol";
+
 IWETH9 weth = IWETH9(router.WETH9());
 weth.deposit{value: msg.value}();
-weth.approve(address(router), msg.value);
+IERC20(address(weth)).safeIncreaseAllowance(address(router), msg.value);
 // … then swap with tokenIn = address(weth)
 ```
 
-To unwrap after receiving WETH as output, set `recipient` to `address(this)`, then call `weth.withdraw(amount)` and forward the ETH.
+To unwrap after receiving WETH as output, set `recipient` to `address(this)`, then withdraw and forward:
+
+```solidity
+// After the swap completes and this contract holds WETH:
+uint256 wethBalance = IERC20(address(weth)).balanceOf(address(this));
+weth.withdraw(wethBalance);
+(bool sent, ) = msg.sender.call{value: wethBalance}("");
+require(sent, "ETH transfer failed");
+```
+
+> Your contract needs a `receive() external payable {}` function to accept ETH from the WETH withdraw call.
 
 ## Testing with Foundry
 
@@ -245,9 +264,7 @@ contract SwapRouterTest is Test {
     address constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
 
     function test_swapWETHForUSDC() public {
-        // Give this test contract 1 WETH.
         deal(WETH, address(this), 1 ether);
-
         IERC20(WETH).approve(address(ROUTER), 1 ether);
 
         ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
@@ -264,8 +281,7 @@ contract SwapRouterTest is Test {
 
         uint256 amountOut = ROUTER.exactInputSingle(params);
         assertGt(amountOut, 0, "Should receive USDC");
-
-        emit log_named_uint("USDC received", amountOut);
+        console2.log("USDC received:", amountOut);
     }
 }
 ```
@@ -278,20 +294,18 @@ forge test --match-test test_swapWETHForUSDC --fork-url $ETH_RPC_URL -vv
 
 ## Common Pitfalls
 
+> **Warning — fund loss risk:** The first two items can result in permanent loss of funds, not just reverted transactions.
+
+- **Setting `amountOutMinimum` to 0 in production** — makes you vulnerable to sandwich attacks. A MEV bot can manipulate the pool price before your swap and extract the difference. Always derive this value from a fresh Quoter call.
+- **Exact-output refund** — forgetting to return unspent tokens to the caller after an `exactOutput` swap leaves funds permanently stuck in the contract.
 - **Forgetting `approve`** — the router pulls tokens via `transferFrom`. Without an approval the swap reverts with a generic ERC-20 error.
-- **Setting `amountOutMinimum` to 0 in production** — this makes you vulnerable to sandwich attacks. Always derive it from a fresh quote.
-- **Stale `deadline`** — if the deadline is in the past the tx reverts. For on-chain integrations use `block.timestamp`; for user txs add 5–20 minutes.
-- **Wrong fee tier** — if the pool for that fee doesn't exist, the swap reverts. Check pool existence or use the Quoter to verify.
-- **Exact-output refund** — forgetting to return unspent tokens to the caller after an `exactOutput` swap.
+- **Wrong fee tier** — if no pool exists for that fee, the swap reverts. Use the Quoter to verify the pool exists and has liquidity.
+- **Stale `deadline`** — if the deadline is in the past the tx reverts. For on-chain integrations use `block.timestamp`; for user txs pass the deadline as a parameter with 5–20 minutes of buffer.
+- **Using raw `approve` instead of `SafeERC20`** — tokens like USDT require the allowance to be zeroed before setting a new value. Raw `approve` calls will revert on these tokens. Use OpenZeppelin's `SafeERC20` library.
 
 ## Deployed Addresses
 
-| Contract | Mainnet | Arbitrum | Optimism | Polygon | Base |
-|---|---|---|---|---|---|
-| SwapRouter | `0xE592…1564` | `0xE592…1564` | `0xE592…1564` | `0xE592…1564` | `0x2626…2B9d` |
-| QuoterV2 | `0x61fF…E3f6` | `0x61fF…E3f6` | `0x61fF…E3f6` | `0x61fF…E3f6` | `0x3d4e…C4d8` |
-
-Full list: [Uniswap V3 Deployments](https://docs.uniswap.org/contracts/v3/reference/deployments/).
+See the [official Uniswap V3 deployment list](https://docs.uniswap.org/contracts/v3/reference/deployments/) for full, copy-pasteable addresses across all supported chains.
 
 ## Further Reading
 
@@ -299,4 +313,6 @@ Full list: [Uniswap V3 Deployments](https://docs.uniswap.org/contracts/v3/refere
 - [Uniswap V3 Swap Guide](https://docs.uniswap.org/contracts/v3/guides/swaps/single-swaps)
 - [Multi-Hop Swap Guide](https://docs.uniswap.org/contracts/v3/guides/swaps/multihop-swaps)
 - [QuoterV2 Reference](https://docs.uniswap.org/contracts/v3/reference/periphery/interfaces/IQuoterV2)
+- [UniversalRouter Guide](https://docs.uniswap.org/contracts/universal-router/overview)
+- [Permit2 Overview](https://docs.uniswap.org/contracts/permit2/overview)
 - [Uniswap V3 Core Whitepaper](https://uniswap.org/whitepaper-v3.pdf)
