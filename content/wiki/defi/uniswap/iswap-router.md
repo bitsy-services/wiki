@@ -47,7 +47,7 @@ All four accept a struct of parameters and return the resulting amount.
 
 Uniswap V3 pools are deployed per fee tier. You pass the fee value to every swap call, so understand these before writing any swap code.
 
-| Fee | Basis Points | Typical Use |
+| Fee | [Basis Points](https://en.wikipedia.org/wiki/Basis_point) | Typical Use |
 |---|---|---|
 | **100** | 0.01 % | Stable-to-stable pairs (USDC/USDT). |
 | **500** | 0.05 % | Correlated pairs (WETH/stETH) or high-volume majors. |
@@ -58,7 +58,7 @@ If you're unsure which tier has the deepest liquidity for your pair, query the *
 
 ## Getting a Quote
 
-Before executing a swap you need a quote to derive a safe `amountOutMinimum`. Use the `QuoterV2` contract off-chain:
+Before executing a swap you need a quote to derive a safe `amountOutMinimum` ([slippage](https://en.wikipedia.org/wiki/Slippage_(finance)) protection). Use the `QuoterV2` contract off-chain:
 
 ```solidity
 import {IQuoterV2} from "@uniswap/v3-periphery/contracts/interfaces/IQuoterV2.sol";
@@ -79,7 +79,7 @@ uint256 amountOutMinimum = (expectedOut * 995) / 1000;
 
 > **Note:** `QuoterV2` simulates the swap via `staticcall` — it reverts internally and decodes the revert data to return the quote. Call it off-chain (via `eth_call`) to avoid gas costs. Never call it on-chain in a transaction.
 
-A 0.5 % tolerance is a reasonable starting point for major pairs. Volatile or low-liquidity pairs may need 1–3 %. The right value depends on how long your transaction might sit in the mempool — longer waits need wider tolerances.
+A 0.5 % tolerance is a reasonable starting point for major pairs. Volatile or low-liquidity pairs may need 1–3 %. The right value depends on how long your transaction might sit in the [mempool](https://en.wikipedia.org/wiki/Transaction_pool) — longer waits need wider tolerances.
 
 ## Exact-Input Single Swap
 
@@ -142,13 +142,13 @@ contract SimpleSwap {
 
 | Parameter | Notes |
 |---|---|
-| `tokenIn` / `tokenOut` | ERC-20 addresses. Order matters — it determines swap direction. |
+| `tokenIn` / `tokenOut` | [ERC-20](https://en.wikipedia.org/wiki/ERC-20) addresses. Order matters — it determines swap direction. |
 | `fee` | Identifies which pool to use. See the fee tier table above. |
 | `recipient` | Where the output tokens are sent. |
 | `deadline` | Unix timestamp after which the tx reverts. For atomic contract-to-contract calls `block.timestamp` is fine (it's always "now"). For user-submitted transactions, pass the deadline in as a parameter — otherwise a validator can hold the tx and execute it at an arbitrarily later time. |
 | `amountIn` | Exact number of input tokens (in the token's smallest unit). |
 | `amountOutMinimum` | Slippage guard. **Never set to 0 in production** — this makes you vulnerable to sandwich attacks. Derive it from a Quoter call minus your slippage tolerance. |
-| `sqrtPriceLimitX96` | Cap how far the pool price can move during the swap. Encoded as a Q64.96 fixed-point square root price. `0` means no limit. A non-zero value causes the swap to stop early (partial fill) if the price reaches the limit — useful for large swaps where you want to cap price impact. |
+| `sqrtPriceLimitX96` | Cap how far the pool price can move during the swap. Encoded as a [Q64.96 fixed-point](https://en.wikipedia.org/wiki/Fixed-point_arithmetic) square root price. `0` means no limit. A non-zero value causes the swap to stop early (partial fill) if the price reaches the limit — useful for large swaps where you want to cap price impact. |
 
 ## Exact-Output Single Swap
 
@@ -246,7 +246,7 @@ require(sent, "ETH transfer failed");
 
 ## Testing with Foundry
 
-Fork mainnet and run a real swap in a test:
+Fork mainnet and run a real swap in a [Foundry](https://book.getfoundry.sh/) test:
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -296,7 +296,7 @@ forge test --match-test test_swapWETHForUSDC --fork-url $ETH_RPC_URL -vv
 
 > **Warning — fund loss risk:** The first two items can result in permanent loss of funds, not just reverted transactions.
 
-- **Setting `amountOutMinimum` to 0 in production** — makes you vulnerable to sandwich attacks. A MEV bot can manipulate the pool price before your swap and extract the difference. Always derive this value from a fresh Quoter call.
+- **Setting `amountOutMinimum` to 0 in production** — makes you vulnerable to [sandwich attacks](https://en.wikipedia.org/wiki/Sandwich_attack). A [MEV](https://en.wikipedia.org/wiki/Maximal_extractable_value) bot can manipulate the pool price before your swap and extract the difference. Always derive this value from a fresh Quoter call.
 - **Exact-output refund** — forgetting to return unspent tokens to the caller after an `exactOutput` swap leaves funds permanently stuck in the contract.
 - **Forgetting `approve`** — the router pulls tokens via `transferFrom`. Without an approval the swap reverts with a generic ERC-20 error.
 - **Wrong fee tier** — if no pool exists for that fee, the swap reverts. Use the Quoter to verify the pool exists and has liquidity.

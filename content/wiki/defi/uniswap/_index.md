@@ -4,7 +4,7 @@ weight: 2
 bookCollapseSection: true
 ---
 
-Uniswap is the dominant on-chain DEX protocol on Ethereum and most EVM L2s. It uses concentrated-liquidity AMM pools (V3) and an intent-based architecture (V4 / UniswapX) for token swaps.
+Uniswap is the dominant on-chain [DEX](https://en.wikipedia.org/wiki/Decentralized_exchange) protocol on Ethereum and most [EVM](https://en.wikipedia.org/wiki/Ethereum#Virtual_machine) [L2s](https://en.wikipedia.org/wiki/Blockchain_scaling#Layer_2). It uses [concentrated-liquidity](https://docs.uniswap.org/concepts/protocol/concentrated-liquidity) [AMM](https://en.wikipedia.org/wiki/Constant_function_market_maker) pools (V3) and an [intent-based architecture](https://docs.uniswap.org/contracts/uniswapx/overview) (V4 / UniswapX) for token swaps.
 
 ## Current Contracts
 

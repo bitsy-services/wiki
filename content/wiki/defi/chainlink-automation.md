@@ -5,12 +5,12 @@ weight: 1
 
 # ChainLink Automation — Practical Guide
 
-ChainLink Automation (formerly Keepers) lets you trigger on-chain function calls on a schedule or in response to custom conditions — without running your own bot infrastructure.
+[ChainLink](https://en.wikipedia.org/wiki/Chainlink_(blockchain)) Automation (formerly Keepers) lets you trigger on-chain function calls on a schedule or in response to custom conditions — without running your own bot infrastructure.
 
 ## When to Use It
 
-- **Periodic maintenance** — harvesting yield, rebasing tokens, updating oracles.
-- **Conditional execution** — liquidations, limit-order fills, rebalancing when a threshold is crossed.
+- **Periodic maintenance** — harvesting yield, rebasing tokens, updating [oracles](https://en.wikipedia.org/wiki/Blockchain_oracle).
+- **Conditional execution** — [liquidations](https://en.wikipedia.org/wiki/Liquidation#Decentralized_finance), limit-order fills, rebalancing when a threshold is crossed.
 - **Replacing cron bots** — any off-chain script that just calls a contract method can usually move to Automation.
 
 ## Core Concepts
@@ -21,7 +21,7 @@ ChainLink Automation (formerly Keepers) lets you trigger on-chain function calls
 | **Trigger** | What fires the upkeep: *time-based* (cron) or *custom logic* (conditional). |
 | **`checkUpkeep`** | View function Automation calls off-chain to ask "should I execute?" |
 | **`performUpkeep`** | State-changing function Automation calls on-chain when `checkUpkeep` returns true. |
-| **LINK funding** | Each upkeep has a LINK balance that pays node operators per execution. |
+| **[LINK](https://en.wikipedia.org/wiki/Chainlink_(blockchain)#LINK_token) funding** | Each upkeep has a LINK balance that pays node operators per execution. |
 
 ## Supported Networks
 
@@ -79,7 +79,7 @@ contract MyAutomatedContract is AutomationCompatibleInterface {
 
 ### 2. Deploy & Verify
 
-Deploy to your target network and verify on the block explorer so the Automation UI can read the ABI.
+Deploy to your target network and verify on the [block explorer](https://en.wikipedia.org/wiki/Block_explorer) so the Automation UI can read the [ABI](https://docs.soliditylang.org/en/latest/abi-spec.html).
 
 ```bash
 forge create src/MyAutomatedContract.sol:MyAutomatedContract \
@@ -134,7 +134,7 @@ uint256 upkeepId = registrar.registerUpkeep(params);
 If you just need a function called on a schedule, you can skip `checkUpkeep` entirely:
 
 1. Register via the UI and choose **Time-based** trigger.
-2. Enter a cron expression (e.g. `0 */6 * * *` for every 6 hours).
+2. Enter a [cron expression](https://en.wikipedia.org/wiki/Cron#CRON_expression) (e.g. `0 */6 * * *` for every 6 hours).
 3. Select the target contract and function — the UI lets you pick from the ABI.
 4. Fund with LINK and confirm.
 
@@ -160,7 +160,7 @@ Register with trigger type **Log trigger**, specify the event signature and opti
 
 ## Testing Locally
 
-Use a Foundry fork test to simulate the Automation cycle:
+Use a [Foundry](https://book.getfoundry.sh/) fork test to simulate the Automation cycle:
 
 ```solidity
 function test_automationCycle() public {
