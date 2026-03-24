@@ -6,7 +6,7 @@ This is the Bitsy Services Wiki, a Hugo static site using the Hugo Book theme. I
 
 ## Structure
 
-- `content/docs/` — wiki pages (Markdown with YAML frontmatter)
+- `content/wiki/` — wiki pages (Markdown with YAML frontmatter)
 - `hugo.toml` — site configuration
 - `themes/hugo-book` — theme (git submodule, do not edit)
 - `static/` — static assets (images, files)
@@ -19,11 +19,11 @@ This is the Bitsy Services Wiki, a Hugo static site using the Hugo Book theme. I
 
 ## Default Intent
 
-Treat the first message of a conversation as a request to create a new wiki page unless the intent is clearly something else (e.g. a question, bug report, or explicit edit request). Draft the page, choose a sensible path under `content/docs/`, and set appropriate frontmatter.
+Treat the first message of a conversation as a request to create a new wiki page unless the intent is clearly something else (e.g. a question, bug report, or explicit edit request). Draft the page, choose a sensible path under `content/wiki/`, and set appropriate frontmatter.
 
 ## Content Conventions
 
-- Pages go under `content/docs/`
+- Pages go under `content/wiki/`
 - Use `weight` in frontmatter to control sidebar ordering
 - Use `bookCollapseSection: true` for section pages (`_index.md`)
 - Code blocks should specify a language for syntax highlighting
