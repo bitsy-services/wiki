@@ -31,6 +31,14 @@ The legacy **Hosted Service** was deprecated in favour of the decentralised netw
 
 New subgraphs should target **Subgraph Studio** and the decentralised network.
 
+## Protocol Network: Arbitrum One
+
+The Graph's protocol contracts — staking, curation, query fee billing, and indexing rewards — migrated from Ethereum mainnet to [Arbitrum One](https://en.wikipedia.org/wiki/Arbitrum) in 2024 to reduce gas costs. All new subgraphs are published on Arbitrum.
+
+The [Graph Explorer](https://thegraph.com/explorer) reflects this with a network selector: **Arbitrum One** (active) and **Ethereum (deprecated)**. The Ethereum view is read-only for legacy subgraphs that have not yet migrated.
+
+This is distinct from the *data source chain* a subgraph indexes — a subgraph registered on Arbitrum can still index Ethereum mainnet, Polygon, or any other [supported network](https://thegraph.com/docs/en/developing/supported-networks/).
+
 ## Tips and Gotchas
 
 - **Indexing lag** — subgraphs trail the chain tip by a few blocks. Do not rely on them for data that must be real-time (use contract reads or event listeners instead).
