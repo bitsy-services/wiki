@@ -9,7 +9,7 @@ weight: 1
 
 The limitation is that clones share the implementation's storage layout, so each instance still needs its own initialiser call to set instance-specific state — and that initialiser writes to storage, which is expensive.
 
-[ClonesWithImmutableArgs](https://github.com/wDAI-Finance/clones-with-immutable-args) (originally by @wDAI, now widely forked) solves this by **appending arbitrary immutable data to the clone's bytecode** at deploy time. The data lives in code, not storage, so reading it costs only `CODECOPY` — far cheaper than `SLOAD`. No initialiser is needed for values that never change.
+OpenZeppelin's [`Clones`](https://docs.openzeppelin.com/contracts/5.x/api/proxy#Clones) library (v5.2+) solves this by **appending arbitrary immutable data to the clone's bytecode** at deploy time. The data lives in code, not storage, so reading it costs only `CODECOPY` — far cheaper than `SLOAD`. No initialiser is needed for values that never change.
 
 ## When to Use It
 
@@ -21,83 +21,65 @@ Avoid it when the "immutable" values might need upgrading, or when the data payl
 
 ## How It Works
 
-1. The factory calls `ClonesWithImmutableArgs.clone(implementation, data)`.
+1. The factory calls `Clones.cloneWithImmutableArgs(implementation, data)`.
 2. The library deploys an EIP-1167 proxy with `data` appended after the delegatecall footer.
-3. Inside the clone, a helper function reads the appended bytes from its own bytecode at a known offset.
+3. Inside the clone, `Clones.fetchCloneArgs()` reads the appended bytes from the clone's bytecode.
 
 Because the data is part of the deployed bytecode it is truly immutable — no one can change it after deployment.
 
-## Installation
-
-Using [Foundry](https://book.getfoundry.sh/):
-
-```bash
-forge install wDAI-Finance/clones-with-immutable-args
-```
-
-Add the remapping to `foundry.toml` (or `remappings.txt`):
-
-```toml
-[profile.default]
-remappings = [
-    "clones-with-immutable-args/=lib/clones-with-immutable-args/src/",
-]
-```
-
 ## Example: Token Reward Pool Factory
 
-The implementation contract reads its immutable args instead of storing them:
+The implementation contract reads its immutable args via `Clones.fetchCloneArgs()` and unpacks them with `abi.decode`:
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {Clone} from "clones-with-immutable-args/Clone.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-/// @notice A minimal reward pool whose token and owner are baked into bytecode.
-contract RewardPool is Clone {
+/// @notice A minimal reward pool whose token, owner, and amount are baked into bytecode.
+contract RewardPool {
     using SafeERC20 for IERC20;
 
-    // --- immutable args (read from appended bytecode) -----------------------
-
-    /// @dev Bytes 0–19: the ERC-20 reward token address.
-    function rewardToken() public pure returns (IERC20) {
-        return IERC20(_getArgAddress(0));
+    function rewardToken() public view returns (IERC20) {
+        (address token,,) = _immutableArgs();
+        return IERC20(token);
     }
 
-    /// @dev Bytes 20–39: the pool owner / admin.
-    function owner() public pure returns (address) {
-        return _getArgAddress(20);
+    function owner() public view returns (address) {
+        (, address owner_,) = _immutableArgs();
+        return owner_;
     }
 
-    /// @dev Bytes 40–71: a fixed reward amount (uint256).
-    function rewardAmount() public pure returns (uint256) {
-        return _getArgUint256(40);
+    function rewardAmount() public view returns (uint256) {
+        (,, uint256 amount) = _immutableArgs();
+        return amount;
     }
-
-    // --- logic --------------------------------------------------------------
 
     function claim(address recipient) external {
         require(msg.sender == owner(), "not owner");
         rewardToken().safeTransfer(recipient, rewardAmount());
     }
+
+    function _immutableArgs() internal view returns (address, address, uint256) {
+        bytes memory data = Clones.fetchCloneArgs(address(this));
+        return abi.decode(data, (address, address, uint256));
+    }
 }
 ```
 
-The factory deploys clones with the data packed in order:
+The factory deploys clones with ABI-encoded data:
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {ClonesWithImmutableArgs} from "clones-with-immutable-args/ClonesWithImmutableArgs.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {RewardPool} from "./RewardPool.sol";
 
 contract RewardPoolFactory {
-    using ClonesWithImmutableArgs for address;
-
     address public immutable implementation;
 
     event PoolCreated(address indexed pool, address indexed token, address indexed owner);
@@ -112,40 +94,29 @@ contract RewardPoolFactory {
         address owner,
         uint256 rewardAmount
     ) external returns (address pool) {
-        // Pack args: address (20 B) + address (20 B) + uint256 (32 B) = 72 B
-        bytes memory data = abi.encodePacked(token, owner, rewardAmount);
-        pool = implementation.clone(data);
+        bytes memory data = abi.encode(token, owner, rewardAmount);
+        pool = Clones.cloneWithImmutableArgs(implementation, data);
         emit PoolCreated(pool, token, owner);
     }
 }
 ```
 
-## Reading Immutable Args
-
-The `Clone` base contract provides these helpers (among others):
-
-| Helper | Returns | Reads |
-|---|---|---|
-| `_getArgAddress(offset)` | `address` | 20 bytes at `offset` |
-| `_getArgUint256(offset)` | `uint256` | 32 bytes at `offset` |
-| `_getArgUint64(offset)` | `uint64` | 8 bytes at `offset` |
-| `_getArgUint8(offset)` | `uint8` | 1 byte at `offset` |
-| `_getArgBytes(offset, length)` | `bytes memory` | arbitrary slice |
-
-Offsets are **byte offsets** into the packed data you passed to `clone()`. Lay out your args, note each offset, and use the matching getter.
-
 ## Deterministic Deploys
 
-Use `cloneDeterministic(implementation, data, salt)` to deploy to a predictable [CREATE2](https://eips.ethereum.org/EIPS/eip-1014) address. This is useful when other contracts or off-chain systems need to know the address before deployment:
+Use `cloneDeterministicWithImmutableArgs` to deploy to a predictable [CREATE2](https://eips.ethereum.org/EIPS/eip-1014) address. This is useful when other contracts or off-chain systems need to know the address before deployment:
 
 ```solidity
-pool = implementation.cloneDeterministic(data, keccak256(abi.encode(token, owner)));
+bytes memory data = abi.encode(token, owner, rewardAmount);
+bytes32 salt = keccak256(abi.encode(token, owner));
+pool = Clones.cloneDeterministicWithImmutableArgs(implementation, data, salt);
 ```
+
+Predict the address off-chain or from another contract with `predictDeterministicAddressWithImmutableArgs`.
 
 ## Gotchas
 
 {{< hint danger >}}
-**Offset miscalculation loses funds.** If your offsets are wrong, getters silently return garbage. Double-check the byte layout — `address` is 20 bytes, `uint256` is 32, `uint128` is 16, etc. Write a test that round-trips every arg.
+**Decode mismatch loses funds.** If the `abi.encode` in the factory and `abi.decode` in the implementation disagree on types or order, the getters silently return garbage. Write a test that round-trips every arg.
 {{< /hint >}}
 
 {{< hint warning >}}
@@ -193,8 +164,14 @@ contract RewardPoolTest is Test {
 }
 ```
 
+## Alternatives
+
+| Library | Notes |
+|---|---|
+| [Solady `LibClone`](https://github.com/Vectorized/solady/blob/main/src/utils/LibClone.sol) | Gas-optimised alternative with immutable-args support and appendable clones. |
+| [wDAI ClonesWithImmutableArgs](https://github.com/wDAI-Finance/clones-with-immutable-args) | The original implementation that popularised the pattern. Uses manual byte-offset getters instead of `abi.decode`. |
+
 ## Further Reading
 
 - [EIP-1167: Minimal Proxy Contract](https://eips.ethereum.org/EIPS/eip-1167)
-- [ClonesWithImmutableArgs repo](https://github.com/wDAI-Finance/clones-with-immutable-args)
-- [Solady `LibClone`](https://github.com/Vectorized/solady/blob/main/src/utils/LibClone.sol) — a gas-optimised alternative that includes immutable-args support
+- [OpenZeppelin Clones API](https://docs.openzeppelin.com/contracts/5.x/api/proxy#Clones)
