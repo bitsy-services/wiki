@@ -1,0 +1,4 @@
+- [Unnecessary prompting](friction/global-unnecessary-prompting.md) — don't ask "want me to adjust?" when the task is already clear
+- [Permission sprawl](friction/global-permission-sprawl.md) — user-level settings has 100+ one-off allows; consolidation candidates identified
+- [Prefer source control](friction/global-prefer-source-control.md) — don't modify files outside repos; use project-level config
+- [Allowlist not denylist](friction/global-allowlist-not-denylist.md) — use explicit allow-lists, not broad wildcards + deny overrides
