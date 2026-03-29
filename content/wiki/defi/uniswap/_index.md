@@ -20,17 +20,36 @@ Uniswap has gone through several major versions. Each is a separate set of smart
 
 **UniswapX** is a separate [intent-based](https://docs.uniswap.org/contracts/uniswapx/overview) system that runs alongside the on-chain protocol. Users sign an order off-chain, and competing "fillers" find the best execution — potentially routing across multiple DEXs or using private liquidity. On-chain settlement acts as a fallback.
 
-## Swap Routers
+## Which Version Should I Use?
 
-When integrating Uniswap programmatically, you interact with a **router contract** that handles token transfers, pool selection, and multi-hop paths. There are three routers, each supporting different protocol versions:
+There are two decisions: which **pool version** your swaps route through, and which **router contract** you call. In practice, the router decides for you — modern routers can route through multiple pool versions in a single transaction.
 
-| Router | Protocols | Best For |
+### Choosing a pool version
+
+You rarely need to pick this explicitly. The router (or the Uniswap frontend) will find the pool with the best price for your pair. But it helps to understand the trade-offs:
+
+| | V2 | V3 | V4 |
+|---|---|---|---|
+| Liquidity model | Full-range (simple, passive) | Concentrated (more efficient, active management) | Concentrated + hooks |
+| Maturity | Oldest, most forked | Most liquidity, most integrations | Newest, least tooling |
+| When you'd target it directly | Pair only has a V2 pool; or you want the simplest on-chain integration | Default choice — deepest liquidity for most pairs | You need custom pool logic (dynamic fees, on-chain limit orders) |
+
+**If you're unsure, target V3.** It has the deepest liquidity for nearly all major pairs and the most documentation.
+
+### Choosing a router
+
+This is the more consequential decision. It determines your approval flow, your Solidity interface, and which pool versions you can reach:
+
+| Scenario | Use | Why |
 |---|---|---|
-| **UniversalRouter** | V2 + V3 + V4 | **New integrations** — best gas efficiency, uses [Permit2](https://docs.uniswap.org/contracts/permit2/overview) for signature-based approvals |
-| **SwapRouter02** | V2 + V3 | Simpler Solidity interface when you don't need Permit2 or V4 |
-| **SwapRouter** (V3) | V3 only | Simplest interface — good for learning; covered in the [ISwapRouter guide](iswap-router) |
+| **New project, EOA-initiated swaps** | **UniversalRouter** | Best gas, Permit2 approvals, routes through V2 + V3 + V4 |
+| **Contract-to-contract swap, want typed Solidity** | **SwapRouter02** | Clean function signatures, easier to compose and debug from Solidity |
+| **Learning / prototyping** | **SwapRouter** (V3) | Simplest interface, most tutorials and examples; see the [ISwapRouter guide](iswap-router) |
+| **Existing integration that works** | Keep what you have | No need to migrate unless you need V4 or Permit2 |
 
-For a detailed comparison of all three (approval flows, gas costs, when to use each), see [SwapRouter vs SwapRouter02 vs UniversalRouter](swap-routers).
+The UniversalRouter uses encoded command bytes instead of named functions, which makes it harder to read and debug in Solidity — that's why on-chain contracts often prefer SwapRouter02 even though UniversalRouter is technically superior.
+
+For a full comparison (approval flows, gas costs, code examples), see [SwapRouter vs SwapRouter02 vs UniversalRouter](swap-routers).
 
 For deployment addresses across all supported chains, see the [official Uniswap deployment list](https://docs.uniswap.org/contracts/v3/reference/deployments/).
 
