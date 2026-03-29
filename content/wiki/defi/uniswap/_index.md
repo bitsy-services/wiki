@@ -41,6 +41,17 @@ These contracts support the routers above. You don't swap through them directly,
 - **[Permit2](https://docs.uniswap.org/contracts/permit2/overview)** — a shared approval contract. Instead of granting each router a separate ERC-20 allowance (an on-chain transaction), you approve Permit2 once per token, then sign off-chain permits for each swap. This saves gas and means you don't need new approvals when Uniswap deploys new router versions.
 - **QuoterV2** — simulates a swap off-chain (via `eth_call`) and returns the expected output amount. Use this to calculate a safe `amountOutMinimum` for [slippage](https://en.wikipedia.org/wiki/Slippage_(finance)) protection before submitting a real swap.
 
+## Source Code
+
+| Repository | Contains |
+|---|---|
+| [v3-periphery](https://github.com/Uniswap/v3-periphery) | `ISwapRouter`, `IQuoterV2`, and other V3 periphery interfaces |
+| [swap-router-contracts](https://github.com/Uniswap/swap-router-contracts) | `ISwapRouter02` — the combined V2 + V3 router |
+| [universal-router](https://github.com/Uniswap/universal-router) | UniversalRouter — command-based, no typed Solidity interface |
+| [permit2](https://github.com/Uniswap/permit2) | Permit2 signature-based approval system |
+| [v4-core](https://github.com/Uniswap/v4-core) | V4 singleton pool contract and hook interfaces |
+| [v4-periphery](https://github.com/Uniswap/v4-periphery) | V4 routing and position management |
+
 ## Wiki Pages
 
 {{< section >}}
