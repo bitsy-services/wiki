@@ -22,3 +22,7 @@ paths:
 2. The action publishes code or data to an external service
 3. The action uses a private key or API key
 4. The action cannot be undone
+
+## Memory
+
+Store all project memories in `.claude/memory/` in this repo instead of the default local path. Follow the same MEMORY.md index + individual file convention.
