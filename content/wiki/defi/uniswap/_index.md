@@ -45,6 +45,7 @@ These contracts support the routers above. You don't swap through them directly,
 
 | Repository | Contains |
 |---|---|
+| [v2-periphery](https://github.com/Uniswap/v2-periphery) | `IUniswapV2Router02` — the V2 router interface |
 | [v3-periphery](https://github.com/Uniswap/v3-periphery) | `ISwapRouter`, `IQuoterV2`, and other V3 periphery interfaces |
 | [swap-router-contracts](https://github.com/Uniswap/swap-router-contracts) | `ISwapRouter02` — the combined V2 + V3 router |
 | [universal-router](https://github.com/Uniswap/universal-router) | UniversalRouter — command-based, no typed Solidity interface |
