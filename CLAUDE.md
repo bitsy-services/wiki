@@ -30,10 +30,4 @@ Treat the first message of a conversation as a request to create a new wiki page
 
 ## Self-Improvement
 
-When working in this repo, update this file if you discover:
-
-- New conventions or patterns that are established in the content
-- Build or deployment nuances (e.g. Cloudflare-specific config)
-- Theme customizations added in `layouts/`
-- Shortcodes or partials in use
-- Any gotchas or non-obvious behavior
+See `.claude/rules/self-improvement.md` for the full framework. When working in this repo, update this file if you discover new project-level conventions (build nuances, theme customizations, shortcodes, gotchas).
