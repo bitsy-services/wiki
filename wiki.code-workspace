@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "name": "wiki",
+      "path": "."
+    },
+    {
+      "name": "bitsy.wiki",
+      "path": "../../bitsy/bitsy.wiki"
+    }
+  ]
+}
