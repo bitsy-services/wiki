@@ -2,4 +2,3 @@
 - [Permission sprawl](friction/global-permission-sprawl.md) — user-level settings has 100+ one-off allows; consolidation candidates identified
 - [Prefer source control](friction/global-prefer-source-control.md) — don't modify files outside repos; use project-level config
 - [Allowlist not denylist](friction/global-allowlist-not-denylist.md) — use explicit allow-lists, not broad wildcards + deny overrides
-- [Wiki audience and tone](project-audience.md) — technically astute readers, new to domain; educational goal; format varies by topic
