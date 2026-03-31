@@ -1,0 +1,86 @@
+---
+title: "Yield Farming"
+weight: 25
+---
+
+Yield farming is the practice of deploying crypto assets across DeFi protocols to earn returns -- trading fees, interest, or token rewards. It is also called **liquidity mining** when the rewards come in the form of a protocol's governance token.
+
+The basic idea: protocols need liquidity to function. [Decentralized exchanges](/wiki/defi/dex) need tokens in [liquidity pools](/wiki/defi/liquidity-pool). Lending platforms need depositors. Rather than wait for capital to arrive organically, protocols offer incentives -- often their own token -- to attract it. Yield farmers chase those incentives, moving capital to wherever the returns are highest.
+
+## Mechanics
+
+A typical yield farming position involves stacking multiple sources of return:
+
+1. **Base yield** -- trading fees from providing liquidity to an [AMM](/wiki/defi/amm) pool, or interest from lending on a platform like Aave or Compound.
+2. **Incentive rewards** -- additional tokens distributed by the protocol to LPs who stake their LP tokens in a farming contract. This is the "mining" in liquidity mining.
+3. **Compounding** -- reinvesting earned rewards back into the position to generate compound returns. Yield aggregators like Yearn automate this.
+
+### Example
+
+You provide ETH and USDC to a [Uniswap](/wiki/defi/uniswap) pool, receiving LP tokens. You then stake those LP tokens in a farming contract that distributes a governance token (e.g., UNI or a partner project's token). Your return is the combination of the 0.3% swap fees from the pool plus the farming reward tokens.
+
+## Measuring returns
+
+### APR vs. APY
+
+**APR (annual percentage rate)** is simple interest -- if you earn 1% per month, the APR is 12%.
+
+**APY (annual percentage yield)** accounts for compounding. That same 1% per month, compounded, gives an APY of about 12.68%:
+
+```
+APY = (1 + APR/n)^n - 1
+```
+
+where `n` is the number of compounding periods per year.
+
+Protocols advertise APY because the number is always larger, but the actual return depends on how frequently rewards are harvested and reinvested. Gas costs can eat into compounding gains, especially on [Ethereum](/wiki/defi/ethereum/) L1.
+
+### TVL (total value locked)
+
+TVL is the total dollar value of assets deposited in a protocol. It is a rough proxy for trust and adoption, but a high TVL also dilutes per-dollar returns -- more capital chasing the same pool of fees and rewards means lower yield per depositor.
+
+## Risks
+
+Yield farming is not passive income. The headline APY numbers obscure real risks.
+
+### Impermanent loss
+
+If you are farming an AMM pool, you are an LP, and you are exposed to [impermanent loss](/wiki/defi/impermanent-loss). A pool paying 30% APY in fees looks attractive until the underlying pair diverges 40% and the IL exceeds your earnings. Stablecoin pools and correlated-asset pools reduce this risk.
+
+### Smart contract risk
+
+Every protocol you interact with is a smart contract that could have bugs. Yield farmers often stack positions across multiple protocols (deposit in Aave, borrow, LP on Uniswap, stake in a farm) -- each layer is an additional point of failure. Stick to audited, battle-tested protocols for the bulk of your capital.
+
+### Token reward dilution
+
+Farming rewards paid in a protocol's governance token are only valuable if the token holds its price. Many farming tokens face constant sell pressure from farmers dumping rewards, driving the price down over time. A 500% APY paid in a token that drops 90% is a net loss.
+
+### Rug pulls
+
+In the worst case, the farming contract or token contract is malicious. The deployer drains deposited funds or mints unlimited tokens. This is most common with unaudited, anonymous projects offering implausibly high APYs.
+
+### Gas costs
+
+On Ethereum L1, each deposit, stake, harvest, and compound transaction costs gas. For small positions, gas can consume a large fraction of the yield. L2 chains and alt-L1s (Arbitrum, Optimism, Base) make farming viable at smaller scales.
+
+## Strategies
+
+**Single-sided staking.** Deposit a single asset (e.g., stETH) into a protocol that pays yield. Simpler and avoids impermanent loss, but typically lower returns.
+
+**LP farming.** Provide a token pair to an AMM pool and stake the LP tokens for additional rewards. Higher returns, higher risk.
+
+**Leveraged farming.** Borrow against deposited collateral to increase the size of a farming position. Amplifies both gains and losses. Liquidation risk is the main danger.
+
+**Yield aggregation.** Use a vault (Yearn, Beefy) that automatically compounds rewards and rotates between strategies. Convenience and gas savings at the cost of a management fee and an additional smart contract dependency.
+
+## A brief history
+
+Yield farming exploded in the "DeFi Summer" of 2020. Compound launched its COMP token distribution in June 2020, and farmers quickly discovered they could earn outsized returns by borrowing and re-lending in loops. SushiSwap's "vampire attack" on Uniswap liquidity followed, and within weeks dozens of food-themed farming protocols (Yam, Pickle, Sushi) appeared. TVL across DeFi went from ~$1B in June 2020 to over $15B by September.
+
+The mania cooled as token prices fell and unsustainable APYs collapsed, but the underlying mechanism -- using token incentives to bootstrap liquidity -- remains a core DeFi growth strategy.
+
+## External links
+
+- [Ethereum.org -- DeFi](https://ethereum.org/en/defi/)
+- [DefiLlama -- Protocol yields](https://defillama.com/yields)
+- [Compound governance -- COMP distribution](https://compound.finance/governance/comp)
