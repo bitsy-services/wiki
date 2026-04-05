@@ -92,7 +92,7 @@ If your registration appears stuck in pending, check:
 
 ## After Registration
 
-Once registered, you interact with the **registry** (not the registrar) for ongoing operations:
+Once registered, you interact with the **[registry](registry)** (not the registrar) for ongoing operations:
 
 - **Fund** — send additional LINK to keep the upkeep running.
 - **Pause / Unpause** — temporarily halt execution without losing configuration.

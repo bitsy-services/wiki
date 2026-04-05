@@ -3,7 +3,7 @@ title: "Chainlink Automation Registrar"
 weight: 3
 ---
 
-The Automation Registrar is the on-chain contract that accepts and processes [upkeep registration](registration) requests for [Chainlink Automation](automation). It acts as the gatekeeper between users who want to register upkeeps and the Automation [registry](https://docs.chain.link/chainlink-automation/concepts/automation-architecture#registry) that actually tracks and executes them.
+The Automation Registrar is the on-chain contract that accepts and processes [upkeep registration](registration) requests for [Chainlink Automation](automation). It acts as the gatekeeper between users who want to register upkeeps and the Automation [registry](registry) that actually tracks and executes them.
 
 ## How It Works
 
@@ -49,7 +49,7 @@ Hardcoding addresses is fragile across upgrades. For production systems, conside
 
 | | Registrar | Registry |
 |---|---|---|
-| **Purpose** | Accepts new upkeep registrations | Stores upkeeps, coordinates execution |
+| **Purpose** | Accepts new upkeep [registrations](registration) | Stores upkeeps, coordinates execution |
 | **Who calls it** | Users / deployer scripts | Automation nodes |
 | **LINK flow** | Receives LINK from caller, forwards to registry | Holds LINK balances, pays node operators |
 

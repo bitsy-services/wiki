@@ -23,7 +23,7 @@ weight: 1
 
 ## Supported Networks
 
-Automation is live on Ethereum mainnet, Arbitrum, Optimism, Polygon, Avalanche, BSC, and Base (among others). Check the [Chainlink docs](https://docs.chain.link/chainlink-automation/overview/supported-networks) for the current list and registry addresses.
+Automation is live on Ethereum mainnet, Arbitrum, Optimism, Polygon, Avalanche, BSC, and Base (among others). Check the [Chainlink docs](https://docs.chain.link/chainlink-automation/overview/supported-networks) for the current list and [registry](registry) addresses.
 
 ## Step-by-Step: Register a Custom-Logic Upkeep
 
