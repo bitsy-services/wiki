@@ -1,11 +1,9 @@
 ---
-title: "ChainLink Automation"
+title: "Chainlink Automation"
 weight: 1
 ---
 
-# ChainLink Automation — Practical Guide
-
-[ChainLink](https://en.wikipedia.org/wiki/Chainlink_(blockchain)) Automation (formerly Keepers) lets you trigger on-chain function calls on a schedule or in response to custom conditions — without running your own bot infrastructure.
+[Chainlink](https://en.wikipedia.org/wiki/Chainlink_(blockchain)) Automation (formerly Keepers) lets you trigger on-chain function calls on a schedule or in response to custom conditions — without running your own bot infrastructure.
 
 ## When to Use It
 
@@ -25,7 +23,7 @@ weight: 1
 
 ## Supported Networks
 
-Automation is live on Ethereum mainnet, Arbitrum, Optimism, Polygon, Avalanche, BSC, and Base (among others). Check the [ChainLink docs](https://docs.chain.link/chainlink-automation/overview/supported-networks) for the current list and registry addresses.
+Automation is live on Ethereum mainnet, Arbitrum, Optimism, Polygon, Avalanche, BSC, and Base (among others). Check the [Chainlink docs](https://docs.chain.link/chainlink-automation/overview/supported-networks) for the current list and registry addresses.
 
 ## Step-by-Step: Register a Custom-Logic Upkeep
 
@@ -185,7 +183,7 @@ function test_automationCycle() public {
 
 ## Further Reading
 
-- [ChainLink Automation Docs](https://docs.chain.link/chainlink-automation)
+- [Chainlink Automation Docs](https://docs.chain.link/chainlink-automation)
 - [Automation-Compatible Contract Reference](https://docs.chain.link/chainlink-automation/guides/compatible-contracts)
 - [Supported Networks & Registry Addresses](https://docs.chain.link/chainlink-automation/overview/supported-networks)
 - [Automation Architecture (how nodes coordinate)](https://docs.chain.link/chainlink-automation/concepts/automation-architecture)
