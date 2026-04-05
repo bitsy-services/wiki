@@ -87,7 +87,7 @@ forge create src/MyAutomatedContract.sol:MyAutomatedContract \
   --verify
 ```
 
-### 3. Register the Upkeep
+### 3. [Register](registration) the Upkeep
 
 **Option A — UI**
 
@@ -100,6 +100,8 @@ forge create src/MyAutomatedContract.sol:MyAutomatedContract \
 7. Confirm the transaction.
 
 **Option B — Programmatic (Solidity)**
+
+Call the [registrar](registrar) contract directly:
 
 ```solidity
 IAutomationRegistrar registrar = IAutomationRegistrar(REGISTRAR_ADDRESS);
