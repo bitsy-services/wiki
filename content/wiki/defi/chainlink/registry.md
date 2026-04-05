@@ -38,7 +38,7 @@ Chainlink has shipped multiple registry versions as the protocol evolved:
 | **v2.0** | Rebranded to Automation. Added log triggers, off-chain computation, forwarder contracts. |
 | **v2.1** | StreamsLookup support, improved gas overhead calculations. |
 
-Each version deploys a new registry (and registrar) contract. Existing upkeeps on older registries continue working but don't get new features. The [migration functions](https://docs.chain.link/chainlink-automation/guides/migrate-upkeeps) let you move upkeeps to a newer registry.
+Each version deploys a new registry (and registrar) contract. v2.0 introduced [forwarder](forwarder) contracts for stable `msg.sender` access control. Existing upkeeps on older registries continue working but don't get new features. The [migration functions](https://docs.chain.link/chainlink-automation/guides/migrate-upkeeps) let you move upkeeps to a newer registry.
 
 ## Funding Model
 

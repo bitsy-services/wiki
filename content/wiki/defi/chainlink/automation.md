@@ -178,7 +178,7 @@ function test_automationCycle() public {
 ## Security Checklist
 
 - [ ] `performUpkeep` re-validates the trigger condition on-chain.
-- [ ] `performUpkeep` is access-controlled or idempotent — anyone can call it, not just Automation nodes.
+- [ ] `performUpkeep` is [access-controlled or idempotent](securing-performupkeep) — anyone can call it, not just Automation nodes.
 - [ ] No unbounded loops in `checkUpkeep` (simulation gas limit applies).
 - [ ] LINK funding is monitored to prevent upkeep pausing at a critical moment.
 - [ ] Contract is verified on the block explorer for transparency.
@@ -189,3 +189,5 @@ function test_automationCycle() public {
 - [Automation-Compatible Contract Reference](https://docs.chain.link/chainlink-automation/guides/compatible-contracts)
 - [Supported Networks & Registry Addresses](https://docs.chain.link/chainlink-automation/overview/supported-networks)
 - [Automation Architecture (how nodes coordinate)](https://docs.chain.link/chainlink-automation/concepts/automation-architecture)
+- [Forwarder](forwarder) — per-upkeep proxy for stable `msg.sender`
+- [Securing `performUpkeep`](securing-performupkeep) — access control and re-validation patterns
