@@ -45,6 +45,21 @@ Registrar addresses differ per network and per registry version. The canonical s
 
 Hardcoding addresses is fragile across upgrades. For production systems, consider reading the registrar address from a deployment config or environment variable.
 
+## Relationship to the Registry
+
+The registrar and [registry](registry) reference each other:
+
+- The registrar stores the registry address internally and calls it to create upkeeps. You can read it via `getConfig()`:
+
+```solidity
+// Returns (registryAddress, minimumLINK).
+(address keeperRegistry, uint256 minLINKJuels) = registrar.getConfig();
+```
+
+- The registry maintains an allowlist of addresses permitted to add upkeeps. The registrar must be on this list, otherwise its registration calls revert.
+
+The owner can update both sides: `setConfig()` on the registrar points it at a new registry, and the registry owner can update the allowlist.
+
 ## Registrar vs Registry
 
 | | Registrar | Registry |
