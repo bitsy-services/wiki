@@ -97,7 +97,7 @@ The constant product formula forces the pool to rebalance on every trade. When t
 | Constant sum | `x + y = k` | Rarely used standalone | Zero slippage but can be fully drained |
 | StableSwap | Blend of sum and product | Curve | Low slippage near peg, worse far from peg |
 | Weighted product | `x^w1 * y^w2 = k` | Balancer | Asymmetric exposure, multi-asset pools |
-| Concentrated liquidity | Virtual reserves in a range | Uniswap V3/V4 | High capital efficiency, active management required |
+| Concentrated liquidity | [Virtual reserves](/wiki/defi/virtual-reserves) in a range | Uniswap V3/V4 | High capital efficiency, active management required |
 
 ## External links
 
