@@ -1,5 +1,6 @@
 {
   "permissions": {
+    "defaultMode": "auto",
     "allow": [
       "Read",
       "Edit",
@@ -8,7 +9,6 @@
       "WebFetch",
       "Skill(update-config)",
       "Skill(update-config:*)",
-
       "Bash(git status *)",
       "Bash(git log *)",
       "Bash(git diff *)",
@@ -33,14 +33,12 @@
       "Bash(git -C * blame *)",
       "Bash(git -C * remote *)",
       "Bash(gh *)",
-
       "Bash(hugo *)",
       "Bash(npm *)",
       "Bash(npx *)",
       "Bash(pip3 *)",
       "Bash(bundle *)",
       "Bash(python3 *)",
-
       "Bash(forge build *)",
       "Bash(forge test *)",
       "Bash(forge fmt *)",
@@ -50,7 +48,6 @@
       "Bash(forge install *)",
       "Bash(FOUNDRY_PROFILE=* forge *)",
       "Bash(cast *)",
-
       "Bash(curl *)",
       "Bash(tar *)",
       "Bash(jq *)",
