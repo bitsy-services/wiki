@@ -4,7 +4,7 @@ weight: 20
 bookCollapseSection: true
 ---
 
-[IOTA](https://en.wikipedia.org/wiki/IOTA_(technology)) is a permissionless distributed ledger built for machine-to-machine value transfer and real-world asset tokenisation. For most of its history it was deliberately *not* a [blockchain](/wiki/defi/blockchain): instead of a linear chain of blocks it recorded transactions in a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) called the [Tangle](/wiki/defi/iota/tangle), and it charged no transaction fees — design choices aimed squarely at high-volume [micropayments](/wiki/defi/micro-transactions) between IoT devices.
+[IOTA](https://en.wikipedia.org/wiki/IOTA_(technology)) is a permissionless distributed ledger built for machine-to-machine value transfer and real-world asset tokenisation. For most of its history it was deliberately *not* a [blockchain](/wiki/defi/blockchain): instead of a linear chain of blocks it recorded transactions in a [directed acyclic graph](/wiki/cs/dag/) called the [Tangle](/wiki/defi/iota/tangle), and it charged no transaction fees — design choices aimed squarely at high-volume [micropayments](/wiki/defi/micro-transactions) between IoT devices.
 
 In May 2025 the **IOTA Rebased** upgrade replaced that architecture wholesale. The Tangle ledger gave way to a [Move](https://en.wikipedia.org/wiki/Move_(programming_language))-based object ledger with [delegated proof-of-stake](/wiki/defi/staking) consensus, real (if tiny) gas fees, and no central Coordinator. IOTA today is closer to a Sui-style Layer 1 than to the feeless DAG it started as. This section covers both the legacy model and the current one, because both still shape how the network is described in the wild.
 

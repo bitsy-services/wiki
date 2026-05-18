@@ -3,7 +3,7 @@ title: "The Tangle"
 weight: 1
 ---
 
-The Tangle was IOTA's original ledger: a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) (DAG) of transactions rather than a chain of blocks. It defined the network from launch until the [IOTA Rebased](/wiki/defi/iota/iota-rebased) upgrade in May 2025 retired it. Understanding it still matters, because most third-party material describes IOTA as if the Tangle were the live system.
+The Tangle was IOTA's original ledger: a [directed acyclic graph](/wiki/cs/dag/) (DAG) of transactions rather than a chain of blocks. It defined the network from launch until the [IOTA Rebased](/wiki/defi/iota/iota-rebased) upgrade in May 2025 retired it. Understanding it still matters, because most third-party material describes IOTA as if the Tangle were the live system.
 
 ## What the Tangle Is
 
