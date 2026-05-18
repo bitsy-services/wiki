@@ -3,12 +3,12 @@ title: Call Option
 weight: 50
 ---
 
-A **call option** is a contract that gives the holder the right -- but not the obligation -- to buy a specified quantity of an underlying asset at a predetermined [strike price](/wiki/defi/strike-price) before a given expiration date. If the asset's market price exceeds the strike at expiry, the holder profits; if not, the option expires worthless and the holder loses only the premium paid.
+A **call option** is a contract that gives the holder the right -- but not the obligation -- to buy a specified quantity of an underlying asset at a predetermined [strike price](/wiki/defi/options/strike-price) before a given expiration date. If the asset's market price exceeds the strike at expiry, the holder profits; if not, the option expires worthless and the holder loses only the premium paid.
 
 ## Key components
 
 - **Underlying asset** -- the token or asset the option references (e.g. ETH, BTC).
-- **[Strike price](/wiki/defi/strike-price)** -- the price at which the holder can buy.
+- **[Strike price](/wiki/defi/options/strike-price)** -- the price at which the holder can buy.
 - **Premium** -- the upfront cost the buyer pays for the contract. This is the buyer's maximum possible loss.
 - **Expiration date** -- the deadline to exercise. After this the contract is void.
 
@@ -49,7 +49,7 @@ A trader buys an ETH call with a $2,000 strike, expiring in 30 days, for a $100 
 
 ## Comparison with put options
 
-A call gives the right to *buy*; a [put option](/wiki/defi/put-option) gives the right to *sell*. Calls profit from rising prices, puts from falling prices. The two are linked through put-call parity -- given the same strike and expiration, mispricing between the two creates an arbitrage opportunity.
+A call gives the right to *buy*; a [put option](/wiki/defi/options/put-option) gives the right to *sell*. Calls profit from rising prices, puts from falling prices. The two are linked through put-call parity -- given the same strike and expiration, mispricing between the two creates an arbitrage opportunity.
 
 ## On-chain options
 
@@ -59,11 +59,11 @@ Key differences from traditional options markets:
 
 - **Collateral is on-chain** -- sellers lock collateral in the contract, removing counterparty risk.
 - **Settlement is automatic** -- ITM options are typically settled at expiry without manual exercise.
-- **[Implied volatility](/wiki/defi/implied-volatility)** is often computed by the protocol's pricing engine rather than derived from an order book.
+- **[Implied volatility](/wiki/defi/options/implied-volatility)** is often computed by the protocol's pricing engine rather than derived from an order book.
 
 ## Risks
 
 - **Total premium loss** -- if the option expires OTM, the entire premium is lost.
-- **[Time decay](/wiki/defi/option-greeks)** -- as expiration approaches, the option's time value erodes (measured by *theta*). This works against the buyer.
-- **[Volatility](/wiki/defi/volatility) contraction** -- a drop in [implied volatility](/wiki/defi/implied-volatility) reduces the option's price even if the underlying hasn't moved.
+- **[Time decay](/wiki/defi/options/option-greeks)** -- as expiration approaches, the option's time value erodes (measured by *theta*). This works against the buyer.
+- **[Volatility](/wiki/defi/volatility) contraction** -- a drop in [implied volatility](/wiki/defi/options/implied-volatility) reduces the option's price even if the underlying hasn't moved.
 - **Smart contract risk** (DeFi-specific) -- bugs or exploits in the options protocol can lead to loss of premium or collateral.

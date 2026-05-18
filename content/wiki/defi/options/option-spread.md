@@ -3,7 +3,7 @@ title: Option Spread
 weight: 55
 ---
 
-An **option spread** is a strategy that combines buying and selling multiple options on the same underlying asset, with different [strike prices](/wiki/defi/strike-price), expiration dates, or both. By pairing a long option with a short option, the trader caps both risk and reward -- the short leg offsets part of the long leg's cost, while the long leg limits the short leg's downside.
+An **option spread** is a strategy that combines buying and selling multiple options on the same underlying asset, with different [strike prices](/wiki/defi/options/strike-price), expiration dates, or both. By pairing a long option with a short option, the trader caps both risk and reward -- the short leg offsets part of the long leg's cost, while the long leg limits the short leg's downside.
 
 Spreads are the workhorse of structured options trading. Naked options expose the seller to unlimited (or near-unlimited) loss; spreads bound that loss to a known maximum, making them practical for both retail traders and on-chain protocols that need to collateralize positions.
 
@@ -22,17 +22,17 @@ Spreads are classified by which variables differ between the legs:
 
 | Type | Same expiration? | Same strike? | Example |
 |------|-----------------|-------------|---------|
-| [Vertical spread](/wiki/defi/vertical-spread) | Yes | No | Bull call spread |
+| [Vertical spread](/wiki/defi/options/vertical-spread) | Yes | No | Bull call spread |
 | Calendar (horizontal) spread | No | Yes | Long 90-day / short 30-day call |
 | Diagonal spread | No | No | Long 90-day lower-strike / short 30-day higher-strike call |
 
 ### Vertical spreads
 
-The most common category. Two options of the same type ([calls](/wiki/defi/call-option) or [puts](/wiki/defi/put-option)) with the same expiration but different strikes. These express a directional view with bounded risk. See the dedicated [vertical spread](/wiki/defi/vertical-spread) page for payoff profiles and examples.
+The most common category. Two options of the same type ([calls](/wiki/defi/options/call-option) or [puts](/wiki/defi/options/put-option)) with the same expiration but different strikes. These express a directional view with bounded risk. See the dedicated [vertical spread](/wiki/defi/options/vertical-spread) page for payoff profiles and examples.
 
 ### Calendar spreads
 
-Same strike, different expirations. The trader is primarily betting on [implied volatility](/wiki/defi/implied-volatility) changes or exploiting the faster time decay of the near-term option. Maximum profit occurs when the underlying is at the shared strike at the short option's expiration.
+Same strike, different expirations. The trader is primarily betting on [implied volatility](/wiki/defi/options/implied-volatility) changes or exploiting the faster time decay of the near-term option. Maximum profit occurs when the underlying is at the shared strike at the short option's expiration.
 
 ### Diagonal spreads
 
@@ -67,4 +67,4 @@ The right spread depends on the market view:
 | Neutral / range-bound | Iron condor, butterfly | Credit |
 | Volatility expansion | Calendar spread (long) | Debit |
 
-The [option Greeks](/wiki/defi/option-greeks) -- particularly delta, theta, and vega -- determine how a spread's value changes as the underlying moves, time passes, and implied volatility shifts. Understanding them is essential for selecting strikes and managing open positions.
+The [option Greeks](/wiki/defi/options/option-greeks) -- particularly delta, theta, and vega -- determine how a spread's value changes as the underlying moves, time passes, and implied volatility shifts. Understanding them is essential for selecting strikes and managing open positions.

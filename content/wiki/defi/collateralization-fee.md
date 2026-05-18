@@ -3,7 +3,7 @@ title: Collateralization Fee
 weight: 82
 ---
 
-A collateralization fee is the cost charged to minters when they create a [cash-backed synthetic option (CBSO)](/wiki/defi/cash-backed-synthetic-option). It is calculated as a percentage of the staked collateral, prorated over the duration of the option, and serves as the primary revenue mechanism for the CBSO protocol.
+A collateralization fee is the cost charged to minters when they create a [cash-backed synthetic option (CBSO)](/wiki/defi/options/cash-backed-synthetic-option). It is calculated as a percentage of the staked collateral, prorated over the duration of the option, and serves as the primary revenue mechanism for the CBSO protocol.
 
 ## How It Works
 
@@ -35,7 +35,7 @@ The collateralization fee serves three purposes:
 
 ## Fee Flow
 
-Collateralization fees are held in the CBSO contract during the option's lifetime. At expiration, when the Option Settler processes settlement, accumulated fees are transferred to the [Fee Box](/wiki/defi/fee-box) for collection and distribution. See the [CBSO Design](/wiki/defi/cash-backed-synthetic-options-design) page for details on how settlement triggers fee transfer.
+Collateralization fees are held in the CBSO contract during the option's lifetime. At expiration, when the Option Settler processes settlement, accumulated fees are transferred to the [Fee Box](/wiki/defi/fee-box) for collection and distribution. See the [CBSO Design](/wiki/defi/options/cash-backed-synthetic-options-design) page for details on how settlement triggers fee transfer.
 
 ## Comparison with Traditional Finance
 

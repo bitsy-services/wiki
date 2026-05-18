@@ -3,12 +3,12 @@ title: Put Option
 weight: 51
 ---
 
-A **put option** is a contract that gives the holder the right -- but not the obligation -- to sell a specified quantity of an underlying asset at a predetermined [strike price](/wiki/defi/strike-price) before a given expiration date. Puts profit when the underlying asset's price falls below the strike, making them the primary instrument for bearish bets and downside hedging.
+A **put option** is a contract that gives the holder the right -- but not the obligation -- to sell a specified quantity of an underlying asset at a predetermined [strike price](/wiki/defi/options/strike-price) before a given expiration date. Puts profit when the underlying asset's price falls below the strike, making them the primary instrument for bearish bets and downside hedging.
 
 ## Key components
 
 - **Underlying asset** -- the token or asset the option references.
-- **[Strike price](/wiki/defi/strike-price)** -- the price at which the holder can sell.
+- **[Strike price](/wiki/defi/options/strike-price)** -- the price at which the holder can sell.
 - **Premium** -- the upfront cost paid by the buyer. This is the buyer's maximum possible loss.
 - **Expiration date** -- the deadline to exercise.
 
@@ -20,7 +20,7 @@ A **put option** is a contract that gives the holder the right -- but not the ob
 | At-the-money (ATM) | Spot ≈ Strike | Zero |
 | Out-of-the-money (OTM) | Spot > Strike | Zero |
 
-Note that moneyness for puts is the mirror of [call options](/wiki/defi/call-option) -- a put is ITM when the spot price is *below* the strike.
+Note that moneyness for puts is the mirror of [call options](/wiki/defi/options/call-option) -- a put is ITM when the spot price is *below* the strike.
 
 ## Payoff
 
@@ -47,7 +47,7 @@ A trader buys an ETH put with a $2,000 strike, expiring in 30 days, for a $120 p
 
 ## Comparison with call options
 
-A [call option](/wiki/defi/call-option) gives the right to *buy*; a put gives the right to *sell*. The two are connected through put-call parity: for European-style options with the same strike and expiry, the prices of the call and put imply each other given the spot price and risk-free rate.
+A [call option](/wiki/defi/options/call-option) gives the right to *buy*; a put gives the right to *sell*. The two are connected through put-call parity: for European-style options with the same strike and expiry, the prices of the call and put imply each other given the spot price and risk-free rate.
 
 ## On-chain options
 
@@ -58,6 +58,6 @@ Puts are especially popular on-chain as portfolio insurance. Holding ETH plus an
 ## Risks
 
 - **Total premium loss** -- if the option expires OTM, the entire premium is lost.
-- **[Time decay](/wiki/defi/option-greeks)** -- theta erodes the option's time value as expiry approaches, working against the buyer.
-- **[Volatility](/wiki/defi/volatility) contraction** -- a drop in [implied volatility](/wiki/defi/implied-volatility) reduces the put's price even if the spot hasn't moved upward.
+- **[Time decay](/wiki/defi/options/option-greeks)** -- theta erodes the option's time value as expiry approaches, working against the buyer.
+- **[Volatility](/wiki/defi/volatility) contraction** -- a drop in [implied volatility](/wiki/defi/options/implied-volatility) reduces the put's price even if the spot hasn't moved upward.
 - **Smart contract risk** (DeFi-specific) -- exploits in the protocol can lead to loss of funds.

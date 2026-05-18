@@ -3,22 +3,22 @@ title: Emulating Option Strategies in DeFi
 weight: 58
 ---
 
-Traditional option strategies -- spreads, condors, butterflies -- can be approximated using DeFi primitives even on protocols that do not offer a native options order book. Concentrated [liquidity-pool](/wiki/defi/liquidity-pool) positions, [perpetual options](/wiki/defi/perpetual-option), structured vaults, and on-chain binary payoffs can all replicate familiar payoff curves, with trade-offs in precision, cost, and path dependency.
+Traditional option strategies -- spreads, condors, butterflies -- can be approximated using DeFi primitives even on protocols that do not offer a native options order book. Concentrated [liquidity-pool](/wiki/defi/liquidity-pool) positions, [perpetual options](/wiki/defi/options/perpetual-option), structured vaults, and on-chain binary payoffs can all replicate familiar payoff curves, with trade-offs in precision, cost, and path dependency.
 
-This page bridges the options cluster ([call options](/wiki/defi/call-option), [put options](/wiki/defi/put-option), [spreads](/wiki/defi/option-spread), [verticals](/wiki/defi/vertical-spread)) with the [AMM](/wiki/defi/amm) and LP pages.
+This page bridges the options cluster ([call options](/wiki/defi/options/call-option), [put options](/wiki/defi/options/put-option), [spreads](/wiki/defi/options/option-spread), [verticals](/wiki/defi/options/vertical-spread)) with the [AMM](/wiki/defi/amm) and LP pages.
 
 ## Concentrated LP Positions as Synthetic Options
 
 A concentrated LP position in a constant-product [AMM](/wiki/defi/amm) (such as Uniswap v3) behaves like a short option. The LP collects fees (analogous to premium) in exchange for bearing directional risk if the price moves outside the range:
 
-- A **single-sided LP position above the current price** (providing only the quote token) resembles a **covered [call](/wiki/defi/call-option)**: the LP profits from fees as long as the price stays below the upper bound, but surrenders upside if the price rises through the range.
-- A **single-sided LP position below the current price** (providing only the base token) resembles a **cash-secured [put](/wiki/defi/put-option)**: the LP earns fees while the price stays above the lower bound, but absorbs downside if the price falls through.
+- A **single-sided LP position above the current price** (providing only the quote token) resembles a **covered [call](/wiki/defi/options/call-option)**: the LP profits from fees as long as the price stays below the upper bound, but surrenders upside if the price rises through the range.
+- A **single-sided LP position below the current price** (providing only the base token) resembles a **cash-secured [put](/wiki/defi/options/put-option)**: the LP earns fees while the price stays above the lower bound, but absorbs downside if the price falls through.
 
 [Impermanent loss](/wiki/defi/impermanent-loss) is the option-theoretic "assignment cost" -- the difference between holding the assets outright and holding the LP position. A narrow range amplifies both fee income and impermanent loss, just as selling a near-the-money option collects more premium but carries higher delta risk.
 
 ### Constructing Spreads from LP Ranges
 
-By combining two LP positions at different ranges, a trader can approximate a [vertical spread](/wiki/defi/vertical-spread):
+By combining two LP positions at different ranges, a trader can approximate a [vertical spread](/wiki/defi/options/vertical-spread):
 
 | Desired payoff | LP construction |
 |---|---|
@@ -32,7 +32,7 @@ These constructions are approximate. Unlike exchange-traded options with discret
 
 ## Perpetual Options and Structured Vaults
 
-[Perpetual options](/wiki/defi/perpetual-option) (sometimes called "everlasting options") remove the expiry dimension entirely, offering continuously priced option exposure. Protocols that implement them can serve as building blocks for multi-leg strategies:
+[Perpetual options](/wiki/defi/options/perpetual-option) (sometimes called "everlasting options") remove the expiry dimension entirely, offering continuously priced option exposure. Protocols that implement them can serve as building blocks for multi-leg strategies:
 
 - **Bull or bear spreads** -- buy a perp call at one strike, sell at another.
 - **Straddles and strangles** -- combine a perp call and perp put at the same (or different) strikes.
@@ -43,7 +43,7 @@ Structured vaults automate these constructions. A vault might continuously sell 
 
 **Imprecise replication** -- LP-based strategies approximate option payoffs but do not match them exactly. Fees, tick spacing, and path dependency introduce tracking error relative to a textbook spread.
 
-**No unlimited upside** -- a naked long [call option](/wiki/defi/call-option) has theoretically unlimited profit potential. No LP position or capped binary bet can replicate this. Any LP-based or vault-based strategy is inherently a [risk-defined strategy](/wiki/defi/risk-defined-strategy) with bounded payoffs.
+**No unlimited upside** -- a naked long [call option](/wiki/defi/options/call-option) has theoretically unlimited profit potential. No LP position or capped binary bet can replicate this. Any LP-based or vault-based strategy is inherently a [risk-defined strategy](/wiki/defi/options/risk-defined-strategy) with bounded payoffs.
 
 **Gas and rebalancing costs** -- multi-leg constructions require multiple on-chain transactions to open, adjust, and close. On high-fee networks, transaction costs can erode the theoretical edge.
 

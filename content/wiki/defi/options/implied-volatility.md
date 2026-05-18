@@ -3,7 +3,7 @@ title: Implied Volatility
 weight: 53
 ---
 
-**Implied volatility (IV)** is the market's forecast of how much an asset's price will fluctuate over the life of an option. It is extracted from the option's current market price -- given all the other known inputs (spot price, [strike price](/wiki/defi/strike-price), time to expiry, risk-free rate), IV is the [volatility](/wiki/defi/volatility) value that makes the theoretical price match the observed price.
+**Implied volatility (IV)** is the market's forecast of how much an asset's price will fluctuate over the life of an option. It is extracted from the option's current market price -- given all the other known inputs (spot price, [strike price](/wiki/defi/options/strike-price), time to expiry, risk-free rate), IV is the [volatility](/wiki/defi/volatility) value that makes the theoretical price match the observed price.
 
 Higher IV means options are more expensive because the market expects larger price swings. Lower IV means options are cheaper.
 
@@ -38,7 +38,7 @@ Since there is no closed-form solution for σ, it is found numerically -- typica
 
 ## Volatility surface
 
-IV is not a single number -- it varies by [strike price](/wiki/defi/strike-price) and expiration. Plotting IV across strikes and expiries produces the *volatility surface*.
+IV is not a single number -- it varies by [strike price](/wiki/defi/options/strike-price) and expiration. Plotting IV across strikes and expiries produces the *volatility surface*.
 
 Two commonly observed patterns:
 
@@ -47,7 +47,7 @@ Two commonly observed patterns:
 
 ## IV and the option greeks
 
-IV interacts directly with the [option greeks](/wiki/defi/option-greeks):
+IV interacts directly with the [option greeks](/wiki/defi/options/option-greeks):
 
 - **Vega** measures how much an option's price changes for a 1-percentage-point change in IV. ATM options have the highest vega.
 - **Theta** (time decay) is connected to IV because higher IV increases the option's time value, which then decays faster as expiry approaches.

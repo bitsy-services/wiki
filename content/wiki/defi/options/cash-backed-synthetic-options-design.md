@@ -3,7 +3,7 @@ title: Cash-Backed Synthetic Options Design
 weight: 81
 ---
 
-This page describes the smart contract architecture behind [Cash-Backed Synthetic Options (CBSOs)](/wiki/defi/cash-backed-synthetic-option). The system is composed of four primary contracts -- Option, Option Factory, Option Settler, and [Fee Box](/wiki/defi/fee-box) -- plus an external Asset Price Oracle.
+This page describes the smart contract architecture behind [Cash-Backed Synthetic Options (CBSOs)](/wiki/defi/options/cash-backed-synthetic-option). The system is composed of four primary contracts -- Option, Option Factory, Option Settler, and [Fee Box](/wiki/defi/fee-box) -- plus an external Asset Price Oracle.
 
 ## Option Contract
 
@@ -12,9 +12,9 @@ The Option contract is the core unit. Each instance represents a single CBSO wit
 | Property | Description |
 |----------|-------------|
 | Asset Price Oracle | The [oracle](/wiki/defi/oracle-node) providing price data for the underlying asset |
-| [Option Type](/wiki/defi/option-type) | Put or call |
+| [Option Type](/wiki/defi/options/option-type) | Put or call |
 | Stake | The collateral amount backing the option |
-| [Strike Price](/wiki/defi/strike-price) | The price at which the option settles |
+| [Strike Price](/wiki/defi/options/strike-price) | The price at which the option settles |
 | Expiry | The expiration timestamp |
 | [Fee Box](/wiki/defi/fee-box) | The contract that receives [collateralization fees](/wiki/defi/collateralization-fee) after settlement |
 

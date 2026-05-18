@@ -3,7 +3,7 @@ title: Strike Price
 weight: 52
 ---
 
-The **strike price** (also called the exercise price) is the fixed price at which an option holder can buy or sell the underlying asset. For a [call option](/wiki/defi/call-option) the strike is the purchase price; for a [put option](/wiki/defi/put-option) the strike is the sale price. It is the single most important parameter when selecting an options contract because it determines moneyness, intrinsic value, and the risk/reward profile of the trade.
+The **strike price** (also called the exercise price) is the fixed price at which an option holder can buy or sell the underlying asset. For a [call option](/wiki/defi/options/call-option) the strike is the purchase price; for a [put option](/wiki/defi/options/put-option) the strike is the sale price. It is the single most important parameter when selecting an options contract because it determines moneyness, intrinsic value, and the risk/reward profile of the trade.
 
 ## Moneyness
 
@@ -15,14 +15,14 @@ The relationship between the strike price and the current spot price defines an 
 | **At-the-money (ATM)** | Spot ≈ Strike | Spot ≈ Strike |
 | **Out-of-the-money (OTM)** | Spot < Strike | Spot > Strike |
 
-ITM options carry intrinsic value and cost more. OTM options have no intrinsic value -- their premium is entirely time value and [implied volatility](/wiki/defi/implied-volatility).
+ITM options carry intrinsic value and cost more. OTM options have no intrinsic value -- their premium is entirely time value and [implied volatility](/wiki/defi/options/implied-volatility).
 
 ## Effect on premium
 
 The strike price is a primary driver of an option's premium:
 
 - **Deep ITM** options behave almost like the underlying itself (delta near 1 for calls, -1 for puts) and are expensive.
-- **ATM** options have the highest time value and are most sensitive to [volatility](/wiki/defi/volatility) changes (highest vega -- see [option greeks](/wiki/defi/option-greeks)).
+- **ATM** options have the highest time value and are most sensitive to [volatility](/wiki/defi/volatility) changes (highest vega -- see [option greeks](/wiki/defi/options/option-greeks)).
 - **Deep OTM** options are cheap but unlikely to expire profitably. They are essentially bets on large price moves.
 
 ## Choosing a strike

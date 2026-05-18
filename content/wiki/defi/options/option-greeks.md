@@ -12,15 +12,15 @@ The **option greeks** are a set of sensitivity measures that describe how an opt
 | Delta | Δ | Underlying price | 0 to +1 | -1 to 0 |
 | Gamma | Γ | Rate of change of delta | Always positive | Always positive |
 | Theta | Θ | Time (passage of days) | Usually negative | Usually negative |
-| Vega | ν | [Implied volatility](/wiki/defi/implied-volatility) | Always positive | Always positive |
+| Vega | ν | [Implied volatility](/wiki/defi/options/implied-volatility) | Always positive | Always positive |
 | Rho | ρ | Interest rates | Positive (calls) | Negative (puts) |
 
 ## Delta (Δ)
 
 Delta measures how much an option's price changes for a $1 move in the underlying.
 
-- A [call option](/wiki/defi/call-option) with delta 0.60 gains $0.60 when the underlying rises $1.
-- A [put option](/wiki/defi/put-option) with delta -0.40 gains $0.40 when the underlying falls $1.
+- A [call option](/wiki/defi/options/call-option) with delta 0.60 gains $0.60 when the underlying rises $1.
+- A [put option](/wiki/defi/options/put-option) with delta -0.40 gains $0.40 when the underlying falls $1.
 
 Delta also approximates the probability that the option expires in-the-money. A 0.30-delta call has roughly a 30% chance of finishing ITM.
 
@@ -47,7 +47,7 @@ Theta is the cost of holding optionality. The closer to expiry, the faster it de
 
 ## Vega (ν)
 
-Vega measures the change in an option's price for a one-percentage-point change in [implied volatility](/wiki/defi/implied-volatility).
+Vega measures the change in an option's price for a one-percentage-point change in [implied volatility](/wiki/defi/options/implied-volatility).
 
 - A vega of 0.15 means the option gains $0.15 if IV rises by 1%.
 - Vega is highest for ATM options and longer-dated expirations.
@@ -74,7 +74,7 @@ The greeks do not operate in isolation:
 
 ## Practical example
 
-An ETH [call option](/wiki/defi/call-option) with a $2,000 [strike](/wiki/defi/strike-price), 14 days to expiry, spot at $1,950:
+An ETH [call option](/wiki/defi/options/call-option) with a $2,000 [strike](/wiki/defi/options/strike-price), 14 days to expiry, spot at $1,950:
 
 | Greek | Value | Interpretation |
 |---|---|---|

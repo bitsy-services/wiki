@@ -7,7 +7,7 @@ A risk-defined strategy is any position where the maximum possible loss is known
 
 ## Why It Matters
 
-Undefined-risk positions -- selling a naked [call](/wiki/defi/call-option), providing unbounded liquidity, writing uncollateralized contracts -- can produce losses that exceed the original capital. Risk-defined strategies cap that exposure, which makes them:
+Undefined-risk positions -- selling a naked [call](/wiki/defi/options/call-option), providing unbounded liquidity, writing uncollateralized contracts -- can produce losses that exceed the original capital. Risk-defined strategies cap that exposure, which makes them:
 
 - **Easier to size** -- a trader can allocate a fixed dollar amount knowing the worst-case outcome.
 - **Margin-efficient** -- protocols can require only the maximum loss as collateral, rather than demanding large buffers against theoretically unlimited loss.
@@ -17,7 +17,7 @@ Undefined-risk positions -- selling a naked [call](/wiki/defi/call-option), prov
 
 ### Vertical Spreads
 
-A [vertical spread](/wiki/defi/vertical-spread) combines a long and a short option at different [strike prices](/wiki/defi/strike-price) with the same expiry. The maximum loss is the net premium paid (for debit spreads) or the width of the strikes minus the premium received (for credit spreads).
+A [vertical spread](/wiki/defi/options/vertical-spread) combines a long and a short option at different [strike prices](/wiki/defi/options/strike-price) with the same expiry. The maximum loss is the net premium paid (for debit spreads) or the width of the strikes minus the premium received (for credit spreads).
 
 | Spread | Outlook | Max loss |
 |---|---|---|
@@ -28,13 +28,13 @@ A [vertical spread](/wiki/defi/vertical-spread) combines a long and a short opti
 
 ### Iron Condor
 
-An iron condor sells an out-of-the-money [call](/wiki/defi/call-option) spread and an out-of-the-money [put](/wiki/defi/put-option) spread simultaneously. Maximum loss is the wider of the two wing widths minus the total credit received. It profits when the underlying stays within a range -- a bet on low [volatility](/wiki/defi/volatility).
+An iron condor sells an out-of-the-money [call](/wiki/defi/options/call-option) spread and an out-of-the-money [put](/wiki/defi/options/put-option) spread simultaneously. Maximum loss is the wider of the two wing widths minus the total credit received. It profits when the underlying stays within a range -- a bet on low [volatility](/wiki/defi/volatility).
 
 ### Collateralized On-Chain Positions
 
 DeFi protocols often enforce risk definition at the contract level:
 
-- **Fully collateralized [option spreads](/wiki/defi/option-spread)** -- protocols that tokenize options can lock the maximum loss as collateral in a [smart contract](/wiki/defi/smart-contract) at the time the position is opened. Neither party can lose more than the locked amount.
+- **Fully collateralized [option spreads](/wiki/defi/options/option-spread)** -- protocols that tokenize options can lock the maximum loss as collateral in a [smart contract](/wiki/defi/smart-contract) at the time the position is opened. Neither party can lose more than the locked amount.
 - **Bounded LP ranges** -- a concentrated [liquidity-pool](/wiki/defi/liquidity-pool) position in a Uniswap v3-style AMM has a defined worst case: full conversion from one asset to the other across the range, plus [impermanent loss](/wiki/defi/impermanent-loss). The loss is bounded by the value of the deposited capital.
 - **Vault strategies** -- structured vaults that sell covered calls or cash-secured puts enforce the strategy's parameters on-chain, guaranteeing that the position cannot exceed its defined risk.
 
@@ -50,7 +50,7 @@ This model eliminates the counterparty and settlement risks present in tradition
 
 ## Trade-Offs
 
-**Capped profit** -- the defining cost of risk definition. A [vertical spread](/wiki/defi/vertical-spread) will never capture the full move of the underlying the way a naked long option can.
+**Capped profit** -- the defining cost of risk definition. A [vertical spread](/wiki/defi/options/vertical-spread) will never capture the full move of the underlying the way a naked long option can.
 
 **Capital efficiency** -- locking the full maximum loss as collateral is safe but capital-intensive. Protocols that allow partial collateralization (with liquidation mechanisms) can improve capital efficiency but reintroduce liquidation risk.
 

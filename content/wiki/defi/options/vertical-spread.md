@@ -3,7 +3,7 @@ title: Vertical Spread
 weight: 56
 ---
 
-A **vertical spread** is an [option spread](/wiki/defi/option-spread) built from two options of the same type -- both [calls](/wiki/defi/call-option) or both [puts](/wiki/defi/put-option) -- with the same expiration date but different [strike prices](/wiki/defi/strike-price). The name comes from the options chain layout, where strike prices are listed vertically.
+A **vertical spread** is an [option spread](/wiki/defi/options/option-spread) built from two options of the same type -- both [calls](/wiki/defi/options/call-option) or both [puts](/wiki/defi/options/put-option) -- with the same expiration date but different [strike prices](/wiki/defi/options/strike-price). The name comes from the options chain layout, where strike prices are listed vertically.
 
 Verticals are the simplest multi-leg options strategy. Both maximum profit and maximum loss are known at entry, making them popular with traders who want defined-risk directional exposure.
 
@@ -84,7 +84,7 @@ Profit
 
 A bull call spread and a bull put spread at the same strikes express the same directional view. The difference is practical:
 
-- **Debit spreads** pay upfront and receive value at expiration. Max loss equals the premium. Better when [implied volatility](/wiki/defi/implied-volatility) is low (options are cheap to buy).
+- **Debit spreads** pay upfront and receive value at expiration. Max loss equals the premium. Better when [implied volatility](/wiki/defi/options/implied-volatility) is low (options are cheap to buy).
 - **Credit spreads** collect premium upfront and hope the options expire worthless. Max loss exceeds the premium. Better when implied volatility is high (options are expensive to sell).
 
 In efficient markets, put-call parity ensures the risk/reward of equivalent debit and credit verticals is nearly identical after accounting for interest rates and dividends.
@@ -96,7 +96,7 @@ The width between strikes determines the risk/reward tradeoff:
 - **Narrow spreads** (e.g. 1--2 strikes apart) -- lower cost, lower max profit, higher probability of max loss. Essentially leveraged directional bets.
 - **Wide spreads** (e.g. 5--10 strikes apart) -- higher cost, higher max profit, lower probability of max profit. Approach the behavior of a single long option as width increases.
 
-The [option Greeks](/wiki/defi/option-greeks) help calibrate strike choice. Delta approximates the probability that the short strike expires in-the-money; theta tells you how much time decay works for or against the position daily.
+The [option Greeks](/wiki/defi/options/option-greeks) help calibrate strike choice. Delta approximates the probability that the short strike expires in-the-money; theta tells you how much time decay works for or against the position daily.
 
 ## Vertical spreads in DeFi
 

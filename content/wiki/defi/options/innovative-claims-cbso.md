@@ -3,7 +3,7 @@ title: Innovative Claims of CBSOs
 weight: 84
 ---
 
-[Cash-backed synthetic options](/wiki/defi/cash-backed-synthetic-option) combine several properties that, taken together, distinguish them from both traditional options and existing DeFi derivatives. This page catalogs the novel design claims of the CBSO system -- useful for understanding what makes the architecture distinctive and where it advances the state of the art.
+[Cash-backed synthetic options](/wiki/defi/options/cash-backed-synthetic-option) combine several properties that, taken together, distinguish them from both traditional options and existing DeFi derivatives. This page catalogs the novel design claims of the CBSO system -- useful for understanding what makes the architecture distinctive and where it advances the state of the art.
 
 ## Core Innovations
 
@@ -13,11 +13,11 @@ Traditional options assume a stable settlement currency (USD) and a volatile und
 
 ### Risk-Defined by Construction
 
-Every CBSO caps the holder's profit and the minter's loss at the staked collateral amount. This makes every position a [risk-defined strategy](/wiki/defi/risk-defined-strategy) by construction -- not by convention or careful leg selection. The [smart contract](/wiki/defi/smart-contract) enforces the cap, eliminating the possibility of undefined risk that exists with naked options.
+Every CBSO caps the holder's profit and the minter's loss at the staked collateral amount. This makes every position a [risk-defined strategy](/wiki/defi/options/risk-defined-strategy) by construction -- not by convention or careful leg selection. The [smart contract](/wiki/defi/smart-contract) enforces the cap, eliminating the possibility of undefined risk that exists with naked options.
 
 ### Single-Transaction Spread Execution
 
-In traditional markets, entering a [vertical spread](/wiki/defi/vertical-spread) requires two separate transactions (buy one leg, sell the other), with execution risk between them. CBSO minting produces the equivalent of a fully collateralized spread in a single atomic transaction. This eliminates leg risk and reduces transaction costs.
+In traditional markets, entering a [vertical spread](/wiki/defi/options/vertical-spread) requires two separate transactions (buy one leg, sell the other), with execution risk between them. CBSO minting produces the equivalent of a fully collateralized spread in a single atomic transaction. This eliminates leg risk and reduces transaction costs.
 
 ### Flexible Staking Currency
 
@@ -29,7 +29,7 @@ Holders gain exposure to an asset's price movement without ever owning or custod
 
 ### Strategy Composition via Bull and Bear Bets
 
-By combining [bull bets](/wiki/defi/bull-bet) and [bear bets](/wiki/defi/bear-bet) at different [strike prices](/wiki/defi/strike-price), traders can replicate multi-leg strategies -- iron condors, butterfly spreads, calendar spreads -- entirely from composable on-chain tokens. See [emulating option strategies](/wiki/defi/emulating-option-strategies) for worked examples.
+By combining [bull bets](/wiki/defi/options/bull-bet) and [bear bets](/wiki/defi/options/bear-bet) at different [strike prices](/wiki/defi/options/strike-price), traders can replicate multi-leg strategies -- iron condors, butterfly spreads, calendar spreads -- entirely from composable on-chain tokens. See [emulating option strategies](/wiki/defi/options/emulating-option-strategies) for worked examples.
 
 ### Custom Asset Portfolios
 

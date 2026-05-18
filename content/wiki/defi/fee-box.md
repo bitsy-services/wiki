@@ -3,7 +3,7 @@ title: Fee Box
 weight: 83
 ---
 
-The Fee Box is a [smart contract](/wiki/defi/smart-contract) in the [CBSO](/wiki/defi/cash-backed-synthetic-option) system that acts as the central collection point for [collateralization fees](/wiki/defi/collateralization-fee). After all options for a given expiry are settled, the Option Settler transfers accumulated fees to the Fee Box, where they are held until distributed to protocol stakeholders.
+The Fee Box is a [smart contract](/wiki/defi/smart-contract) in the [CBSO](/wiki/defi/options/cash-backed-synthetic-option) system that acts as the central collection point for [collateralization fees](/wiki/defi/collateralization-fee). After all options for a given expiry are settled, the Option Settler transfers accumulated fees to the Fee Box, where they are held until distributed to protocol stakeholders.
 
 ## Role in the CBSO System
 
@@ -42,4 +42,4 @@ Separating fee collection into its own contract -- rather than distributing fees
 1. **Gas efficiency.** Settlement is already a gas-intensive operation (iterating through options, calculating payouts, transferring collateral). Deferring fee distribution avoids compounding that cost.
 2. **Flexibility.** The fee distribution policy can change over time (via governance) without modifying the settlement contracts. The Fee Box's interface remains stable while the downstream recipients evolve.
 
-For the full settlement flow and how the Fee Box fits into the contract architecture, see [CBSO Design](/wiki/defi/cash-backed-synthetic-options-design).
+For the full settlement flow and how the Fee Box fits into the contract architecture, see [CBSO Design](/wiki/defi/options/cash-backed-synthetic-options-design).
