@@ -29,6 +29,22 @@ The defining property is not cosmetic. It buys three things at once:
 
 A practical corollary: running the height/depth recurrence and watching for non-termination (a node that depends on itself transitively) is a standard way to *detect* an illegal cycle in what was supposed to be a DAG.
 
+## Uniqueness of the Ordering
+
+"Does a DAG have a single, unambiguous ordering of its nodes?" splits into two separate questions.
+
+**As a partial order, yes — there is exactly one.** A DAG defines a single partial order: its reachability relation (the transitive closure). Whenever a path runs from `u` to `w`, "`u` before `w`" is fixed. That structure is intrinsic and unambiguous. What it does *not* do is order nodes with no path between them — they are *incomparable*.
+
+**As a linear order, there is always at least one, and usually many.** A [topological sort](https://en.wikipedia.org/wiki/Topological_sorting) flattens the partial order into a sequence that respects every edge:
+
+- **Existence** is guaranteed (and equivalent to acyclicity).
+- **Uniqueness holds if and only if the DAG contains a directed [Hamiltonian path](https://en.wikipedia.org/wiki/Hamiltonian_path)** — one path threading through *every* node. Equivalently, the partial order is already total (a single chain) with no incomparable pairs left to reorder.
+- **Otherwise the ordering is not unique.** Independent nodes can be sequenced in any relative order, so there are multiple — often exponentially many — valid topological orders. Counting them (the linear extensions of the partial order) is [#P-complete](https://en.wikipedia.org/wiki/Sharp-P-complete) in general.
+
+A direct test falls out of [Kahn's algorithm](https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm): the order is unique exactly when the set of in-degree-zero ("ready") nodes has size one at every step. The first time two nodes are simultaneously ready, you have a real choice — and therefore more than one valid ordering.
+
+This is the same incomparability that surfaces in the [height/depth recurrence](/wiki/cs/dag/height-and-depth): the per-node *level* is unique, so the *layering* is unambiguous, but nodes sharing a level are incomparable and the order chosen among them is arbitrary. The layering is canonical; flattening it into one sequence generally is not.
+
 ## Common Operations
 
 | Operation | What it computes | Typical use |
