@@ -2,3 +2,4 @@
 - [Permission sprawl](friction/global-permission-sprawl.md) — user-level settings has 100+ one-off allows; consolidation candidates identified
 - [Prefer source control](friction/global-prefer-source-control.md) — don't modify files outside repos; use project-level config
 - [Allowlist not denylist](friction/global-allowlist-not-denylist.md) — use explicit allow-lists, not broad wildcards + deny overrides
+- [AI section worked example](project-ai-section-worked-example.md) — reuse the "Claude Code writes a wiki page" example across all ai pages; don't invent new ones

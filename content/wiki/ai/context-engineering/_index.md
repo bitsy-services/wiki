@@ -1,6 +1,7 @@
 ---
 title: "Context Engineering"
 weight: 10
+bookCollapseSection: true
 ---
 
 ## What context engineering is
@@ -89,8 +90,13 @@ Ordered worst-first — the early items cause wrong actions; the later ones only
 - When a fact entered the window as a guess, verify it before building on it.
 - When direction changes, retire the old instruction explicitly.
 
+## Worked example
+
+Every technique above is abstract until it touches a real harness. [Claude Code](/wiki/ai/context-engineering/claude-code) applies all of them to one concrete task — producing a page for this wiki — and that task is the running example the rest of the [AI section](/wiki/ai) reuses. The page you are reading now was made by the workflow that page describes, which makes it the most direct way to see the budget, curation, compaction, sub-agent isolation, and pitfalls of this page operating on something you can inspect.
+
 ## Related
 
+- [Claude Code](/wiki/ai/context-engineering/claude-code) — the techniques on this page applied end-to-end in a real agentic harness.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording the instructions that context engineering decides to include.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — why context ordering and stability translate directly into latency and spend.
 - [Agentic workflows](/wiki/ai/agentic-workflows) — delegation, planning, and verification loops that depend on disciplined context.
@@ -98,4 +104,6 @@ Ordered worst-first — the early items cause wrong actions; the later ones only
 ## Further reading
 
 - Anthropic, [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+- Anthropic, [Best practices for Claude Code](https://www.anthropic.com/engineering/claude-code-best-practices)
+- Liu, Zhao, Shang & Shen, [Dive into Claude Code: The Design Space of Today's and Future AI Agent Systems](https://arxiv.org/abs/2604.14228)
 - Liu et al., [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172)

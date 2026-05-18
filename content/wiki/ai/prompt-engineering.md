@@ -5,6 +5,8 @@ weight: 20
 
 Prompt engineering is the craft of wording an instruction to a language model so it produces the desired output reliably. Where [context engineering](/wiki/ai/context-engineering) decides *what* the model sees, prompt engineering decides *how* that instruction is phrased — role and system prompts, few-shot examples, chain-of-thought elicitation, output-format constraints, and the failure modes that come from ambiguous or over-stuffed prompts.
 
+For a concrete instance — how the rules and the page request are worded for an agent that then acts on them — see the section's running example, [Claude Code: writing a page for this wiki](/wiki/ai/context-engineering/claude-code).
+
 *This page is a stub. In the meantime:*
 
 - Anthropic — [Prompt engineering overview](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview)

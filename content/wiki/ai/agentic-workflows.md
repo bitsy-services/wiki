@@ -99,6 +99,7 @@ Ordered worst-first — the early items cause wrong or irreversible actions; the
 ## Related
 
 - [Context engineering](/wiki/ai/context-engineering) — the discipline that sub-agent delegation, tool-result hygiene, and the loop's growing window all depend on.
+- [Claude Code](/wiki/ai/context-engineering/claude-code) — the explore–plan–implement–verify loop and sub-agent delegation worked end-to-end on a real task (the section's running example).
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording tool descriptions and the per-step instructions the loop executes.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — why the loop's re-read-everything-each-turn cost makes a stable prefix essential.
 
