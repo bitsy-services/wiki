@@ -13,3 +13,4 @@ The section shares one running example: **using [Claude Code](/wiki/ai/context-e
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording the instructions the model receives.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — the token economics behind latency and spend.
 - [Agentic workflows](/wiki/ai/agentic-workflows) — planning, tool use, delegation, and verification loops.
+- [Agentic engineering](/wiki/ai/agentic-engineering) — the lifecycle around the loop: evaluation, observability, guardrails, and cost engineering.
