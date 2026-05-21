@@ -14,3 +14,7 @@ The section shares one running example: **using [Claude Code](/wiki/ai/context-e
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — the token economics behind latency and spend.
 - [Agentic workflows](/wiki/ai/agentic-workflows) — planning, tool use, delegation, and verification loops.
 - [Agentic engineering](/wiki/ai/agentic-engineering) — the lifecycle around the loop: evaluation, observability, guardrails, and cost engineering.
+- [AI plugins](/wiki/ai/plugins) — bundled extensions to an agentic harness: what they are, when to install one, and when to author your own.
+  - [Using a Claude Code plugin](/wiki/ai/plugins/claude-code) — anatomy, install, context cost, and trust applied to Anthropic's harness.
+  - [Authoring a plugin](/wiki/ai/plugins/authoring) — why packaging pays off even with one user, and the minimum scaffold to get started.
+- [MCP](/wiki/ai/mcp) — the open protocol underneath most plugin tool surfaces.
