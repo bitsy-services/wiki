@@ -29,7 +29,7 @@ This made the Coordinator a single point of trust and control — it could, in p
 
 Coordicide never reached a production mainnet under the Tangle model. Meanwhile the ecosystem's demands shifted toward expressive [smart contracts](/wiki/defi/smart-contract), deterministic finality, and competitive throughput — areas where the account/UTXO-free DAG was awkward to extend. Rather than ship Coordicide, the Foundation pivoted: [IOTA Rebased](/wiki/defi/iota/iota-rebased) replaced the Tangle ledger entirely with a Move-based object ledger and delegated-proof-of-stake consensus.
 
-A subtle point often muddled in coverage: Rebased did not abandon DAGs. Its **Mysticeti** consensus is itself DAG-structured. What was retired is the *Tangle as the ledger and validation model* — the feeless, Coordinator-gated, tip-approval design — not the use of a DAG anywhere in the stack.
+A subtle point often muddled in coverage: Rebased did not abandon DAGs. Its BFT consensus is itself DAG-structured — Mysticeti at launch, and **Starfish** since the May 2026 mainnet upgrade. What was retired is the *Tangle as the ledger and validation model* — the feeless, Coordinator-gated, tip-approval design — not the use of a DAG anywhere in the stack.
 
 ## External Links
 

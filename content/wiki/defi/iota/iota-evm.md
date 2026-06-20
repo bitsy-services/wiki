@@ -9,7 +9,7 @@ IOTA EVM is IOTA's fully [Ethereum](/wiki/defi/ethereum/)-compatible smart-contr
 
 IOTA EVM is one chain produced by **IOTA Smart Contracts (ISC)**, the framework that runs sandboxed contract chains and anchors their state to IOTA Layer 1. From a developer's point of view it is an ordinary EVM chain; the ISC layer underneath handles settlement to L1 and asset movement. The native [IOTA token](/wiki/defi/cryptocurrency) is the gas currency, and a bridge moves value between L1 native assets and L2 EVM balances.
 
-A consequence worth noting: IOTA EVM is *not* the Move L1 environment. Building L1-native applications means writing Move modules against the object ledger; IOTA EVM is the compatibility surface for porting Ethereum-ecosystem code.
+A consequence worth noting: IOTA EVM is *not* the Move L1 environment. Building L1-native applications means writing Move modules against the object ledger; IOTA EVM is the compatibility surface for porting Ethereum-ecosystem code. The Foundation has stated it intends to integrate EVM execution into Layer 1 directly, but as of mid-2026 that is still on the roadmap — the L2 chain described here remains the way to run Solidity on IOTA.
 
 ## Network Parameters
 
