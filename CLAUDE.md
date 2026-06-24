@@ -23,6 +23,7 @@ This is the Bitsy Services Wiki, a Hugo static site using the Hugo Book theme. I
 - Use `weight` in frontmatter to control sidebar ordering
 - Use `bookCollapseSection: true` for section pages (`_index.md`)
 - Code blocks should specify a language for syntax highlighting
+- Directory-scoped agent instructions can live in a `CLAUDE.md` inside a `content/wiki/<section>/` folder; `ignoreFiles = ['CLAUDE\.md$']` in `hugo.toml` keeps Hugo from rendering them as pages
 
 ## Self-Improvement
 

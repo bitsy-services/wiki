@@ -3,6 +3,10 @@ locale = 'en-us'
 title = 'Bitsy Services Wiki'
 theme = 'hugo-book'
 
+# Agent-instruction files (directory-scoped CLAUDE.md) live alongside content
+# but must never be rendered as wiki pages.
+ignoreFiles = ['CLAUDE\.md$']
+
 [params]
   BookToC = true
   BookSection = 'wiki'
