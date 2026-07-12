@@ -107,7 +107,7 @@ Add forwarder-based access control when:
 
 ## Decision Tree
 
-```
+```text
 Is performUpkeep naturally idempotent?
 ├── Yes → Re-validation is sufficient for most cases
 │         └── Does it handle MEV-sensitive data? → Add forwarder guard

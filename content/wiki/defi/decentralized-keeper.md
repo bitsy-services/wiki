@@ -33,7 +33,7 @@ A single centralized bot can perform the same mechanical task, but it introduces
 When multiple keepers watch the same trigger, naive execution would waste gas on redundant transactions. Networks use several techniques to prevent this:
 
 1. **On-chain state locks** -- the contract flips a flag or advances a nonce as part of the keeper's transaction, causing any competing transaction to revert.
-2. **Turn-based rotation** -- keepers are assigned time slots or round-robin order so only one is eligible at any moment. [Chainlink Automation](/wiki/defi/chainlink-automation) uses a rotating-leader model.
+2. **Turn-based rotation** -- keepers are assigned time slots or round-robin order so only one is eligible at any moment. [Chainlink Automation](/wiki/defi/chainlink/automation) uses a rotating-leader model.
 3. **First-past-the-post rewards** -- only the transaction that actually changes state earns the reward; duplicate attempts simply burn gas, which is a strong economic disincentive.
 4. **Off-chain coordination** -- some networks let keepers signal intent before submitting, reducing on-chain collisions.
 
@@ -41,7 +41,7 @@ When multiple keepers watch the same trigger, naive execution would waste gas on
 
 ### Chainlink Automation (formerly Chainlink Keepers)
 
-[Chainlink Automation](/wiki/defi/chainlink-automation) is the most widely adopted keeper service. Developers register an "upkeep" by deploying a contract that implements two functions: `checkUpkeep` (a view function that returns whether work is needed) and `performUpkeep` (the state-changing call). Chainlink's decentralized node network monitors `checkUpkeep` off-chain and calls `performUpkeep` when it returns true. Upkeeps are funded with LINK tokens, and the network uses a rotating-leader design to avoid duplicate execution.
+[Chainlink Automation](/wiki/defi/chainlink/automation) is the most widely adopted keeper service. Developers register an "upkeep" by deploying a contract that implements two functions: `checkUpkeep` (a view function that returns whether work is needed) and `performUpkeep` (the state-changing call). Chainlink's decentralized node network monitors `checkUpkeep` off-chain and calls `performUpkeep` when it returns true. Upkeeps are funded with LINK tokens, and the network uses a rotating-leader design to avoid duplicate execution.
 
 ### Gelato Network
 

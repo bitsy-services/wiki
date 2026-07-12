@@ -1,6 +1,7 @@
 ---
 description: Rules for Solidity code examples in wiki pages
-globs: content/wiki/**/*.md
+paths:
+  - "content/wiki/defi/**/*.md"
 ---
 
 # Solidity Code Examples

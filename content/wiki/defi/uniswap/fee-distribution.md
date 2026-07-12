@@ -17,7 +17,7 @@ The pool maintains two state variables, `feeGrowthGlobal0` and `feeGrowthGlobal1
 
 The units matter. It is **not** "total fees collected." It is fees *divided by the liquidity that was active at the time they were collected*. On each swap the pool executes roughly:
 
-```
+```text
 feeGrowthGlobal0 += feeAmount0 * 2^128 / liquidity
 ```
 
@@ -52,7 +52,7 @@ The intuition: `feeGrowthGlobal` is the whole number line. Subtracting the "belo
 
 Each position stores `feeGrowthInside0Last` and `feeGrowthInside1Last`: the value of `feeGrowthInside` the last time the position was touched. Owed fees are computed on demand in `Position.update`:
 
-```
+```text
 tokensOwed += liquidity * (feeGrowthInside_now - feeGrowthInside_last)
 feeGrowthInside_last = feeGrowthInside_now
 ```
@@ -63,7 +63,7 @@ LPs "claim" fees by *poking* the position — calling `modifyLiquidity` (in V4) 
 
 Suppose Alice has `L_A = 1000` and Bob has `L_B = 3000` in the same range `[a, b]`. While the price sits in that range, a swap pays `F = 12` units of fee0. The pool updates:
 
-```
+```text
 feeGrowthGlobal0 += 12 / 4000 = 0.003   (ignoring the Q128 shift)
 ```
 

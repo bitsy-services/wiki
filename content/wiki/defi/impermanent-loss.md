@@ -23,7 +23,7 @@ That shortfall is impermanent loss.
 
 Let **r** be the price ratio — the new price of token A divided by the original price. IL as a fraction of the held value is:
 
-```
+```text
 IL = 1 − 2√r / (r + 1)
 ```
 

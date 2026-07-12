@@ -5,7 +5,7 @@ weight: 1
 
 `ISwapRouter` is the interface your contract (or off-chain script) calls to execute token swaps through Uniswap V3 pools. It lives at:
 
-```
+```text
 @uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol
 ```
 
@@ -25,7 +25,7 @@ npm install @uniswap/v3-periphery @uniswap/v3-core
 
 In Foundry add the remapping:
 
-```
+```text
 @uniswap/v3-periphery/=lib/v3-periphery/
 @uniswap/v3-core/=lib/v3-core/
 ```

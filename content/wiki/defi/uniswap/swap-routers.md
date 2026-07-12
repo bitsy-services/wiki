@@ -74,7 +74,7 @@ The current recommended entry point. Uses a command-based architecture where you
 
 ### SwapRouter / SwapRouter02
 
-```
+```text
 User → approve(router, amount) → ERC-20 token   [on-chain tx per token]
 User → swap(...)               → Router          [on-chain tx]
 ```
@@ -83,7 +83,7 @@ Each new router contract requires a fresh approval. If you switch routers, users
 
 ### UniversalRouter + Permit2
 
-```
+```text
 User → approve(permit2, type(uint256).max) → ERC-20 token   [one-time on-chain tx per token]
 User → sign EIP-712 permit                                   [off-chain, free]
 User → execute(commands, inputs)           → UniversalRouter [on-chain tx with permit bundled]

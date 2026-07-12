@@ -1,0 +1,25 @@
+name: check
+
+# Runs the same gate as the Stop hook (scripts/check.sh), so a broken build or a
+# broken internal link fails here even if it was authored without an agent.
+# Cloudflare Pages builds from main; this catches breakage before it deploys.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.159.0'
+          extended: true
+
+      - run: scripts/check.sh

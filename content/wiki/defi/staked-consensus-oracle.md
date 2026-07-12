@@ -35,7 +35,7 @@ Chainlink's Decentralized Oracle Networks (DONs) take a different approach. Rath
 | Dispute mechanism | Escalation rounds with additional stake | No native dispute; relies on committee quality |
 | Latency | Slower (commit-reveal + settlement) | Faster (off-chain aggregation) |
 
-Chainlink has been introducing its own staking layer ([Chainlink staking](/wiki/defi/chainlink-automation)), where LINK holders can stake to back data-feed accuracy. This moves the DON model closer to a hybrid of both approaches.
+Chainlink has been introducing its own staking layer ([Chainlink staking](/wiki/defi/chainlink/automation)), where LINK holders can stake to back data-feed accuracy. This moves the DON model closer to a hybrid of both approaches.
 
 ## Examples
 

@@ -13,7 +13,7 @@ The forwarder solves this by giving each upkeep its own dedicated proxy address.
 
 ## How It Works
 
-```
+```text
 Automation Node  →  Forwarder (stable address)  →  Your Contract
 ```
 

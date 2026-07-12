@@ -1,7 +1,27 @@
 # 003 — Exercise or simplify the friction GC
 
 - **Priority:** P3 (deferred judgement; not a code change)
-- **Status:** open
+- **Status:** done (2026-07-12) — GC exercised, mechanism kept
+
+## Resolution
+
+The mechanism was exercised as designed rather than simplified away. Three of the
+four Gen 0 notes (`allowlist-not-denylist`, `permission-sprawl`,
+`prefer-source-control`) turned out to be one preference viewed from three angles,
+and a fourth data point arrived in the same session when the auto-mode classifier
+blocked the agent from granting itself permissions. They consolidated into
+`patterns/global-permission-and-config-hygiene.md` (Gen 1) and the consumed Gen 0
+files were deleted. `unnecessary-prompting` stayed at Gen 0 — it is a different
+theme with only one observation.
+
+So the GC does earn its keep, and `self-improvement.md` stays as written. Worth
+revisiting only if `patterns/` sits at exactly one entry for several more sessions.
+
+One promotion candidate is now visible: the Gen 1 pattern is `global-` scoped, and
+per the rule's own Scoping table a stable `global-` pattern belongs in the user's
+`~/.claude/CLAUDE.md`, not this repo. That needs the user's say-so, and it collides
+with `prefer-source-control` — the user does not want `~/.claude/` edited. Left
+open deliberately.
 
 ## Problem
 

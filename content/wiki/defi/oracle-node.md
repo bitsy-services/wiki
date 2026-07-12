@@ -30,7 +30,7 @@ The aggregation step is critical. A single compromised node can submit a bad val
 
 The dominant oracle network. Chainlink operates decentralised oracle networks (DONs) where independent node operators stake LINK tokens as collateral. Each price feed (e.g., ETH/USD) is served by a dedicated DON with a configurable number of nodes and an on-chain aggregator.
 
-Chainlink also provides Verifiable Random Function (VRF) for on-chain randomness, [Automation](/wiki/defi/chainlink-automation) for keeper-style task execution, and Cross-Chain Interoperability Protocol (CCIP) for cross-chain messaging.
+Chainlink also provides Verifiable Random Function (VRF) for on-chain randomness, [Automation](/wiki/defi/chainlink/automation) for keeper-style task execution, and Cross-Chain Interoperability Protocol (CCIP) for cross-chain messaging.
 
 ### Pyth
 
@@ -58,7 +58,7 @@ UMA's optimistic oracle assumes data is correct unless disputed. A proposer post
 - **Price feeds** — the backbone of DeFi. Lending protocols ([Aave](https://aave.com), [Compound](https://compound.finance)), [DEXs](/wiki/defi/dex), and derivatives platforms all depend on accurate, timely price data.
 - **Proof of reserves** — verifying that off-chain or cross-chain collateral actually exists.
 - **Randomness** — Chainlink VRF provides verifiable randomness for NFT mints, lotteries, and gaming.
-- **Automation** — triggering contract functions when conditions are met (see [Chainlink Automation](/wiki/defi/chainlink-automation)).
+- **Automation** — triggering contract functions when conditions are met (see [Chainlink Automation](/wiki/defi/chainlink/automation)).
 
 ## External links
 

@@ -17,7 +17,7 @@ If a minter buys back and burns some or all of their CBSO tokens before expirati
 
 **Example.** A minter stakes collateral with a 1% annual collateralization fee. Three months before expiration, they buy back and burn 50% of the outstanding tokens:
 
-```
+```text
 Refund = annual rate * fraction burned * time remaining
        = 1% * 50% * 3/12
        = 0.125% of the original collateral

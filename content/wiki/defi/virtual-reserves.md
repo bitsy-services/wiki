@@ -15,7 +15,7 @@ Concentrated liquidity fixes this by letting LPs deploy capital within a chosen 
 
 An LP deposits real tokens to cover a price range `[p_a, p_b]`. The protocol translates this into a position on a shifted constant product curve:
 
-```
+```text
 (x + x_offset) * (y + y_offset) = L^2
 ```
 
@@ -27,14 +27,14 @@ Within the chosen range, every swap computes against these virtual reserves usin
 
 Uniswap V3 parameterizes positions in terms of `sqrt(price)` rather than price directly, which simplifies the math. For a position covering the range `[p_a, p_b]` with liquidity `L`:
 
-```
+```text
 x_virtual = L / sqrt(p)
 y_virtual = L * sqrt(p)
 ```
 
 where `p` is the current price. The real reserves are:
 
-```
+```text
 x_real = L * (1/sqrt(p) - 1/sqrt(p_b))
 y_real = L * (sqrt(p) - sqrt(p_a))
 ```

@@ -35,7 +35,7 @@ The distribution is geometric: the median is `0.69 × 16ᴺ` and the 99th percen
 
 For an externally-owned account, the address is:
 
-```
+```text
 addr = keccak256(uncompressedPubKey)[12:]    // last 20 bytes
 ```
 
@@ -78,7 +78,7 @@ Modern forks (e.g. `profanity-2`, `vanity-eth`) seed from the OS entropy pool. V
 
 [`CREATE2`](https://eips.ethereum.org/EIPS/eip-1014) (EIP-1014) deploys a contract to a deterministic address derived from the deployer, a chosen 32-byte `salt`, and the hash of the init code:
 
-```
+```text
 addr = keccak256(0xff ++ deployer ++ salt ++ keccak256(initCode))[12:]
 ```
 

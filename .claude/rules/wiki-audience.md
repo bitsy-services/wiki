@@ -1,6 +1,5 @@
 ---
 description: Target audience and tone for wiki content
-globs: content/wiki/**/*.md
 ---
 
 # Wiki Audience

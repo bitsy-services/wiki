@@ -28,7 +28,7 @@ Moneyness affects the premium: ITM options cost more because they already carry 
 
 At expiration the payoff of a long call is:
 
-```
+```text
 payoff = max(spot - strike, 0) - premium
 ```
 

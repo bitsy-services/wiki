@@ -11,7 +11,7 @@ This page is about consuming plugins others have packaged. [Authoring a plugin](
 
 A plugin is a directory containing a `.claude-plugin/plugin.json` manifest and any of the component directories below it:
 
-```
+```text
 my-plugin/
 ├── .claude-plugin/
 │   └── plugin.json          # name, description, version, author

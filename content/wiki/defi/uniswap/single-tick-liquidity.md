@@ -11,7 +11,7 @@ A full-range [constant-product](../../constant-product-formula) pool prices ever
 
 A tick is one [basis point](https://en.wikipedia.org/wiki/Basis_point) wide:
 
-```
+```text
 price(i) = 1.0001^i
 ```
 

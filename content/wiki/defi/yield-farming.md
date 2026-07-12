@@ -27,7 +27,7 @@ You provide ETH and USDC to a [Uniswap](/wiki/defi/uniswap) pool, receiving LP t
 
 **APY (annual percentage yield)** accounts for compounding. That same 1% per month, compounded, gives an APY of about 12.68%:
 
-```
+```text
 APY = (1 + APR/n)^n - 1
 ```
 

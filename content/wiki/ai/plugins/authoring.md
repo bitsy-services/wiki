@@ -33,7 +33,7 @@ The decision is roughly the [generational consolidation](/wiki/ai/context-engine
 
 The smallest useful plugin is a directory, a manifest, and one skill. Everything else is optional.
 
-```
+```text
 my-plugin/
 ├── .claude-plugin/
 │   └── plugin.json

@@ -1,6 +1,5 @@
 ---
 description: What topics belong in the wiki
-globs: content/wiki/**/*.md
 ---
 
 # Wiki Scope

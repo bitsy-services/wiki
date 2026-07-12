@@ -1,5 +1,4 @@
+- [Permission and config hygiene](patterns/global-permission-and-config-hygiene.md) — explicit allow-lists, in source control, and never widen your own permissions without asking
 - [Unnecessary prompting](friction/global-unnecessary-prompting.md) — don't ask "want me to adjust?" when the task is already clear
-- [Permission sprawl](friction/global-permission-sprawl.md) — user-level settings has 100+ one-off allows; consolidation candidates identified
-- [Prefer source control](friction/global-prefer-source-control.md) — don't modify files outside repos; use project-level config
-- [Allowlist not denylist](friction/global-allowlist-not-denylist.md) — use explicit allow-lists, not broad wildcards + deny overrides
+- [Harness invariants](project-harness-invariants.md) — Hugo doesn't check internal links; rules scope with `paths:` not `globs:`; the theme renders no h1
 - [AI section worked example](project-ai-section-worked-example.md) — reuse the "Claude Code writes a wiki page" example across all ai pages; don't invent new ones

@@ -15,7 +15,7 @@ Determinism is not a detail; it is what lets other contracts and other chains re
 
 A factory can be one level (factory → token) or two:
 
-```
+```text
 prototype  --make(key)-->  clone  --issue(name)-->  token
 ```
 

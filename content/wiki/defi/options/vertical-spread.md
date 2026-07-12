@@ -65,7 +65,7 @@ All four verticals share the same shape: a flat region (max loss), a sloped regi
 
 For a bull call spread with strikes at $50 and $55, purchased for a $2 premium:
 
-```
+```text
 Profit
   +3 |          ___________
      |         /

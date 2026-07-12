@@ -9,7 +9,7 @@ Every deployed subgraph exposes a [GraphQL](https://en.wikipedia.org/wiki/GraphQ
 
 Decentralised network queries go through the Gateway:
 
-```
+```text
 https://gateway.thegraph.com/api/<API_KEY>/subgraphs/id/<SUBGRAPH_ID>
 ```
 

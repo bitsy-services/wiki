@@ -1,7 +1,28 @@
 # 002 — Right-mechanism refactor (skills / agents)
 
 - **Priority:** P2
-- **Status:** open
+- **Status:** done (2026-07-12)
+
+## Resolution
+
+The premise turned out to be worse than described. `solidity-examples.md` was not
+merely *loading always by omission* — it, and four other `wiki-*` rules, carried a
+`globs:` frontmatter key. Claude Code's field is **`paths:`**. An unrecognized key
+fails open, so every rule the author believed was scoped to `content/wiki/**` was
+loading unconditionally into every session.
+
+- `solidity-examples.md` now uses `paths: ["content/wiki/defi/**/*.md"]` — all 15
+  pages with Solidity blocks are under `defi/`, so it now loads exactly when
+  relevant and costs nothing otherwise.
+- The other `wiki-*` rules had their dead `globs:` key removed and stay always-on
+  *honestly*. They are ~40 lines combined and every session in this repo writes
+  wiki content, so path-scoping them would save nothing and risks loading them too
+  late to inform planning. Total always-on instruction budget is 175 lines, inside
+  the 200-line guidance.
+- `.claude/skills/new-wiki-page/SKILL.md` — the page-creation *procedure* (a
+  procedure, not a fact, so a skill and not a rule). Loads on demand.
+- `.claude/agents/wiki-reviewer.md` — fresh-context review pass, tools limited to
+  Read/Grep/Glob/Bash.
 
 ## Problem
 

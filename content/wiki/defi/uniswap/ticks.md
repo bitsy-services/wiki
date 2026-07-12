@@ -11,7 +11,7 @@ Ticks exist because [concentrated liquidity](../../virtual-reserves) needs to di
 
 Ticks are spaced geometrically, one [basis point](https://en.wikipedia.org/wiki/Basis_point) apart:
 
-```
+```text
 price(i) = 1.0001^i
 ```
 
@@ -47,7 +47,7 @@ Two anchors worth internalizing: **a tick is a basis point**, and **doubling the
 
 The pool never stores `price` directly. It stores `sqrt(price)` as a [Q64.96 fixed-point](https://en.wikipedia.org/wiki/Q_(number_format)) number called `sqrtPriceX96`:
 
-```
+```text
 sqrtPriceX96 = floor(sqrt(price) * 2^96)
 ```
 

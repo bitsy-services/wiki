@@ -1,12 +1,15 @@
 {
   "permissions": {
-    "defaultMode": "auto",
     "allow": [
       "Read",
       "Edit",
       "Write",
       "WebSearch",
       "WebFetch",
+      "Bash(scripts/check.sh)",
+      "Bash(./scripts/check.sh)",
+      "Bash(scripts/check-content.py *)",
+      "Bash(python3 scripts/check-content.py *)",
       "Skill(update-config)",
       "Skill(update-config:*)",
       "Bash(git status *)",
@@ -72,6 +75,33 @@
       "Bash(forge script *)",
       "Bash(forge create *)",
       "Bash(forge verify-contract *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-write.sh",
+            "args": []
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/verify.sh",
+            "args": [],
+            "timeout": 120,
+            "statusMessage": "Verifying the site builds and content passes checks"
+          }
+        ]
+      }
     ]
   }
 }

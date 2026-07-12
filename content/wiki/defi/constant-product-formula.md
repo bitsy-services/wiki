@@ -5,7 +5,7 @@ weight: 16
 
 The constant product formula is the pricing rule at the heart of most [AMM](/wiki/defi/amm)-based [decentralized exchanges](/wiki/defi/dex). It is elegant in its simplicity: a [liquidity pool](/wiki/defi/liquidity-pool) holds reserves of two tokens, and their product must remain constant through every trade.
 
-```
+```text
 x * y = k
 ```
 
@@ -27,13 +27,13 @@ A trader wants to buy Token Y by sending `dx` of Token X to the pool. Before the
 
 Simplifying:
 
-```
+```text
 dy = (y * dx) / (x + dx)
 ```
 
 This is the **output amount before fees**. In practice, AMMs charge a fee (typically 0.3%) on the input. Uniswap V2 applies the fee by treating the effective input as `dx * (1 - fee)`:
 
-```
+```text
 dy = (y * dx * 997) / (x * 1000 + dx * 997)
 ```
 
@@ -43,7 +43,7 @@ The fee stays in the pool, slightly increasing `k` after every trade. This is ho
 
 The **spot price** of Y in terms of X is the ratio of reserves:
 
-```
+```text
 price_Y = x / y
 ```
 
@@ -55,7 +55,7 @@ Because the curve is convex, larger trades move the price further. The price imp
 
 For a small trade `dx << x`, the output is approximately:
 
-```
+```text
 dy ≈ (y / x) * dx
 ```
 
@@ -69,7 +69,7 @@ Pool: 10 ETH and 25,000 USDC. `k = 250,000`. Spot price: 2,500 USDC/ETH.
 
 A trader swaps 2,500 USDC for ETH (ignoring fees for clarity):
 
-```
+```text
 new USDC reserve = 25,000 + 2,500 = 27,500
 new ETH reserve  = 250,000 / 27,500 ≈ 9.0909
 ETH received     = 10 - 9.0909 ≈ 0.9091

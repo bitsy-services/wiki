@@ -11,7 +11,7 @@ This makes it possible to build [liquidity pools](/wiki/defi/liquidity-pool) tha
 
 For a pool with *n* tokens, the constant mean formula is:
 
-```
+```text
 ∏ (Rᵢ ^ Wᵢ) = k
 ```
 
@@ -40,7 +40,7 @@ The trade-off: lower-weight tokens have thinner effective liquidity, so swaps in
 
 The spot price of token *j* in terms of token *i* in a weighted pool is:
 
-```
+```text
 price_j = (Rᵢ / Wᵢ) / (Rⱼ / Wⱼ)
 ```
 

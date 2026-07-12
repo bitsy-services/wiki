@@ -26,7 +26,7 @@ Note that moneyness for puts is the mirror of [call options](/wiki/defi/options/
 
 At expiration the payoff of a long put is:
 
-```
+```text
 payoff = max(strike - spot, 0) - premium
 ```
 

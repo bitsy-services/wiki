@@ -45,7 +45,7 @@ Some approaches:
 
 - **TWAP-based realised vol.** Compute returns from time-weighted average prices, then standard deviation. Resistant to single-block manipulation.
 - **Implied vol from on-chain options.** Back out IV from the mid-market price of liquid on-chain options.
-- **Off-chain feeds.** [Chainlink](/wiki/defi/chainlink-automation) and other oracle providers can relay volatility indices computed off-chain.
+- **Off-chain feeds.** [Chainlink](/wiki/defi/chainlink/automation) and other oracle providers can relay volatility indices computed off-chain.
 
 ## Volatility and LP strategy
 

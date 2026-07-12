@@ -23,7 +23,7 @@ When IV is significantly higher than recent historical volatility, options are c
 
 IV cannot be observed directly. It is the "plug" variable in an options pricing model. The most common model is Black-Scholes, where IV is the value of σ that satisfies:
 
-```
+```text
 C = S₀·Φ(d₁) - K·e^(-rT)·Φ(d₂)
 ```
 

@@ -15,7 +15,7 @@ RPC, as a programming model, predates the web. It traces back to Birrell & Nelso
 
 A typical RPC interface looks like a list of verbs:
 
-```
+```text
 CustomerService.getCustomer(id)
 CustomerService.updateCustomer(id, fields)
 CustomerService.listOrders(customerId, since)
@@ -43,7 +43,7 @@ The "uniform interface" constraint is what gives REST its character. It has four
 
 A REST interface looks like a hierarchy of nouns:
 
-```
+```text
 GET    /customers/42
 PATCH  /customers/42
 GET    /customers/42/orders?since=2026-01-01

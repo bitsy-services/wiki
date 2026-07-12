@@ -1,0 +1,9 @@
+{{/*
+  Section and home pages. See layouts/single.html for why this override exists.
+*/}}
+{{ define "main" }}
+  <article class="markdown book-article">
+    <h1>{{ partial "docs/title" . }}</h1>
+    {{- .Content -}}
+  </article>
+{{ end }}

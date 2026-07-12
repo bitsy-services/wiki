@@ -4,3 +4,4 @@ resources/
 hugo
 .wrangler/
 node_modules/
+__pycache__/
