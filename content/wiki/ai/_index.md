@@ -18,3 +18,4 @@ The section shares one running example: **using [Claude Code](/wiki/ai/context-e
   - [Using a Claude Code plugin](/wiki/ai/plugins/claude-code) — anatomy, install, context cost, and trust applied to Anthropic's harness.
   - [Authoring a plugin](/wiki/ai/plugins/authoring) — why packaging pays off even with one user, and the minimum scaffold to get started.
 - [MCP](/wiki/ai/mcp) — the open protocol underneath most plugin tool surfaces.
+- [LLM internals](/wiki/ai/llm) — the other direction: how the model works inside, one bite-size page per concept.
