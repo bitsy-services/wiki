@@ -28,4 +28,4 @@ The words this subsection uses — and it uses only these. Third column: what th
 
 ## Depends on / leads to
 
-Depends on [conventions](/wiki/ai/llm/conventions). Leads to every other page; the [backlog](/wiki/ai/llm/backlog) has the order.
+Depends on [conventions](/wiki/ai/llm/conventions). Leads to every other page in the subsection.

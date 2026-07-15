@@ -16,7 +16,7 @@ Read it twice. A block never *replaces* the row — it computes something and **
 
 **The output is nearly linear in the contributions.** [Logits](/wiki/ai/llm/glossary) are a linear readout of the final row, and that row is a sum, so you can ask what one block contributed to one logit and get a number. *Nearly*: the final norm rescales by a row-dependent factor, which the logit lens and direct logit attribution hold fixed.
 
-**Bandwidth is fixed.** `d_model` doesn't grow rightward, so all 24 writes compete for the same 768 directions. Models pack far more features than dimensions — superposition, on the [backlog](/wiki/ai/llm/backlog).
+**Bandwidth is fixed.** `d_model` doesn't grow rightward, so all 24 writes compete for the same 768 directions. Models pack far more features than dimensions — see [superposition](/wiki/ai/llm/superposition).
 
 ## Check yourself
 
@@ -24,4 +24,4 @@ In GPT-2 small, zero block 6's attention output and measure perplexity on a few 
 
 ## Depends on / leads to
 
-Depends on [embeddings](/wiki/ai/llm/embeddings). Leads to one attention head and the MLP — unwritten; see the [backlog](/wiki/ai/llm/backlog).
+Depends on [embeddings](/wiki/ai/llm/embeddings). Leads to [one attention head](/wiki/ai/llm/one-attention-head) and [the MLP](/wiki/ai/llm/the-mlp).

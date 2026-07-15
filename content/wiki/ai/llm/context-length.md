@@ -19,4 +19,4 @@ Count FLOPs; don't trust a stopwatch. The score matmul's FLOPs quadruple per dou
 
 ## Depends on / leads to
 
-Depends on [the causal mask](/wiki/ai/llm/causal-mask) and [the KV cache](/wiki/ai/llm/kv-cache). Leads to [mixture of experts](/wiki/ai/llm/mixture-of-experts).
+Depends on [the KV cache](/wiki/ai/llm/kv-cache) and [RoPE](/wiki/ai/llm/rope). Leads to [mixture of experts](/wiki/ai/llm/mixture-of-experts).

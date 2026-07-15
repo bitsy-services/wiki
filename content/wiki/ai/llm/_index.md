@@ -18,7 +18,7 @@ The rules exist for the reader, not the writer:
 
 ## Reading order
 
-Start with [Conventions](/wiki/ai/llm/conventions) — it's short, and every diagram after it assumes you've read it. Keep the [Glossary](/wiki/ai/llm/glossary) open. Then start at [tokenization](/wiki/ai/llm/tokenization) and follow each page's "leads to" links: they run in dependency order, from a string of text to a sampled token and out into training, scale, and inference tricks. The [backlog](/wiki/ai/llm/backlog) lists all 25 in that order.
+Start with [Conventions](/wiki/ai/llm/conventions) — it's short, and every diagram after it assumes you've read it. Keep the [Glossary](/wiki/ai/llm/glossary) open. Then start at [tokenization](/wiki/ai/llm/tokenization) and follow each page's "leads to" links: they run in dependency order, from a string of text to a sampled token and out into training, scale, and inference tricks. The sidebar lists them in that same order.
 
 Two pages elsewhere in the wiki are this material seen from the outside: [prompt caching](/wiki/ai/prompt-caching) is the KV cache as it appears on an invoice, and [context engineering](/wiki/ai/context-engineering) is what you do for a living because attention costs O(n²).
 

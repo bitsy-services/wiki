@@ -5,7 +5,7 @@ weight: 340
 
 Decoding is serial: each token depends on the last. *Verifying* isn't. That asymmetry is the whole trick.
 
-A small **draft** model generates k tokens (four, say) the slow way, one at a time — but it's small, so slow is cheap. The big **target** model then scores all k in a *single* forward pass, which it can do because [that's how training already works](/wiki/ai/llm/training-vs-inference-parallelism): one pass over a sequence yields a next-token distribution at every row at once. Compare the target's distribution at each row against the draft's, accept the longest prefix that survives a rejection-sampling test, resample the first rejected token from a corrected distribution, discard the rest.
+A small **draft** model generates k tokens (four, say) one at a time — but it's small, so slow is cheap. The big **target** model then scores all k in a *single* forward pass, which it can do because [that's how training already works](/wiki/ai/llm/training-vs-inference-parallelism): one pass over a sequence yields a next-token distribution at every row at once. Compare the target's distribution at each row against the draft's, accept the longest prefix that survives a rejection-sampling test, resample the first rejected token from a corrected distribution, discard the rest.
 
 The property that makes it more than a heuristic: the accepted tokens are distributed **exactly** as if the target model had produced them alone. Not an approximation, not a quality trade: same distribution, fewer serial steps.
 
@@ -17,4 +17,4 @@ Call `generate(..., assistant_model=gpt2)` with GPT-2 XL as the target. Under gr
 
 ## Depends on / leads to
 
-Depends on [sampling strategies](/wiki/ai/llm/sampling-strategies) and [training vs inference parallelism](/wiki/ai/llm/training-vs-inference-parallelism). The end of the [backlog](/wiki/ai/llm/backlog).
+Depends on [sampling strategies](/wiki/ai/llm/sampling-strategies) and [training vs inference parallelism](/wiki/ai/llm/training-vs-inference-parallelism). Nothing follows; this is the last page.
