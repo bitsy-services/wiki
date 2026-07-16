@@ -5,7 +5,7 @@ weight: 290
 
 Every row scores every row it can see: an n × n matrix of scores, per head, per block — the only thing in a transformer that grows quadratically with the sequence.
 
-Everything else is linear: projections, MLP, and norms chew one row at a time, so doubling the context doubles their work. Attention's score matrix and its weighted sum *quadruple*.
+Everything else is linear: projections, MLP, and norms chew one row at a time, so doubling the context doubles their work. [Attention](/wiki/ai/llm/attention)'s score matrix and its weighted sum *quadruple*.
 
 So the famous O(n²) is a **crossover**, not a flat tax. Per block the quadratic part costs about `4n²·d_model` (the full n × n; a good kernel skips the masked half and pays half that), the linear part — projections plus MLP — about `24n·d_model²`. Equal at `n ≈ 6·d_model`: ~4,600 tokens for GPT-2 small, ~9,200 causal-only. Below that the MLP dominates; above it, attention *is* the bill. Nobody worried about this in 2019 with a 1024-token window; everybody does now.
 

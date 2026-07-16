@@ -3,7 +3,7 @@ title: "LayerNorm and RMSNorm"
 weight: 180
 ---
 
-Before attention or the MLP reads the row, the row is normalized: subtract the mean of its 768 numbers, divide by their standard deviation, then scale and shift by learned per-feature parameters. That's LayerNorm. It works *within a row*, along the feature axis — never across rows, so it can't leak anything between token positions. (The name is historical; it normalizes a row, not a [block](/wiki/ai/llm/glossary).)
+Before [attention](/wiki/ai/llm/attention) or the MLP reads the row, the row is normalized: subtract the mean of its 768 numbers, divide by their standard deviation, then scale and shift by learned per-feature parameters. That's LayerNorm. It works *within a row*, along the feature axis — never across rows, so it can't leak anything between token positions. (The name is historical; it normalizes a row, not a [block](/wiki/ai/llm/glossary).)
 
 GPT-2 is **pre-norm**: `row = row + attention(norm(row))`. Read that placement carefully. The norm applies to the copy attention reads. It does not apply to the stream. The [residual stream](/wiki/ai/llm/residual-stream) is never normalized in place — it keeps whatever magnitude it has accumulated, and it grows rightward, hard. In GPT-2 small the last row's norm runs from about 5 at the embedding to about 400 leaving block 11: a factor of a hundred. Exactly once, at the right edge, a final norm rescales it before the unembedding reads it.
 

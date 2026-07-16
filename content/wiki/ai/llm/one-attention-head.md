@@ -3,11 +3,11 @@ title: "One Attention Head"
 weight: 130
 ---
 
-A head is the only machinery in the model that lets one row see another. Everything else — the MLP, the norms — works on a row in isolation.
+[Attention](/wiki/ai/llm/attention) as an idea is a row asking the rows above it a question and blending the answers. This page is that idea as arithmetic. One **head** is a single complete instance of the machinery — a block runs [twelve of them side by side](/wiki/ai/llm/multi-head-attention), but one shows the entire operation.
 
-Here's the whole operation, for one head, from a single row's point of view. The row emits a **query**: what am I looking for? Every row at or above it exposes a **key**: what I've got. Dot the query against each key and you get a score per row — how much this row wants that one. Softmax those scores into an [attention pattern](/wiki/ai/llm/glossary): weights that sum to 1 across the rows it's allowed to see. Then take those rows' **value** vectors, weight them by the pattern, sum, and map the result back to `d_model`. That's what the head adds to the row's [residual stream](/wiki/ai/llm/residual-stream).
+Here it is, from a single row's point of view. The row emits a **query**: what am I looking for? Every row at or above it exposes a **key**: what I've got. Dot the query against each key and you get a score per row — how much this row wants that one. Softmax those scores into an [attention pattern](/wiki/ai/llm/glossary): weights that sum to 1 across the rows it's allowed to see. Then take those rows' **value** vectors, weight them by the pattern, sum, and map the result back to `d_model`. That's what the head adds to the row's [residual stream](/wiki/ai/llm/residual-stream).
 
-Two things worth underlining. The pattern is computed from the *contents* of the rows, not fixed in the weights — change a word above and the weights move. That's what makes it attention rather than a hard-wired mixing matrix. And the head is strictly vertical: it moves information between rows, never within one.
+Worth underlining: the head is strictly vertical. It moves information between rows, never within one.
 
 ## Check yourself
 
@@ -15,4 +15,4 @@ Load GPT-2 small with `attn_implementation="eager"` — the default SDPA path re
 
 ## Depends on / leads to
 
-Depends on [the residual stream](/wiki/ai/llm/residual-stream). Leads to [Q/K/V as three projections](/wiki/ai/llm/qkv-projections) and [the causal mask](/wiki/ai/llm/causal-mask).
+Depends on [attention](/wiki/ai/llm/attention). Leads to [Q/K/V as three projections](/wiki/ai/llm/qkv-projections) and [the causal mask](/wiki/ai/llm/causal-mask).

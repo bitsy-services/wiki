@@ -3,7 +3,7 @@ title: "The MLP"
 weight: 170
 ---
 
-Attention moves information between rows. The MLP is what the block does *to* a row once it has what it needs — and it never looks at another row.
+[Attention](/wiki/ai/llm/attention) moves information between rows. The MLP is what the block does *to* a row once it has what it needs — and it never looks at another row.
 
 Mechanically it's two matrices with a nonlinearity between them: 768 → 3072, GELU, 3072 → 768. That widening is the **MLP bulge**, the only place in the model where a row isn't `d_model` wide. Nothing mixes across rows on the way through; each row goes in and comes back alone.
 

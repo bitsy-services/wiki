@@ -26,7 +26,7 @@ The practical consequence: a single careless `cat` of a 4,000-line generated fil
 
 The intuition that "giving the model everything relevant can't hurt" is wrong for three independent reasons:
 
-1. **Attention dilutes.** Transformer attention is spread across all tokens (the mechanism itself is covered under [large language models](/wiki/ai/llm)). Doubling the irrelevant context does not leave the signal untouched — it lowers the relative weight the model can place on the tokens that matter.
+1. **Attention dilutes.** Transformer [attention](/wiki/ai/llm/attention) is spread across all tokens. Doubling the irrelevant context does not leave the signal untouched — it lowers the relative weight the model can place on the tokens that matter.
 2. **Position matters — the "lost in the middle" effect.** Models reliably attend best to the beginning and end of a long context and worst to the middle. A critical instruction buried in the middle of a 100-file dump is effectively weaker than the same instruction at the end.
 3. **Cost and latency scale with tokens.** Every token in the window is reprocessed on every turn. Bloated context is not just lower quality; it is slower and more expensive turn after turn — which is why [prompt caching](/wiki/ai/prompt-caching) becomes essential at scale.
 

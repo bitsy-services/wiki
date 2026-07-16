@@ -24,4 +24,4 @@ In GPT-2 small, zero block 6's attention output and measure perplexity on a few 
 
 ## Depends on / leads to
 
-Depends on [embeddings](/wiki/ai/llm/embeddings). Leads to [one attention head](/wiki/ai/llm/one-attention-head) and [the MLP](/wiki/ai/llm/the-mlp).
+Depends on [embeddings](/wiki/ai/llm/embeddings). Leads to [attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/the-mlp).
