@@ -7,7 +7,7 @@ The `+` in `row = row + attention(norm(row))` is the skip connection, and it's t
 
 It does two jobs.
 
-**It makes "do nothing" the default.** A block whose attention and MLP output zeros is the identity. A new block can't wreck what earlier blocks built — it starts out harmless and learns a correction. Without the skip, every block must rebuild the whole representation from its predecessor's output, and depth becomes a liability rather than an asset.
+**It makes "do nothing" the default.** A block whose attention and MLP output zeros is the identity, so a new block starts out harmless and learns a correction instead of having to earn back what its predecessors built. That is the argument for the [residual stream](/wiki/ai/llm/residual-stream) and it's made there; the `+` is simply the thing that does it.
 
 **It gives the gradient a road home.** Differentiate `out = in + f(in)` and you get `1 + f′`. The gradient at any block is a sum over paths back to the loss, and one of those paths runs straight down the stream: derivative 1, touching no block's weights at all. Chain a dozen blocks *without* skips and the gradient is a product of a dozen Jacobians instead. Historically that's what killed deep networks, and it's why residual connections arrived before normalization did.
 
