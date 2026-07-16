@@ -3,7 +3,7 @@ title: "Tokenization"
 weight: 100
 ---
 
-A model never sees text. It sees a list of integers, and the tokenizer is the only component that ever touched a character. GPT-2's is byte-pair encoding: start from raw bytes, repeatedly merge the most frequent adjacent pair, keep the merge table. Encoding replays those merges in the order they were learned — not longest-match, which is the usual misreading. The vocabulary is what they produced: 50,000 merges plus the 256 raw bytes and an end-of-text marker, so 50,257 entries.
+A model never sees text. It sees a list of integers, and the tokenizer is the only component that ever touched a character. [GPT-2](/wiki/ai/llm/gpt-2)'s is byte-pair encoding: start from raw bytes, repeatedly merge the most frequent adjacent pair, keep the merge table. Encoding replays those merges in the order they were learned — not longest-match, which is the usual misreading. The vocabulary is what they produced: 50,000 merges plus the 256 raw bytes and an end-of-text marker, so 50,257 entries.
 
 ```text
 "The cat sat"  →  ["The", " cat", " sat"]  →  [464, 3797, 3332]

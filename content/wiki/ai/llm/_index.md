@@ -8,7 +8,7 @@ A large language model is a program that, given some text, guesses what comes ne
 
 The interesting part is that this turns out to be enough. Nobody sat down and taught these models grammar, or geography, or how to close a bracket. Predicting text well enough, at a large enough scale, appears to require learning such things, so they get learned along the way. Competence is a side effect of the guessing game.
 
-This section is about how that works. The rest of the [AI section](/wiki/ai) is about *using* a model; these pages are about what the thing is — what your text becomes when it goes in, what the model does to it, how a guess falls out the far end, how it was trained to guess well, and what all of it costs to run. Nearly every model in current use is built on one design, called the **transformer**, and that design is what these pages take apart. GPT-2 small is the worked example throughout: old, small enough to poke at on a laptop, and structurally the same animal as the models people pay for.
+This section is about how that works. The rest of the [AI section](/wiki/ai) is about *using* a model; these pages are about what the thing is — what your text becomes when it goes in, what the model does to it, how a guess falls out the far end, how it was trained to guess well, and what all of it costs to run. Nearly every model in current use is built on one design, called the **transformer**, and that design is what these pages take apart. [GPT-2 small](/wiki/ai/llm/gpt-2) is the worked example throughout: old, small enough to poke at on a laptop, and structurally the same animal as the models people pay for.
 
 Each page teaches the one thing it names, and ends with a claim you can confirm or break yourself in GPT-2 small or nanoGPT, a deliberately minimal and readable implementation of one. Reading about a transformer isn't the same as watching perplexity — roughly, how many tokens the model is choosing between at each step — climb when you delete a piece of one.
 
@@ -40,7 +40,7 @@ The second has nothing to do with length: producing even a single token means wo
 
 ## Reading order
 
-Start with [Conventions](/wiki/ai/llm/conventions) — it's short, and every diagram after it assumes you've read it. Keep the [Glossary](/wiki/ai/llm/glossary) open. Then start at [tokenization](/wiki/ai/llm/tokenization) and follow each page's "leads to" links: they run in dependency order, from a string of text to a sampled token and out into training, scale, and inference tricks. The sidebar lists them in that same order.
+Start with [Conventions](/wiki/ai/llm/conventions) — it's short, and every diagram after it assumes you've read it. Keep the [Glossary](/wiki/ai/llm/glossary) open. [GPT-2](/wiki/ai/llm/gpt-2) comes next: it's the model the rest of the pages measure everything against, and it explains what the numbers you're about to keep seeing — 768, 12 blocks, 50,257 — actually belong to. Then start at [tokenization](/wiki/ai/llm/tokenization) and follow each page's "leads to" links: they run in dependency order, from a string of text to a sampled token and out into training, scale, and inference tricks. The sidebar lists them in that same order.
 
 Two pages elsewhere in the wiki are this material seen from the outside: [prompt caching](/wiki/ai/prompt-caching) is the KV cache as it appears on an invoice, and [context engineering](/wiki/ai/context-engineering) is what you do for a living because attention costs O(n²).
 

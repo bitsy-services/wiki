@@ -13,7 +13,7 @@ Not a slot, and not one of [the MLP's hidden units](/wiki/ai/llm/the-mlp) — th
 
 ## The arithmetic problem
 
-[`d_model`](/wiki/ai/llm/glossary) is 768 in GPT-2 small, and it never changes — the stream is exactly as wide at the right edge as at the left. Meanwhile the model plainly tracks vastly more than 768 things: every language it recognizes, every syntactic role, every topic, every register, every format.
+[`d_model`](/wiki/ai/llm/glossary) is 768 in [GPT-2 small](/wiki/ai/llm/gpt-2), and it never changes — the stream is exactly as wide at the right edge as at the left. Meanwhile the model plainly tracks vastly more than 768 things: every language it recognizes, every syntactic role, every topic, every register, every format.
 
 So where do the rest live?
 

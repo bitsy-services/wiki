@@ -30,8 +30,8 @@ Papers stack layers vertically — hence "deeper layers" — and run the sequenc
 
 ## Check yourself
 
-Run a 3-token prompt through GPT-2 small with `output_hidden_states=True`. You get **13** tensors, not 12 — the embedding output, plus one per block — each shaped `[1, 3, 768]`: three rows, 768 wide, one snapshot per step rightward.
+Run a 3-token prompt through [GPT-2 small](/wiki/ai/llm/gpt-2) with `output_hidden_states=True`. You get **13** tensors, not 12 — the embedding output, plus one per block — each shaped `[1, 3, 768]`: three rows, 768 wide, one snapshot per step rightward.
 
 ## Depends on / leads to
 
-Depends on nothing. Leads to the [glossary](/wiki/ai/llm/glossary), then [tokenization](/wiki/ai/llm/tokenization).
+Depends on nothing. Leads to the [glossary](/wiki/ai/llm/glossary), then [GPT-2](/wiki/ai/llm/gpt-2) — the model every page here is measured against — and then [tokenization](/wiki/ai/llm/tokenization).

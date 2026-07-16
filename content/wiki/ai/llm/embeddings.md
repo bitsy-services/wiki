@@ -15,7 +15,7 @@ So every relationship *of meaning* between tokens has to be **stored** rather th
 
 ## What's in the row
 
-The table is called `W_E`, the embedding matrix: one row per vocabulary entry — 50,257 of them in GPT-2 — each as wide as [`d_model`](/wiki/ai/llm/glossary), the fixed width that every row in the model carries from here to the far end. Embedding token 3797 means taking row 3797. That's the whole operation.
+The table is called `W_E`, the embedding matrix: one row per vocabulary entry — 50,257 of them in [GPT-2](/wiki/ai/llm/gpt-2) — each as wide as [`d_model`](/wiki/ai/llm/glossary), the fixed width that every row in the model carries from here to the far end. Embedding token 3797 means taking row 3797. That's the whole operation.
 
 Nobody chooses the contents. They start as noise and get shaped by [training](/wiki/ai/llm/the-loss-function) exactly like every other weight in the model, which means the geometry is *earned*: tokens that behave alike drift into pointing alike, because the model kept being rewarded for treating them alike. What you get is the model's entire prior about a token — everything it believes about `" cat"` before it has seen a single neighbour.
 

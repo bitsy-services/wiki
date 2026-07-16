@@ -9,7 +9,7 @@ This isn't a memory optimization. It's what makes the thing a language model ins
 
 The consequence people miss: **no weight inside a block knows how long the sequence is.** Doubling the window costs compute and [KV cache](/wiki/ai/llm/kv-cache) memory, but not one extra parameter in any attention or MLP matrix.
 
-With one exception, and it's the interesting one. GPT-2 learns an absolute [positional](/wiki/ai/llm/positional-encoding) vector per position — `wpe`, shaped `[1024, 768]` — the only weight in the model with a position axis. Widen the context to 4096 and `wpe` grows by 2.4M parameters while every block stays byte-for-byte the size it was. That table is also what stops GPT-2 at 1024 tokens. Not the blocks: they'd happily process row 5000. There's just no vector to tell row 5000 where it is — precisely the limitation [RoPE](/wiki/ai/llm/rope) removes.
+With one exception, and it's the interesting one. [GPT-2](/wiki/ai/llm/gpt-2) learns an absolute [positional](/wiki/ai/llm/positional-encoding) vector per position — `wpe`, shaped `[1024, 768]` — the only weight in the model with a position axis. Widen the context to 4096 and `wpe` grows by 2.4M parameters while every block stays byte-for-byte the size it was. That table is also what stops GPT-2 at 1024 tokens. Not the blocks: they'd happily process row 5000. There's just no vector to tell row 5000 where it is — precisely the limitation [RoPE](/wiki/ai/llm/rope) removes.
 
 ## Check yourself
 

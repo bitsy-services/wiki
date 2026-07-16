@@ -13,7 +13,7 @@ Why it wins is the [bandwidth argument](/wiki/ai/llm/training-vs-inference-paral
 
 ## Check yourself
 
-Call `generate(..., assistant_model=gpt2)` with GPT-2 XL as the target. Under greedy decoding the output is token-for-token identical to plain GPT-2 XL. Now log the acceptance rate α — don't mistake it for the speedup. It *sets* the speedup: with k = 4, α ≈ 0.7 buys about 2.8 target tokens per verification pass, α ≈ 0.9 buys 4.1. Pick a draft that disagrees and α collapses, taking the whole trick with it.
+Call `generate(..., assistant_model=gpt2)` with [GPT-2 XL](/wiki/ai/llm/gpt-2) as the target. Under greedy decoding the output is token-for-token identical to plain GPT-2 XL. Now log the acceptance rate α — don't mistake it for the speedup. It *sets* the speedup: with k = 4, α ≈ 0.7 buys about 2.8 target tokens per verification pass, α ≈ 0.9 buys 4.1. Pick a draft that disagrees and α collapses, taking the whole trick with it.
 
 ## Depends on / leads to
 

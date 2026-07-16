@@ -13,7 +13,7 @@ What it's bad at is **facts**. Teaching the model something it doesn't know mean
 
 ## Check yourself
 
-Fine-tune GPT-2 small on Shakespeare with nanoGPT and track two numbers: *training* loss on Shakespeare (falls) and loss on a held-out slice of WikiText (rises). That divergence is catastrophic forgetting, measured. Keep the run short — nanoGPT's own recipe stops at 20 iterations, because a 1 MB corpus overfits almost immediately and Shakespeare's *validation* loss turns around and climbs too.
+Fine-tune [GPT-2 small](/wiki/ai/llm/gpt-2) on Shakespeare with nanoGPT and track two numbers: *training* loss on Shakespeare (falls) and loss on a held-out slice of WikiText (rises). That divergence is catastrophic forgetting, measured. Keep the run short — nanoGPT's own recipe stops at 20 iterations, because a 1 MB corpus overfits almost immediately and Shakespeare's *validation* loss turns around and climbs too.
 
 ## Depends on / leads to
 

@@ -13,7 +13,7 @@ The mask sits on the scores, *before* the softmax. You could zero the weights af
 
 ## Check yourself
 
-Run GPT-2 small on `"the cat sat on the"`, keep `hidden_states[6][0, 2]`, then run `"the cat sat on the mat, which was"` — same prefix, more rows below — and pull it again. `torch.allclose` passes. It is *not* bit-identical: float32 reductions change order with sequence length, and the drift grows rightward to ~1e-5 by block 11. The invariant is exact in real arithmetic, approximate in floats. A leak would show up as a large difference, not a rounding one.
+Run [GPT-2 small](/wiki/ai/llm/gpt-2) on `"the cat sat on the"`, keep `hidden_states[6][0, 2]`, then run `"the cat sat on the mat, which was"` — same prefix, more rows below — and pull it again. `torch.allclose` passes. It is *not* bit-identical: float32 reductions change order with sequence length, and the drift grows rightward to ~1e-5 by block 11. The invariant is exact in real arithmetic, approximate in floats. A leak would show up as a large difference, not a rounding one.
 
 ## Depends on / leads to
 

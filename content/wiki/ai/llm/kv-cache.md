@@ -9,7 +9,7 @@ Generating token 500 means running a forward pass over 499 rows to produce one n
 
 With the cache, each new token does one row's worth of work — project it to q/k/v, append its k and v, attend against the cache, run the MLP. Attending to *n* rows still costs O(n), but you've dropped a whole factor of *n* off every step.
 
-The price is memory, and it's linear in context. Two tensors per block per row: for GPT-2 small that's 2 × 12 × 768 = 18,432 numbers per token, 36 KB in fp16. A 100k-token context runs to 3.7 GB — which is why long context is a *memory* problem before a compute one, and why [prompt caching](/wiki/ai/prompt-caching) is something a provider can sell you: they keep your prefix's keys and values warm so you don't rebuild them.
+The price is memory, and it's linear in context. Two tensors per block per row: for [GPT-2 small](/wiki/ai/llm/gpt-2) that's 2 × 12 × 768 = 18,432 numbers per token, 36 KB in fp16. A 100k-token context runs to 3.7 GB — which is why long context is a *memory* problem before a compute one, and why [prompt caching](/wiki/ai/prompt-caching) is something a provider can sell you: they keep your prefix's keys and values warm so you don't rebuild them.
 
 ## Check yourself
 

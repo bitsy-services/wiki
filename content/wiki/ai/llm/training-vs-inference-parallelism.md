@@ -13,7 +13,7 @@ Three consequences fall out. Batching is enormously effective at inference, beca
 
 ## Check yourself
 
-Time GPT-2 small on 1024 tokens as one forward pass, then time generating 1024 tokens one at a time with the cache on. Same model, same token count. On CPU the forward pass wins by roughly 10×. On a GPU — where the parallel pass consumes FLOPs that were sitting idle anyway — it's two orders of magnitude. The hardware decides the size of the gap; nothing makes it vanish.
+Time [GPT-2 small](/wiki/ai/llm/gpt-2) on 1024 tokens as one forward pass, then time generating 1024 tokens one at a time with the cache on. Same model, same token count. On CPU the forward pass wins by roughly 10×. On a GPU — where the parallel pass consumes FLOPs that were sitting idle anyway — it's two orders of magnitude. The hardware decides the size of the gap; nothing makes it vanish.
 
 ## Depends on / leads to
 

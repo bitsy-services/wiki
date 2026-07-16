@@ -5,7 +5,7 @@ weight: 270
 
 A query dotted with a key doesn't know where either row sits. [Attention](/wiki/ai/llm/attention), by itself, is a bag of rows. Position has to be injected on purpose.
 
-GPT-2 injects it once, at the left edge. It learns a vector per position — `wpe`, one row per slot — and *adds* it to the [embedding](/wiki/ai/llm/embeddings) before block 0 sees anything. Same width, added rather than concatenated, so position costs the row no capacity; it just perturbs it. Every block and every head downstream reads position out of a signal mixed into the row's content at the start.
+[GPT-2](/wiki/ai/llm/gpt-2) injects it once, at the left edge. It learns a vector per position — `wpe`, one row per slot — and *adds* it to the [embedding](/wiki/ai/llm/embeddings) before block 0 sees anything. Same width, added rather than concatenated, so position costs the row no capacity; it just perturbs it. Every block and every head downstream reads position out of a signal mixed into the row's content at the start.
 
 That's cheap, it works, and it has two defects.
 

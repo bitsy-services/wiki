@@ -26,7 +26,7 @@ row = row + mlp(norm(row))
 
 Read it twice, because the shape of it is the point. [Attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/the-mlp) never see the stream directly — they read a [normalized](/wiki/ai/llm/normalization) *copy* of it, and their output is added back. The stream itself is never overwritten by anyone.
 
-So the row leaving the last block of GPT-2 small is the [embedding](/wiki/ai/llm/embeddings) plus 24 contributions: 12 from attention, 12 from the MLP, each of them [`d_model`](/wiki/ai/llm/glossary) wide. (The MLP widens a row internally on its way through, but writes back at the same width it read.) That running sum is the residual stream.
+So the row leaving the last block of [GPT-2 small](/wiki/ai/llm/gpt-2) is the [embedding](/wiki/ai/llm/embeddings) plus 24 contributions: 12 from attention, 12 from the MLP, each of them [`d_model`](/wiki/ai/llm/glossary) wide. (The MLP widens a row internally on its way through, but writes back at the same width it read.) That running sum is the residual stream.
 
 ## It's a bus, not a pipeline
 

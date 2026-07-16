@@ -9,7 +9,7 @@ weight: 275
 
 Attention works by dotting a query row against a key row: a large dot product means "this token is relevant to that one." But the dot product looks only at the *contents* of the two vectors. It cannot tell whether the key is the token right before the query or five hundred tokens back. Swap two rows of the sequence and every attention score comes out identical. Order isn't in the arithmetic, so it has to be injected — which is the job of [positional encoding](/wiki/ai/llm/positional-encoding).
 
-The obvious way to do that — the one GPT-2 uses — is to learn a vector for each slot and add it to the token before the first block. It works, but it has two nagging flaws:
+The obvious way to do that — the one [GPT-2](/wiki/ai/llm/gpt-2) uses — is to learn a vector for each slot and add it to the token before the first block. It works, but it has two nagging flaws:
 
 - **It's finite.** One learned vector per position means a fixed maximum length. There's no vector for slot 1025, so there's no slot 1025.
 - **It's absolute.** The vector for position 300 bears no built-in relation to the one for 301. "Three tokens back" is a different, separately-learned fact at every position in the sequence.

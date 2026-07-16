@@ -25,7 +25,7 @@ One detail that trips people reproducing this by hand: the input isn't the raw r
 - **K — the key.** What this row advertises to anyone looking.
 - **V — the value.** What this row hands over when it gets picked.
 
-Each map also *narrows*. It takes the full [`d_model`](/wiki/ai/llm/glossary)-wide row — 768 numbers in GPT-2 small — down to 64 for a single [head](/wiki/ai/llm/glossary). A head therefore works in a private, cramped subspace, with room to see only a thin slice of what the stream is carrying. That's not a limitation to apologize for; it's what makes [running twelve heads at once](/wiki/ai/llm/multi-head-attention) worth doing, since each gets its own slice.
+Each map also *narrows*. It takes the full [`d_model`](/wiki/ai/llm/glossary)-wide row — 768 numbers in [GPT-2 small](/wiki/ai/llm/gpt-2) — down to 64 for a single [head](/wiki/ai/llm/glossary). A head therefore works in a private, cramped subspace, with room to see only a thin slice of what the stream is carrying. That's not a limitation to apologize for; it's what makes [running twelve heads at once](/wiki/ai/llm/multi-head-attention) worth doing, since each gets its own slice.
 
 ## The split matters more than the names
 

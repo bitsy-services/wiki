@@ -3,7 +3,7 @@ title: "Backprop Through One Weight"
 weight: 240
 ---
 
-Pick one number out of GPT-2 small's 124 million — a single entry `w` in block 6's MLP input matrix. Backprop answers exactly one question about it: *if I nudge `w` up a hair, does the loss go up or down, and how fast?* That's `∂L/∂w`. Training is that answer, applied to every weight, a few hundred thousand times.
+Pick one number out of [GPT-2 small](/wiki/ai/llm/gpt-2)'s 124 million — a single entry `w` in block 6's MLP input matrix. Backprop answers exactly one question about it: *if I nudge `w` up a hair, does the loss go up or down, and how fast?* That's `∂L/∂w`. Training is that answer, applied to every weight, a few hundred thousand times.
 
 The chain rule gets it there in one sweep. The [loss](/wiki/ai/llm/the-loss-function) is computed at the right edge; its gradient flows right to left, and at each operation the gradient arriving from the right is multiplied by that operation's local derivative. By the time it reaches `w`, the number is a **sum over every path** from `w` to the loss — through the [skip connections](/wiki/ai/llm/skip-connections), through every block to its right — each path a product of local derivatives. It's a sum, not a product. Think "product" and you've reinvented the vanishing gradient that skips exist to prevent.
 

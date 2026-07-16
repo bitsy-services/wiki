@@ -3,7 +3,7 @@ title: "Multi-Head Attention"
 weight: 160
 ---
 
-One head is a narrow channel: a 64-wide query chasing one kind of relationship. GPT-2 small runs **12 of them per block, in parallel, over the same row**, and they never talk to each other.
+One head is a narrow channel: a 64-wide query chasing one kind of relationship. [GPT-2 small](/wiki/ai/llm/gpt-2) runs **12 of them per block, in parallel, over the same row**, and they never talk to each other.
 
 The row doesn't get wider. `d_model` is split, not multiplied: 12 heads × 64 = 768. Each head reads the full row through its own [Q/K/V projections](/wiki/ai/llm/qkv-projections), produces its own 64-wide result, and the twelve results are concatenated back to 768, passed through one output matrix, and added to the stream as a single write. Twelve independent reads, one write.
 

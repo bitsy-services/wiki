@@ -8,7 +8,7 @@ The words this subsection uses — and it uses only these. Third column: what th
 | Term | Means | Elsewhere called |
 |---|---|---|
 | **row** | one token position's vector at some depth — `d_model` numbers wide | activation, hidden state, token representation |
-| **`d_model`** | the row width. 768 in GPT-2 small, and fixed from embedding to unembedding | `n_embd`, hidden size, model dimension |
+| **`d_model`** | the row width. 768 in [GPT-2 small](/wiki/ai/llm/gpt-2), and fixed from embedding to unembedding | `n_embd`, hidden size, model dimension |
 | **residual stream** | the row seen as a bus running rightward through every block: blocks add into it and never overwrite it | hidden state, skip path |
 | **block** | one attention plus one MLP, each wrapped in a norm and a skip connection. GPT-2 small has 12 | layer, transformer layer, decoder layer |
 | **MLP bulge** | the MLP widening a row to 4×`d_model` (3072) and back down. The only place a row isn't `d_model` wide | feed-forward, FFN, hidden dim |

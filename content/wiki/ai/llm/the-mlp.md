@@ -9,7 +9,7 @@ Mechanically it's two matrices with a nonlinearity between them: 768 → 3072, G
 
 The useful reading is detect-and-write. Take one of the 3072 hidden units. Its input weights define a direction in the row's space, and the unit lights up when the row points that way — GELU squashes everything else toward zero, so it's a detector with a soft threshold, not a proportional readout. Its output weights define a *different* direction, which it writes into the [residual stream](/wiki/ai/llm/residual-stream), scaled by how hard it fired. Detect a feature, write a feature. Three thousand of those, per block. (The literature calls this a key-value memory. Nothing to do with attention's keys and values, or with the [KV cache](/wiki/ai/llm/kv-cache).)
 
-And that's where the parameters live. Attention in a GPT-2 block is four 768×768 matrices, about 2.4M weights. The MLP is two 768×3072 matrices, about 4.7M. Two-thirds of every block — and most of what the model knows — sits in the bulge, which tends to surprise people who have spent all their attention on attention.
+And that's where the parameters live. Attention in a [GPT-2](/wiki/ai/llm/gpt-2) block is four 768×768 matrices, about 2.4M weights. The MLP is two 768×3072 matrices, about 4.7M. Two-thirds of every block — and most of what the model knows — sits in the bulge, which tends to surprise people who have spent all their attention on attention.
 
 ## Check yourself
 
