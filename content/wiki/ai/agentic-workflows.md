@@ -3,7 +3,7 @@ title: "Agentic Workflows"
 weight: 40
 ---
 
-An agentic workflow is a language model running in a loop with tools — planning, acting, observing the result, and deciding the next step — rather than answering in a single call. The loop is what makes it powerful and what makes it expensive: every iteration re-reads the accumulated history, every tool result enters the window, and every wrong turn compounds into the next. Getting value from an agent is mostly the discipline of *not* reaching for one until the problem needs it, then constraining it tightly when it does.
+An agentic workflow is a [language model](/wiki/ai/llm) running in a loop with tools — planning, acting, observing the result, and deciding the next step — rather than answering in a single call. The loop is what makes it powerful and what makes it expensive: every iteration re-reads the accumulated history, every tool result enters the window, and every wrong turn compounds into the next. Getting value from an agent is mostly the discipline of *not* reaching for one until the problem needs it, then constraining it tightly when it does.
 
 ## Workflow versus agent
 

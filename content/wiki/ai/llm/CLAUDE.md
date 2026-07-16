@@ -1,11 +1,19 @@
-# LLM Internals — Writing Standard
+# Large Language Models — Writing Standard
 
-These pages teach transformer internals to a reader who is a strong engineer
-with no ML background. They are the on-ramp, not a recap for someone who
-already knows the material.
+These pages teach the concepts of the LLM space — how a model is built, how it
+runs, how it was trained, and what it costs — to a reader who is a strong
+engineer with no ML background. They are the on-ramp, not a recap for someone
+who already knows the material.
 
-These rules are for the writer. `_index.md` is reader-facing only — don't
-restate the standard there.
+The scope is not only what's inside the model. Training (loss, backprop,
+fine-tuning, RLHF) and serving (KV cache, context length, speculative decoding)
+belong here too. If a concept lives in the LLM space and a reader needs it, it
+gets a page.
+
+`_index.md` is the section's landing page and the wiki's link target for "large
+language model" as a concept. It teaches the topic at a high level and hands off
+to the subpages; keep it readable on its own. These rules are for the writer —
+don't restate the standard there.
 
 ## Start with the summary
 

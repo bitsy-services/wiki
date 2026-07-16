@@ -5,7 +5,7 @@ weight: 30
 
 Prompt caching lets a model reuse the processed form of a stable context prefix instead of recomputing it on every turn, turning the [context ordering](/wiki/ai/context-engineering) decisions — stable content first, volatile content last — directly into lower latency and spend. This page will cover token economics for agentic workloads: cache hit rate, what invalidates a cache, request batching, and model selection and routing.
 
-For a concrete instance — why keeping `CLAUDE.md` and tool schemas stable at the front of the window makes a session cheap — see the section's running example, [Claude Code: writing a page for this wiki](/wiki/ai/context-engineering/claude-code). For what is actually being cached — the keys and values computed for every token of that prefix — see [LLM internals](/wiki/ai/llm).
+For a concrete instance — why keeping `CLAUDE.md` and tool schemas stable at the front of the window makes a session cheap — see the section's running example, [Claude Code: writing a page for this wiki](/wiki/ai/context-engineering/claude-code). For what is actually being cached — the keys and values computed for every token of that prefix — see [the KV cache](/wiki/ai/llm/kv-cache).
 
 *This page is a stub. In the meantime:*
 
