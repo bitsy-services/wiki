@@ -17,4 +17,4 @@ Generate greedily from GPT-2 small with `use_cache=True`, then `False`. The toke
 
 ## Depends on / leads to
 
-Depends on [the causal mask](/wiki/ai/llm/causal-mask). Leads to [training vs inference parallelism](/wiki/ai/llm/training-vs-inference-parallelism) and [context length and the O(n²) cost](/wiki/ai/llm/context-length).
+Depends on [the causal mask](/wiki/ai/llm/causal-mask). Leads to [grouped-query attention](/wiki/ai/llm/grouped-query-attention) — the standard way to make this cache smaller — then [training vs inference parallelism](/wiki/ai/llm/training-vs-inference-parallelism) and [context length and the O(n²) cost](/wiki/ai/llm/context-length).

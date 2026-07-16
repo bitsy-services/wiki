@@ -9,15 +9,15 @@ GPT-2 is the language model this section takes apart. OpenAI built it to test on
 
 Every page in this section ends with a claim you can check. That is only possible with a model you can open.
 
-A frontier model is a URL. You send text, you get text, and the interesting parts — the [rows](/wiki/ai/llm/glossary) moving rightward through the blocks, the attention patterns, the tables of weights — are on the far side of an API you don't control. You cannot pull out the row before block 0 and confirm it's bit-identical for two different sentences. You cannot zero the position table and watch [perplexity](/wiki/ai/llm/glossary) explode. Those experiments are the point, and against a closed model none of them can be run; you'd be taking every claim on faith, which is the habit this section exists to break.
+A frontier model is a URL. You send text, you get text, and the interesting parts — the [rows](/wiki/ai/llm/glossary) moving rightward through the blocks, the [attention patterns](/wiki/ai/llm/glossary), the tables of weights — are on the far side of an API you don't control. You cannot pull out the row before block 0 and confirm it's bit-identical for two different sentences. You cannot zero the position table and watch [perplexity](/wiki/ai/llm/glossary) explode. Those experiments are the point, and against a closed model none of them can be run; you'd be taking every claim on faith, which is the habit this section exists to break.
 
 GPT-2 can be opened all the way. The weights are a free download, a forward pass on a laptop CPU takes a fraction of a second, and every intermediate the pages talk about is a tensor you can print. nanoGPT — the minimal implementation the checks keep reaching for — is roughly 300 readable lines and reproduces this exact model.
 
-The obvious objection is that 2019 is a long time ago. But the spine hasn't changed. [Tokenize](/wiki/ai/llm/tokenization) the text, look each token up in a table, add in position, push it through a stack of blocks that alternate [attention](/wiki/ai/llm/attention) and [an MLP](/wiki/ai/llm/the-mlp), score the last row against the vocabulary, sample. That is GPT-2, and it is also every model in production right now. GPT-3 arrived a year later as essentially this architecture with more than a hundred times the parameters. What separates a modern model from GPT-2 is scale, training data, and a list of component substitutions — the substitutions are real, and the [last section here](#where-gpt-2-misleads) is that list — but the frame they slot into is the one GPT-2 laid down.
+The obvious objection is that 2019 is a long time ago. But the spine hasn't changed. [Tokenize](/wiki/ai/llm/tokenization) the text, look each token up in a table, add in position, push it through a stack of blocks that alternate [attention](/wiki/ai/llm/attention) and [an MLP](/wiki/ai/llm/the-mlp), score the last row against the vocabulary, [sample](/wiki/ai/llm/sampling-strategies). That is GPT-2, and it is also every model in production right now. GPT-3 arrived a year later as essentially this architecture with more than a hundred times the parameters. What separates a modern model from GPT-2 is scale, training data, and a list of component substitutions — the substitutions are real, and the [last section here](#where-gpt-2-misleads) is that list — but the frame they slot into is the one GPT-2 laid down.
 
 ## What GPT-2 showed
 
-Its predecessor established a two-step recipe: train on a pile of text, then fine-tune the result on the actual task you cared about. GPT-2's claim was the sharper one — that the second step was optional.
+Its predecessor established a two-step recipe: train on a pile of text, then [fine-tune](/wiki/ai/llm/fine-tuning) the result on the actual task you cared about. GPT-2's claim was the sharper one — that the second step was optional.
 
 The paper is called *Language Models are Unsupervised Multitask Learners*, and the title is the whole argument. Text scraped from the open web already contains translations, questions with answers, articles with summaries. A model getting genuinely good at predicting that text has no way to avoid learning to translate, answer, and summarize along the way, because those skills are what the next token depends on. The tasks don't need teaching separately. They're already in the data, and prediction drags them out.
 
@@ -77,8 +77,8 @@ And here is the same model as a parts list, each part linked to the page that te
 | [Position table](/wiki/ai/llm/positional-encoding) (`wpe`) | 1024 × 768 — learned, absolute, added before block 0 |
 | [Blocks](/wiki/ai/llm/glossary) | 12, identical in structure, ~7.1M parameters each |
 | [Attention](/wiki/ai/llm/multi-head-attention) | 12 heads per block, 64 wide each, [causally masked](/wiki/ai/llm/causal-mask) |
-| [MLP](/wiki/ai/llm/the-mlp) | 768 → 3072 → 768 with a GELU between — two-thirds of each block |
-| [Normalization](/wiki/ai/llm/normalization) | LayerNorm, pre-norm placement, plus one final norm at the right edge |
+| [MLP](/wiki/ai/llm/the-mlp) | 768 → 3072 → 768 with a [GELU](/wiki/ai/llm/activations) between — two-thirds of each block |
+| [Normalization](/wiki/ai/llm/normalization) | [LayerNorm](/wiki/ai/llm/normalization), pre-norm placement, plus one final norm at the right edge |
 | [Unembedding](/wiki/ai/llm/unembedding-and-logits) | tied to the embedding — the same table, transposed |
 | Context | 1024 tokens, a limit set entirely by `wpe`'s height |
 
@@ -94,8 +94,8 @@ A reference model quietly teaches its own quirks as though they were laws. Sever
 |---|---|
 | Learned absolute position table, hard-capped at 1024 | [RoPE](/wiki/ai/llm/rope) — position as rotation, no table, stretches past the trained length |
 | LayerNorm | [RMSNorm](/wiki/ai/llm/normalization) — drop the centering and the bias, no measurable cost |
-| GELU in a two-matrix MLP | SwiGLU — a three-matrix gated variant, better per parameter |
-| Every head owns its keys and values | Grouped-query attention — heads share them, shrinking [the KV cache](/wiki/ai/llm/kv-cache) |
+| GELU in a two-matrix MLP | [SwiGLU](/wiki/ai/llm/activations) — a three-matrix gated variant, better per parameter |
+| Every head owns its keys and values | [Grouped-query attention](/wiki/ai/llm/grouped-query-attention) — heads share them, shrinking [the KV cache](/wiki/ai/llm/kv-cache) |
 | A bias vector on every linear map | Dropped entirely — they weren't earning their place |
 | 50,257-entry vocabulary | 128k and up — better coverage of code and languages other than English |
 | Dense: every parameter runs for every token | Often [mixture of experts](/wiki/ai/llm/mixture-of-experts) — each token routed through a fraction |
@@ -123,5 +123,3 @@ Now find the missing 38.6M. There is no separate unembedding in that sum, becaus
 ## Depends on / leads to
 
 Depends on the [glossary](/wiki/ai/llm/glossary). Leads to [tokenization](/wiki/ai/llm/tokenization), where the text becomes integers.
-</content>
-</invoke>

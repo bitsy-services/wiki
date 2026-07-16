@@ -5,7 +5,7 @@ weight: 170
 
 [Attention](/wiki/ai/llm/attention) moves information between rows. The MLP is what the block does *to* a row once it has what it needs — and it never looks at another row.
 
-Mechanically it's two matrices with a nonlinearity between them: 768 → 3072, GELU, 3072 → 768. That widening is the **MLP bulge**, the only place in the model where a row isn't `d_model` wide. Nothing mixes across rows on the way through; each row goes in and comes back alone.
+Mechanically it's two matrices with a nonlinearity between them: 768 → 3072, [GELU](/wiki/ai/llm/activations), 3072 → 768. That widening is the **MLP bulge**, the only place in the model where a row isn't `d_model` wide. Nothing mixes across rows on the way through; each row goes in and comes back alone.
 
 The useful reading is detect-and-write. Take one of the 3072 hidden units. Its input weights define a direction in the row's space, and the unit lights up when the row points that way — GELU squashes everything else toward zero, so it's a detector with a soft threshold, not a proportional readout. Its output weights define a *different* direction, which it writes into the [residual stream](/wiki/ai/llm/residual-stream), scaled by how hard it fired. Detect a feature, write a feature. Three thousand of those, per block. (The literature calls this a key-value memory. Nothing to do with attention's keys and values, or with the [KV cache](/wiki/ai/llm/kv-cache).)
 
@@ -17,4 +17,4 @@ Sum the parameters in GPT-2 small whose names contain `mlp`, and compare against
 
 ## Depends on / leads to
 
-Depends on [the residual stream](/wiki/ai/llm/residual-stream). Leads to [LayerNorm and RMSNorm](/wiki/ai/llm/normalization) and [mixture of experts](/wiki/ai/llm/mixture-of-experts).
+Depends on [the residual stream](/wiki/ai/llm/residual-stream). Leads to [GELU and SwiGLU](/wiki/ai/llm/activations) — the nonlinearity in the middle, and the reason the bulge isn't refunded — then [LayerNorm and RMSNorm](/wiki/ai/llm/normalization) and [mixture of experts](/wiki/ai/llm/mixture-of-experts).
