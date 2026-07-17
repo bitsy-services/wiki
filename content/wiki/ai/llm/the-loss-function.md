@@ -11,7 +11,7 @@ loss = −(1/n) Σ log p(actual next token | rows above)
 
 That's cross-entropy, and it's the *only* signal. Nobody tells the model what a verb is, that Paris is in France, or which of two continuations reads better. It's told, at each of a trillion positions, how much probability it put on the token that turned up.
 
-Get the scale straight. A model guessing uniformly across the 50,257-token vocabulary scores `ln(50257) = 10.82`. [GPT-2 small](/wiki/ai/llm/gpt-2) measures 3.28 on WikiText-2. Exponentiate the loss and you get **perplexity** — roughly, how many tokens it's choosing between. Uniform is 50,257. GPT-2 small is 26.
+Get the scale straight. A model guessing uniformly across the 50,257-token vocabulary scores `ln(50257) = 10.82`. [GPT-2 small](/wiki/ai/llm/gpt-2) measures 3.28 on WikiText-2. Exponentiate the loss and you get [**perplexity**](/wiki/ai/llm/perplexity) — roughly, how many tokens it's choosing between. Uniform is 50,257. GPT-2 small is 26.
 
 Cross-entropy rewards calibration, not just correctness. Putting 0.99 on the right token beats 0.6; putting 0.99 on the *wrong* one costs at least 4.6, where an honest 0.6 on the right one costs 0.5. Confident and wrong is punished nine times harder than hedging, and worse still if the leftover mass is spread thin. A model that knows what it doesn't know scores better, which is why base models are well-calibrated before we train that out of them.
 
@@ -23,4 +23,4 @@ Nearly every row contributes: a 1024-token sequence yields 1023 supervised predi
 
 ## Depends on / leads to
 
-Depends on [softmax and temperature](/wiki/ai/llm/softmax-and-temperature). Leads to [backprop through one weight](/wiki/ai/llm/backprop-one-weight).
+Depends on [softmax and temperature](/wiki/ai/llm/softmax-and-temperature). Leads to [perplexity](/wiki/ai/llm/perplexity).

@@ -15,7 +15,7 @@ They specialize sharply, and *wildly* unevenly. "Attention is 12 heads per block
 
 ## Check yourself
 
-Ablate heads one at a time in GPT-2 small: zero head *h* of block *b*, measure perplexity on a few hundred tokens of WikiText, restore, repeat for all 144. Median damage is under 1%, and about twenty heads make perplexity *better* when deleted. Then look at the tail: block 0 head 10, on its own, takes perplexity from ~26 to ~145. The distribution isn't long-tailed so much as vertical.
+Ablate heads one at a time in GPT-2 small: zero head *h* of block *b*, measure [perplexity](/wiki/ai/llm/perplexity) on a few hundred tokens of WikiText, restore, repeat for all 144. Median damage is under 1%, and about twenty heads make perplexity *better* when deleted. Then look at the tail: block 0 head 10, on its own, takes perplexity from ~26 to ~145. The distribution isn't long-tailed so much as vertical.
 
 ## Depends on / leads to
 

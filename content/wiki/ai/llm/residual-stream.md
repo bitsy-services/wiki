@@ -54,7 +54,7 @@ It doesn't fit — not the way you'd hope. Models track far more features than t
 
 Two ablations — deliberately zeroing part of a running model to see what breaks — on GPT-2 small.
 
-First, remove one contributor. Zero block 6's attention output with a forward hook on `model.transformer.h[6].attn.c_proj` returning zeros. (Hook `c_proj` rather than `.attn` itself: `.attn` hands back a tuple, not a plain tensor, and won't take the substitution.) Measure [perplexity](/wiki/ai/llm/glossary) on a few hundred tokens of WikiText — a standard Wikipedia-derived benchmark corpus, though any ordinary prose does — and it rises about 15–20%. The text stays fluent. You deleted one of the model's 24 contributions and it shrugged: the stream carried everything else straight around the hole.
+First, remove one contributor. Zero block 6's attention output with a forward hook on `model.transformer.h[6].attn.c_proj` returning zeros. (Hook `c_proj` rather than `.attn` itself: `.attn` hands back a tuple, not a plain tensor, and won't take the substitution.) Measure [perplexity](/wiki/ai/llm/perplexity) on a few hundred tokens of WikiText — a standard Wikipedia-derived benchmark corpus, though any ordinary prose does — and it rises about 15–20%. The text stays fluent. You deleted one of the model's 24 contributions and it shrugged: the stream carried everything else straight around the hole.
 
 Now sever the bus. Zero the *whole stream* entering block 6, and perplexity blows up by several orders of magnitude while the output collapses into repetition. That is a far bigger deletion, deliberately so — the embedding and everything the first six blocks wrote goes with it, thirteen of the twenty-four contributions rather than one.
 

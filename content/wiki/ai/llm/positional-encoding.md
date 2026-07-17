@@ -17,7 +17,7 @@ One subtlety worth carrying forward: a decoder trained with *no* positional enco
 
 ## Check yourself
 
-Position enters GPT-2 in exactly one place, by addition. Confirm it: `hidden_states[0][0, i]` equals `wte[token_i] + wpe[i]`, to `torch.allclose`. Then zero `wpe` and measure perplexity on WikiText — it explodes. One table, added once, and the whole model leans on it.
+Position enters GPT-2 in exactly one place, by addition. Confirm it: `hidden_states[0][0, i]` equals `wte[token_i] + wpe[i]`, to `torch.allclose`. Then zero `wpe` and measure [perplexity](/wiki/ai/llm/perplexity) on WikiText — it explodes. One table, added once, and the whole model leans on it.
 
 ## Depends on / leads to
 
