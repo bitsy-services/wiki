@@ -24,7 +24,7 @@ That loop is the model. Everything else in this section is either a detail of on
 
 ## How it learned to guess
 
-The weights start as noise, and training is the process of beating them into shape. [The loss function](/wiki/ai/llm/the-loss-function) scores each guess against the token that actually came next, and [backprop](/wiki/ai/llm/backprop-one-weight) works out, for every weight in the model, which direction to nudge it to have made the right answer likelier. Repeat across trillions of tokens and the result is a *base* model: an extremely good text predictor, and not yet something you'd want to talk to.
+The weights start as noise, and training is the process of beating them into shape. [The loss function](/wiki/ai/llm/the-loss-function) scores each guess against the token that actually came next, and [backprop](/wiki/ai/llm/backprop-one-weight) works out, for every weight in the model, which direction to nudge it to have made the right answer likelier. Repeat across trillions of tokens and the result is a *base* model: an extremely good text predictor, and not yet something you'd want to talk to. That trillions of tokens is affordable at all — nobody labelling any of them, no position waiting on any other — is [the fact the whole field is built on](/wiki/ai/llm/why-scale-worked).
 
 Turning that into an assistant is a separate step. [Fine-tuning](/wiki/ai/llm/fine-tuning) continues training on narrower data, and [RLHF](/wiki/ai/llm/rlhf) tunes the model against human judgements of which answer is better — which is what teaches it to answer a question rather than continue it, or to write a second paragraph rather than a plausible next Stack Overflow comment.
 
@@ -40,7 +40,7 @@ The second has nothing to do with length: producing even a single token means wo
 
 ## Reading order
 
-Start with [Conventions](/wiki/ai/llm/conventions) — it's short, and every diagram after it assumes you've read it. Keep the [Glossary](/wiki/ai/llm/glossary) open. [GPT-2](/wiki/ai/llm/gpt-2) comes next: it's the model the rest of the pages measure everything against, and it explains what the numbers you're about to keep seeing — 768, 12 blocks, 50,257 — actually belong to. Then start at [tokenization](/wiki/ai/llm/tokenization) and follow each page's "leads to" links: they run in dependency order, from a string of text to a sampled token and out into training, scale, and inference tricks. The sidebar lists them in that same order.
+Start with [Conventions](/wiki/ai/llm/conventions) — it's short, and every diagram after it assumes you've read it. Keep the [Glossary](/wiki/ai/llm/glossary) open. [GPT-2](/wiki/ai/llm/gpt-2) comes next: it's the model the rest of the pages measure everything against, and it explains what the numbers you're about to keep seeing — 768, 12 blocks, 50,257 — actually belong to. Then start at [tokenization](/wiki/ai/llm/tokenization) and follow each page's "leads to" links: they run in dependency order, from a string of text to a sampled token and out into training and inference tricks, ending on [why any of it worked](/wiki/ai/llm/why-scale-worked) — the argument the rest is evidence for. The sidebar lists them in that same order.
 
 Two pages elsewhere in the wiki are this material seen from the outside: [prompt caching](/wiki/ai/prompt-caching) is the KV cache as it appears on an invoice, and [context engineering](/wiki/ai/context-engineering) is what you do for a living because attention costs O(n²).
 

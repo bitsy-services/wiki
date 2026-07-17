@@ -19,4 +19,4 @@ Measure perplexity on plain WikiText for a base/instruct pair. Qwen2.5-0.5B is u
 
 ## Depends on / leads to
 
-Depends on [fine-tuning](/wiki/ai/llm/fine-tuning). Leads to [speculative decoding](/wiki/ai/llm/speculative-decoding), the last page in this subsection.
+Depends on [fine-tuning](/wiki/ai/llm/fine-tuning). Leads to [speculative decoding](/wiki/ai/llm/speculative-decoding).

@@ -17,4 +17,4 @@ Call `generate(..., assistant_model=gpt2)` with [GPT-2 XL](/wiki/ai/llm/gpt-2) a
 
 ## Depends on / leads to
 
-Depends on [sampling strategies](/wiki/ai/llm/sampling-strategies) and [training vs inference parallelism](/wiki/ai/llm/training-vs-inference-parallelism). Nothing follows; this is the last page.
+Depends on [sampling strategies](/wiki/ai/llm/sampling-strategies) and [training vs inference parallelism](/wiki/ai/llm/training-vs-inference-parallelism). Leads to [why scale worked](/wiki/ai/llm/why-scale-worked), the last page — and the argument the rest of these pages were evidence for.

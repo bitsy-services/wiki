@@ -15,7 +15,7 @@ Get the scale straight. A model guessing uniformly across the 50,257-token vocab
 
 Cross-entropy rewards calibration, not just correctness. Putting 0.99 on the right token beats 0.6; putting 0.99 on the *wrong* one costs at least 4.6, where an honest 0.6 on the right one costs 0.5. Confident and wrong is punished nine times harder than hedging, and worse still if the leftover mass is spread thin. A model that knows what it doesn't know scores better, which is why base models are well-calibrated before we train that out of them.
 
-Nearly every row contributes: a 1024-token sequence yields 1023 supervised predictions from one forward pass — every row but the last, which has no next token to check. That's [the causal mask](/wiki/ai/llm/causal-mask) paying for itself.
+Nearly every row contributes: a 1024-token sequence yields 1023 supervised predictions from one forward pass — every row but the last, which has no next token to check. That's [the causal mask](/wiki/ai/llm/causal-mask) paying for itself, and, compounded over a training run, [the reason any of this was affordable](/wiki/ai/llm/why-scale-worked).
 
 ## Check yourself
 
