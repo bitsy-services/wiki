@@ -45,7 +45,7 @@ Either way, the specific rights are named **scopes**. The ones this section uses
 
 Delegated scopes take a "least of the two" rule — the effective access is the intersection of what the app was granted and what the user themselves can do.
 
-Unattended apps name their permissions differently. The client-credentials flow does not request these scopes one at a time; it asks for the single resource scope `https://graph.microsoft.com/.default`, which means "every application permission an administrator has already consented to for this app." You still choose the specific rights — `Mail.ReadWrite`, `Mail.Send` — when you register the app and get them consented; `.default` is simply how the token request refers to that whole pre-approved set at once. That is why the [walkthrough](/wiki/microsoft/outlook/content-based-auto-reply) requests `.default` rather than the named scopes above.
+Unattended apps name their permissions differently. The client-credentials flow does not request these scopes one at a time; it asks for the single resource scope `https://graph.microsoft.com/.default`, which means "every application permission an administrator has already consented to for this app." You still choose the specific rights — `Mail.Read`, `Mail.Send` — when you register the app and get them consented; `.default` is simply how the token request refers to that whole pre-approved set at once. That is why the [walkthrough](/wiki/microsoft/outlook/content-based-auto-reply) requests `.default` rather than the named scopes above.
 
 ## The operations you will actually use
 

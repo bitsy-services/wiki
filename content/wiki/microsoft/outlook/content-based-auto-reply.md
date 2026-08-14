@@ -5,7 +5,9 @@ weight: 20
 
 A common request: when an email arrives, read it, and send back a reply whose wording depends on *what the message says* — route a refund request one way, a password problem another, and leave anything unrecognized for a human. This is more than a vacation responder, which answers everything identically. It is a small event-driven program on top of [Microsoft Graph](/wiki/microsoft/outlook/api): wait to be told a message arrived, fetch it, decide from its content, and reply. This page builds that program end to end and then covers the ways it bites you in production.
 
-The examples are Python, using [`msal`](https://learn.microsoft.com/en-us/entra/msal/python/) for tokens, [`httpx`](https://www.python-httpx.org/) for HTTP, and [FastAPI](https://fastapi.tiangolo.com/) for the webhook. Because no human is signed in, the app authenticates with **application permissions** (`Mail.ReadWrite` and `Mail.Send`) via the client-credentials flow described on the [API page](/wiki/microsoft/outlook/api#authentication-entra-id-and-oauth-20).
+The examples are JavaScript running on [Cloudflare Workers](https://developers.cloudflare.com/workers/). Graph pushes notifications over HTTPS, so this program is fundamentally a public web endpoint that must be up whenever mail might arrive — which is exactly what a Worker is, without a server to keep alive. The platform also supplies the three other pieces the job needs: [Cron Triggers](https://developers.cloudflare.com/workers/configuration/cron-triggers/) to renew the subscription, [Workers KV](https://developers.cloudflare.com/kv/) for the small amount of state, and [Queues](https://developers.cloudflare.com/queues/) to move the slow work off the webhook. There is no SDK to install: token acquisition and every Graph call are plain `fetch`.
+
+Because no human is signed in, the app authenticates with **application permissions** via the client-credentials flow described on the [API page](/wiki/microsoft/outlook/api#authentication-entra-id-and-oauth-20). Two are enough: `Mail.Read` to subscribe and read, and `Mail.Send` to reply. The `reply` action sends rather than edits, so it needs no write access to the mailbox — do not reach for `Mail.ReadWrite` out of habit.
 
 ## The shape of the problem
 
@@ -18,7 +20,7 @@ new email lands in Inbox
 Graph matches your subscription
         │  HTTPS POST (notification: message id, no body)
         ▼
-your webhook  ──►  GET the message (subject + body)
+Worker fetch handler  ──►  GET the message (subject + body)
         │
         ▼
 decide from content  ──►  reply?  ──no──►  leave for a human
@@ -27,96 +29,192 @@ decide from content  ──►  reply?  ──no──►  leave for a human
 POST /messages/{id}/reply   (Graph composes and sends)
 ```
 
-The one non-obvious step is the first: Graph does not stream you mail. You register interest, and it calls *you* when something changes. So the program is a web server that waits for Graph to knock.
+The one non-obvious step is the first: Graph does not stream you mail. You register interest, and it calls *you* when something changes. So the program is not a loop that polls for work — it is an HTTPS endpoint that sits there, costing nothing, until Graph knocks.
+
+## Configuration and bindings
+
+A Worker gets its settings from `env`, the second argument handed to every handler. Non-secret values go in `vars` in the Wrangler config; secrets are set out-of-band with `wrangler secret put` and merely *declared* here, so a deploy fails loudly if one is missing rather than at the first Graph call. Everything else the responder needs — a KV namespace for state, a cron schedule — is a binding in the same file.
+
+```jsonc
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "outlook-autoresponder",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-14",
+  "observability": { "enabled": true },
+
+  "vars": {
+    "TENANT_ID": "...",                              // your Entra ID tenant
+    "CLIENT_ID": "...",                              // from the app registration
+    "MAILBOX": "support@contoso.com",                // the mailbox this service watches
+    "PUBLIC_URL": "https://autoresponder.contoso.com"
+  },
+
+  // Set with: wrangler secret put CLIENT_SECRET
+  "secrets": { "required": ["CLIENT_SECRET", "SUBSCRIPTION_SECRET"] },
+
+  // Token cache, subscription id, and the set of messages already answered.
+  "kv_namespaces": [{ "binding": "STATE", "id": "<namespace-id>" }],
+
+  // Renew the Graph subscription every six hours; see below for why.
+  "triggers": { "crons": ["0 */6 * * *"] }
+}
+```
+
+`SUBSCRIPTION_SECRET` is not a Microsoft credential — it is any hard-to-guess string you invent, and Step 1 explains what it is for.
 
 ## The Graph helper
 
-Every call needs a bearer token and the same base URL, so wrap that once and reuse it. `msal` caches tokens internally, so calling `acquire_token_for_client` per request is cheap — it only hits the network when the cached token is near expiry.
+Every call needs a bearer token and the same base URL, so wrap that once and reuse it. A Worker has no long-lived process to hold a cached token in, and module-level state is unreliable — isolates are created and discarded at the platform's discretion — so cache the token in KV instead, expiring your copy a few minutes early so you never present one that has already lapsed.
 
-```python
-import msal
-import httpx
+```js
+const GRAPH = "https://graph.microsoft.com/v1.0";
 
-TENANT_ID = "..."                     # your Entra ID tenant
-CLIENT_ID = "..."                     # from the app registration
-CLIENT_SECRET = "..."                 # a secret or, better, a certificate
-MAILBOX = "support@contoso.com"       # the mailbox this service watches
-SUBSCRIPTION_SECRET = "..."           # any hard-to-guess string; see below
+async function accessToken(env) {
+  const cached = await env.STATE.get("graph:token");
+  if (cached) return cached;
 
-_app = msal.ConfidentialClientApplication(
-    CLIENT_ID,
-    authority=f"https://login.microsoftonline.com/{TENANT_ID}",
-    client_credential=CLIENT_SECRET,
-)
+  const resp = await fetch(
+    `https://login.microsoftonline.com/${env.TENANT_ID}/oauth2/v2.0/token`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        client_id: env.CLIENT_ID,
+        client_secret: env.CLIENT_SECRET,
+        scope: "https://graph.microsoft.com/.default",
+        grant_type: "client_credentials",
+      }),
+    },
+  );
+  if (!resp.ok) throw new Error(`token request failed: ${resp.status}`);
 
-def _token() -> str:
-    result = _app.acquire_token_for_client(
-        scopes=["https://graph.microsoft.com/.default"]
-    )
-    return result["access_token"]
+  const { access_token, expires_in } = await resp.json();
+  await env.STATE.put("graph:token", access_token, {
+    expirationTtl: Math.max(60, expires_in - 300),
+  });
+  return access_token;
+}
+```
 
-def graph(method: str, path: str, **kwargs) -> httpx.Response:
-    resp = httpx.request(
-        method,
-        f"https://graph.microsoft.com/v1.0{path}",
-        headers={"Authorization": f"Bearer {_token()}"},
-        **kwargs,
-    )
-    resp.raise_for_status()
-    return resp
+The wrapper itself attaches the token, throws on failure, and copes with the fact that some Graph actions answer `202` with no body at all. It also singles out `429` and `5xx` as *retryable*, carrying the server's `Retry-After` along on the error — [the queue consumer](#move-the-work-onto-a-queue) below is where that gets acted on.
+
+```js
+async function graph(env, method, path, body) {
+  const resp = await fetch(`${GRAPH}${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${await accessToken(env)}`,
+      ...(body ? { "Content-Type": "application/json" } : {}),
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  const text = await resp.text();
+  if (!resp.ok) {
+    const err = new Error(`${method} ${path} → ${resp.status} ${text}`);
+    err.retryable = resp.status === 429 || resp.status >= 500;
+    err.retryAfter = Number(resp.headers.get("Retry-After")) || 30;
+    throw err;
+  }
+  return text ? JSON.parse(text) : null;   // reply returns 202 with an empty body
+}
 ```
 
 ## Step 1: Subscribe to the inbox
 
-A **subscription** tells Graph "POST to my URL whenever a message is *created* in this mailbox's inbox." The `clientState` is a secret you choose; Graph echoes it back in every notification so you can confirm the call really came from your subscription and not a stranger who found your URL.
+A **subscription** tells Graph "POST to my URL whenever a message is *created* in this mailbox's inbox." The `clientState` is the secret you chose; Graph echoes it back in every notification so you can confirm the call really came from your subscription and not a stranger who found your URL.
 
-```python
-from datetime import datetime, timedelta, timezone
+Subscriptions to messages expire in under three days, so this is not a one-time setup step — something has to keep recreating it, forever. A Worker has no startup hook to hang that on, which turns out to be a feature: a [Cron Trigger](https://developers.cloudflare.com/workers/configuration/cron-triggers/) invokes the `scheduled` handler on a schedule, and one function can both create the subscription the first time and renew it every time after.
 
-def subscribe() -> dict:
-    body = {
-        "changeType": "created",
-        "notificationUrl": "https://autoresponder.contoso.com/notifications",
-        "resource": f"users/{MAILBOX}/mailFolders('inbox')/messages",
-        # Message subscriptions max out under 3 days; two is a safe cushion.
-        "expirationDateTime":
-            (datetime.now(timezone.utc) + timedelta(days=2)).isoformat(),
-        "clientState": SUBSCRIPTION_SECRET,
+```js
+// Graph caps message subscriptions just under three days; two is a safe cushion.
+const EXPIRY_MS = 2 * 24 * 60 * 60 * 1000;
+
+const expiry = () => new Date(Date.now() + EXPIRY_MS).toISOString();
+
+async function ensureSubscription(env) {
+  const id = await env.STATE.get("subscription:id");
+  if (id) {
+    try {
+      await graph(env, "PATCH", `/subscriptions/${id}`, {
+        expirationDateTime: expiry(),
+      });
+      return id;
+    } catch {
+      // Renewal failed — it expired or was deleted. Fall through and make a
+      // new one rather than going quietly deaf.
     }
-    return graph("POST", "/subscriptions", json=body).json()
+  }
+
+  const created = await graph(env, "POST", "/subscriptions", {
+    changeType: "created",
+    notificationUrl: `${env.PUBLIC_URL}/notifications`,
+    resource: `users/${env.MAILBOX}/mailFolders('inbox')/messages`,
+    expirationDateTime: expiry(),
+    clientState: env.SUBSCRIPTION_SECRET,
+  });
+  await env.STATE.put("subscription:id", created.id);
+  return created.id;
+}
 ```
 
 ### The validation handshake
 
-The moment you call `POST /subscriptions`, Graph makes a test call *back* to your `notificationUrl` with a `validationToken` query parameter, and expects you to echo that token as plain text, with a `200`, within **10 seconds**. If your endpoint isn't live and correct, the subscription is never created. So the webhook has to handle validation before it can handle notifications:
+The moment you call `POST /subscriptions`, Graph makes a test call *back* to your `notificationUrl` with a `validationToken` query parameter, and expects you to echo that token as plain text, with a `200`, within **10 seconds**. If your endpoint isn't live and correct, the subscription is never created. That fixes the deployment order: the Worker has to be deployed and reachable at `PUBLIC_URL` before the first cron tick can subscribe.
 
-```python
-from fastapi import FastAPI, Request, Response
+This is the first half of the Worker's `fetch` handler — the notification half arrives in Step 2, and both are assembled into a single working file under [Putting it together](#putting-it-together):
 
-app = FastAPI()
+```js
+// excerpt — the opening of fetch()
+const url = new URL(request.url);
+if (request.method !== "POST" || url.pathname !== "/notifications") {
+  return new Response("Not found", { status: 404 });
+}
 
-@app.post("/notifications")
-async def notifications(request: Request):
-    validation_token = request.query_params.get("validationToken")
-    if validation_token is not None:
-        # Subscription setup ping — echo the token back verbatim.
-        return Response(content=validation_token, media_type="text/plain")
-    # ...otherwise it's a real notification; handled in Step 2.
+const validationToken = url.searchParams.get("validationToken");
+if (validationToken !== null) {
+  // Subscription setup ping — echo the token back verbatim, as plain text.
+  return new Response(validationToken, {
+    headers: { "Content-Type": "text/plain" },
+  });
+}
 ```
 
 ## Step 2: Receive the notification
 
-A real notification is a JSON body with a `value` array — one entry per change. Two rules matter here. First, **check `clientState`** and drop anything that doesn't match. Second, **answer fast**: return `202 Accepted` immediately and do the slow work (fetching, deciding, replying) elsewhere, because Graph times out and retries if you dawdle. In a real deployment you would hand each message id to a queue; the inline call below keeps the example readable.
+A real notification is a JSON body with a `value` array — one entry per change. Two rules matter here.
 
-```python
-    payload = await request.json()
-    for change in payload.get("value", []):
-        if change.get("clientState") != SUBSCRIPTION_SECRET:
-            continue  # not from our subscription — ignore
-        message_id = change["resourceData"]["id"]
-        handle_message(message_id)   # offload to a queue in production
-    return Response(status_code=202)
+First, **check `clientState`** and drop anything that doesn't match. Compare it with `crypto.subtle.timingSafeEqual` rather than `===`: a plain string comparison returns as soon as two bytes differ, and the time that takes leaks how much of the secret an attacker has guessed. Workers exposes the primitive, but it throws on mismatched lengths, so the usual wrapper compares a value against *itself* and negates the result rather than returning early:
+
+```js
+const encoder = new TextEncoder();
+
+function timingSafeEqual(a, b) {
+  const aBytes = encoder.encode(a);
+  const bBytes = encoder.encode(b);
+  if (aBytes.byteLength !== bBytes.byteLength) {
+    return !crypto.subtle.timingSafeEqual(aBytes, aBytes);
+  }
+  return crypto.subtle.timingSafeEqual(aBytes, bBytes);
+}
 ```
+
+Second, **answer fast**: return `202 Accepted` immediately and do the slow work (fetching, deciding, replying) after the response, because Graph times out and retries if you dawdle. `ctx.waitUntil` is the built-in way to do that — it keeps the invocation alive for work that outlives the response. Note that `ctx` is passed, not destructured; pulling `waitUntil` off it loses its binding and throws at runtime.
+
+```js
+// excerpt — the rest of fetch(), where Step 1 left off
+const payload = await request.json();
+for (const change of payload.value ?? []) {
+  if (!timingSafeEqual(change.clientState ?? "", env.SUBSCRIPTION_SECRET)) {
+    continue;   // not from our subscription — ignore
+  }
+  ctx.waitUntil(handleMessage(env, change.resourceData.id));
+}
+return new Response(null, { status: 202 });
+```
+
+`waitUntil` gets you a correct responder; it does not get you a durable one, because work dropped by an error or a 30-second overrun is simply gone. [Moving to a Queue](#move-the-work-onto-a-queue) below fixes that: one line here changes, and a `queue` handler joins the export.
 
 Notice what the notification does *not* contain: the message body. It carries an id and little else, so the content you need for the decision has to be fetched.
 
@@ -124,120 +222,228 @@ Notice what the notification does *not* contain: the message body. It carries an
 
 Fetch just the fields the decision needs. `body` and `bodyPreview` give you the text; `from` and `internetMessageHeaders` are what keep you out of a [reply loop](#dont-create-a-reply-loop) later.
 
-```python
-def fetch(message_id: str) -> dict:
-    fields = "subject,bodyPreview,body,from,internetMessageHeaders"
-    return graph(
-        "GET", f"/users/{MAILBOX}/messages/{message_id}?$select={fields}"
-    ).json()
+```js
+function fetchMessage(env, messageId) {
+  const select = "subject,bodyPreview,body,from,internetMessageHeaders";
+  return graph(
+    env, "GET", `/users/${env.MAILBOX}/messages/${messageId}?$select=${select}`,
+  );
+}
 ```
 
 ## Step 4: Decide the reply from its content
 
-This is the part that makes the responder *content-based*. The starter version is a keyword matcher; returning `None` means "no confident match — don't reply," which is the safe default.
+This is the part that makes the responder *content-based*. The starter version is a keyword matcher; returning `null` means "no confident match — don't reply," which is the safe default.
 
-```python
-def compose_reply(message: dict) -> str | None:
-    text = f"{message['subject']} {message['bodyPreview']}".lower()
-    if "refund" in text:
-        return ("Thanks for reaching out — I've flagged your refund request "
-                "for our billing team, who will follow up within one business day.")
-    if "password" in text or "can't log in" in text:
-        return ("It sounds like a sign-in problem. You can reset your password "
-                "at https://contoso.com/reset — reply here if that doesn't fix it.")
-    return None  # nothing matched; leave it for a human
+```js
+function composeReply(message) {
+  const text = `${message.subject} ${message.bodyPreview}`.toLowerCase();
+  if (text.includes("refund")) {
+    return "Thanks for reaching out — I've flagged your refund request for " +
+           "our billing team, who will follow up within one business day.";
+  }
+  if (text.includes("password") || text.includes("can't log in")) {
+    return "It sounds like a sign-in problem. You can reset your password at " +
+           "https://contoso.com/reset — reply here if that doesn't fix it.";
+  }
+  return null;   // nothing matched; leave it for a human
+}
 ```
 
-Keyword matching is brittle — "I was *not* charged twice" trips the same rule as a real refund. The clean upgrade is to replace the body of `compose_reply` with a call to a [large language model](/wiki/ai/llm) that reads the message, classifies its intent, and either drafts a reply or declines. The surrounding machinery — subscribe, fetch, reply — does not change; only the decision does. Keep the "when unsure, return `None`" discipline regardless of how the decision is made: a wrong automated answer costs more than a slightly delayed human one.
+Keyword matching is brittle — "I was *not* charged twice" trips the same rule as a real refund. The clean upgrade is to replace the body of `composeReply` with a call to a [large language model](/wiki/ai/llm) that reads the message, classifies its intent, and either drafts a reply or declines. The surrounding machinery — subscribe, fetch, reply — does not change; only the decision does. Keep the "when unsure, return `null`" discipline regardless of how the decision is made: a wrong automated answer costs more than a slightly delayed human one.
 
 ## Step 5: Send the reply
 
 The `reply` action composes the response *and sends it*, quoting the original beneath your text and preserving the subject and threading — so you only supply the new body.
 
-```python
-def send_reply(message_id: str, text: str) -> None:
-    body = {"message": {"body": {"contentType": "Text", "content": text}}}
-    graph("POST", f"/users/{MAILBOX}/messages/{message_id}/reply", json=body)
+```js
+function sendReply(env, messageId, text) {
+  return graph(env, "POST", `/users/${env.MAILBOX}/messages/${messageId}/reply`, {
+    message: { body: { contentType: "Text", content: text } },
+  });
+}
 ```
 
 ## Putting it together
 
-`handle_message` is the whole pipeline, and it is where the loop-prevention and de-duplication guards from the next section live:
+`handleMessage` is the whole pipeline, and it is where the loop-prevention and de-duplication guards from the next section live:
 
-```python
-def handle_message(message_id: str) -> None:
-    if already_replied(message_id):  # Graph is at-least-once; see the dedup note below
-        return
-    message = fetch(message_id)
-    if is_auto_or_self(message):     # never answer an auto-message or ourselves
-        return
-    reply = compose_reply(message)
-    if reply is not None:
-        send_reply(message_id, reply)
-        record_reply(message_id)     # remember it, so a redelivery can't reply twice
+```js
+const REPLIED_TTL = 60 * 60 * 24 * 30;   // remember for 30 days
+
+async function handleMessage(env, messageId) {
+  // Graph is at-least-once; see the dedup note below.
+  if (await env.STATE.get(`replied:${messageId}`)) return;
+
+  const message = await fetchMessage(env, messageId);
+  if (isAutoOrSelf(env, message)) return;   // never answer an auto-message or ourselves
+
+  const reply = composeReply(message);
+  if (reply === null) return;
+
+  await sendReply(env, messageId, reply);
+  // Remember it, so a redelivery can't reply twice.
+  await env.STATE.put(`replied:${messageId}`, "1", { expirationTtl: REPLIED_TTL });
+}
 ```
 
-That is the complete responder: `subscribe()` once at startup, then the webhook drives `handle_message` for each new mail. What is left is everything that turns a demo into something you can leave running.
+The default export is where the two excerpts from Steps 1 and 2 join up, and it is the whole of the Worker's public surface — one webhook, one cron:
+
+```js
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    if (request.method !== "POST" || url.pathname !== "/notifications") {
+      return new Response("Not found", { status: 404 });
+    }
+
+    const validationToken = url.searchParams.get("validationToken");
+    if (validationToken !== null) {
+      // Subscription setup ping — echo the token back verbatim, as plain text.
+      return new Response(validationToken, {
+        headers: { "Content-Type": "text/plain" },
+      });
+    }
+
+    const payload = await request.json();
+    for (const change of payload.value ?? []) {
+      if (!timingSafeEqual(change.clientState ?? "", env.SUBSCRIPTION_SECRET)) {
+        continue;   // not from our subscription — ignore
+      }
+      ctx.waitUntil(handleMessage(env, change.resourceData.id));
+    }
+    return new Response(null, { status: 202 });
+  },
+
+  async scheduled(controller, env, ctx) {
+    await ensureSubscription(env);
+  },
+};
+```
+
+That is the complete responder. One wrinkle on first run: `wrangler deploy` does *not* subscribe — the `scheduled` handler does, and `"0 */6 * * *"` next fires at 00:00, 06:00, 12:00, or 18:00 UTC. Until then the Worker is deployed, healthy, and receiving nothing, with no error anywhere to explain it. Exercise the handler locally before you go looking for a bug:
+
+```sh
+npx wrangler dev --test-scheduled
+curl "http://localhost:8787/cdn-cgi/handler/scheduled"
+```
+
+What is left is everything that turns a demo into something you can leave running.
 
 ## Getting it right in production
+
+### Scope the app to the mailboxes it needs
+
+Do this before the app sees real mail. An application permission like `Mail.Read` grants access to **every mailbox in the tenant** by default, so a leaked `CLIENT_SECRET` reads the whole organization's email — the widest blast radius on this page, and the one hardening step that is not optional.
+
+Exchange Online contains it with **RBAC for Applications**: register a pointer to the app's service principal, define a scope naming the mailboxes it may touch, and assign a role across that scope.
+
+```powershell
+New-ServicePrincipal -AppId <client-id> -ObjectId <service-principal-object-id> `
+  -DisplayName "Outlook auto-responder"
+
+New-ManagementScope -Name "Autoresponder mailboxes" `
+  -RecipientRestrictionFilter "MemberOfGroup -eq '<group-distinguished-name>'"
+
+New-ManagementRoleAssignment -App <service-principal-object-id> `
+  -Role "Application Mail.Read" -CustomResourceScope "Autoresponder mailboxes"
+New-ManagementRoleAssignment -App <service-principal-object-id> `
+  -Role "Application Mail.Send" -CustomResourceScope "Autoresponder mailboxes"
+```
+
+The step everyone skips is the last one, and skipping it makes the rest decorative: **RBAC grants are additive to the tenant-wide consent in Entra ID, not a replacement for it.** Leave `Mail.Read` consented in Entra and the app's effective access is the union of the two — unscoped. Remove the Entra consent, verify with `Test-ServicePrincipalAuthorization -Identity <app> -Resource <mailbox>`, and expect up to two hours for permission changes to clear the cache.
+
+The older mechanism, `New-ApplicationAccessPolicy` with a mail-enabled security group, still works and still constrains Entra-granted permissions — which RBAC does not. But Microsoft states RBAC for Applications replaces it, so new work belongs above.
 
 ### Don't create a reply loop
 
 This is the failure that does real damage. If your responder answers a message that was *itself* automated — another auto-responder, a mailing list, a bounce — the two systems can volley forever, and you can flood a mailbox, get your domain throttled, or land on a blocklist. Guard on the way *in*, before you ever reply:
 
-```python
-def is_auto_or_self(message: dict) -> bool:
-    sender = message["from"]["emailAddress"]["address"].lower()
-    if sender == MAILBOX.lower():
-        return True   # our own sent copy — never reply to ourselves
-    headers = {h["name"].lower(): h["value"]
-               for h in message.get("internetMessageHeaders", [])}
-    # RFC 3834: automated mail marks itself so responders can stand down.
-    if headers.get("auto-submitted", "no").lower().startswith("auto"):
-        return True
-    if "x-auto-response-suppress" in headers:
-        return True
-    return False
+```js
+function isAutoOrSelf(env, message) {
+  const sender = message.from?.emailAddress?.address?.toLowerCase() ?? "";
+  if (sender === env.MAILBOX.toLowerCase()) return true;   // our own sent copy
+
+  const headers = new Map(
+    (message.internetMessageHeaders ?? []).map((h) => [h.name.toLowerCase(), h.value]),
+  );
+  // RFC 3834: automated mail marks itself so responders can stand down.
+  if ((headers.get("auto-submitted") ?? "no").toLowerCase().startsWith("auto")) {
+    return true;
+  }
+  return headers.has("x-auto-response-suppress");
+}
 ```
 
 Skip your own outgoing mail, skip anything already marked automated, and — belt and braces — never reply twice to the same thread. Being a well-behaved responder also means marking your *own* replies as automated so the system on the other end stands down; you can add a custom `x-` header for that purpose to the reply's `internetMessageHeaders`.
 
-### Scope the app to the mailboxes it needs
+### Never let the subscription lapse
 
-An application permission like `Mail.ReadWrite` grants access to **every mailbox in the tenant** by default — far more than an auto-responder for one support address should hold. Contain it with an **Application Access Policy** in Exchange Online PowerShell, tying the app to a mail-enabled security group that contains only the mailboxes it may touch:
+A message subscription lives under three days and then goes silent — no error, just no more notifications, and mail that arrives in the gap is never seen again. `ensureSubscription` handles both halves of that, but the cadence matters: cron changes take up to fifteen minutes to propagate across Cloudflare's network, and a tick that fails takes the next interval to come around again. Renewing every six hours against a two-day expiry means seven consecutive failures before anything is missed.
 
-```powershell
-New-ApplicationAccessPolicy -AppId <client-id> `
-  -PolicyScopeGroupId autoresponder-mailboxes@contoso.com `
-  -AccessRight RestrictAccess `
-  -Description "Auto-responder: support mailbox only"
+Cron invocations are billed and logged separately from requests; **Cron Events** in the dashboard shows each tick and whether the handler threw, which is the first place to look when notifications stop arriving.
+
+### Move the work onto a Queue
+
+`ctx.waitUntil` runs the pipeline after the response, but nothing catches it if it fails — a transient Graph error means that email is silently never answered. [Queues](https://developers.cloudflare.com/queues/) give you retries, a delay knob, and a dead-letter queue for the ones that never succeed. Add both ends of the queue to the Wrangler config:
+
+```jsonc
+  "queues": {
+    "producers": [{ "binding": "MAIL_QUEUE", "queue": "inbound-mail" }],
+    "consumers": [{
+      "queue": "inbound-mail",
+      "max_batch_size": 10,
+      "max_retries": 5,
+      "dead_letter_queue": "inbound-mail-dlq"
+    }]
+  }
 ```
 
-Now a leaked secret exposes one mailbox instead of the whole organization. This is the single most important hardening step, so do it before the app sees real mail.
+The webhook now only enqueues, and a `queue` handler does the work. Because a failed message can be handed back for another attempt, this is also the natural home for the `Retry-After` the Graph helper captured:
 
-### Renew subscriptions before they expire
+```js
+  // in fetch(), replacing the ctx.waitUntil call:
+  await env.MAIL_QUEUE.send({ messageId: change.resourceData.id });
 
-A message subscription lives under three days and then goes silent — no error, just no more notifications. Run a timer that `PATCH`es a fresh expiry well before the deadline, and recreate the subscription if a renewal ever fails, since a lapse means missed mail during the gap.
-
-```python
-def renew(subscription_id: str) -> None:
-    body = {"expirationDateTime":
-            (datetime.now(timezone.utc) + timedelta(days=2)).isoformat()}
-    graph("PATCH", f"/subscriptions/{subscription_id}", json=body)
+  // and alongside it in the default export:
+  async queue(batch, env, ctx) {
+    for (const message of batch.messages) {
+      try {
+        await handleMessage(env, message.body.messageId);
+        message.ack();
+      } catch (err) {
+        console.error(JSON.stringify({
+          event: "handle_failed", id: message.body.messageId, error: String(err),
+        }));
+        // Throttled: wait exactly as long as Graph asked. Anything else: back
+        // off, and let max_retries carry it to the dead-letter queue.
+        message.retry({ delaySeconds: err.retryable ? err.retryAfter : 60 });
+      }
+    }
+  },
 ```
+
+Acknowledge and retry per message rather than letting an exception escape the loop — an uncaught throw leaves the *rest* of the batch unacknowledged, so one poisonous message drags nine healthy ones through the retry cycle with it.
 
 ### Expect duplicate and repeated notifications
 
-Graph aims for at-least-once delivery, not exactly-once: the same `created` event can arrive more than once, and a retry after a slow response will redeliver. Without a guard, that means replying twice. This is what the `already_replied` / `record_reply` pair in `handle_message` above is for — back them with a persistent store (a database row, a Redis set) keyed by message id, so that once a reply has gone out, any redelivery short-circuits before it can send another. An in-memory set is not enough; a restart would forget every id and re-reply to whatever redelivers.
+Graph aims for at-least-once delivery, not exactly-once: the same `created` event can arrive more than once, and a retry after a slow response will redeliver. Queues are at-least-once too, so adding one gives you a second source of duplicates rather than fewer. Without a guard, that means replying twice — which is what the `replied:` key in `handleMessage` is for.
+
+KV is the pragmatic store for that marker, but be clear about what it does and does not buy you. Writes are visible immediately in the location that made them and within about sixty seconds everywhere else, so KV reliably stops a *redelivery minutes later* and does not stop two copies of the same notification landing in two cities at once. If a double reply is genuinely unacceptable rather than merely embarrassing, move the marker to a [Durable Object](https://developers.cloudflare.com/durable-objects/) keyed by message id, or to a D1 row with a unique constraint — both give you a single serialization point that KV, by design, does not.
 
 ### Honor throttling
 
 Under load Graph returns `429 Too Many Requests` with a `Retry-After` header, as noted on the [API page](/wiki/microsoft/outlook/api#throttling). Treat it as routine: wait the stated interval and retry rather than hammering, or a burst of inbound mail will turn into a burst of failures.
+
+A Worker is the wrong place to wait out that interval — there is no sleep worth paying for, and holding an invocation open burns wall-clock time against the limits. Hand the waiting to the platform instead: `message.retry({ delaySeconds })` above puts the message back with the delay Graph asked for and costs nothing in between. Cap the consumer's `max_concurrency` if a large inbound batch keeps tripping the limit in the first place.
 
 ## External references
 
 - [Microsoft Graph change notifications overview](https://learn.microsoft.com/en-us/graph/change-notifications-overview)
 - [Create subscription (Microsoft Graph API)](https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions)
 - [message: reply (Microsoft Graph API)](https://learn.microsoft.com/en-us/graph/api/message-reply)
-- [Limit application permissions to specific mailboxes](https://learn.microsoft.com/en-us/graph/auth-limit-mailbox-access)
+- [RBAC for Applications in Exchange Online](https://learn.microsoft.com/en-us/exchange/permissions-exo/application-rbac) — scoping app permissions to specific mailboxes
 - [RFC 3834 — Recommendations for Automatic Responses to Electronic Mail](https://www.rfc-editor.org/rfc/rfc3834)
+- [Cloudflare Workers best practices](https://developers.cloudflare.com/workers/best-practices/workers-best-practices/)
+- [Wrangler configuration reference](https://developers.cloudflare.com/workers/wrangler/configuration/)
+- [`timingSafeEqual` in the Workers Web Crypto API](https://developers.cloudflare.com/workers/runtime-apis/web-crypto/#timingsafeequal)
