@@ -116,7 +116,7 @@ ln_f       768 × 2                      =        1,536
                                             124,439,808
 ```
 
-Load `gpt2` and run `sum(p.numel() for p in model.parameters())`. It returns 124,439,808 — the same number, to the digit.
+[Load](/wiki/ai/llm/running-the-checks) `gpt2` and run `sum(p.numel() for p in model.parameters())`. It returns 124,439,808 — the same number, to the digit.
 
 Now find the missing 38.6M. There is no separate unembedding in that sum, because there is no separate unembedding: check `model.transformer.wte.weight.data_ptr() == model.lm_head.weight.data_ptr()` and it's **True**, the same storage read from both edges of the model. Untie them and the total goes to 163M. The model is 124M because that table is counted once, and the check is that `data_ptr` comparison — pointer equality, not `torch.equal`, which would only tell you the numbers currently match.
 

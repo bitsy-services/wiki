@@ -35,7 +35,7 @@ Every difference between those two "bank"s is added later and further right, by 
 
 ## Check yourself
 
-Put "bank" at the same token index in two unrelated sentences — one about rivers, one about money — and run GPT-2 small with `output_hidden_states=True`, which makes it hand back the row at every step instead of just the final answer.
+Put "bank" at the same token index in two unrelated sentences — one about rivers, one about money — and [run](/wiki/ai/llm/running-the-checks) GPT-2 small with `output_hidden_states=True`, which makes it hand back the row at every step instead of just the final answer.
 
 Two things must be held fixed or the test is void. The index has to match across the two sentences, or you've changed the position vector as well and measured nothing. And it has to be the *same token*, not merely the same word — `" bank"` and `"Bank"` are different ids with unrelated rows, exactly as [tokenization](/wiki/ai/llm/tokenization) warned. A shared prefix guarantees both: "The bank was muddy" and "The bank was closed", with `" bank"` at index 1 in each.
 

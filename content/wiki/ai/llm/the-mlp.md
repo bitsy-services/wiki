@@ -13,7 +13,7 @@ And that's where the parameters live. Attention in a [GPT-2](/wiki/ai/llm/gpt-2)
 
 ## Check yourself
 
-Sum the parameters in GPT-2 small whose names contain `mlp`, and compare against the total excluding `wte` and `wpe`. You'll get 56.7M of 85.1M non-embedding parameters — 66.6%, two-thirds to the decimal — against 28.3M in attention.
+[Sum the parameters](/wiki/ai/llm/running-the-checks) in GPT-2 small whose names contain `mlp`, and compare against the total excluding `wte` and `wpe`. You'll get 56.7M of 85.1M non-embedding parameters — 66.6%, two-thirds to the decimal — against 28.3M in attention.
 
 ## Depends on / leads to
 

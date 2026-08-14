@@ -53,7 +53,7 @@ Worth pausing on, because the word "attention" invites a picture of a mutual rel
 
 ## Check yourself
 
-GPT-2 doesn't keep the three matrices apart — it fuses them. `h[0].attn.c_attn.weight` is the first block's combined Q/K/V matrix, shaped `[768, 2304]`: one 768-wide input mapped to three 768-wide outputs stacked side by side, with a matching bias. Slice both into thirds and reproduce `q`, `k`, and `v` yourself.
+GPT-2 doesn't keep the three matrices apart — it fuses them. [`h[0].attn.c_attn.weight`](/wiki/ai/llm/running-the-checks) is the first block's combined Q/K/V matrix, shaped `[768, 2304]`: one 768-wide input mapped to three 768-wide outputs stacked side by side, with a matching bias. Slice both into thirds and reproduce `q`, `k`, and `v` yourself.
 
 Each 768-wide third is *all twelve heads* laid end to end — 12 × 64 = 768 — so what you get back is every head's query at once, not the single 64-wide one described above. Cutting them apart per head is [multi-head attention](/wiki/ai/llm/multi-head-attention)'s business.
 

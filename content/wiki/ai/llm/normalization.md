@@ -13,7 +13,7 @@ Why bother: attention and the MLP see a well-conditioned input no matter how big
 
 ## Check yourself
 
-Print the L2 norm of the *last* row of `hidden_states[i]` for i = 0…11. Mind the off-by-one: those are the embedding and blocks 0–10, not blocks 1–12. The norm climbs the whole way, ~5 → ~220. Do *not* include `hidden_states[12]` — HuggingFace has already run the final norm on it, and the number goes back down.
+[Print](/wiki/ai/llm/running-the-checks) the L2 norm of the *last* row of `hidden_states[i]` for i = 0…11. Mind the off-by-one: those are the embedding and blocks 0–10, not blocks 1–12. The norm climbs the whole way, ~5 → ~220. Do *not* include `hidden_states[12]` — HuggingFace has already run the final norm on it, and the number goes back down.
 
 ## Depends on / leads to
 

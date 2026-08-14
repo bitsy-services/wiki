@@ -17,7 +17,7 @@ Truncation and [temperature](/wiki/ai/llm/softmax-and-temperature) compose, and 
 
 ## Check yourself
 
-Greedy-decode 100 tokens from [GPT-2 small](/wiki/ai/llm/gpt-2) on any prompt — it falls into a repeating phrase. Same prompt with `top_p=0.9` — no loop. Then log the nucleus size at each step: at p = 0.9 it runs from 1 to about 9,400, median ~120. No fixed `k` covers that range.
+[Greedy-decode](/wiki/ai/llm/running-the-checks) 100 tokens from [GPT-2 small](/wiki/ai/llm/gpt-2) on any prompt — it falls into a repeating phrase. Same prompt with `top_p=0.9` — no loop. Then log the nucleus size at each step: at p = 0.9 it runs from 1 to about 9,400, median ~120. No fixed `k` covers that range.
 
 ## Depends on / leads to
 

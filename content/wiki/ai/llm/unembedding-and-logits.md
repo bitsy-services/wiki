@@ -13,7 +13,7 @@ Every row produces logits, not just the bottom one. Training uses all of them ([
 
 ## Check yourself
 
-Run GPT-2 small with `output_hidden_states=True`. HuggingFace's last hidden state is already post-final-norm, so `hidden_states[-1] @ model.transformer.wte.weight.T` reproduces `outputs.logits` exactly — `torch.allclose` passes. One matmul, tied weights, no residue. If you expected an extra bias term, there isn't one.
+[Run](/wiki/ai/llm/running-the-checks) GPT-2 small with `output_hidden_states=True`. HuggingFace's last hidden state is already post-final-norm, so `hidden_states[-1] @ model.transformer.wte.weight.T` reproduces `outputs.logits` exactly — `torch.allclose` passes. One matmul, tied weights, no residue. If you expected an extra bias term, there isn't one.
 
 ## Depends on / leads to
 

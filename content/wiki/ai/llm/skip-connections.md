@@ -15,7 +15,7 @@ A modern pre-norm model has both, so the failure is gentler than the textbook ve
 
 ## Check yourself
 
-In nanoGPT, delete *both* skips in every block (`x = attn(ln(x))`, then `x = mlp(ln(x))`) and train on char-level Shakespeare. With skips, loss falls 5.0 → 2.4; without, 5.0 → 3.4, where it flattens. Don't bother watching gradient norms: with LayerNorm in place they don't decay toward block 0 at all. The vanishing-gradient story is about *unnormalized* networks, not this one.
+In [nanoGPT](/wiki/ai/llm/running-the-checks), delete *both* skips in every block (`x = attn(ln(x))`, then `x = mlp(ln(x))`) and train on char-level Shakespeare. With skips, loss falls 5.0 → 2.4; without, 5.0 → 3.4, where it flattens. Don't bother watching gradient norms: with LayerNorm in place they don't decay toward block 0 at all. The vanishing-gradient story is about *unnormalized* networks, not this one.
 
 ## Depends on / leads to
 

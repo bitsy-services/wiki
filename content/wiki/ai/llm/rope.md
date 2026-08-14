@@ -56,7 +56,7 @@ Three things fall out, and each is a direct consequence of encoding position as 
 
 ## Check yourself
 
-Rotate a random q/k pair at positions (3, 7) and take the dot product. Rotate the same vectors at (103, 107) — same offset, far-off positions — and take it again: they agree to floating-point noise. Try (3, 107) and it collapses. Ten lines of torch, no download, and you've watched absolute position drop out of the score — the whole mechanism in one experiment.
+[Rotate](/wiki/ai/llm/running-the-checks) a random q/k pair at positions (3, 7) and take the dot product. Rotate the same vectors at (103, 107) — same offset, far-off positions — and take it again: they agree to floating-point noise. Try (3, 107) and it collapses. Ten lines of torch, no download, and you've watched absolute position drop out of the score — the whole mechanism in one experiment.
 
 ## Depends on / leads to
 

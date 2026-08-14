@@ -54,7 +54,7 @@ Perplexity measures fit to *a distribution*, so it moves with the text. GPT-2's 
 
 ## Check yourself
 
-Perplexity's floor and its missing ceiling are both a few lines to confirm on GPT-2 small. Tokenize a run of one repeated token — `"a a a a a a a a a a"` — and evaluate `torch.exp(model(ids, labels=ids).loss)`. After the first, the model is nearly certain the next token repeats, so the per-token loss collapses and perplexity comes back barely above 1: the one-sided die.
+Perplexity's floor and its missing ceiling are both a few lines to confirm on GPT-2 small. Tokenize a run of one repeated token — `"a a a a a a a a a a"` — and evaluate [`torch.exp(model(ids, labels=ids).loss)`](/wiki/ai/llm/running-the-checks). After the first, the model is nearly certain the next token repeats, so the per-token loss collapses and perplexity comes back barely above 1: the one-sided die.
 
 Now the other extreme: feed `torch.randint(0, 50257, (1, 512))` — uniformly random token ids — through the same call. Perplexity lands not near 50,257 but well past it, into the tens of thousands. The model isn't merely ignorant of what random noise comes next; it's confidently expecting real English and getting garbage, and being confidently wrong scores worse than the uniform guess. Break either result and you've misunderstood what the number counts.
 

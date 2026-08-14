@@ -77,7 +77,7 @@ This page is the shape of the thing. Four pages take it apart:
 
 Test the claim in the first paragraph: that attention is the only path between positions. Run [GPT-2 small](/wiki/ai/llm/gpt-2) on a sentence and keep the final row for the last token. Change a word near the *start* and re-run — the last row moves, as you'd expect, because information travelled.
 
-Now do it with attention switched off. Zero every block's attention output with a forward hook — PyTorch's callback for replacing a module's output — on `model.transformer.h[i].attn.c_proj`, returning `torch.zeros_like(output)`. Hook `c_proj` rather than `.attn` itself: `.attn` hands back a tuple, not a plain tensor, and the block will index into your replacement instead of using it.
+Now do it with attention switched off. Zero every block's attention output with a [forward hook](/wiki/ai/llm/running-the-checks) — PyTorch's callback for replacing a module's output — on `model.transformer.h[i].attn.c_proj`, returning `torch.zeros_like(output)`. Hook `c_proj` rather than `.attn` itself: `.attn` hands back a tuple, not a plain tensor, and the block will index into your replacement instead of using it.
 
 Swap that early word for **another single token** and the last row now comes back bit-identical. Keep the token count fixed or the test is void — a replacement that tokenizes to a different length shifts every later position, which changes their positional embeddings and moves the row for reasons that have nothing to do with attention.
 

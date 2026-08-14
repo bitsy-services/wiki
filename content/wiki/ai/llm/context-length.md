@@ -15,7 +15,7 @@ And the [KV cache](/wiki/ai/llm/kv-cache) grows linearly, which usually stops yo
 
 ## Check yourself
 
-Count FLOPs; don't trust a stopwatch. The score matmul's FLOPs quadruple per doubling of n, while a full GPT-2 small forward pass at n = 128 → 1024 grows only ~1.1–1.5× per doubling — you're below the crossover. Time that matmul and the wall-clock won't quadruple cleanly: small n is overhead-bound, and past n ≈ 1024 the score matrix falls out of cache and jumps by *more* than 4×.
+Count FLOPs; don't trust a stopwatch. The score matmul's FLOPs quadruple per doubling of n, while a full GPT-2 small [forward pass](/wiki/ai/llm/running-the-checks) at n = 128 → 1024 grows only ~1.1–1.5× per doubling — you're below the crossover. Time that matmul and the wall-clock won't quadruple cleanly: small n is overhead-bound, and past n ≈ 1024 the score matrix falls out of cache and jumps by *more* than 4×.
 
 ## Depends on / leads to
 

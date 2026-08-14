@@ -15,7 +15,7 @@ What none of this does is teach new capabilities. It reweights among behaviours 
 
 ## Check yourself
 
-Measure [perplexity](/wiki/ai/llm/perplexity) on plain WikiText for a base/instruct pair. Qwen2.5-0.5B is ungated and runs in minutes: base 17.9, Instruct 20.0. The aligned sibling is reliably worse at raw prose. Careful what you conclude, though: that gap bundles the fine-tune, the preference optimization, and a changed data mix. It's the post-training tax, not RLHF's share alone.
+Measure [perplexity](/wiki/ai/llm/perplexity) on plain WikiText for a base/instruct pair. [Qwen2.5-0.5B](/wiki/ai/llm/running-the-checks) is ungated and runs in minutes: base 17.9, Instruct 20.0. The aligned sibling is reliably worse at raw prose. Careful what you conclude, though: that gap bundles the fine-tune, the preference optimization, and a changed data mix. It's the post-training tax, not RLHF's share alone.
 
 ## Depends on / leads to
 

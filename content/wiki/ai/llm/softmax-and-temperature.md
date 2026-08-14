@@ -19,7 +19,7 @@ What temperature does **not** do is change the ranking. It's a monotone transfor
 
 ## Check yourself
 
-Take one position's logits from [GPT-2 small](/wiki/ai/llm/gpt-2) and softmax at `T` = 0.5, 1.0, 2.0. `argmax` is identical in all three. Entropy rises monotonically with `T`, and the top token's probability falls. Then add 100 to every logit and confirm the probabilities don't budge.
+[Take](/wiki/ai/llm/running-the-checks) one position's logits from [GPT-2 small](/wiki/ai/llm/gpt-2) and softmax at `T` = 0.5, 1.0, 2.0. `argmax` is identical in all three. Entropy rises monotonically with `T`, and the top token's probability falls. Then add 100 to every logit and confirm the probabilities don't budge.
 
 ## Depends on / leads to
 

@@ -19,7 +19,7 @@ Tokens are the unit of everything downstream, too. The context limit, the bill, 
 
 ## Check yourself
 
-Encode `" cat"` and `"cat"` with tiktoken's `gpt2` encoding: 3797 and 9246, neither derivable from the other. Then encode `"1234567"`. It comes apart as `123|45|67` — chunks that respect nothing about place value.
+Encode `" cat"` and `"cat"` with [tiktoken](/wiki/ai/llm/running-the-checks)'s `gpt2` encoding: 3797 and 9246, neither derivable from the other. Then encode `"1234567"`. It comes apart as `123|45|67` — chunks that respect nothing about place value.
 
 ## Depends on / leads to
 

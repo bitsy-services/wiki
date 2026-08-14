@@ -13,7 +13,7 @@ The failure mode is load collapse: the router finds three experts it likes, star
 
 ## Check yourself
 
-In nanoGPT, swap one block's MLP for eight copies plus a linear router, top-1. That block goes from 7.1M parameters to 40.2M — 5.67×, because the MLP was two-thirds of it — while step time barely moves. Then log the router's pick per token: adjacent tokens frequently land on different experts.
+In [nanoGPT](/wiki/ai/llm/running-the-checks), swap one block's MLP for eight copies plus a linear router, top-1. That block goes from 7.1M parameters to 40.2M — 5.67×, because the MLP was two-thirds of it — while step time barely moves. Then log the router's pick per token: adjacent tokens frequently land on different experts.
 
 ## Depends on / leads to
 

@@ -13,7 +13,7 @@ With one exception, and it's the interesting one. [GPT-2](/wiki/ai/llm/gpt-2) le
 
 ## Check yourself
 
-List the parameters of GPT-2 small whose shape mentions 1024: `[n for n, p in model.named_parameters() if 1024 in p.shape]`. You get `transformer.wpe.weight`, and nothing else. Every other weight in the model is blind to how long the sequence is.
+[List the parameters](/wiki/ai/llm/running-the-checks) of GPT-2 small whose shape mentions 1024: `[n for n, p in model.named_parameters() if 1024 in p.shape]`. You get `transformer.wpe.weight`, and nothing else. Every other weight in the model is blind to how long the sequence is.
 
 ## Depends on / leads to
 

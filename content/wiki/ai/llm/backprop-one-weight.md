@@ -13,7 +13,7 @@ Then `w ← w − lr · ∂L/∂w`. Adam, momentum, warmup — all refinements o
 
 ## Check yourself
 
-Take a single weight in nanoGPT and record autograd's gradient. Now compute it by hand: `(L(w+ε) − L(w−ε)) / 2ε`, `ε = 1e-3`, same batch, model in `eval()` (dropout will destroy the difference), cross-entropy computed yourself in float64. The two agree to ~7 significant figures. That's the standard gradient check, and it's the fastest way to prove a hand-written backward pass wrong.
+Take a single weight in [nanoGPT](/wiki/ai/llm/running-the-checks) and record autograd's gradient. Now compute it by hand: `(L(w+ε) − L(w−ε)) / 2ε`, `ε = 1e-3`, same batch, model in `eval()` (dropout will destroy the difference), cross-entropy computed yourself in float64. The two agree to ~7 significant figures. That's the standard gradient check, and it's the fastest way to prove a hand-written backward pass wrong.
 
 ## Depends on / leads to
 

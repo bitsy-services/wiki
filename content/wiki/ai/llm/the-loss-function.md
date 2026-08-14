@@ -19,7 +19,7 @@ Nearly every row contributes: a 1024-token sequence yields 1023 supervised predi
 
 ## Check yourself
 
-`model(ids, labels=ids).loss` must equal `F.cross_entropy(logits[:, :-1].flatten(0, 1), ids[:, 1:].flatten())` — HuggingFace shifts the labels internally. Compute both; they agree exactly. Skip the shift and you get 12.9 instead of 3.3 — the most common bug in a from-scratch implementation.
+[`model(ids, labels=ids).loss`](/wiki/ai/llm/running-the-checks) must equal `F.cross_entropy(logits[:, :-1].flatten(0, 1), ids[:, 1:].flatten())` — HuggingFace shifts the labels internally. Compute both; they agree exactly. Skip the shift and you get 12.9 instead of 3.3 — the most common bug in a from-scratch implementation.
 
 ## Depends on / leads to
 

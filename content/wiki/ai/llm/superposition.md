@@ -57,7 +57,7 @@ Which is where the Golden Gate Bridge comes in. Anthropic's widely-reported resu
 
 ## Check yourself
 
-Sample 10,000 random unit vectors in 768 dimensions and take the largest pairwise cosine similarity — the standard measure of how aligned two directions are, where 1 is identical and 0 is exactly perpendicular. It lands around 0.2. Ten thousand directions, drawn *at random* with no coordination whatsoever, and the worst-aligned pair among all fifty million pairs is still nearly perpendicular. That's the room superposition is exploiting, and you get it for free.
+[Sample](/wiki/ai/llm/running-the-checks) 10,000 random unit vectors in 768 dimensions and take the largest pairwise cosine similarity — the standard measure of how aligned two directions are, where 1 is identical and 0 is exactly perpendicular. It lands around 0.2. Ten thousand directions, drawn *at random* with no coordination whatsoever, and the worst-aligned pair among all fifty million pairs is still nearly perpendicular. That's the room superposition is exploiting, and you get it for free.
 
 Now repeat in 8 dimensions. Near-orthogonality collapses immediately — random vectors are all over each other, and there's nowhere to hide a feature. The gap between those two results is the whole capacity story, and it is entirely a fact about dimension.
 

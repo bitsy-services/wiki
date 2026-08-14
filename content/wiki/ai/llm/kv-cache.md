@@ -13,7 +13,7 @@ The price is memory, and it's linear in context. Two tensors per block per row: 
 
 ## Check yourself
 
-Generate greedily from GPT-2 small with `use_cache=True`, then `False`. The tokens come out identical — the cache is an optimization, not an approximation. The speedup is smaller than you'd guess and grows with context: ~2× at 200 tokens, ~4.8× at 1000. Decode is bound by reading the 124M weights, which both runs do; the cache only removes attention work.
+[Generate](/wiki/ai/llm/running-the-checks) greedily from GPT-2 small with `use_cache=True`, then `False`. The tokens come out identical — the cache is an optimization, not an approximation. The speedup is smaller than you'd guess and grows with context: ~2× at 200 tokens, ~4.8× at 1000. Decode is bound by reading the 124M weights, which both runs do; the cache only removes attention work.
 
 ## Depends on / leads to
 

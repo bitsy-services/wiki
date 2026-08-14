@@ -11,7 +11,7 @@ Worth underlining: the head is strictly vertical. It moves information between r
 
 ## Check yourself
 
-Load [GPT-2 small](/wiki/ai/llm/gpt-2) with `attn_implementation="eager"` — the default SDPA path returns an *empty* attentions tuple and no warning — and run it with `output_attentions=True`. `attentions[0][0, 0]` is a square matrix: every row of it sums to 1.0, and every weight a row assigns to a row *below* itself is exactly 0.0. Now change a word near the top and re-run. Rows below it move; rows above it are bit-identical. The pattern is a function of the input — but only of the input a row can see.
+Load [GPT-2 small](/wiki/ai/llm/gpt-2) with `attn_implementation="eager"` — the default SDPA path returns an *empty* attentions tuple and no warning — and run it with [`output_attentions=True`](/wiki/ai/llm/running-the-checks). `attentions[0][0, 0]` is a square matrix: every row of it sums to 1.0, and every weight a row assigns to a row *below* itself is exactly 0.0. Now change a word near the top and re-run. Rows below it move; rows above it are bit-identical. The pattern is a function of the input — but only of the input a row can see.
 
 ## Depends on / leads to
 

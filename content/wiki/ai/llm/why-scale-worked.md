@@ -102,7 +102,7 @@ That's the payoff of getting the insight right. "Attention was the breakthrough"
 
 The argument rests on one claim you can test in a couple of lines: **one forward pass produces a supervised prediction at every position at once, from text that labelled itself.**
 
-Take a 1024-token chunk of anything and run [GPT-2 small](/wiki/ai/llm/gpt-2) as `out = model(ids, labels=ids)`. Look at what you passed: the same tensor, twice. There is no label argument distinct from the input, because there is no label — the model shifts the text by one internally and scores against it. `out.loss` comes back a single scalar averaged over 1023 predictions, and you supplied no annotation to get any of them.
+Take a 1024-token chunk of anything and run [GPT-2 small](/wiki/ai/llm/gpt-2) as [`out = model(ids, labels=ids)`](/wiki/ai/llm/running-the-checks). Look at what you passed: the same tensor, twice. There is no label argument distinct from the input, because there is no label — the model shifts the text by one internally and scores against it. `out.loss` comes back a single scalar averaged over 1023 predictions, and you supplied no annotation to get any of them.
 
 Now test the parallel half. From that one pass, `model(ids).logits[0, k]` is the prediction made at position `k`. Recompute it the expensive way, with a pass that has never seen a token past `k`: `model(ids[:, :k+1]).logits[0, -1]`. The two match for every `k` you care to try — [the causal mask](/wiki/ai/llm/causal-mask) guarantees it, since position `k` could not have peeked forward anyway.
 
