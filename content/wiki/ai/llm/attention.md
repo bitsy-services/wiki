@@ -81,7 +81,7 @@ Now do it with attention switched off. Zero every block's attention output with 
 
 Swap that early word for **another single token** and the last row now comes back bit-identical. Keep the token count fixed or the test is void — a replacement that tokenizes to a different length shifts every later position, which changes their positional embeddings and moves the row for reasons that have nothing to do with attention.
 
-With attention gone, position 5 cannot be reached by anything at position 2: every remaining part of the model — [the MLP](/wiki/ai/llm/the-mlp) and the [norms](/wiki/ai/llm/normalization) included — only ever reads the row it's standing on. Generate from it and you'll see what that costs. Predicting from one token and its position alone is roughly a lookup table over single tokens, so greedy decoding falls into a loop almost immediately. Not a model writing badly — a model that cannot read its own prompt.
+With attention gone, position 5 cannot be reached by anything at position 2: every remaining part of the model — [the MLP](/wiki/ai/llm/multi-layer-perceptron) and the [norms](/wiki/ai/llm/normalization) included — only ever reads the row it's standing on. Generate from it and you'll see what that costs. Predicting from one token and its position alone is roughly a lookup table over single tokens, so greedy decoding falls into a loop almost immediately. Not a model writing badly — a model that cannot read its own prompt.
 
 ## Depends on / leads to
 

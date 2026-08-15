@@ -26,7 +26,7 @@ The words this subsection uses — and it uses only these. Third column: what th
 
 ## Words this subsection avoids
 
-- **"Layer"** — ambiguous between a block and a sublayer inside it. Say *block*, *attention*, or *MLP*. (LayerNorm keeps its name; it's a proper noun.)
+- **"Layer"** — ambiguous between a block and a sublayer inside it. Say *block*, *attention*, or *MLP*. (LayerNorm and [multi-layer perceptron](/wiki/ai/llm/multi-layer-perceptron) keep their names; those are fixed terms, not descriptions.)
 - **"Deeper," "up the stack"** — spatially wrong here; depth runs rightward. See [conventions](/wiki/ai/llm/conventions).
 - **"Column"** — a row is never one, whatever shape the tensor is in memory.
 

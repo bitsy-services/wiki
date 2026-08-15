@@ -7,7 +7,7 @@ Almost everything a transformer does to a row is, arithmetically, a straight lin
 
 ## Why a bend is necessary
 
-[The MLP](/wiki/ai/llm/the-mlp) is two matrices with something in between: widen the row from 768 to 3072, do the something, narrow it back. Take the something away and watch what happens.
+[The MLP](/wiki/ai/llm/multi-layer-perceptron) is two matrices with something in between: widen the row from 768 to 3072, do the something, narrow it back. Take the something away and watch what happens.
 
 Multiplying by matrix `A` and then by matrix `B` is the same as multiplying by a single matrix `C = A·B`. That isn't an approximation or a trick; it's what matrix multiplication *is*, and you can precompute `C` once and throw both originals away. So an MLP with no bend — 768 → 3072 → 768, about 4.7M parameters — is exactly equal to one 768 × 768 matrix holding 590K. The [bulge](/wiki/ai/llm/glossary) is refunded in full. Worse, the collapse doesn't stop at one block: chain twelve bend-free MLPs and they fold into a single matrix too.
 
@@ -85,4 +85,4 @@ Now the `float64`. Run that same test in `float32`, the dtype you'd reach for by
 
 ## Depends on / leads to
 
-Depends on [the MLP](/wiki/ai/llm/the-mlp). Leads to [LayerNorm and RMSNorm](/wiki/ai/llm/normalization).
+Depends on [the MLP](/wiki/ai/llm/multi-layer-perceptron). Leads to [LayerNorm and RMSNorm](/wiki/ai/llm/normalization).

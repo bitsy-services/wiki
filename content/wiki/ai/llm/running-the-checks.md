@@ -9,7 +9,7 @@ Every page in this section ends with a *Check yourself* — a short experiment t
 
 The experiments differ in what they need in front of you, and it's worth knowing which kind you're looking at before you start:
 
-- **Load and look.** Most of them. Download [GPT-2 small](/wiki/ai/llm/gpt-2), run one forward pass, and read the numbers that come back — no training, a second or two on a plain CPU. [Perplexity](/wiki/ai/llm/perplexity), [the residual stream](/wiki/ai/llm/residual-stream), [attention](/wiki/ai/llm/attention), and [the unembedding](/wiki/ai/llm/unembedding-and-logits) all live here.
+- **Load and look.** Most of them. Download [GPT-2 small](/wiki/ai/llm/gpt-2), run one forward pass, and read the numbers that come back — no training, a second or two on a plain CPU. [Neural networks](/wiki/ai/llm/neural-networks), [perplexity](/wiki/ai/llm/perplexity), [the residual stream](/wiki/ai/llm/residual-stream), [attention](/wiki/ai/llm/attention), and [the unembedding](/wiki/ai/llm/unembedding-and-logits) all live here.
 - **Train a tiny model.** A handful — [skip connections](/wiki/ai/llm/skip-connections), [backprop through one weight](/wiki/ai/llm/backprop-one-weight), [mixture of experts](/wiki/ai/llm/mixture-of-experts), [grouped-query attention](/wiki/ai/llm/grouped-query-attention), [fine-tuning](/wiki/ai/llm/fine-tuning) — change the architecture and watch the loss move. Those use nanoGPT and take minutes, not seconds.
 - **No model at all.** A few — [GELU and SwiGLU](/wiki/ai/llm/activations), [RoPE](/wiki/ai/llm/rope), [superposition](/wiki/ai/llm/superposition), [context length](/wiki/ai/llm/context-length), [tokenization](/wiki/ai/llm/tokenization) — are pure arithmetic on random tensors, or a tokenizer with no weights behind it. They download nothing.
 
@@ -136,4 +136,4 @@ torch.exp(outputs.loss)             # GPT-2's perplexity on the sentence
 
 ## Depends on / leads to
 
-Depends on [GPT-2](/wiki/ai/llm/gpt-2), the model these checks all run against. Leads to every page's *Check yourself*; the reading order proper resumes at [tokenization](/wiki/ai/llm/tokenization).
+Depends on [GPT-2](/wiki/ai/llm/gpt-2), the model these checks all run against. Leads to every page's *Check yourself*; the reading order proper resumes at [neural networks](/wiki/ai/llm/neural-networks).

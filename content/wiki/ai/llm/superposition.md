@@ -9,7 +9,7 @@ A model keeps track of far more things than it has room for. Superposition is ho
 
 Start with what the model is storing. "This text is French." "This token is a proper noun." "We're inside a quotation." Each of these is, to a good approximation, a single **direction** in [the residual stream](/wiki/ai/llm/residual-stream) — and how far a row points along that direction is how strongly the feature is present.
 
-Not a slot, and not one of [the MLP's hidden units](/wiki/ai/llm/the-mlp) — the individual detectors people usually have in mind when they say *neuron*. A direction, which is a thing you can have an unlimited number of in principle and a very limited number of in practice.
+Not a slot, and not one of [the MLP's hidden units](/wiki/ai/llm/multi-layer-perceptron) — the individual detectors people usually have in mind when they say *neuron*. A direction, which is a thing you can have an unlimited number of in principle and a very limited number of in practice.
 
 ## The arithmetic problem
 
@@ -63,4 +63,4 @@ Now repeat in 8 dimensions. Near-orthogonality collapses immediately — random 
 
 ## Depends on / leads to
 
-Depends on [the residual stream](/wiki/ai/llm/residual-stream) and [the MLP](/wiki/ai/llm/the-mlp). Leads to [fine-tuning](/wiki/ai/llm/fine-tuning).
+Depends on [the residual stream](/wiki/ai/llm/residual-stream) and [the MLP](/wiki/ai/llm/multi-layer-perceptron). Leads to [fine-tuning](/wiki/ai/llm/fine-tuning).

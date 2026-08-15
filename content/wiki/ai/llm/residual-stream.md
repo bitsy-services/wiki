@@ -24,7 +24,7 @@ row = row + attention(norm(row))
 row = row + mlp(norm(row))
 ```
 
-Read it twice, because the shape of it is the point. [Attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/the-mlp) never see the stream directly — they read a [normalized](/wiki/ai/llm/normalization) *copy* of it, and their output is added back. The stream itself is never overwritten by anyone.
+Read it twice, because the shape of it is the point. [Attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/multi-layer-perceptron) never see the stream directly — they read a [normalized](/wiki/ai/llm/normalization) *copy* of it, and their output is added back. The stream itself is never overwritten by anyone.
 
 So the row leaving the last block of [GPT-2 small](/wiki/ai/llm/gpt-2) is the [embedding](/wiki/ai/llm/embeddings) plus 24 contributions: 12 from attention, 12 from the MLP, each of them [`d_model`](/wiki/ai/llm/glossary) wide. (The MLP widens a row internally on its way through, but writes back at the same width it read.) That running sum is the residual stream.
 
@@ -62,4 +62,4 @@ The pairing is the point. The first ablation is what losing a contributor costs 
 
 ## Depends on / leads to
 
-Depends on [embeddings](/wiki/ai/llm/embeddings). Leads to [attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/the-mlp).
+Depends on [embeddings](/wiki/ai/llm/embeddings). Leads to [attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/multi-layer-perceptron).

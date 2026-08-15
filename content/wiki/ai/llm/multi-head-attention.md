@@ -66,4 +66,4 @@ That every head owns *all three* of its projections is a GPT-2-era choice, and t
 
 ## Depends on / leads to
 
-Depends on [Q/K/V](/wiki/ai/llm/qkv-projections). Leads to [the MLP](/wiki/ai/llm/the-mlp), the other half of a block.
+Depends on [Q/K/V](/wiki/ai/llm/qkv-projections). Leads to [the MLP](/wiki/ai/llm/multi-layer-perceptron), the other half of a block.

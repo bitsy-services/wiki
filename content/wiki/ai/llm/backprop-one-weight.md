@@ -17,7 +17,7 @@ There is an obvious way to get that number without any calculus. Nudge `w` up by
 
 Do the arithmetic on what it costs. Two forward passes per weight, 124 million weights, so roughly 250 million forward passes — to compute *one* training step. GPT-2 was trained for hundreds of thousands of steps. Multiply those together and the answer isn't "slow," it's a number with no physical meaning.
 
-Backprop produces every one of those 124 million gradients for about the cost of two more forward passes. Not two per weight — two, total. That factor of tens of millions is not an optimization; it is the entire reason training a neural network is a thing anyone can do, and it's why the same idea has survived unchanged since the 1980s while everything around it was replaced.
+Backprop produces every one of those 124 million gradients for about the cost of two more forward passes. Not two per weight — two, total. That factor of tens of millions is not an optimization; it is the entire reason training a [neural network](/wiki/ai/llm/neural-networks) is a thing anyone can do, and it's why the same idea has survived unchanged since the 1980s while everything around it was replaced.
 
 ## The sweep, and where the savings come from
 
