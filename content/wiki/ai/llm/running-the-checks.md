@@ -59,7 +59,7 @@ model.transformer.h[i].mlp           the block's MLP
 model.lm_head.weight             the unembedding — the same storage as wte.weight
 ```
 
-That `wte`/`lm_head` sharing is [weight tying](/wiki/ai/llm/weight-sharing), and `c_attn` being one matrix rather than three is covered under [Q/K/V projections](/wiki/ai/llm/qkv-projections).
+That `wte`/`lm_head` sharing is [weight tying](/wiki/ai/llm/unembedding-and-logits), and `c_attn` being one matrix rather than three is covered under [Q/K/V projections](/wiki/ai/llm/qkv-projections).
 
 ### Two more switches some checks flip
 

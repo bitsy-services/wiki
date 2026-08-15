@@ -3,13 +3,50 @@ title: "The MLP"
 weight: 170
 ---
 
-[Attention](/wiki/ai/llm/attention) moves information between rows. The MLP is what the block does *to* a row once it has what it needs — and it never looks at another row.
+The MLP — a *multi-layer perceptron*, the plainest kind of neural network there is — is where a transformer keeps most of what it knows. [Attention](/wiki/ai/llm/attention) is the half of a block that moves information between words; the MLP is what the model does with a word once it has gathered whatever it needed, thinking about that position alone and without reference to any other. It is much the plainer of the two mechanisms and much the larger: most of the model's weights sit here, and so, as far as anyone has been able to determine, do most of its facts.
 
-Mechanically it's two matrices with a nonlinearity between them: 768 → 3072, [GELU](/wiki/ai/llm/activations), 3072 → 768. That widening is the **MLP bulge**, the only place in the model where a row isn't `d_model` wide. Nothing mixes across rows on the way through; each row goes in and comes back alone.
+## What's left to do once attention has run
 
-The useful reading is detect-and-write. Take one of the 3072 hidden units. Its input weights define a direction in the row's space, and the unit lights up when the row points that way — GELU squashes everything else toward zero, so it's a detector with a soft threshold, not a proportional readout. Its output weights define a *different* direction, which it writes into the [residual stream](/wiki/ai/llm/residual-stream), scaled by how hard it fired. Detect a feature, write a feature. Three thousand of those, per block. (The literature calls this a key-value memory. Nothing to do with attention's keys and values, or with the [KV cache](/wiki/ai/llm/kv-cache).)
+Attention has just delivered a blend of whatever the earlier words were offering. That sounds like the hard part is over, and it leaves one thing undone.
 
-And that's where the parameters live. Attention in a [GPT-2](/wiki/ai/llm/gpt-2) block is four 768×768 matrices, about 2.4M weights. The MLP is two 768×3072 matrices, about 4.7M. Two-thirds of every block — and most of what the model knows — sits in the bulge, which tends to surprise people who have spent all their attention on attention.
+Everything attention produces is a **weighted average of things already present**. Given the pattern, its output is a straight sum of value vectors — so whatever it hands back was assembled out of material already lying around at other positions. Attention decides *what to gather* in a thoroughly conditional way, since the pattern is computed from the row through a softmax. What it cannot do is produce something that wasn't in the context to begin with.
+
+And gathering isn't enough. Suppose attention has successfully established that this occurrence of `" bank"` sits in a sentence full of rivers. Something now has to act on that: suppress the finance associations, promote the ones about water and edges, and write a conclusion into the row that no earlier position ever supplied. Nothing assembled by averaging over the context can introduce that — it can only recombine what the context already held. The MLP is the part with the freedom to write something new, which is why a block needs both halves and why neither is optional.
+
+## Two matrices and a bend
+
+Mechanically there is almost nothing to it. The row is widened, bent, and squeezed back:
+
+```text
+       768  ──▶  3072  ──▶  768
+              GELU
+```
+
+Multiply by a matrix to go from `d_model` to four times that, apply [GELU](/wiki/ai/llm/activations) — the nonlinearity, the *bend*, and the reason the two matrices don't collapse into one — then multiply by a second matrix to come back down. That widening is the **MLP bulge**, the only place in the entire model where a row isn't `d_model` wide. Nothing mixes across rows on the way through: each row goes in alone and comes back alone.
+
+## The useful reading: detect, then write
+
+Two matrices with a bend is accurate and tells you nothing. The reading that does is to look at one of the 3072 hidden units on its own.
+
+Its **input weights** define a direction in the row's space. The unit lights up when the row points that way, and GELU squashes everything else toward zero — so it behaves like a detector with a soft threshold rather than a proportional readout. Its **output weights** define a *different* direction entirely, which it writes into [the residual stream](/wiki/ai/llm/residual-stream), scaled by how hard it fired.
+
+Detect a feature, write a feature. Three thousand of those, per block, all running at once and summing their contributions.
+
+That makes an MLP something like three thousand soft if-then rules: *if this row looks like X, add Y to it.* The rules are fuzzy, they overlap, and many fire a little on almost everything — but "a big pile of learned conditional edits to the row" is much closer to what's happening than "a neural network layer." (The literature calls this a key-value memory. It has nothing to do with attention's keys and values, or with [the KV cache](/wiki/ai/llm/kv-cache).)
+
+## Why it's four times wider in the middle
+
+The bulge isn't arbitrary, and what has survived from the original transformer through to models a thousand times larger is the *budget* it implies: about 8·`d_model`² weights in the MLP, whichever way you arrange them. Two matrices at 4× width comes to exactly that, and so — not by coincidence — does the three-matrix, `8/3 · d_model`-wide arrangement that [SwiGLU](/wiki/ai/llm/activations) models use instead. The multiplier moved; the budget didn't.
+
+The reason to widen at all is that the number of hidden units is the number of detectors, and a block wants far more detectors than the row has dimensions to spare. A 768-wide row can hold at most 768 mutually perpendicular directions; the MLP builds 3072 detectors over it. They cannot all be perpendicular, so they interfere — which is tolerable only because on any given token almost none of them fire, and that trade is [superposition](/wiki/ai/llm/superposition), the subject of its own page.
+
+The reason not to widen further is cost: the two matrices are the model's largest, and their size scales directly with the multiplier.
+
+## Where the parameters live
+
+And that is where the weights are. Attention in a [GPT-2](/wiki/ai/llm/gpt-2) block is four 768×768 matrices, about 2.4M weights. The MLP is two 768×3072 matrices, about 4.7M. Two-thirds of every block — and, on the current evidence, most of what the model knows — sits in the bulge.
+
+This tends to surprise people who have spent all their attention on attention. It also explains why [mixture of experts](/wiki/ai/llm/mixture-of-experts) targets the MLP and leaves attention untouched: if you want to add parameters without adding cost per token, you go where the parameters already are.
 
 ## Check yourself
 

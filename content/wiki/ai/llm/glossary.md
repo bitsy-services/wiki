@@ -7,6 +7,9 @@ The words this subsection uses — and it uses only these. Third column: what th
 
 | Term | Means | Elsewhere called |
 |---|---|---|
+| **token** | one entry from the model's fixed inventory of text chunks, roughly the size of a short word. The unit everything downstream is counted in | subword, BPE token, wordpiece |
+| **vocabulary** | the whole inventory of tokens — 50,257 in [GPT-2](/wiki/ai/llm/gpt-2). Sets the width of the logits | vocab, `n_vocab` |
+| **weights** | the numbers the model's arithmetic is done with, and the only thing training changes. *Parameters* means the same thing, and this subsection uses both — "weights" by default, "parameters" where the surrounding term of art demands it | `n_params` |
 | **row** | one token position's vector at some depth — `d_model` numbers wide | activation, hidden state, token representation |
 | **`d_model`** | the row width. 768 in [GPT-2 small](/wiki/ai/llm/gpt-2), and fixed from embedding to unembedding | `n_embd`, hidden size, model dimension |
 | **residual stream** | the row seen as a bus running rightward through every block: blocks add into it and never overwrite it | hidden state, skip path |
@@ -19,6 +22,7 @@ The words this subsection uses — and it uses only these. Third column: what th
 | **unembedding** | the matrix that turns the final row into logits. Tied to the embedding in GPT-2 | `lm_head`, output head, `W_U` |
 | **perplexity** | `exp(loss)` — roughly, how many tokens the model is choosing between | PPL |
 | **feature** | a direction in the stream that means something | concept, latent |
+| **base model** | a model after next-token training and before any [fine-tuning](/wiki/ai/llm/fine-tuning) — a text predictor, not yet an assistant | pretrained model, foundation model |
 
 ## Words this subsection avoids
 
