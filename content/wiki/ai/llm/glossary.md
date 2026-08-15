@@ -15,6 +15,7 @@ The words this subsection uses — and it uses only these. Third column: what th
 | **residual stream** | the row seen as a bus running rightward through every block: blocks add into it and never overwrite it | hidden state, skip path |
 | **block** | one attention plus one MLP, each wrapped in a norm and a skip connection. GPT-2 small has 12 | layer, transformer layer, decoder layer |
 | **MLP bulge** | the MLP widening a row to 4×`d_model` (3072) and back down. The only place a row isn't `d_model` wide | feed-forward, FFN, hidden dim |
+| **bend** | the fixed nonlinear function applied to each number on its own between two matrix multiplications, and the reason the two don't collapse into one. Holds no weights and learns nothing. A nonlinearity that reads more than one number at a time — softmax, a norm — is not a bend | activation function, nonlinearity |
 | **head** | one attention channel: its own Q/K/V projections into a 64-wide subspace. 12 per block in GPT-2 small | attention head |
 | **attention pattern** | one row's post-softmax weights over the rows it can see. Sums to 1 | attention weights, attention map |
 | **KV cache** | keys and values already computed for earlier rows, kept so the next token doesn't recompute them | `past_key_values`, decoder cache |

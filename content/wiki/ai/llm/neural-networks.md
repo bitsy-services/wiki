@@ -25,11 +25,11 @@ The shape itself is monotonous, which is the surprising part. One stage does two
    numbers in  ──▶  multiply by a table of weights  ──▶  bend each result  ──▶  numbers out
 ```
 
-The multiply is a matrix multiplication: every output number is a weighted sum of every input number, with the weights being the blanks that training fills in. The bend is a fixed, simple, nonlinear function applied to each number on its own — nothing is learned in it and it has no weights of its own.
+The multiply is a matrix multiplication: every output number is a weighted sum of every input number, with the weights being the blanks that training fills in. The [bend](/wiki/ai/llm/bend) is a fixed, simple, nonlinear function applied to each number on its own — nothing is learned in it and it has no weights of its own.
 
 Then you do it again on the result, and again. That repetition is what *deep* learning means: not a more sophisticated stage, just more stages.
 
-The bend looks like the trivial part and is load-bearing. Two matrix multiplications back to back are equivalent to a single matrix multiplication, so a stack built without bends collapses to one stage no matter how many you paid for — [the activations page](/wiki/ai/llm/activations) does that arithmetic in full. Bends are the only reason depth buys anything.
+The bend looks like the trivial part and is load-bearing. Two matrix multiplications back to back are equivalent to a single matrix multiplication, so a stack built without bends collapses to one stage no matter how many you paid for — [that arithmetic in full](/wiki/ai/llm/bend#why-straight-lines-are-not-enough) is a page of its own. Bends are the only reason depth buys anything.
 
 A plain chain of stages, with nothing else going on, is a **multi-layer perceptron** — an **MLP** — the simplest network there is, and old enough that the name predates the field's current vocabulary. It is not a historical curiosity. A [transformer](/wiki/ai/llm) has one inside [every block](/wiki/ai/llm/glossary), and [those MLPs](/wiki/ai/llm/multi-layer-perceptron) hold most of the model's weights. What the architecture adds on top is [attention](/wiki/ai/llm/attention), a stage that works out *how much to mix from where* by reading the input itself — the [attention pattern](/wiki/ai/llm/glossary) — rather than having that fixed at training time like every weight in the model. It is a genuinely different kind of part, and the reason the design was worth a paper.
 

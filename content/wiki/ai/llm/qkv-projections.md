@@ -49,6 +49,8 @@ The comparison runs through both lenses at once — the query lens on one side, 
 
 Set the biases aside for a moment, and this is where that pedantry pays: the score is then a **bilinear form** with matrix `W_Q W_Kᵀ` — an expression linear in each of its two inputs taken separately, `x_i (W_Q W_Kᵀ) x_jᵀ`. Nothing requires that matrix to be symmetric, and training had no reason to make it so. Put the biases back and it isn't bilinear at all any more, merely affine in each argument. The asymmetry is untouched either way.
 
+Being linear in each argument separately is not the same as being linear in the row, and that distinction matters more than it looks: `x` appears on both sides of the expression, so the score varies with the input *twice over*. It makes scoring [one of the transformer's nonlinearities](/wiki/ai/llm/bend#every-nonlinearity-in-a-transformer) — with no activation function anywhere within reach of it.
+
 Worth pausing on, because the word "attention" invites a picture of a mutual relationship. It isn't mutual. An adjective can attend hard to its noun while the noun scarcely registers the adjective.
 
 ## Check yourself

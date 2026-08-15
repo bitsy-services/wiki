@@ -3,19 +3,13 @@ title: "GELU and SwiGLU"
 weight: 175
 ---
 
-Almost everything a transformer does to a row is, arithmetically, a straight line: multiply by a matrix, add a vector, multiply by another matrix. Straight lines have an inconvenient property — chain as many as you like and the result is just another straight line. A model built only from them would be no more capable with a hundred blocks than with one, however many parameters you poured in. The activation function is the small bend in the middle of the MLP that breaks the straightness, and it is the reason depth buys anything at all. GPT-2 bends with GELU; nearly everything since bends with SwiGLU.
+Almost everything a transformer does to a row is, arithmetically, a straight line: multiply by a matrix, add a vector, multiply by another matrix. Straight lines have an inconvenient property — chain as many as you like and the result is just another straight line. A model built only from them would be no more capable with a hundred blocks than with one, however many parameters you poured in. The activation function is the small [bend](/wiki/ai/llm/bend) in the middle of the MLP that breaks the straightness, and it is the reason depth buys anything at all. GPT-2 bends with GELU; nearly everything since bends with SwiGLU.
 
-## Why a bend is necessary
+## The vacancy an activation fills
 
-[The MLP](/wiki/ai/llm/multi-layer-perceptron) is two matrices with something in between: widen the row from 768 to 3072, do the something, narrow it back. Take the something away and watch what happens.
+[The MLP](/wiki/ai/llm/multi-layer-perceptron) is two matrices with something in between: widen the row from 768 to 3072, do the something, narrow it back. Take the something away and the two matrices fold into one — 4.7M parameters reproduced exactly by a single 768 × 768 matrix holding 590K, with the [bulge](/wiki/ai/llm/glossary) refunded in full. [The bend](/wiki/ai/llm/bend) is the page for that argument, and for the [three other nonlinearities](/wiki/ai/llm/bend#every-nonlinearity-in-a-transformer) a transformer turns out to contain.
 
-Multiplying by matrix `A` and then by matrix `B` is the same as multiplying by a single matrix `C = A·B`. That isn't an approximation or a trick; it's what matrix multiplication *is*, and you can precompute `C` once and throw both originals away. So an MLP with no bend — 768 → 3072 → 768, about 4.7M parameters — is exactly equal to one 768 × 768 matrix holding 590K. The [bulge](/wiki/ai/llm/glossary) is refunded in full. Worse, the collapse doesn't stop at one block: chain twelve bend-free MLPs and they fold into a single matrix too.
-
-(GPT-2's matrices each carry a bias vector too, which makes every step *affine* rather than strictly linear. It changes nothing: chain affine maps and you get a matrix plus a constant vector, which folds exactly as completely.)
-
-That is the gap the activation fills. It sits between `A` and `B` and makes the fold impossible, so the second matrix has something genuinely new to work on and the parameters start earning their place.
-
-One honest caveat: the MLP isn't the model's only nonlinearity — [the softmax inside attention](/wiki/ai/llm/one-attention-head) is one too, so a real transformer stripped of its activations wouldn't collapse *all* the way to a single matrix. But the MLP is two-thirds of every block's parameters, and without a bend, that two-thirds collapses.
+Any nonlinear function will stop that fold, so it is not the requirement that decides *which* one to use. What decides it is [everything else the job demands](/wiki/ai/llm/bend#what-makes-a-bend-usable) — chiefly that the bend be cheap, and that it leave [backprop](/wiki/ai/llm/backprop-one-weight) a slope to work with. The rest of this page is the history of that second one.
 
 ## ReLU and the dead unit
 
@@ -85,4 +79,4 @@ Now the `float64`. Run that same test in `float32`, the dtype you'd reach for by
 
 ## Depends on / leads to
 
-Depends on [the MLP](/wiki/ai/llm/multi-layer-perceptron). Leads to [LayerNorm and RMSNorm](/wiki/ai/llm/normalization).
+Depends on [the bend](/wiki/ai/llm/bend), and through it [the MLP](/wiki/ai/llm/multi-layer-perceptron). Leads to [LayerNorm and RMSNorm](/wiki/ai/llm/normalization).

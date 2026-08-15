@@ -3,7 +3,7 @@ title: "Multi-Layer Perceptron"
 weight: 170
 ---
 
-A multi-layer perceptron is the plainest arrangement in the [neural network](/wiki/ai/llm/neural-networks) repertoire, and the oldest: multiply a list of numbers by a table of learned weights, bend the result, multiply by a second table. Every [block](/wiki/ai/llm/glossary) of a [transformer](/wiki/ai/llm) contains one — an **MLP**, as everyone shortens it. It is the half of the block that thinks about a single word at a time, without reference to any other. [Attention](/wiki/ai/llm/attention) is the other half, the part that moves information between words; the MLP is what the model does with a word once attention has gathered whatever it needed.
+A multi-layer perceptron is the plainest arrangement in the [neural network](/wiki/ai/llm/neural-networks) repertoire, and the oldest: multiply a list of numbers by a table of learned weights, [bend the result](/wiki/ai/llm/bend), multiply by a second table. Every [block](/wiki/ai/llm/glossary) of a [transformer](/wiki/ai/llm) contains one — an **MLP**, as everyone shortens it. It is the half of the block that thinks about a single word at a time, without reference to any other. [Attention](/wiki/ai/llm/attention) is the other half, the part that moves information between words; the MLP is what the model does with a word once attention has gathered whatever it needed.
 
 It is much the plainer of the two mechanisms and much the larger. Most of the model's weights sit in its MLPs, and so, as far as anyone has been able to determine, do most of its facts. The half of a transformer people find interesting is attention. The half that holds what the model knows is this one.
 
@@ -58,4 +58,4 @@ This tends to surprise people who have spent all their attention on attention. I
 
 ## Depends on / leads to
 
-Depends on [neural networks](/wiki/ai/llm/neural-networks) and [the residual stream](/wiki/ai/llm/residual-stream). Leads to [GELU and SwiGLU](/wiki/ai/llm/activations) — the nonlinearity in the middle, and the reason the bulge isn't refunded — then [LayerNorm and RMSNorm](/wiki/ai/llm/normalization) and [mixture of experts](/wiki/ai/llm/mixture-of-experts).
+Depends on [neural networks](/wiki/ai/llm/neural-networks) and [the residual stream](/wiki/ai/llm/residual-stream). Leads to [the bend](/wiki/ai/llm/bend) — the nonlinearity in the middle, and the reason the bulge isn't refunded — then [GELU and SwiGLU](/wiki/ai/llm/activations), [LayerNorm and RMSNorm](/wiki/ai/llm/normalization) and [mixture of experts](/wiki/ai/llm/mixture-of-experts).
