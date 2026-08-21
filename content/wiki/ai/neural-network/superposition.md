@@ -63,4 +63,4 @@ Now repeat in 8 dimensions. Near-orthogonality collapses immediately — random 
 
 ## Depends on / leads to
 
-Depends on [the MLP](/wiki/ai/neural-network/multi-layer-perceptron), whose hidden units are where the crowding is easiest to see. Nothing follows in this section; for these parts assembled into a working architecture, start the [LLM section](/wiki/ai/llm) at [conventions](/wiki/ai/llm/conventions).
+Depends on [the MLP](/wiki/ai/neural-network/multi-layer-perceptron), whose hidden units are where the crowding is easiest to see. Leads to [depth and width](/wiki/ai/neural-network/depth-and-width), where the room this page spends is one of the two things being bought.

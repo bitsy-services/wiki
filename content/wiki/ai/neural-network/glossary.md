@@ -9,7 +9,7 @@ The words this section uses — and it uses only these. Third column: what the s
 |---|---|---|
 | **weights** | the numbers the network's arithmetic is done with, and the only thing training changes. *Parameters* means the same thing, and this section uses both — "weights" by default, "parameters" where the surrounding term of art demands it | `n_params`, coefficients |
 | **layer** | one multiply-by-a-table-of-weights followed by one [bend](/wiki/ai/neural-network/bend). The unit a network's depth is counted in | linear layer, dense layer, fully-connected layer |
-| **depth** | how many layers a network stacks. The *deep* in deep learning | number of layers |
+| **depth** | how many layers a network stacks. The *deep* in deep learning. [What it costs against width](/wiki/ai/neural-network/depth-and-width) | number of layers |
 | **width** | how many numbers a layer carries. Layers in one network need not all be the same width | hidden size, number of units |
 | **activations** | the numbers flowing *between* layers, as opposed to the weights they are multiplied by. They change with every input; the weights don't | hidden states, feature maps |
 | **bend** | the fixed nonlinear function applied to each number on its own between two matrix multiplications, and the reason the two don't collapse into one. Holds no weights and learns nothing. A nonlinearity that reads more than one number at a time — softmax, a norm — is not a bend | activation function, nonlinearity |

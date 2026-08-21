@@ -42,7 +42,7 @@ What it did do was set a template. Deciding what to publish and when, on capabil
 | large | `gpt2-large` | 774M | 36 | 1280 | 20 |
 | XL | `gpt2-xl` | 1.5B | 48 | 1600 | 25 |
 
-All four share a tokenizer, a 50,257-entry vocabulary, a 1024-token context, a training set, and a recipe. Only depth and width move, which is what makes them a scaling experiment rather than four unrelated models.
+All four share a tokenizer, a 50,257-entry vocabulary, a 1024-token context, a training set, and a recipe. Only [depth and width](/wiki/ai/neural-network/depth-and-width) move, which is what makes them a scaling experiment rather than four unrelated models.
 
 One detail rewards a second look at that table: divide `d_model` by the head count and every row gives 64. A [head](/wiki/ai/llm/glossary) is 64 numbers wide in the smallest model and 64 in the largest. Extra width was spent on *more* heads, never wider ones — the head is treated as a fixed unit and the model buys more of them, which is worth holding onto when you read [multi-head attention](/wiki/ai/llm/multi-head-attention).
 

@@ -29,7 +29,7 @@ Attending to *n* rows still costs O(n) — the new row does have to be compared 
 
 Two tensors per block per row, held for as long as the conversation lives. For [GPT-2 small](/wiki/ai/llm/gpt-2) that's 2 × 12 × 768 = 18,432 numbers per token, or 36 KB in 16-bit precision. Across its entire 1024-token window that comes to 36 MB, which is nothing — nobody ever worried about GPT-2's cache.
 
-Hold the per-token figure and change the model, though, and the picture inverts. A cache costs `2 × blocks × d_model` numbers per token, so it grows with both depth and width, and modern models are far larger in both while also serving contexts a hundred times longer. A frontier-scale model runs to megabytes per token rather than kilobytes, which puts a single long conversation into the tens or hundreds of gigabytes — for one user, on a card that also has to hold the weights.
+Hold the per-token figure and change the model, though, and the picture inverts. A cache costs `2 × blocks × d_model` numbers per token, so it grows with both [depth and width](/wiki/ai/neural-network/depth-and-width), and modern models are far larger in both while also serving contexts a hundred times longer. A frontier-scale model runs to megabytes per token rather than kilobytes, which puts a single long conversation into the tens or hundreds of gigabytes — for one user, on a card that also has to hold the weights.
 
 Two things follow, and they shape how models are built and sold.
 
