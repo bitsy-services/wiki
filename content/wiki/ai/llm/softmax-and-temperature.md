@@ -11,7 +11,7 @@ Softmax is the step that turns the model's raw scores into probabilities — num
 
 The obvious repair — shift everything up until nothing is negative, then divide by the total — technically works and is a bad idea. It makes the result depend on how far you happened to shift, and worse, it makes a gap mean wildly different things at different points on the scale. Scores of 2 and 1 would come out as 0.67 and 0.33, a two-to-one preference. Scores of 102 and 101 — the same gap of 1 — come out almost tied. Nothing about the model justifies that; the gap is the same gap.
 
-Exponentiating first fixes both problems. It guarantees positivity for any input whatever, and — the part that matters — it converts *additive* differences in score into *multiplicative* ratios in probability. A fixed gap now always means the same likelihood ratio, wherever on the scale it sits. That is exactly the correspondence [the loss function](/wiki/ai/llm/the-loss-function) assumes when it grades the model in log space, so softmax isn't an arbitrary squashing choice; it's the inverse of how the model is scored.
+Exponentiating first fixes both problems. It guarantees positivity for any input whatever, and — the part that matters — it converts *additive* differences in score into *multiplicative* ratios in probability. A fixed gap now always means the same likelihood ratio, wherever on the scale it sits. That is exactly the correspondence [the loss function](/wiki/ai/neural-network/the-loss-function) assumes when it grades the model in log space, so softmax isn't an arbitrary squashing choice; it's the inverse of how the model is scored.
 
 Writing `z` for the logits and `T` for the temperature knob promised above — the two together are the whole operation:
 

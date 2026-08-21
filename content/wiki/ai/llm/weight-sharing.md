@@ -21,7 +21,7 @@ Learn it once, use it everywhere. A pattern worth detecting is worth detecting w
 
 It's the difference between a grammar and a phrasebook. A phrasebook indexed by position — "at word 40, say this" — is useless the moment anything shifts. A rule applies wherever it fits.
 
-Sharing also multiplies the training signal. Gradients from every position in every sequence pile into the same matrices, which is why [one sequence teaches a weight a thousand times over](/wiki/ai/llm/backprop-one-weight). Per weight, the effective dataset is the whole corpus times the sequence length.
+Sharing also multiplies the training signal. Gradients from every position in every sequence pile into the same matrices, which is why [one sequence teaches a weight a thousand times over](/wiki/ai/neural-network/backprop-one-weight). Per weight, the effective dataset is the whole corpus times the sequence length.
 
 ## No weight inside a block knows how long the sequence is
 
@@ -43,4 +43,4 @@ That's a useful thing to have straight, because it reframes what extending conte
 
 ## Depends on / leads to
 
-Depends on [backprop through one weight](/wiki/ai/llm/backprop-one-weight). Leads to [the KV cache](/wiki/ai/llm/kv-cache) and [positional encoding](/wiki/ai/llm/positional-encoding).
+Depends on [backprop through one weight](/wiki/ai/neural-network/backprop-one-weight). Leads to [the KV cache](/wiki/ai/llm/kv-cache) and [positional encoding](/wiki/ai/llm/positional-encoding).

@@ -7,7 +7,7 @@ Fine-tuning is what you do to a finished model to make it behave differently. Th
 
 ## What "carry on training, gently" actually means
 
-Same architecture, same weights, more training — on your data, at a small learning rate. Nothing structural changes: nothing is bolted on, no vocabulary is extended, no part of the model is replaced. [The loss](/wiki/ai/llm/the-loss-function) is the same cross-entropy it always was, and [backprop](/wiki/ai/llm/backprop-one-weight) does the same thing it always did.
+Same architecture, same weights, more training — on your data, at a small learning rate. Nothing structural changes: nothing is bolted on, no vocabulary is extended, no part of the model is replaced. [The loss](/wiki/ai/neural-network/the-loss-function) is the same cross-entropy it always was, and [backprop](/wiki/ai/neural-network/backprop-one-weight) does the same thing it always did.
 
 The small learning rate is the operative choice. It is what keeps the model near where it started, and it is simultaneously the reason fine-tuning is cheap, the reason it's reliable, and the reason it cannot do the thing people most often want from it.
 
@@ -15,7 +15,7 @@ The small learning rate is the operative choice. It is what keeps the model near
 
 Format, tone, refusal style, the input-output shape of a task, the house style of your documentation, reliably emitting JSON.
 
-These are all cheap to move, because the model already possesses the [features](/wiki/ai/llm/superposition) involved and you are only adjusting how it deploys them. Nothing new has to be stored. You're changing which of the model's existing habits get reached for, and a small nudge is enough to change a habit.
+These are all cheap to move, because the model already possesses the [features](/wiki/ai/neural-network/superposition) involved and you are only adjusting how it deploys them. Nothing new has to be stored. You're changing which of the model's existing habits get reached for, and a small nudge is enough to change a habit.
 
 ## What it's bad at: facts
 
@@ -43,4 +43,4 @@ Fine-tune [GPT-2 small](/wiki/ai/llm/gpt-2) on Shakespeare with [nanoGPT](/wiki/
 
 ## Depends on / leads to
 
-Depends on [the loss function](/wiki/ai/llm/the-loss-function) and [backprop through one weight](/wiki/ai/llm/backprop-one-weight). Leads to [RLHF](/wiki/ai/llm/rlhf).
+Depends on [the loss function](/wiki/ai/neural-network/the-loss-function) and [backprop through one weight](/wiki/ai/neural-network/backprop-one-weight). Leads to [RLHF](/wiki/ai/llm/rlhf).

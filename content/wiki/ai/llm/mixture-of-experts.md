@@ -7,7 +7,7 @@ Mixture of experts is a way to make a model know more without making it cost mor
 
 ## The bind it gets you out of
 
-Most of what a model knows lives in [the MLP](/wiki/ai/llm/multi-layer-perceptron) — two-thirds of every block's weights, and the best available guess at where the facts are.
+Most of what a model knows lives in [the MLP](/wiki/ai/llm/the-mlp) — two-thirds of every block's weights, and the best available guess at where the facts are.
 
 So if you want a model that knows more, you want more MLP. And here the two things everyone wants collide head-on: producing even a single token means running that token through the model's weights, so more weights means more arithmetic per token, always, no matter how short the prompt. Capacity and speed are the same dial turned in opposite directions.
 
@@ -45,4 +45,4 @@ In [nanoGPT](/wiki/ai/llm/running-the-checks), swap one block's MLP for eight co
 
 ## Depends on / leads to
 
-Depends on [the MLP](/wiki/ai/llm/multi-layer-perceptron). Leads to [superposition](/wiki/ai/llm/superposition).
+Depends on [the MLP](/wiki/ai/llm/the-mlp). Leads to [fine-tuning](/wiki/ai/llm/fine-tuning).

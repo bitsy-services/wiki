@@ -13,7 +13,7 @@ It is worth pausing on how much simpler the answer is than the alternatives you 
 
 ## One dot product per vocabulary entry
 
-After the [final norm](/wiki/ai/llm/normalization), the row is dotted against one vector per vocabulary entry. The score for token *t* is `dot(row, W_U[t])`, which reads literally as: *how much does this row point in token t's direction?*
+After the [final norm](/wiki/ai/neural-network/normalization), the row is dotted against one vector per vocabulary entry. The score for token *t* is `dot(row, W_U[t])`, which reads literally as: *how much does this row point in token t's direction?*
 
 That's the whole mechanism, and the geometric picture is the one to keep. The vocabulary is not a list of words the model chooses among — it's 50,257 fixed directions planted in the row's space. The model's answer is a single arrow. Scoring is measuring how far that arrow leans toward each direction, and the winner is whichever it leans toward most.
 
@@ -22,7 +22,7 @@ Two things fall out of that immediately:
 - **Direction picks the winner.** Only where the arrow points decides the ranking.
 - **Magnitude decides how confident the logits look.** Double the row's length and every score doubles — the ranking unchanged, but every gap between scores twice as wide, which once [softmax](/wiki/ai/llm/softmax-and-temperature) gets hold of them is a dramatically more confident-looking model saying exactly the same thing.
 
-That second one is precisely why [the final norm](/wiki/ai/llm/normalization) is there. The residual stream grows enormously as it crosses the blocks, and if that accumulated magnitude reached the unembedding untouched, the model's apparent confidence would be a side effect of depth rather than a statement about the text. The norm fixes the scale before the comparison happens, which means you won't observe this effect in a working model — you have to force it by hand, as the check below does.
+That second one is precisely why [the final norm](/wiki/ai/neural-network/normalization) is there. The residual stream grows enormously as it crosses the blocks, and if that accumulated magnitude reached the unembedding untouched, the model's apparent confidence would be a side effect of depth rather than a statement about the text. The norm fixes the scale before the comparison happens, which means you won't observe this effect in a working model — you have to force it by hand, as the check below does.
 
 ## The same matrix at both ends
 
@@ -34,7 +34,7 @@ The consequence is a pleasing symmetry. The vector you look a token up in, on th
 
 The unembedding runs at *every* position, not only the final one. A 5-token prompt produces a full 50,257-wide score vector five times over.
 
-Training needs nearly all of them — [one sequence, a thousand predictions](/wiki/ai/llm/the-loss-function), every row but the very last, which is the arrangement the economics of the whole field rest on. Generation throws away all but the bottom row's, because it's the only one whose next token you don't already know.
+Training needs nearly all of them — [one sequence, a thousand predictions](/wiki/ai/llm/why-scale-worked), every row but the very last, which is the arrangement the economics of the whole field rest on. Generation throws away all but the bottom row's, because it's the only one whose next token you don't already know.
 
 So the model's answer is one vector, and the vocabulary is a set of directions to measure it against. No search, no nonlinearity, no lookup, no bias term. The most consequential step in the forward pass is also the least eventful.
 

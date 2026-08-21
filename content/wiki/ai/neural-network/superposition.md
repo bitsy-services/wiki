@@ -1,19 +1,19 @@
 ---
 title: "Superposition"
-weight: 310
+weight: 90
 ---
 
-A model keeps track of far more things than it has room for. Superposition is how it gets away with it: rather than giving every concept its own private slot, it overlaps them, cramming many more into the space than the space can strictly hold and accepting a little interference as the price. It works because on any given word almost none of those concepts are actually in play, so the collisions mostly don't happen at the same time.
+A model keeps track of far more things than it has room for. Superposition is how it gets away with it: rather than giving every concept its own private slot, it overlaps them, cramming many more into the space than the space can strictly hold and accepting a little interference as the price. It works because on any given input almost none of those concepts are actually in play, so the collisions mostly don't happen at the same time.
 
 ## A feature is a direction
 
-Start with what the model is storing. "This text is French." "This token is a proper noun." "We're inside a quotation." Each of these is, to a good approximation, a single **direction** in [the residual stream](/wiki/ai/llm/residual-stream) — and how far a row points along that direction is how strongly the feature is present.
+Start with what the model is storing. "This text is French." "This word is a proper noun." "We're inside a quotation." Each of these is, to a good approximation, a single **direction** in the space the network's [activations](/wiki/ai/neural-network/glossary) live in — and how far a given activation vector points along that direction is how strongly the feature is present.
 
-Not a slot, and not one of [the MLP's hidden units](/wiki/ai/llm/multi-layer-perceptron) — the individual detectors people usually have in mind when they say *neuron*. A direction, which is a thing you can have an unlimited number of in principle and a very limited number of in practice.
+Not a slot, and not one of [the MLP's hidden units](/wiki/ai/neural-network/multi-layer-perceptron#the-useful-reading-detect-then-write) — the individual detectors people usually have in mind when they say *neuron*. A direction, which is a thing you can have an unlimited number of in principle and a very limited number of in practice.
 
 ## The arithmetic problem
 
-[`d_model`](/wiki/ai/llm/glossary) is 768 in [GPT-2 small](/wiki/ai/llm/gpt-2), and it never changes — the stream is exactly as wide at the right edge as at the left. Meanwhile the model plainly tracks vastly more than 768 things: every language it recognizes, every syntactic role, every topic, every register, every format.
+The width of that space is fixed by the architecture and does not grow: 768 in [GPT-2 small](/wiki/ai/llm/gpt-2), the same at the last layer as at the first. Meanwhile the model plainly tracks vastly more than 768 things: every language it recognizes, every syntactic role, every topic, every register, every format.
 
 So where do the rest live?
 
@@ -35,7 +35,7 @@ This is the fact no amount of picturing three dimensions prepares you for. In 3D
 
 Storing features that way isn't free: near-perpendicular directions **interfere**, so reading one picks up a faint smear of every other one that happens to be active.
 
-The model tolerates that because features are **sparse**. Of the thousands it tracks, only a handful are active on any given row — "this text is French" and "we're inside a Python docstring" are both live possibilities, and they essentially never fire on the same token. The interference is real but it's mostly potential rather than actual, because the colliding pairs are rarely present at once.
+The model tolerates that because features are **sparse**. Of the thousands it tracks, only a handful are active on any given input — "this text is French" and "we're inside a Python docstring" are both live possibilities, and they essentially never fire on the same word. The interference is real but it's mostly potential rather than actual, because the colliding pairs are rarely present at once.
 
 That's superposition, in one line: **more features than dimensions, paid for in noise, affordable because the noise seldom all arrives together.**
 
@@ -43,13 +43,13 @@ That's superposition, in one line: **more features than dimensions, paid for in 
 
 This explains the single thing that most frustrates people who go poking around inside models.
 
-Open one up, pick a hidden unit — or one coordinate of the stream — and ask what it means. You will not get an answer. It's **polysemantic**: it doesn't encode a concept, it's a coordinate that dozens of unrelated features happen to share. Look at what makes some particular unit fire and you get a list with no theme to it, because you're reading one axis of a space where nothing was ever stored axis-aligned.
+Open one up, pick a hidden unit — or one coordinate of an activation vector — and ask what it means. You will not get an answer. It's **polysemantic**: it doesn't encode a concept, it's a coordinate that dozens of unrelated features happen to share. Look at what makes some particular unit fire and you get a list with no theme to it, because you're reading one axis of a space where nothing was ever stored axis-aligned.
 
 The features are really there. They're just not *where you're looking*, and superposition is exactly the reason.
 
 ## Prying them back apart
 
-Which is why interpretability largely moved to **sparse autoencoders**. The idea: train a second, small network to re-express each row in a much wider space — 32,000 directions instead of 768, an **overcomplete basis**, meaning simply more directions than the space has dimensions — while penalizing it hard for using more than a few at a time.
+Which is why interpretability largely moved to **sparse autoencoders**. The idea: train a second, small network to re-express each activation vector in a much wider space — 32,000 directions instead of 768, an **overcomplete basis**, meaning simply more directions than the space has dimensions — while penalizing it hard for using more than a few at a time.
 
 The extra width gives every feature room to have its own direction again. The sparsity penalty is what stops the network cheating by smearing everything across everything. What comes out the other side are directions that mean one thing each — the superposed features, pulled apart.
 
@@ -63,4 +63,4 @@ Now repeat in 8 dimensions. Near-orthogonality collapses immediately — random 
 
 ## Depends on / leads to
 
-Depends on [the residual stream](/wiki/ai/llm/residual-stream) and [the MLP](/wiki/ai/llm/multi-layer-perceptron). Leads to [fine-tuning](/wiki/ai/llm/fine-tuning).
+Depends on [the MLP](/wiki/ai/neural-network/multi-layer-perceptron), whose hidden units are where the crowding is easiest to see. Nothing follows in this section; for these parts assembled into a working architecture, start the [LLM section](/wiki/ai/llm) at [conventions](/wiki/ai/llm/conventions).

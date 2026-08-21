@@ -9,7 +9,7 @@ Throughout, take the point of view of one row — one token position — asking 
 
 ## Step 1: the row becomes a query, a key, and a value
 
-The row arrives off [the residual stream](/wiki/ai/llm/residual-stream), gets [normalized](/wiki/ai/llm/normalization), and is then read three separate ways.
+The row arrives off [the residual stream](/wiki/ai/llm/residual-stream), gets [normalized](/wiki/ai/neural-network/normalization), and is then read three separate ways.
 
 - The **query** is what this row is looking for.
 - The **key** is what this row advertises to anything looking at it.

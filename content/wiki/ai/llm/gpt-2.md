@@ -13,7 +13,7 @@ A frontier model is a URL. You send text, you get text, and the interesting part
 
 GPT-2 can be opened all the way. The weights are a free download, a forward pass on a laptop CPU takes a fraction of a second, and every intermediate the pages talk about is a tensor you can print. nanoGPT — the minimal implementation the checks keep reaching for — is roughly 300 readable lines and reproduces this exact model.
 
-The obvious objection is that 2019 is a long time ago. But the spine hasn't changed. [Tokenize](/wiki/ai/llm/tokenization) the text, look each token up in a table, add in position, push it through a stack of blocks that alternate [attention](/wiki/ai/llm/attention) and [an MLP](/wiki/ai/llm/multi-layer-perceptron), score the last row against the vocabulary, [sample](/wiki/ai/llm/sampling-strategies). That is GPT-2, and it is also every model in production right now. GPT-3 arrived a year later as essentially this architecture with more than a hundred times the parameters. What separates a modern model from GPT-2 is [scale](/wiki/ai/llm/why-scale-worked), training data, and a list of component substitutions — the substitutions are real, and the [last section here](#where-gpt-2-misleads) is that list — but the frame they slot into is the one GPT-2 laid down.
+The obvious objection is that 2019 is a long time ago. But the spine hasn't changed. [Tokenize](/wiki/ai/llm/tokenization) the text, look each token up in a table, add in position, push it through a stack of blocks that alternate [attention](/wiki/ai/llm/attention) and [an MLP](/wiki/ai/llm/the-mlp), score the last row against the vocabulary, [sample](/wiki/ai/llm/sampling-strategies). That is GPT-2, and it is also every model in production right now. GPT-3 arrived a year later as essentially this architecture with more than a hundred times the parameters. What separates a modern model from GPT-2 is [scale](/wiki/ai/llm/why-scale-worked), training data, and a list of component substitutions — the substitutions are real, and the [last section here](#where-gpt-2-misleads) is that list — but the frame they slot into is the one GPT-2 laid down.
 
 ## What GPT-2 showed
 
@@ -77,14 +77,14 @@ And here is the same model as a parts list, each part linked to the page that te
 | [Position table](/wiki/ai/llm/positional-encoding) (`wpe`) | 1024 × 768 — learned, absolute, added before block 0 |
 | [Blocks](/wiki/ai/llm/glossary) | 12, identical in structure, ~7.1M parameters each |
 | [Attention](/wiki/ai/llm/multi-head-attention) | 12 heads per block, 64 wide each, [causally masked](/wiki/ai/llm/causal-mask) |
-| [MLP](/wiki/ai/llm/multi-layer-perceptron) | 768 → 3072 → 768 with a [GELU](/wiki/ai/llm/activations) between — two-thirds of each block |
-| [Normalization](/wiki/ai/llm/normalization) | [LayerNorm](/wiki/ai/llm/normalization), pre-norm placement, plus one final norm at the right edge |
+| [MLP](/wiki/ai/llm/the-mlp) | 768 → 3072 → 768 with a [GELU](/wiki/ai/neural-network/activations) between — two-thirds of each block |
+| [Normalization](/wiki/ai/neural-network/normalization) | [LayerNorm](/wiki/ai/neural-network/normalization), pre-norm placement, plus one final norm at the right edge |
 | [Unembedding](/wiki/ai/llm/unembedding-and-logits) | tied to the embedding — the same table, transposed |
 | Context | 1024 tokens, a limit set entirely by `wpe`'s height |
 
 It was trained on **WebText**: about 40 GB of text from 8 million documents, gathered by following every outbound link from Reddit that had at least three karma — a cheap proxy for "a human thought this was worth sharing" — with Wikipedia deliberately excluded so it couldn't contaminate the benchmarks.
 
-For the finished small model the paper reports a WikiText-2 perplexity of 29.41. Measure it yourself on a few hundred tokens of WikiText and you'll get a [loss](/wiki/ai/llm/the-loss-function) near 3.28 — a perplexity of about 26 — which is the figure the rest of these pages quote. The two aren't in conflict: the paper evaluates the full test set through its own detokenizers, and a short sample is an easier run. It's the same model, measured two ways, and it's worth knowing which kind of number you're holding.
+For the finished small model the paper reports a WikiText-2 perplexity of 29.41. Measure it yourself on a few hundred tokens of WikiText and you'll get a [loss](/wiki/ai/neural-network/the-loss-function) near 3.28 — a perplexity of about 26 — which is the figure the rest of these pages quote. The two aren't in conflict: the paper evaluates the full test set through its own detokenizers, and a short sample is an easier run. It's the same model, measured two ways, and it's worth knowing which kind of number you're holding.
 
 ## Where GPT-2 misleads
 
@@ -93,8 +93,8 @@ A reference model quietly teaches its own quirks as though they were laws. Sever
 | GPT-2 does | Nearly everything since |
 |---|---|
 | Learned absolute position table, hard-capped at 1024 | [RoPE](/wiki/ai/llm/rope) — position as rotation, no table, stretches past the trained length |
-| LayerNorm | [RMSNorm](/wiki/ai/llm/normalization) — drop the centering and the bias, no measurable cost |
-| GELU in a two-matrix MLP | [SwiGLU](/wiki/ai/llm/activations) — a three-matrix gated variant, better per parameter |
+| LayerNorm | [RMSNorm](/wiki/ai/neural-network/normalization) — drop the centering and the bias, no measurable cost |
+| GELU in a two-matrix MLP | [SwiGLU](/wiki/ai/neural-network/activations) — a three-matrix gated variant, better per parameter |
 | Every head owns its keys and values | [Grouped-query attention](/wiki/ai/llm/grouped-query-attention) — heads share them, shrinking [the KV cache](/wiki/ai/llm/kv-cache) |
 | A bias vector on every linear map | Dropped entirely — they weren't earning their place |
 | 50,257-entry vocabulary | 128k and up — better coverage of code and languages other than English |
@@ -122,4 +122,4 @@ Now find the missing 38.6M. There is no separate unembedding in that sum, becaus
 
 ## Depends on / leads to
 
-Depends on the [glossary](/wiki/ai/llm/glossary). Leads to [neural networks](/wiki/ai/llm/neural-networks) — what kind of object GPT-2 is, before any of the specifics — and then [tokenization](/wiki/ai/llm/tokenization), where the text becomes integers.
+Depends on the [glossary](/wiki/ai/llm/glossary), and — if you have never met a fitted model before — on [the neural network section](/wiki/ai/neural-network), which says what kind of object GPT-2 is before any of the specifics. Leads to [tokenization](/wiki/ai/llm/tokenization), where the text becomes integers.

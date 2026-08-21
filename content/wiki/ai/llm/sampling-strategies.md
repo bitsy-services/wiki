@@ -45,4 +45,4 @@ The bill is determinism. A greedy model gives the same answer twice; a sampled o
 
 ## Depends on / leads to
 
-Depends on [softmax and temperature](/wiki/ai/llm/softmax-and-temperature). Leads to [speculative decoding](/wiki/ai/llm/speculative-decoding), which has to reproduce whatever this page decided. That's the end of the inference track — the sidebar picks up the training track next, at [the loss function](/wiki/ai/llm/the-loss-function).
+Depends on [softmax and temperature](/wiki/ai/llm/softmax-and-temperature). Leads to [speculative decoding](/wiki/ai/llm/speculative-decoding), which has to reproduce whatever this page decided. That's the end of the inference track — the sidebar picks up next at [perplexity](/wiki/ai/llm/perplexity), which is [the loss](/wiki/ai/neural-network/the-loss-function) in units you can reason about.

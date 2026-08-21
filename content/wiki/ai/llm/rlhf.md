@@ -7,7 +7,7 @@ RLHF — reinforcement learning from human feedback — is how a text predictor 
 
 ## Why the original objective can't get you there
 
-[Cross-entropy](/wiki/ai/llm/the-loss-function) rewards predicting the text that actually came next. That's all it can express.
+[Cross-entropy](/wiki/ai/neural-network/the-loss-function) rewards predicting the text that actually came next. That's all it can express.
 
 Ask a [base model](/wiki/ai/llm/glossary) a question and it may well continue with *another question*, or with a plausible-looking Stack Overflow comment, or with the next item in what looks like a FAQ. It isn't being unhelpful. It is being accurate: those really are things that follow questions in written text. The model is doing precisely what it was paid to do, and what it was paid to do was never "be useful."
 
@@ -39,7 +39,7 @@ Pay a call centre on customer-satisfaction scores and you will get agents who be
 
 It teaches no new capabilities. RLHF reweights among behaviours the pre-trained model could already produce — which is why the aligned model tends to get measurably *worse* at raw next-token prediction than the base model it came from.
 
-The subtler cost is **calibration** — whether a model's confidence in an answer actually predicts how often that answer is right. A base model's is rather good, because [cross-entropy paid it to be](/wiki/ai/llm/the-loss-function): hedging when genuinely unsure is the score-maximizing strategy. Preference training removes that incentive, plausibly because human raters prefer answers that sound certain.
+The subtler cost is **calibration** — whether a model's confidence in an answer actually predicts how often that answer is right. A base model's is rather good, because [cross-entropy paid it to be](/wiki/ai/neural-network/the-loss-function): hedging when genuinely unsure is the score-maximizing strategy. Preference training removes that incentive, plausibly because human raters prefer answers that sound certain.
 
 The evidence is unusually clean here. OpenAI published before-and-after plots in the GPT-4 technical report: the pre-trained model assigned probabilities to its chosen answers that lined up almost exactly with how often those answers were correct, and the same model after preference training was considerably more sure of itself than it had any business being. The report's own caption says the process "hurts the calibration quite a bit."
 

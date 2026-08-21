@@ -11,7 +11,7 @@ The reason is training, and it is worth being precise about it, because the mask
 
 Training is where it earns its keep. A single forward pass over a sequence makes a prediction at *every* row at once — feed in 1024 tokens and you get 1023 scored guesses out, one for each position that has a next token to be checked against. That is the arrangement that makes training on internet-scale text affordable in the first place, and it is [most of the reason the architecture won](/wiki/ai/llm/why-scale-worked).
 
-But it only works if each of those predictions is honest. If row 5 could see row 6, then the answer to "what follows row 5?" would be sitting right there in the input. [The loss](/wiki/ai/llm/the-loss-function) would collapse to nearly zero, the gradients would carry no useful signal, and the model would learn to copy rather than to predict — a machine that scores beautifully in training and is worthless the moment it has to produce a token that isn't already on the page.
+But it only works if each of those predictions is honest. If row 5 could see row 6, then the answer to "what follows row 5?" would be sitting right there in the input. [The loss](/wiki/ai/neural-network/the-loss-function) would collapse to nearly zero, the gradients would carry no useful signal, and the model would learn to copy rather than to predict — a machine that scores beautifully in training and is worthless the moment it has to produce a token that isn't already on the page.
 
 It's an exam with the answer key stapled to the question paper. Everyone gets full marks and nobody learns anything. The mask is what unstaples it, and it is what lets you get a thousand honest questions out of one sheet.
 

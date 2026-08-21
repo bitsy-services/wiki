@@ -7,7 +7,7 @@ Language models got good because the field found a way to train on far more writ
 
 ## The text was never the constraint
 
-Next-token prediction supervises itself. [The loss function](/wiki/ai/llm/the-loss-function) scores each guess against the token that actually came next, and that token is not an annotation anybody wrote — it is just the text, one step along. Every sentence ever written is already labelled, by itself, for free.
+Next-token prediction supervises itself. [The loss function](/wiki/ai/neural-network/the-loss-function) scores each guess against the token that actually came next, and that token is not an annotation anybody wrote — it is just the text, one step along. Every sentence ever written is already labelled, by itself, for free.
 
 That is not a new observation. Neural language models were trained this way in 2003, and recurrent ones all through the 2010s, on the same unlabelled text. If free supervision were the insight, GPT-3 would have arrived in 2012. The corpus was never the shortage; getting through it was.
 
@@ -101,4 +101,4 @@ Then picture the same test on the recurrent design: the same 1023 predictions, e
 
 ## Depends on / leads to
 
-Depends on [attention](/wiki/ai/llm/attention), [the loss function](/wiki/ai/llm/the-loss-function), and [training vs inference parallelism](/wiki/ai/llm/training-vs-inference-parallelism). Nothing follows; this is the last page, and the one the rest of the subsection was evidence for.
+Depends on [attention](/wiki/ai/llm/attention), [the loss function](/wiki/ai/neural-network/the-loss-function), and [training vs inference parallelism](/wiki/ai/llm/training-vs-inference-parallelism). Nothing follows; this is the last page, and the one the rest of the subsection was evidence for.

@@ -7,7 +7,7 @@ Perplexity is the standard single number for how good a language model is at its
 
 ## The number behind the number
 
-Perplexity is [the loss](/wiki/ai/llm/the-loss-function), exponentiated:
+Perplexity is [the loss](/wiki/ai/neural-network/the-loss-function), exponentiated:
 
 ```text
 perplexity = exp(cross-entropy loss)
@@ -40,7 +40,7 @@ Note the right end. Uniform guessing scores the vocabulary size, but that is *no
 
 ## Why the worst tokens set the price
 
-Because perplexity is a geometric mean, one token can dominate it. Assign a probability near zero to a token that actually occurs and its reciprocal is enormous; the `n`-th root tames it, but a single genuine surprise still drags the whole average up more than a run of confident hits pulls it down. This is [the loss's calibration bias](/wiki/ai/llm/the-loss-function) seen through the metric: the model is scored on its worst moments, so hedging on the tokens it's unsure of buys more than sharpening the ones it already has. A model that knows what it doesn't know reports a lower perplexity than one that's occasionally, loudly wrong.
+Because perplexity is a geometric mean, one token can dominate it. Assign a probability near zero to a token that actually occurs and its reciprocal is enormous; the `n`-th root tames it, but a single genuine surprise still drags the whole average up more than a run of confident hits pulls it down. This is [the loss's calibration bias](/wiki/ai/neural-network/the-loss-function) seen through the metric: the model is scored on its worst moments, so hedging on the tokens it's unsure of buys more than sharpening the ones it already has. A model that knows what it doesn't know reports a lower perplexity than one that's occasionally, loudly wrong.
 
 ## The comparability trap: it's per-token
 
@@ -60,4 +60,4 @@ Now the other extreme: feed `torch.randint(0, 50257, (1, 512))` — uniformly ra
 
 ## Depends on / leads to
 
-Depends on [the loss function](/wiki/ai/llm/the-loss-function). Leads to [backprop through one weight](/wiki/ai/llm/backprop-one-weight).
+Depends on [the loss function](/wiki/ai/neural-network/the-loss-function). Leads to [weight sharing across positions](/wiki/ai/llm/weight-sharing).

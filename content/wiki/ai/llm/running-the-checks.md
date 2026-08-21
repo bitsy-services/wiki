@@ -9,9 +9,9 @@ Every page in this section ends with a *Check yourself* — a short experiment t
 
 The experiments differ in what they need in front of you, and it's worth knowing which kind you're looking at before you start:
 
-- **Load and look.** Most of them. Download [GPT-2 small](/wiki/ai/llm/gpt-2), run one forward pass, and read the numbers that come back — no training, a second or two on a plain CPU. [Neural networks](/wiki/ai/llm/neural-networks), [perplexity](/wiki/ai/llm/perplexity), [the residual stream](/wiki/ai/llm/residual-stream), [attention](/wiki/ai/llm/attention), and [the unembedding](/wiki/ai/llm/unembedding-and-logits) all live here.
-- **Train a tiny model.** A handful — [skip connections](/wiki/ai/llm/skip-connections), [backprop through one weight](/wiki/ai/llm/backprop-one-weight), [mixture of experts](/wiki/ai/llm/mixture-of-experts), [grouped-query attention](/wiki/ai/llm/grouped-query-attention), [fine-tuning](/wiki/ai/llm/fine-tuning) — change the architecture and watch the loss move. Those use nanoGPT and take minutes, not seconds.
-- **No model at all.** A few — [GELU and SwiGLU](/wiki/ai/llm/activations), [RoPE](/wiki/ai/llm/rope), [superposition](/wiki/ai/llm/superposition), [context length](/wiki/ai/llm/context-length), [tokenization](/wiki/ai/llm/tokenization) — are pure arithmetic on random tensors, or a tokenizer with no weights behind it. They download nothing.
+- **Load and look.** Most of them. Download [GPT-2 small](/wiki/ai/llm/gpt-2), run one forward pass, and read the numbers that come back — no training, a second or two on a plain CPU. [Neural networks](/wiki/ai/neural-network), [perplexity](/wiki/ai/llm/perplexity), [the residual stream](/wiki/ai/llm/residual-stream), [attention](/wiki/ai/llm/attention), and [the unembedding](/wiki/ai/llm/unembedding-and-logits) all live here.
+- **Train a tiny model.** A handful — [skip connections](/wiki/ai/neural-network/skip-connections), [backprop through one weight](/wiki/ai/neural-network/backprop-one-weight), [mixture of experts](/wiki/ai/llm/mixture-of-experts), [grouped-query attention](/wiki/ai/llm/grouped-query-attention), [fine-tuning](/wiki/ai/llm/fine-tuning) — change the architecture and watch the loss move. Those use nanoGPT and take minutes, not seconds.
+- **No model at all.** A few — [GELU and SwiGLU](/wiki/ai/neural-network/activations), [RoPE](/wiki/ai/llm/rope), [superposition](/wiki/ai/neural-network/superposition), [context length](/wiki/ai/llm/context-length), [tokenization](/wiki/ai/llm/tokenization) — are pure arithmetic on random tensors, or a tokenizer with no weights behind it. They download nothing.
 
 Everything below is Python 3. The rest of this page sets up each of the three in turn.
 
@@ -43,8 +43,8 @@ with torch.no_grad():                     # we aren't training, so skip gradient
 
 That one forward pass produces everything the load-and-look checks read. The three keyword arguments and the objects they fill are the vocabulary those checks are written in:
 
-- **`labels=ids`** makes the model score itself. It returns `outputs.loss`, the average [cross-entropy](/wiki/ai/llm/the-loss-function) over the sequence. You pass the *same* tensor as both input and labels because there is no separate label — the model shifts the text by one internally and predicts each token from the ones before it. Exponentiate the loss and you have [perplexity](/wiki/ai/llm/perplexity): `torch.exp(outputs.loss)`.
-- **`output_hidden_states=True`** fills `outputs.hidden_states`, a tuple of **13** tensors each shaped `[1, n, 768]` — the [embedding](/wiki/ai/llm/embeddings) output, then one snapshot after each of the 12 blocks. `hidden_states[0]` is the input before any block has run; `hidden_states[-1]` is already past the final [normalization](/wiki/ai/llm/normalization), which HuggingFace applies before handing back that last entry. (Left off, `outputs.hidden_states` is `None`.)
+- **`labels=ids`** makes the model score itself. It returns `outputs.loss`, the average [cross-entropy](/wiki/ai/neural-network/the-loss-function) over the sequence. You pass the *same* tensor as both input and labels because there is no separate label — the model shifts the text by one internally and predicts each token from the ones before it. Exponentiate the loss and you have [perplexity](/wiki/ai/llm/perplexity): `torch.exp(outputs.loss)`.
+- **`output_hidden_states=True`** fills `outputs.hidden_states`, a tuple of **13** tensors each shaped `[1, n, 768]` — the [embedding](/wiki/ai/llm/embeddings) output, then one snapshot after each of the 12 blocks. `hidden_states[0]` is the input before any block has run; `hidden_states[-1]` is already past the final [normalization](/wiki/ai/neural-network/normalization), which HuggingFace applies before handing back that last entry. (Left off, `outputs.hidden_states` is `None`.)
 - **`outputs.logits`**, always present, is shaped `[1, n, 50257]`: one [score for every token in the vocabulary](/wiki/ai/llm/unembedding-and-logits), at every position.
 
 The named pieces of the model that the checks reach into all hang off `model`:
@@ -108,7 +108,7 @@ Two files matter for the checks. `model.py` holds the architecture — this is w
 
 ## No model: just torch (or tiktoken)
 
-Some checks download nothing at all. The ones on [GELU](/wiki/ai/llm/activations), [RoPE](/wiki/ai/llm/rope), [superposition](/wiki/ai/llm/superposition), and [context length](/wiki/ai/llm/context-length) are arithmetic on random tensors — `pip install torch` and you have everything, no weights involved. Build a random matrix with `torch.randn(768, 3072)`, call `torch.nn.functional.gelu`, and you're running the experiment.
+Some checks download nothing at all. The ones on [GELU](/wiki/ai/neural-network/activations), [RoPE](/wiki/ai/llm/rope), [superposition](/wiki/ai/neural-network/superposition), and [context length](/wiki/ai/llm/context-length) are arithmetic on random tensors — `pip install torch` and you have everything, no weights involved. Build a random matrix with `torch.randn(768, 3072)`, call `torch.nn.functional.gelu`, and you're running the experiment.
 
 The [tokenization](/wiki/ai/llm/tokenization) check needs only the GPT-2 tokenizer, which ships without the model in a separate small package:
 
@@ -136,4 +136,4 @@ torch.exp(outputs.loss)             # GPT-2's perplexity on the sentence
 
 ## Depends on / leads to
 
-Depends on [GPT-2](/wiki/ai/llm/gpt-2), the model these checks all run against. Leads to every page's *Check yourself*; the reading order proper resumes at [neural networks](/wiki/ai/llm/neural-networks).
+Depends on [GPT-2](/wiki/ai/llm/gpt-2), the model these checks all run against. Leads to every page's *Check yourself*; the reading order proper resumes at [tokenization](/wiki/ai/llm/tokenization).

@@ -1,61 +1,63 @@
 ---
 title: "Multi-Layer Perceptron"
-weight: 170
+weight: 20
 ---
 
-A multi-layer perceptron is the plainest arrangement in the [neural network](/wiki/ai/llm/neural-networks) repertoire, and the oldest: multiply a list of numbers by a table of learned weights, [bend the result](/wiki/ai/llm/bend), multiply by a second table. Every [block](/wiki/ai/llm/glossary) of a [transformer](/wiki/ai/llm) contains one — an **MLP**, as everyone shortens it. It is the half of the block that thinks about a single word at a time, without reference to any other. [Attention](/wiki/ai/llm/attention) is the other half, the part that moves information between words; the MLP is what the model does with a word once attention has gathered whatever it needed.
+A multi-layer perceptron is the plainest network there is, and the oldest: multiply a list of numbers by a table of learned weights, [bend the result](/wiki/ai/neural-network/bend), multiply by a second table, and keep going for as many [layers](/wiki/ai/neural-network/glossary) as you chose. Everyone shortens it to **MLP**. It has no structure beyond that — no notion that its inputs might be pixels near each other or words in an order, no memory, no wiring that treats any input differently from any other.
 
-It is much the plainer of the two mechanisms and much the larger. Most of the model's weights sit in its MLPs, and so, as far as anyone has been able to determine, do most of its facts. The half of a transformer people find interesting is attention. The half that holds what the model knows is this one.
+That plainness is why it is worth a page. Almost every architecture in use is an MLP with something bolted on to exploit whatever structure its inputs happen to have, and once you take the bolted-on part away, what remains is this — usually holding most of the weights and, as far as anyone has been able to determine, most of what the network knows.
 
-## What's left to do once attention has run
+## Every input to every output
 
-Attention has just delivered a blend of whatever the earlier words were offering. That sounds like the hard part is over, and it leaves one thing undone.
+One layer connects everything to everything. If a layer takes 768 numbers and produces 3072, then each of those 3072 outputs is a weighted sum of all 768 inputs, and the layer holds 768 × 3072 weights to say how much each input contributes to each output.
 
-Everything attention produces is a **weighted average of things already present**. Given the [attention pattern](/wiki/ai/llm/glossary), its output is a straight sum of [value vectors](/wiki/ai/llm/qkv-projections) — so whatever it hands back was assembled out of material already lying around at other positions. Attention decides *what to gather* in a thoroughly conditional way, since the pattern is computed from the row through a [softmax](/wiki/ai/llm/softmax-and-temperature). What it cannot do is produce something that wasn't in the context to begin with.
-
-And gathering isn't enough. Suppose attention has successfully established that this occurrence of `" bank"` sits in a sentence full of rivers. Something now has to act on that: suppress the finance associations, promote the ones about water and edges, and write a conclusion into the row that no earlier position ever supplied. Nothing assembled by averaging over the context can introduce that — it can only recombine what the context already held. The MLP is the part with the freedom to write something new, which is why a block needs both halves and why neither is optional.
+That is the sense in which the layer is *fully connected*, and it is worth noticing what it implies: the layer has no idea which input was which. Shuffle the 768 inputs, shuffle every layer's weights the same way, and the network computes exactly the same function. An MLP has no built-in opinion about the shape of its input at all — which is a weakness when the input has real structure worth exploiting, and the reason other architectures exist.
 
 ## Two matrices and a bend
 
-Mechanically there is almost nothing to it. The row is widened, bent, and squeezed back:
+The smallest interesting MLP is two layers, and the shape is usually a bulge — widen, bend, come back down:
 
 ```text
        768  ──▶  3072  ──▶  768
               GELU
 ```
 
-Multiply by a matrix to go from [`d_model`](/wiki/ai/llm/glossary) — the row width, 768 in [GPT-2 small](/wiki/ai/llm/gpt-2) — to four times that, apply [GELU](/wiki/ai/llm/activations) — the nonlinearity, the *bend*, and the reason the two matrices don't collapse into one — then multiply by a second matrix to come back down. That widening is the **MLP bulge**, the only place in the entire model where a row isn't `d_model` wide. Nothing mixes across rows on the way through: each row goes in alone and comes back alone.
+Multiply by a matrix to go from the input width to some larger width, apply a bend — [GELU](/wiki/ai/neural-network/activations) here, though [which bend barely matters](/wiki/ai/neural-network/bend) next to whether one is there — then multiply by a second matrix to come back down.
 
-Two matrices is where the *multi* in *multi-layer perceptron* stops. [The general shape](/wiki/ai/llm/neural-networks) allows as many stages as you like, and a transformer never uses more than two, because it buys its depth by stacking blocks rather than by deepening the MLP inside one.
+The bend in the middle is the whole reason there are two layers rather than one. Without it, multiplying by one matrix and then another is the same as multiplying by a single matrix you could have computed in advance, and the second layer is refunded. [That arithmetic in full](/wiki/ai/neural-network/bend#why-straight-lines-are-not-enough) is a page of its own; the short version is that stacking straight lines gets you a straight line, however many you stack.
+
+Nothing about that stops at two. The *multi* in the name allows as many layers as you like, and plenty of networks are deeper. Architectures built out of repeating blocks tend not to be, because they buy their depth by stacking blocks rather than by deepening the MLP inside one.
 
 ## The useful reading: detect, then write
 
-Two matrices with a bend is accurate and tells you nothing. The reading that does is to look at one of the 3072 **hidden units** on its own — one number in the widened middle, and what the rest of the world is pointing at when it says a *neuron*.
+Two matrices with a bend is accurate and tells you nothing. The reading that does is to look at one of the 3072 **hidden units** on its own — one number in the widened middle.
 
-Its **input weights** define a direction in the row's space. The unit lights up when the row points that way, and GELU squashes everything else toward zero — so it behaves like a detector with a soft threshold rather than a proportional readout. Its **output weights** define a *different* direction entirely, which it writes into [the residual stream](/wiki/ai/llm/residual-stream), scaled by how hard it fired.
+Its **input weights** define a direction in the input's space. The unit lights up when the input points that way, and the bend squashes everything else toward zero — so it behaves like a detector with a soft threshold rather than a proportional readout. Its **output weights** define a *different* direction entirely, which it writes into the layer's output, scaled by how hard it fired.
 
-Detect a feature, write a feature. Three thousand of those, per block, all running at once and summing their contributions.
+Detect a [feature](/wiki/ai/neural-network/glossary), write a feature. Three thousand of those, all running at once and summing their contributions.
 
-That makes an MLP something like three thousand soft if-then rules: *if this row looks like X, add Y to it.* The rules are fuzzy, they overlap, and many fire a little on almost everything — but "a big pile of learned conditional edits to the row" is much closer to what's happening than "a neural network layer." (The literature calls this a key-value memory. It has nothing to do with attention's keys and values, or with [the KV cache](/wiki/ai/llm/kv-cache).)
+That makes an MLP something like three thousand soft if-then rules: *if the input looks like X, add Y to it.* The rules are fuzzy, they overlap, and many fire a little on almost everything — but "a big pile of learned conditional edits" is much closer to what's happening than "two matrix multiplications." (The literature calls this a key-value memory, a name that collides confusingly with several unrelated uses of "key" and "value" in other architectures.)
 
-## Why it's four times wider in the middle
+## Why the middle is wider
 
-The bulge isn't arbitrary, and what has survived from the original transformer through to models a thousand times larger is the *budget* it implies: about 8·`d_model`² weights in the MLP, whichever way you arrange them. Two matrices at 4× width comes to exactly that, and so — not by coincidence — does the three-matrix, `8/3 · d_model`-wide arrangement that [SwiGLU](/wiki/ai/llm/activations) models use instead. The multiplier moved; the budget didn't.
+The reason to widen is that the number of hidden units is the number of detectors, and a network generally wants far more detectors than its input has dimensions to spare. A 768-wide input can hold at most 768 mutually perpendicular directions; the MLP above builds 3072 detectors over it. They cannot all be perpendicular, so they interfere — which is tolerable only because on any given input almost none of them fire, and that trade is [superposition](/wiki/ai/neural-network/superposition), the subject of its own page.
 
-The reason to widen at all is that the number of hidden units is the number of detectors, and a block wants far more detectors than the row has dimensions to spare. A 768-wide row can hold at most 768 mutually perpendicular directions; the MLP builds 3072 detectors over it. They cannot all be perpendicular, so they interfere — which is tolerable only because on any given token almost none of them fire, and that trade is [superposition](/wiki/ai/llm/superposition), the subject of its own page.
+The reason not to widen further is cost. Those two matrices are the network's largest objects, and their size scales directly with the multiplier — so the width of the middle is very nearly the whole parameter budget.
 
-The reason not to widen further is cost: the two matrices are the model's largest, and their size scales directly with the multiplier.
+A 4× bulge is the convention transformers inherited, and what has actually survived from the original design through to models a thousand times larger is the *budget* rather than the multiplier: about 8·*width*² weights, whichever way you arrange them. Two matrices at 4× comes to exactly that, and so — not by coincidence — does the three-matrix, 8/3× arrangement that [SwiGLU](/wiki/ai/neural-network/activations) networks use instead.
 
-## Where the parameters live
+## This is where the weights are
 
-And that is where the weights are. Attention in a GPT-2 block is four 768×768 matrices, about 2.4M weights. The MLP is two 768×3072 matrices, about 4.7M. Two-thirds of every block — and, on the current evidence, most of what the model knows — sits in the bulge.
+The practical consequence is that if you want to know where a network's parameters went, look at its MLPs first. They are dense, they are wide in the middle, and everything else in a typical architecture is smaller.
 
-This tends to surprise people who have spent all their attention on attention. It also explains why [mixture of experts](/wiki/ai/llm/mixture-of-experts) targets the MLP and leaves attention untouched: if you want to add parameters without adding cost per token, you go where the parameters already are.
+That is also why techniques for adding capacity without adding cost — [mixture of experts](/wiki/ai/llm/mixture-of-experts) being the prominent one — target the MLP and leave the rest alone. If you want more parameters per unit of compute, you go where the parameters already are.
 
 ## Check yourself
 
-[Sum the parameters](/wiki/ai/llm/running-the-checks) in GPT-2 small whose names contain `mlp`, and compare against the total excluding `wte` and `wpe`. You'll get 56.7M of 85.1M non-embedding parameters — 66.6%, two-thirds to the decimal — against 28.3M in attention.
+[GPT-2 small](/wiki/ai/llm/gpt-2) is a convenient thing to count, because it is a stack of twelve blocks each containing one 768→3072→768 MLP alongside its other machinery.
+
+[Sum the parameters](/wiki/ai/llm/running-the-checks) whose names contain `mlp`, and compare against the total excluding `wte` and `wpe`. You'll get 56.7M of 85.1M non-embedding parameters — 66.6%, two-thirds to the decimal — against 28.3M in everything else. Two matrices per block, and they outweigh the architecture's distinguishing machinery two to one.
 
 ## Depends on / leads to
 
-Depends on [neural networks](/wiki/ai/llm/neural-networks) and [the residual stream](/wiki/ai/llm/residual-stream). Leads to [the bend](/wiki/ai/llm/bend) — the nonlinearity in the middle, and the reason the bulge isn't refunded — then [GELU and SwiGLU](/wiki/ai/llm/activations), [LayerNorm and RMSNorm](/wiki/ai/llm/normalization) and [mixture of experts](/wiki/ai/llm/mixture-of-experts).
+Depends on [the section overview](/wiki/ai/neural-network) and [the glossary](/wiki/ai/neural-network/glossary). Leads to [the bend](/wiki/ai/neural-network/bend) — the nonlinearity in the middle, and the reason the bulge isn't refunded — and then [GELU and SwiGLU](/wiki/ai/neural-network/activations). For what an MLP does inside a transformer specifically, see [the MLP in a block](/wiki/ai/llm/the-mlp).

@@ -13,7 +13,7 @@ The trouble isn't that such a design *can't* preserve what it doesn't use. It ca
 
 The trouble is that it has to **learn** not to lose it. Preservation is a behaviour the stage must acquire, from the same gradient descent that's busy teaching it everything else — and it turns out to be a behaviour gradient descent is surprisingly bad at finding. Historically, deep plain networks did *worse* than shallow ones, and not because the shallow solution was beyond their reach. It was sitting right there, representable, and the optimizer couldn't land on it.
 
-Adding instead of replacing changes what the default is. Write your contribution on top of the total and leave everything else alone, and a stage that outputs nothing at all is *already* the identity — no learning required. Preservation stops being an achievement and becomes what happens when a block does nothing at all. (The `+` doing that work has its own name and page: [skip connections](/wiki/ai/llm/skip-connections), which also covers what it does for gradients on the way back.)
+Adding instead of replacing changes what the default is. Write your contribution on top of the total and leave everything else alone, and a stage that outputs nothing at all is *already* the identity — no learning required. Preservation stops being an achievement and becomes what happens when a block does nothing at all. (The `+` doing that work has its own name and page: [skip connections](/wiki/ai/neural-network/skip-connections), which also covers what it does for gradients on the way back.)
 
 ## The whole of a block
 
@@ -24,7 +24,7 @@ row = row + attention(norm(row))
 row = row + mlp(norm(row))
 ```
 
-Read it twice, because the shape of it is the point. [Attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/multi-layer-perceptron) never see the stream directly — they read a [normalized](/wiki/ai/llm/normalization) *copy* of it, and their output is added back. The stream itself is never overwritten by anyone.
+Read it twice, because the shape of it is the point. [Attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/the-mlp) never see the stream directly — they read a [normalized](/wiki/ai/neural-network/normalization) *copy* of it, and their output is added back. The stream itself is never overwritten by anyone.
 
 So the row leaving the last block of [GPT-2 small](/wiki/ai/llm/gpt-2) is the [embedding](/wiki/ai/llm/embeddings) plus 24 contributions: 12 from attention, 12 from the MLP, each of them [`d_model`](/wiki/ai/llm/glossary) wide. (The MLP widens a row internally on its way through, but writes back at the same width it read.) That running sum is the residual stream.
 
@@ -48,7 +48,7 @@ Two caveats, both worth carrying.
 
 Here's the pressure that shapes everything else. `d_model` is the same at the right edge as at the left: the stream does not get wider to accommodate 24 writers. All of them compete for the same 768 directions, and everything the model knows has to fit.
 
-It doesn't fit — not the way you'd hope. Models track far more features than they have dimensions, and the trick that lets them is [superposition](/wiki/ai/llm/superposition).
+It doesn't fit — not the way you'd hope. Models track far more features than they have dimensions, and the trick that lets them is [superposition](/wiki/ai/neural-network/superposition).
 
 ## Check yourself
 
@@ -62,4 +62,4 @@ The pairing is the point. The first ablation is what losing a contributor costs 
 
 ## Depends on / leads to
 
-Depends on [embeddings](/wiki/ai/llm/embeddings). Leads to [attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/multi-layer-perceptron).
+Depends on [embeddings](/wiki/ai/llm/embeddings). Leads to [attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/the-mlp).

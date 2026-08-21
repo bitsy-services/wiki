@@ -1,21 +1,21 @@
 ---
 title: "GELU and SwiGLU"
-weight: 175
+weight: 40
 ---
 
-Almost everything a transformer does to a row is, arithmetically, a straight line: multiply by a matrix, add a vector, multiply by another matrix. Straight lines have an inconvenient property — chain as many as you like and the result is just another straight line. A model built only from them would be no more capable with a hundred blocks than with one, however many parameters you poured in. The activation function is the small [bend](/wiki/ai/llm/bend) in the middle of the MLP that breaks the straightness, and it is the reason depth buys anything at all. GPT-2 bends with GELU; nearly everything since bends with SwiGLU.
+Almost everything a network does is, arithmetically, a straight line: multiply by a matrix, add a vector, multiply by another matrix. Straight lines have an inconvenient property — chain as many as you like and the result is just another straight line. A model built only from them would be no more capable with a hundred layers than with one, however many parameters you poured in. The activation function is the small [bend](/wiki/ai/neural-network/bend) in the middle that breaks the straightness, and it is the reason depth buys anything at all. This page is about which bend to use — a question the field has answered twice. [GPT-2](/wiki/ai/llm/gpt-2) bends with GELU; nearly everything since bends with SwiGLU.
 
 ## The vacancy an activation fills
 
-[The MLP](/wiki/ai/llm/multi-layer-perceptron) is two matrices with something in between: widen the row from 768 to 3072, do the something, narrow it back. Take the something away and the two matrices fold into one — 4.7M parameters reproduced exactly by a single 768 × 768 matrix holding 590K, with the [bulge](/wiki/ai/llm/glossary) refunded in full. [The bend](/wiki/ai/llm/bend) is the page for that argument, and for the [three other nonlinearities](/wiki/ai/llm/bend#every-nonlinearity-in-a-transformer) a transformer turns out to contain.
+[The MLP](/wiki/ai/neural-network/multi-layer-perceptron) is two matrices with something in between: widen the input from 768 to 3072, do the something, narrow it back. Take the something away and the two matrices fold into one — 4.7M parameters reproduced exactly by a single 768 × 768 matrix holding 590K, with the [bulge](/wiki/ai/neural-network/multi-layer-perceptron#why-the-middle-is-wider) refunded in full. [The bend](/wiki/ai/neural-network/bend) is the page for that argument, and for the [nonlinearities that aren't bends](/wiki/ai/neural-network/bend#nonlinearities-that-arent-bends).
 
-Any nonlinear function will stop that fold, so it is not the requirement that decides *which* one to use. What decides it is [everything else the job demands](/wiki/ai/llm/bend#what-makes-a-bend-usable) — chiefly that the bend be cheap, and that it leave [backprop](/wiki/ai/llm/backprop-one-weight) a slope to work with. The rest of this page is the history of that second one.
+Any nonlinear function will stop that fold, so it is not the requirement that decides *which* one to use. What decides it is [everything else the job demands](/wiki/ai/neural-network/bend#what-makes-a-bend-usable) — chiefly that the bend be cheap, and that it leave [backprop](/wiki/ai/neural-network/backprop-one-weight) a slope to work with. The rest of this page is the history of that second one.
 
 ## ReLU and the dead unit
 
 The simplest possible bend is ReLU — rectified linear unit, `max(0, x)`. Positive numbers pass untouched, negative numbers become zero. It is one comparison, it is fast, and it works.
 
-Its flaw is the corner. For any negative input the output is zero and, the part that bites, the *slope* is zero too. [Backprop](/wiki/ai/llm/backprop-one-weight) moves a weight by asking which way to nudge it, and a slope of exactly zero answers "nudging changes nothing." So a unit that lands negative for every example in the batch receives no gradient, never moves, and stays negative forever. It is dead: it contributes nothing, it cannot recover, and you are still paying for its parameters. Enough dead units and a chunk of the model is decoration.
+Its flaw is the corner. For any negative input the output is zero and, the part that bites, the *slope* is zero too. [Backprop](/wiki/ai/neural-network/backprop-one-weight) moves a weight by asking which way to nudge it, and a slope of exactly zero answers "nudging changes nothing." So a unit that lands negative for every example in the batch receives no gradient, never moves, and stays negative forever. It is dead: it contributes nothing, it cannot recover, and you are still paying for its parameters. Enough dead units and a chunk of the model is decoration.
 
 ## GELU: a dimmer, not a switch
 
@@ -49,23 +49,23 @@ First, negatives survive. GELU(−1) is −0.159, not 0 — small, but not nothi
 
 A GPT-2 wrinkle: computing `Φ` exactly needs the error function, `erf`, which was slow in 2019, so GPT-2 ships a `tanh`-based approximation instead. The two agree to about a thousandth. If you go looking, HuggingFace calls the approximation `gelu_new` — the name is the only confusing thing about it.
 
-## SwiGLU: let the row pick the gate
+## SwiGLU: let the input pick the gate
 
-GELU's gate has a limitation that's easy to miss: how much of `x` passes depends only on `x`. Each number decides its own fate, using a fixed rule baked in before training. Nothing else in the row gets a vote, and nothing about the gate is learned.
+GELU's gate has a limitation that's easy to miss: how much of `x` passes depends only on `x`. Each number decides its own fate, using a fixed rule baked in before training. Nothing else in the vector gets a vote, and nothing about the gate is learned.
 
-The gated linear unit (GLU) family asks the obvious next question — what if the gate were *computed* from the row, with weights the model trains? **SwiGLU** is that idea in its winning form. Project the row twice instead of once, into two separate 3072-wide vectors: call one the content and the other the gate. Bend the gate, multiply the two together element by element, project back down.
+The gated linear unit (GLU) family asks the obvious next question — what if the gate were *computed* from the whole input, with weights the model trains? **SwiGLU** is that idea in its winning form. Project the input twice instead of once, into two separate 3072-wide vectors: call one the content and the other the gate. Bend the gate, multiply the two together element by element, project back down.
 
 ```text
-GELU MLP     row ──[ W_up ]──▶ 3072 ──GELU──▶ 3072 ──[ W_down ]──▶ row
+GELU MLP     in ──[ W_up ]──▶ 3072 ──GELU──▶ 3072 ──[ W_down ]──▶ out
 
-SwiGLU MLP   row ──[ W_up ]────────────▶ 3072 ─┐
-                                               ⊗──▶ 3072 ──[ W_down ]──▶ row
-             row ──[ W_gate ]──Swish──▶ 3072 ─┘
+SwiGLU MLP   in ──[ W_up ]────────────▶ 3072 ─┐
+                                              ⊗──▶ 3072 ──[ W_down ]──▶ out
+             in ──[ W_gate ]──Swish──▶ 3072 ─┘
 ```
 
-The bend on the gate branch is **Swish**, `x · σ(x)`, where `σ` is the sigmoid — the S-shaped curve that squashes any number into the range 0 to 1. (PyTorch ships Swish under its other name, `SiLU`, which is what you'll actually import.) Swish is GELU's near-twin in shape and cheaper to compute; the two are close enough that the choice between them is not where the win comes from. The win comes from the multiply. Because `W_gate` reads the *whole row*, the gate is data-dependent and learned: a unit can now be suppressed for reasons that have nothing to do with its own value, which GELU could never express.
+The bend on the gate branch is **Swish**, `x · σ(x)`, where `σ` is the sigmoid — the S-shaped curve that squashes any number into the range 0 to 1. (PyTorch ships Swish under its other name, `SiLU`, which is what you'll actually import.) Swish is GELU's near-twin in shape and cheaper to compute; the two are close enough that the choice between them is not where the win comes from. The win comes from the multiply. Because `W_gate` reads the *whole input*, the gate is data-dependent and learned: a unit can now be suppressed for reasons that have nothing to do with its own value, which GELU could never express.
 
-**The cost is a third matrix.** GELU's MLP needs two; SwiGLU's needs three. At the same 3072 width that's 1.5× the parameters, which would be cheating in a comparison. So SwiGLU models shrink the bulge to pay for the extra matrix — the convention is a width of `8/3 · d_model` rather than `4 · d_model`, and the arithmetic is exact: three matrices at 8/3 is 8·`d_model`², and two at 4 is also 8·`d_model`². Llama's oddly-specific hidden width is that fraction, rounded to a convenient multiple. Same budget, rearranged.
+**The cost is a third matrix.** GELU's MLP needs two; SwiGLU's needs three. At the same 3072 width that's 1.5× the parameters, which would be cheating in a comparison. So SwiGLU models shrink the bulge to pay for the extra matrix — the convention is a middle width of 8/3× the input rather than 4×, and the arithmetic is exact: three matrices at 8/3 is 8·*width*², and two at 4 is also 8·*width*². Llama's oddly-specific hidden width is that fraction, rounded to a convenient multiple. Same budget, rearranged.
 
 **The payoff is measured, not explained.** For that identical budget, gated variants win a small but stubbornly consistent amount of loss, which is why they took over. Why they win, nobody really knows. Noam Shazeer's *GLU Variants Improve Transformer* (2020), the paper that introduced SwiGLU, closes with the most honest sentence in the literature: *"We offer no explanation as to why these architectures seem to work; we attribute their success, as all else, to divine benevolence."* It's a joke, and it's also the actual state of the art. This is an empirical result that stuck because it kept winning, and the bend that beat GELU did it without ever explaining itself.
 
@@ -79,4 +79,4 @@ Now the `float64`. Run that same test in `float32`, the dtype you'd reach for by
 
 ## Depends on / leads to
 
-Depends on [the bend](/wiki/ai/llm/bend), and through it [the MLP](/wiki/ai/llm/multi-layer-perceptron). Leads to [LayerNorm and RMSNorm](/wiki/ai/llm/normalization).
+Depends on [the bend](/wiki/ai/neural-network/bend), and through it [the MLP](/wiki/ai/neural-network/multi-layer-perceptron). Leads to [LayerNorm and RMSNorm](/wiki/ai/neural-network/normalization).

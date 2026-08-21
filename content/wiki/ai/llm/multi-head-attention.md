@@ -11,7 +11,7 @@ A head produces one pattern per row, and that pattern has to serve every purpose
 
 Take *"the tired dog by the river barked."* The row for `" barked"` has several unrelated pieces of business. It needs to find its subject, four tokens back. It might separately want the adjective attached to that subject. It might want to know that a prepositional phrase intervened, so it doesn't mistake `" river"` for the thing doing the barking.
 
-One head cannot do all three, and the reason is worth stating precisely, because the obvious version of it is wrong. It is *not* that the blend is unrecoverable — summing near-perpendicular directions is exactly how [the residual stream](/wiki/ai/llm/residual-stream) carries many things at once, and [superposition](/wiki/ai/llm/superposition) is the whole account of why that works.
+One head cannot do all three, and the reason is worth stating precisely, because the obvious version of it is wrong. It is *not* that the blend is unrecoverable — summing near-perpendicular directions is exactly how [the residual stream](/wiki/ai/llm/residual-stream) carries many things at once, and [superposition](/wiki/ai/neural-network/superposition) is the whole account of why that works.
 
 The real limit is that **a pattern assigns one weight per source row, and that weight applies to everything the row is offering.** The head cannot attend to `" dog"` heavily for the subject question while attending to `" river"` heavily for the intervening-phrase question — there is one set of proportions, and every purpose is served by the same one. Add that a head has only 64 dimensions to keep its answers apart in, and one head is committed to one relationship whether it likes it or not.
 
@@ -66,4 +66,4 @@ That every head owns *all three* of its projections is a GPT-2-era choice, and t
 
 ## Depends on / leads to
 
-Depends on [Q/K/V](/wiki/ai/llm/qkv-projections). Leads to [the MLP](/wiki/ai/llm/multi-layer-perceptron), the other half of a block.
+Depends on [Q/K/V](/wiki/ai/llm/qkv-projections). Leads to [the MLP](/wiki/ai/llm/the-mlp), the other half of a block.
