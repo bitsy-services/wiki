@@ -3,120 +3,101 @@ title: "Why Scale Worked"
 weight: 350
 ---
 
-Modern language models are not good because someone discovered a smarter way to read a sentence. They are good because someone discovered a way to train on far more writing than anyone had trained on before — and it turned out that more writing was what the problem had been short of all along. The insight everyone quotes is attention. The insight that did the work is duller: this design can turn a bigger budget into more text read, and the design it replaced could not. This page argues the second one is load-bearing and the first is mostly a means to it.
+Language models got good because the field found a way to train on far more writing than anyone had trained on before — not because anyone found a smarter way to read a sentence. The writing was always there, and it was always free. What changed is that the transformer can turn a bigger hardware budget into more text read, and the design it replaced could not. Attention is how that was achieved. The achievement is the cheapness.
 
-That is a claim about economics rather than intelligence, which is why it tends to get skipped. It is also the claim that best explains what happened.
+## The text was never the constraint
 
-## The half that was already free
+Next-token prediction supervises itself. [The loss function](/wiki/ai/llm/the-loss-function) scores each guess against the token that actually came next, and that token is not an annotation anybody wrote — it is just the text, one step along. Every sentence ever written is already labelled, by itself, for free.
 
-Start by disposing of a tempting wrong answer: that the transformer's gift was free training data.
+That is not a new observation. Neural language models were trained this way in 2003, and recurrent ones all through the 2010s, on the same unlabelled text. If free supervision were the insight, GPT-3 would have arrived in 2012. The corpus was never the shortage; getting through it was.
 
-It wasn't, because that part was never scarce. Next-token prediction supervises itself — [the loss function](/wiki/ai/llm/the-loss-function) scores each guess against the token that actually came next, and that token is not an annotation anyone produced. It is just the text, one step along. Every sentence ever written is already labelled, by itself, for free.
+## Recurrence turns a document into a queue
 
-And this is *old*. Neural language models were trained this way in 2003, and recurrent ones throughout the 2010s: the previous generation that [attention](/wiki/ai/llm/attention) describes were next-token predictors too, learning from raw text with nobody marking anything up. The free lunch sat on the table for fifteen years before it fed anyone. If self-supervision were the insight, GPT-3 would have arrived in 2012.
+A recurrent model reads a sequence one position at a time, carrying a running summary forward. Position 50 cannot start until position 49 has produced its summary. A training step on a thousand-token document therefore contains a thousand strictly ordered operations, and **no quantity of hardware shortens a chain**.
 
-So the corpus was never the constraint. The text was free, it was already labelled, and there was more of it than anyone could use. The question is why nobody used it.
+The two obvious escapes don't work.
 
-## The half that wasn't: the machine can't help
+**Run more sequences side by side.** You can, and people did — but batch parallelism saturates. Past the **critical batch size**, adding more sequences to a step stops reducing the number of steps needed to converge, and you are buying compute that buys nothing. It's measured rather than derived, and it drifts upward as a run proceeds, but it is finite at every moment, which is all a ceiling has to be.
 
-Because the old design could not turn a bigger budget into more text read.
+**Make the model wider.** You can do that too — 2016's recurrent language models carried summaries eight thousand units across — and it doesn't help, because width was never the problem. A wider summary makes each link in the chain do more work. It does not make the chain shorter.
 
-Two wrong versions of that complaint are worth clearing away first, because both are the sort of thing that gets said and neither survives contact with someone who knows the material.
+## Attention replaces the queue with a matrix multiply
 
-**It isn't that recurrence left the machine idle.** You can run many *sequences* side by side, and recurrent models were trained on real hardware perfectly respectably. Batching works. What recurrence precludes is parallelism *within* a single sequence — which is exactly how the transformer's authors framed their own contribution, not as a side effect but as the headline.
+Both designs have to move information between positions; that's what reading a sentence in context means. They do it differently.
 
-**Nor is it that recurrence couldn't be made wide.** It could. The big recurrent language models of 2016 carried a running summary eight thousand units across, and width costs the hardware nothing in structure: a wider summary is a bigger matrix multiply, and a bigger matrix multiply is precisely what the machine wants.
+Recurrence moves it by **relay**. To get a fact from position 0 to position 999, it hands the fact down 999 times, and each hop waits on the one before it. [Attention](/wiki/ai/llm/attention) moves it by **lookup**. Every position emits a **query** — what it is looking for — and a **key** — what it has to offer. Position 999 scores its query against all thousand keys in a single operation, and position 0 is exactly as reachable as position 998.
 
-The real problem is the one thing neither of those fixes. Position 50 cannot begin until position 49 has produced its summary, so a training step contains a chain of operations as long as the text, and **no quantity of hardware shortens a chain**. For a while you can hide that: buy more machines, run a bigger batch, push more tokens through each step. But batch parallelism saturates. Past a certain point — the *critical batch size* — adding more sequences to a step stops reducing the number of steps you need to converge, and you are simply spending more compute for the same progress. It's an empirical measurement rather than a theorem, and it isn't even a constant: it drifts upward as training proceeds. But it is finite at every moment, and that is all a ceiling needs to be.
+What makes that operation parallel is where the keys come from. Everything a query reads inside block *k* was deposited in [the residual stream](/wiki/ai/llm/residual-stream) by block *k−1*; it is already sitting there before the block starts. No position in a block waits on any other position in the same block. And once every query and every key exists up front, scoring them is one multiplication rather than a thousand: stack the queries as the rows of one matrix, the keys as the columns of another, and a single matrix multiply drops out every query-against-key score in the sequence. So the block resolves all thousand positions at once, and the only thing left running in order is the blocks themselves — twelve in [GPT-2 small](/wiki/ai/llm/gpt-2), whatever number the architecture fixes, and the same number for a ten-token document as for a ten-thousand-token one.
 
-Once you're against it, the only lever left is making each step faster — and that's exactly the lever recurrence doesn't have. The transformer has a chain of its own, mind: its blocks run one after another, as the diagram below shows, and hardware doesn't shorten that either. The difference is that the transformer's chain is a fixed length, set by the architecture, and recurrence's grows with every token you add. One of those designs gets slower per step as you feed it more text. The other doesn't.
+**That is the whole speedup** — of *training*, which is the half that eats the budget. [Generation gets none of it](/wiki/ai/llm/training-vs-inference-parallelism), because the next token cannot be attended to before it exists. Recurrence's serial depth is the length of the text. The transformer's serial depth is the block count, a constant. Feed it more text and the work gets *wider*, not *longer* — and width is the one direction hardware can be thrown at.
 
-The scoreboard tracks it. The recurrent line reached about a billion training tokens and stopped: the big 2016 models trained on a billion-token benchmark, and so did the best-known recurrent language model of 2018. GPT-3, in 2020, trained on roughly three hundred billion. It would be too neat to hand the architecture credit for all of that — compute budgets grew enormously across the same window, and 2018's transformers trained on about as much text as 2018's recurrent models did. But that *is* the point rather than an objection to it. When the money arrived, only one of the two designs did absorb it.
+Note what this is not. The transformer didn't win by doing less arithmetic — attention adds work recurrence never had to do, growing with the *square* of the sequence length where recurrence's grows linearly, which is why [context length](/wiki/ai/llm/context-length) is expensive. The trade is arithmetic for the shape of it: more operations, arranged so they can all happen at once. On a GPU that is a very good trade, because a GPU's problem is never having too much work to do. It is being made to wait.
 
-## What the transformer actually changed
-
-It cut the chain loose from the text. Within a single step, no position waits on any other — attention does move information between positions, that being its entire job, but every query reads material the *previous* step already deposited in [the residual stream](/wiki/ai/llm/residual-stream), never output from the step it is currently in. So the sequence contributes no depth of its own. A thousand-token document and a ten-token one pass through the same fixed stack of blocks, and each computes all its positions at once. Feed it more text and the queue doesn't lengthen; only the width of the work does — which is the kind of growth hardware absorbs.
+And because [the causal mask](/wiki/ai/llm/causal-mask) stops any row from seeing ahead, every row can be graded honestly in that same pass. One pass over a thousand-token document yields a thousand supervised predictions, all at once, from text that labelled itself. The recurrent model produces the same thousand predictions one at a time.
 
 ```text
                         depth  →
 
-  recurrence — the arrow that ruins it runs DOWN the sequence
+  recurrence — the chain runs DOWN the sequence
 
   pos 0  "The"   [ h0 ]
-                    │  carries everything so far
+                    │  h1 cannot start until h0 exists
   pos 1  " cat"  [ h1 ]
                     │
   pos 2  " sat"  [ h2 ]
                     │
   pos 3  " on"   [ h3 ]
 
-  h3 cannot start until h2 exists. Four positions, four steps,
-  strictly ordered. More hardware does not shorten that chain.
+  Four positions, four ordered steps.
 
-  transformer — no arrow runs down WITHIN a step
+  transformer — the chain runs ACROSS the blocks
 
   pos 0  "The"   [···]──[···]──▶ predicts " cat"
   pos 1  " cat"  [···]──[···]──▶ predicts " sat"
   pos 2  " sat"  [···]──[···]──▶ predicts " on"
   pos 3  " on"   [···]──[···]──▶ predicts " the"
 
-  One pass. Every row at once, and every row scored — four
-  supervised predictions for the price of one. Attention still
-  mixes the rows vertically; it reads what the step before left,
-  so no row waits on a neighbour inside the step.
+  Attention still mixes the rows vertically, but it reads what the
+  previous block left behind, so no row waits on a neighbour.
+  Four positions, two ordered steps. Forty thousand positions,
+  still two.
 ```
 
-One pass over a document therefore yields not one training signal but one per position, all of them, concurrently, from text that labelled itself. The free lunch was always there. This is the design that could eat it.
+## What that bought
 
-It's worth being blunt about what kind of advance that is. Movable type did not make anyone a better writer. It made copies cheap, and cheap copies rearranged Europe. Attention did not make a model better at relating two words than recurrence was in principle — recurrence could relate them too, just slowly and lossily. What it did was make the training cheap. The rearranging followed.
+The scoreboard is stark. The best recurrent language models of 2016 trained on a one-billion-word benchmark, and so did the best-known recurrent model of 2018. GPT-3, in 2020, trained on roughly three hundred billion tokens. Compute budgets grew enormously over the same window, so the architecture doesn't get sole credit — but that is the point rather than an objection to it. When the money arrived, only one of the two designs could absorb it.
 
-## The part that wasn't guaranteed
+Nothing guaranteed the results would be worth having. Cheap training is not good training, and the runs could have flattened out at a mediocre loss. Instead loss kept falling as compute, data, and parameters grew — smoothly, and predictably enough to forecast the loss of a model you have not trained from a curve fitted to smaller ones. These are the **scaling laws**: an empirical observation with no agreed explanation, and certainly none available in advance to justify the spending. Falling loss then cashed out as capability nobody targeted. Grammar, arithmetic, translation, something that behaves like reasoning — none were designed in. They appear to be what predicting text well enough *requires*.
 
-Cheap does not imply worthwhile. The transformer made enormous training runs affordable; nothing promised the results would be any good. They could have plateaued at a modest loss and left the field with a very efficient way to build something mediocre.
+The **Chinchilla** correction in 2022 raised the bill. Scaling laws say loss falls as you spend more; they don't say how to split a fixed budget between a bigger model and more text. The 2020 answer favoured parameters heavily, and the field duly raced to hundreds of billions of weights trained on comparatively little writing. Chinchilla redid the measurement and found that advice badly wrong: parameters and tokens should grow roughly *in step*, on the order of twenty tokens per parameter. A 70B model trained on 1.4 trillion tokens beat a 280B model trained on 300 billion, at matched compute. Practically every large model of the preceding era had been starved of text.
 
-They didn't, and this is the genuinely surprising fact of the era. Loss keeps falling as you add compute, data, and parameters — smoothly, and predictably enough that you can forecast the loss of a model you have not trained yet from a curve fitted to smaller ones. These are the *scaling laws*, and they are an empirical observation rather than a theorem. There are serious attempts to explain why they hold, but no consensus account, and certainly none that was available in advance to justify the spending.
+Models today are trained well past even that point — Llama 3's 8B model was fed 15 trillion tokens — because a model that is expensive to train once and cheap to serve forever is worth over-training. Every step in that direction wants more text still.
 
-The second surprise stacks on the first: falling loss cashed out as capability nobody targeted. The objective only ever asked for the next token. Grammar, arithmetic, translation, the ability to close a bracket thirty lines later, something that behaves like reasoning — none were designed in. They appear to be what predicting text well enough *requires*, so they were learned on the way. The [section landing page](/wiki/ai/llm) puts it as competence being a side effect of the guessing game. Scale is what made the side effects worth having.
+## Attention isn't the only way to get it
 
-A footnote to the laws then turned out to matter more than the laws. Scaling laws say loss falls as you spend more; they do not say how to *split* a fixed budget between a bigger model and more text. The first answers, in 2020, came down overwhelmingly on the side of parameters — grow the model much faster than the dataset — and the field duly raced to hundreds of billions of weights trained on comparatively little writing. In 2022 the Chinchilla work redid the measurement and found that advice had been badly wrong: for a fixed budget, parameters and tokens should grow roughly *in step*, on the order of twenty tokens per parameter. The demonstration was blunt. A 70B model trained on 1.4 trillion tokens beat a 280B model trained on 300 billion, at matched compute. Essentially every large model of the preceding era had been starved of text.
+If the parallel-training property is what mattered, and not attention specifically, you would expect something else to deliver it eventually. Something has.
 
-That correction is why models stopped getting conspicuously larger and started being trained for far longer — and it belongs on this page because of what it did to demand. Compute-optimal scaling doesn't merely reallocate a fixed budget; it raises how much text any budget calls for. Under the 2020 advice, doubling your compute wanted about 1.2× the data. Under Chinchilla's, it wants about 1.4×. That reads like a small difference and compounds into an enormous one.
+State-space models — Mamba and its relatives — keep a running summary much as recurrence did, but make the state update linear on purpose, which is what lets a whole sequence be resolved at once instead of walked. Same summary, no queue, and no quadratic cost either. They train on the same self-labelling text and land competitive with transformers at the sizes anyone has tried, which honestly stated means up to around eight billion parameters. Nothing at frontier scale is a pure state-space model, so the top end is untested — but if attention were the seat of the magic, parity even at that size shouldn't happen.
 
-If anything the correction undershot what came next. Models today are trained well *past* the compute-optimal point — Llama 3's 8B model was fed 15 trillion tokens, something like ninety times what Chinchilla would have prescribed for its size — because a model that is expensive to train once and then cheap to serve forever is worth over-training. Compute-optimality was never the goal; serving economics was. And every step in that direction wants more text still. The wall this page ends on moved closer the moment Chinchilla was worked out, and has been moving closer ever since.
+Where they *are* worse is telling: verbatim recall, reaching back and retrieving *this exact string* from far up the context. A fixed-size summary loses detail; attention doesn't, because reaching back two hundred positions is the same single comparison as reaching back one. That is what attention genuinely buys, and it's why models shipping state-space components almost always keep some attention blocks alongside them. It is not what made scale work.
 
-## So why isn't attention the insight?
+## Where the engine runs out
 
-Because the essential property has since been delivered without it.
+If what drives all this is cheap parallel training over text that labels itself, it runs exactly as long as the text does. The internet is finite, the good parts more finite still, and the frontier is close enough to the bottom of that well that "add more data" has stopped being a plan. That single fact explains most of what the labs are visibly doing: synthetic data, hard curation over raw volume, and a centre of gravity shifting from pre-training toward [fine-tuning](/wiki/ai/llm/fine-tuning), [RLHF](/wiki/ai/llm/rlhf), and reinforcement learning against checkable outcomes — all of which manufacture training signal rather than find it lying around.
 
-State-space models — Mamba and its relatives — keep a running summary much as recurrence did, but make the state update linear on purpose, which is what lets a whole sequence be resolved in parallel rather than walked one position at a time. Same running summary; no queue.
-
-That buys them the property this page says is load-bearing, without attention and without its quadratic [context](/wiki/ai/llm/context-length) cost — time grows linearly with sequence length instead. They train on the same self-labelling text and land competitive with transformers at the sizes anyone has tried, which, honestly stated, means up to around seven or eight billion parameters. Nothing at frontier scale is a pure state-space model, so the top end is untested. But if attention were the seat of the magic, parity at that size shouldn't happen either.
-
-The honest counter-evidence: it isn't a clean swap. A fixed-size running summary is lossy in a specific, well-documented way — these models are measurably worse at verbatim recall and copying, at reaching back and retrieving *this exact string* from far up the context. Attention has no such trouble, because reaching two hundred positions back is the same single comparison as reaching back one. That's a real capability, and it's why models that do ship with state-space components almost always keep some attention blocks alongside them rather than going without.
-
-So attention buys something genuine: precise retrieval across the context. What it does not buy is the answer to "why do these work at all." The evidence points at the duller property — *trains in parallel, on text that labels itself, at a scale hardware can actually be thrown at* — and attention was simply the first mechanism that delivered it.
-
-## What the frame is good for
-
-Take the economic reading seriously and it tells you where the next wall is, which the architectural reading never does.
-
-If the engine is cheap parallel training over text that labels itself, it runs exactly as long as the text does. The internet is large but finite, the good parts more finite still, and the frontier is now close enough to the bottom of that well that "just add data" has stopped being a plan. That single fact explains most of what the labs are visibly doing: synthetic data, aggressive curation over raw volume, and a centre of gravity that has shifted from pre-training toward [fine-tuning](/wiki/ai/llm/fine-tuning), [RLHF](/wiki/ai/llm/rlhf), and reinforcement learning against checkable outcomes — all of which manufacture training signal rather than find it lying around. When the free lunch runs out, you start cooking.
-
-That's the payoff of getting the insight right. "Attention was the breakthrough" predicts nothing. "Cheap supervision at a scale hardware can chew" predicts the data wall, and predicted it early.
+That's the payoff of getting the insight right. "Attention was the breakthrough" predicts nothing. "Cheap supervision at a scale hardware can chew" predicted the data wall, and predicted it early.
 
 ## Check yourself
 
 The argument rests on one claim you can test in a couple of lines: **one forward pass produces a supervised prediction at every position at once, from text that labelled itself.**
 
-Take a 1024-token chunk of anything and run [GPT-2 small](/wiki/ai/llm/gpt-2) as [`out = model(ids, labels=ids)`](/wiki/ai/llm/running-the-checks). Look at what you passed: the same tensor, twice. There is no label argument distinct from the input, because there is no label — the model shifts the text by one internally and scores against it. `out.loss` comes back a single scalar averaged over 1023 predictions, and you supplied no annotation to get any of them.
+Take a 1024-token chunk of anything and run GPT-2 small as [`out = model(ids, labels=ids)`](/wiki/ai/llm/running-the-checks). Look at what you passed: the same tensor, twice. There is no label argument distinct from the input, because there is no label — the model shifts the text by one internally and scores against it. `out.loss` comes back a single scalar averaged over 1023 predictions, and you supplied no annotation to get any of them.
 
-Now test the parallel half. From that one pass, `model(ids).logits[0, k]` is the prediction made at position `k`. Recompute it the expensive way, with a pass that has never seen a token past `k`: `model(ids[:, :k+1]).logits[0, -1]`. The two match for every `k` you care to try — [the causal mask](/wiki/ai/llm/causal-mask) guarantees it, since position `k` could not have peeked forward anyway.
+Now the parallel half. From that one pass, `model(ids).logits[0, k]` is the prediction made at position `k`. Recompute it the expensive way, with a pass that has never seen a token past `k`: `model(ids[:, :k+1]).logits[0, -1]`. The two match for every `k` you try, because [the causal mask](/wiki/ai/llm/causal-mask) meant position `k` could not have peeked forward anyway.
 
-Compare with `atol=1e-4`, and don't expect bitwise equality. The two passes hand the kernel different sequence lengths, so it blocks the matrix multiplies differently and sums them in a different order, and float addition doesn't associate — true on a CPU as much as a GPU. Twelve blocks of that drifts the logits by around `1e-4`. `torch.allclose` at its defaults will report a difference and be wrong about what it means.
+Compare with `atol=1e-4`, not bitwise. The two passes hand the kernel different sequence lengths, so it blocks the matrix multiplies differently and sums them in a different order, and float addition doesn't associate — true on a CPU as much as a GPU. Twelve blocks of that drifts the logits by around `1e-4`, and `torch.allclose` at its defaults will report a difference and be wrong about what it means. Tell noise from a real failure by magnitude and structure: arithmetic noise is tiny, scattered, and won't reproduce exactly on a re-run, whereas leakage through the mask would be large and would *track the actual next tokens*.
 
-Tell noise from a real failure by **magnitude and structure, not trend**. Arithmetic noise is tiny, scattered, and won't reproduce exactly if you re-run it; leakage through the mask would be large, and the difference would *track the actual next tokens*, since those are what the full pass would have been improperly reading. Don't reach for "the gap grows as I truncate more" — it does that either way, because the passes differ more in shape the further apart their lengths are.
-
-Then picture the same test on the recurrent design: 1023 predictions, each waiting on the last, no way to overlap them, and no amount of hardware that shortens the queue. Same predictions, 1023× the serial steps. That gap is the entire reason you have heard of any of this.
+Then picture the same test on the recurrent design: the same 1023 predictions, each waiting on the last, and no amount of hardware that shortens the queue. That gap is the entire reason you have heard of any of this.
 
 ## Depends on / leads to
 
