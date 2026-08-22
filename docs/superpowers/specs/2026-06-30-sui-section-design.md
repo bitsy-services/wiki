@@ -15,7 +15,7 @@ so the two cross-link heavily.
 
 ## Placement & Format
 
-- **Path:** `content/wiki/defi/sui/` (sibling to `iota/`, `sapphire/`,
+- **Path:** `content/wiki/economics/finance/defi/sui/` (sibling to `iota/`, `sapphire/`,
   `ethereum/`).
 - **Section frontmatter:** `title: "Sui"`, `bookCollapseSection: true`,
   `weight: 25` (slots just after IOTA's 20, reflecting the shared lineage).
@@ -37,7 +37,7 @@ History (Mysten Labs, ex-Meta Diem/Novi team, mainnet May 2023); the
 object-centric model in brief; Move; consensus at a glance (Mysticeti); the SUI
 token + tokenomics (supply, gas, staking, storage fund); DeFi positioning; recent
 developments / roadmap; "Why It Matters for DeFi"-style balanced takeaways. Links
-out to every sub-page. Cross-link to [iota](/wiki/defi/iota/) (shared lineage).
+out to every sub-page. Cross-link to [iota](/wiki/economics/finance/defi/iota/) (shared lineage).
 
 ### 2. `object-model.md` — The Object Model
 Sui's defining feature. Objects vs the account/balance model; **owned** vs
@@ -48,7 +48,7 @@ conceptual key to the rest of the section.
 ### 3. `sui-move.md` — Sui Move
 Move as a resource-oriented language; Sui Move vs core Move / Aptos Move (object
 model, `key`/`store` abilities, no global storage); modules, structs, abilities;
-contrast with Solidity (link [solidity](/wiki/defi/solidity/)). Cross-link to
+contrast with Solidity (link [solidity](/wiki/economics/finance/defi/solidity/)). Cross-link to
 IOTA (also Move-based). Note the 2024 "Move 2024" edition if current.
 
 ### 4. `programmable-transaction-blocks.md` — Programmable Transaction Blocks
@@ -60,7 +60,7 @@ ergonomic with no clean Ethereum equivalent. Brief illustrative (pseudo)code.
 **Mysticeti** (current DAG-BFT) and the Narwhal/Bullshark lineage that preceded
 it; the single-owner **fast path** (consensusless / owned-object transactions)
 vs the consensus path for shared objects; throughput/latency posture; MEV notes
-(link [maximal-extractable-value](/wiki/defi/maximal-extractable-value)).
+(link [maximal-extractable-value](/wiki/economics/finance/defi/maximal-extractable-value)).
 Cross-link to IOTA's Mysticeti→Starfish history.
 
 ### 6. `gas-and-storage.md` — Gas & Storage
@@ -85,7 +85,7 @@ use cases (large media, data availability). Mainnet status verified at draft.
 The DeFi lens. **DeepBook** (native on-chain central limit order book) as the
 shared liquidity layer; AMMs/DEXs (Cetus, Turbos); lending (Suilend, Navi);
 stablecoins; bridges (Wormhole, etc.). Honest on maturity/TVL. Links
-[dex](/wiki/defi/dex), [dapp](/wiki/defi/dapp), [staking](/wiki/defi/staking).
+[dex](/wiki/economics/finance/defi/dex), [dapp](/wiki/economics/finance/defi/dapp), [staking](/wiki/economics/finance/defi/staking).
 
 ## Linking Plan
 

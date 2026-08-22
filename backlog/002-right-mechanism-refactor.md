@@ -11,7 +11,7 @@ merely *loading always by omission* — it, and four other `wiki-*` rules, carri
 fails open, so every rule the author believed was scoped to `content/wiki/**` was
 loading unconditionally into every session.
 
-- `solidity-examples.md` now uses `paths: ["content/wiki/defi/**/*.md"]` — all 15
+- `solidity-examples.md` now uses `paths: ["content/wiki/economics/finance/defi/**/*.md"]` — all 15
   pages with Solidity blocks are under `defi/`, so it now loads exactly when
   relevant and costs nothing otherwise.
 - The other `wiki-*` rules had their dead `globs:` key removed and stay always-on

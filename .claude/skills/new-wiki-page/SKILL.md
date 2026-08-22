@@ -12,16 +12,18 @@ A procedure, not a set of facts. The always-on rules in `.claude/rules/` tell yo
 ## 1. Place it
 
 Pages live under `content/wiki/<section>/`. Existing sections: `ai`, `cs`,
-`defi`, `git`, `security`, `social`. Use an existing section unless the topic
-genuinely doesn't fit one.
+`economics` (with `economics/finance/defi` beneath it), `git`, `microsoft`,
+`security`, `social`. Sections nest, so place a page at the depth its topic
+actually sits. Use an existing section unless the topic genuinely doesn't fit
+one.
 
 - A single page is `content/wiki/<section>/<slug>.md`.
 - A topic that needs several pages is a folder with an `_index.md` carrying
   `bookCollapseSection: true`, plus one file per child page.
 - The URL is the path minus `content/` and minus the `.md`, so
-  `content/wiki/defi/amm.md` serves at `/wiki/defi/amm`. Choose the slug with
-  the URL in mind — other pages will link to it, and moving it later breaks
-  every inbound link.
+  `content/wiki/economics/finance/defi/amm.md` serves at
+  `/wiki/economics/finance/defi/amm`. Choose the slug with the URL in mind —
+  other pages will link to it, and moving it later breaks every inbound link.
 
 Check first whether a stub already exists for the topic; expanding a stub beats
 creating a rival page.
@@ -70,5 +72,5 @@ languages, and the frontmatter. It must be green. It is also wired to a Stop
 hook, so a red check will block the turn from ending anyway.
 
 Writing a page with Solidity examples? `.claude/rules/solidity-examples.md`
-loads automatically for `content/wiki/defi/**`, and its rules are not optional —
+loads automatically for `content/wiki/economics/finance/defi/**`, and its rules are not optional —
 the code in this wiki gets copy-pasted.

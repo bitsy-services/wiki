@@ -13,7 +13,7 @@ own section directly under `defi/` (matching `iota/`, `ethereum/`).
 
 ## Placement & Format
 
-- **Path:** `content/wiki/defi/sapphire/_index.md`
+- **Path:** `content/wiki/economics/finance/defi/sapphire/_index.md`
 - **Frontmatter:** `title: "Sapphire"`, `bookCollapseSection: true`, `weight`
   chosen to slot sensibly among existing chain sections (IOTA is 20; pick an
   unused value).
@@ -38,12 +38,12 @@ about limitations.
    which breaks whole categories of apps: sealed-bid auctions, private
    voting/DAOs, hidden-information games, confidential DeFi, on-chain key
    management, secrets/credentials. Frame against the transparency + MEV problem
-   (link [maximal-extractable-value](/wiki/defi/maximal-extractable-value)).
+   (link [maximal-extractable-value](/wiki/economics/finance/defi/maximal-extractable-value)).
 3. **How Confidentiality Works (TEEs)** — Intel SGX enclaves, encrypted runtime
    state, end-to-end encrypted calldata, remote attestation. Contrast with
    [zero-knowledge-proofs](/wiki/cs/zero-knowledge-proofs) ("ZK proves without
    revealing; TEEs compute privately inside sealed hardware"). Links to new
-   [tee](/wiki/defi/tee) stub.
+   [tee](/wiki/economics/finance/defi/tee) stub.
 4. **The Confidential EVM in Practice** — what differs from vanilla Solidity:
    encrypted state is automatic; **view calls must be signed** (EIP-712) so the
    chain can authorize reads; the `@oasisprotocol/sapphire-paratime` wrapper
@@ -69,7 +69,7 @@ about limitations.
 
 - **Reuse existing pages:** `maximal-extractable-value`, `zero-knowledge-proofs`,
   `ethereum/` (EVM), `solidity/`, `blockchain`, `dapp`, `smart-contract`.
-- **New stub:** `content/wiki/defi/tee.md` — Trusted Execution Environment
+- **New stub:** `content/wiki/economics/finance/defi/tee.md` — Trusted Execution Environment
   concept (SGX/TDX, enclaves, remote attestation), with external links
   (Wikipedia, Intel SGX docs). Per `wiki-linking`, link targets must exist.
 

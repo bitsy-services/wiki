@@ -28,7 +28,7 @@ the result on its own terms.
      discuss the topic, or is it an orphan?
    - **Severity ordering** — pitfalls sections lead with fund-loss risks, not
      revert-only issues.
-   - **Solidity** (`solidity-examples.md`, for `content/wiki/defi/**`) — SafeERC20
+   - **Solidity** (`solidity-examples.md`, for `content/wiki/economics/finance/defi/**`) — SafeERC20
      over raw transfers, no unwarned `amountOutMinimum: 0`, imports present.
      This code gets copy-pasted; treat unsafe examples as the top finding.
 

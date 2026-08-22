@@ -62,8 +62,8 @@ DAGs are the implicit data model behind a surprising amount of infrastructure:
 - **Build systems** — Make, Bazel, and Ninja model targets and their prerequisites as a DAG, then topologically order the work.
 - **Task and dataflow schedulers** — Airflow, Spark, and TensorFlow graphs are DAGs of operations.
 - **Version control** — a Git commit history is a DAG (merges give a commit two parents); `git log --graph` renders it.
-- **Content addressing** — Merkle DAGs underpin IPFS and Git's object store; a [blockchain](/wiki/defi/blockchain) is the degenerate linear case.
-- **Distributed ledgers** — IOTA's [Tangle](/wiki/defi/iota/tangle) replaced the linear chain with a transaction DAG; modern BFT consensus protocols such as Mysticeti are also DAG-structured.
+- **Content addressing** — Merkle DAGs underpin IPFS and Git's object store; a [blockchain](/wiki/economics/finance/defi/blockchain) is the degenerate linear case.
+- **Distributed ledgers** — IOTA's [Tangle](/wiki/economics/finance/defi/iota/tangle) replaced the linear chain with a transaction DAG; modern BFT consensus protocols such as Mysticeti are also DAG-structured.
 - **Compilers** — expression DAGs share common subexpressions; SSA form and dependency analysis are DAG problems.
 - **Probabilistic models** — a [Bayesian network](https://en.wikipedia.org/wiki/Bayesian_network) is a DAG of conditional dependencies.
 

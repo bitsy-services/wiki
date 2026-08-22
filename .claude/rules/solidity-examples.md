@@ -1,7 +1,7 @@
 ---
 description: Rules for Solidity code examples in wiki pages
 paths:
-  - "content/wiki/defi/**/*.md"
+  - "content/wiki/economics/finance/defi/**/*.md"
 ---
 
 # Solidity Code Examples

@@ -9,9 +9,9 @@ Two traps in this repo that cost real time to discover (2026-07-12), both of
 which look fine and are silently wrong.
 
 **1. Hugo does not validate internal links.** Every link in this wiki is a plain
-absolute path (`/wiki/defi/amm`), not a Hugo `ref`/`relref` shortcode. Hugo
+absolute path (`/wiki/economics/finance/defi/amm`), not a Hugo `ref`/`relref` shortcode. Hugo
 renders a link to a nonexistent page without warning, and the build stays green.
-Six links to `/wiki/defi/chainlink-automation` had been 404ing in production
+Six links to `/wiki/economics/finance/defi/chainlink-automation` had been 404ing in production
 since the page moved under `chainlink/`. `scripts/check-content.py` is the only
 thing that catches this — a green `hugo` build means nothing about link
 integrity. Run `scripts/check.sh`, not `hugo`.
