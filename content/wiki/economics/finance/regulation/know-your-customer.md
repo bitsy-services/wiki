@@ -7,7 +7,7 @@ Know Your Customer (KYC) is the set of obligations requiring a financial institu
 
 In the US the obligations come from two places: the Customer Identification Program (CIP) rule, added to the [Bank Secrecy Act](/wiki/economics/finance/regulation/bank-secrecy-act) by § 326 of the USA PATRIOT Act, and the 2016 Customer Due Diligence Rule, which added beneficial ownership and ongoing monitoring.
 
-Both bind *covered financial institutions* — banks, broker-dealers, mutual funds, futures commission merchants. A [money services business](/wiki/economics/finance/regulation/money-services-business) is not one, and reaches much the same place by a different route: the risk-based AML program requirement at 31 CFR 1022.210, the [transmittal recordkeeping and Travel Rule requirements](/wiki/economics/finance/regulation/travel-rule), and the conditions attached to its state licences. The distinction is worth holding on to, because most crypto businesses are MSBs and will be examined against the rules that actually apply to them.
+Both bind *covered financial institutions* — banks, broker-dealers, mutual funds, futures commission merchants. A [money services business](/wiki/economics/finance/regulation/money-services-business) (MSB) is not one, and reaches much the same place by a different route: the risk-based AML program requirement at 31 CFR 1022.210, the [transmittal recordkeeping and Travel Rule requirements](/wiki/economics/finance/regulation/travel-rule), and the conditions attached to its state licences. The distinction is worth holding on to, because most crypto businesses are MSBs and will be examined against the rules that actually apply to them.
 
 ## The three layers
 

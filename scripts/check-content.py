@@ -68,6 +68,27 @@ def normalize(text):
     return re.sub(r"[^a-z0-9]+", " ", text)
 
 
+# How far apart the acronym and its spelled-out form may sit and still read as a
+# definition. Wide enough for "Foo Bar (FB)" and for a parenthetical aside; too
+# narrow for the expansion to be in a different paragraph.
+BIND_WINDOW = 180
+
+
+def binds(page_text, acro, expansion):
+    """True if some use of `acro` sits next to its expansion.
+
+    Requiring proximity is the whole point: a page that happens to contain the
+    words somewhere and uses the acronym somewhere else has not defined it. The
+    reader has to be able to see the two together.
+    """
+    want = normalize(expansion)
+    for m in re.finditer(r"\b" + re.escape(acro) + r"(?:es|s)?\b", page_text):
+        lo = max(0, m.start() - BIND_WINDOW)
+        if want in normalize(page_text[lo : m.end() + BIND_WINDOW]):
+            return True
+    return False
+
+
 def prose_lines(clean):
     """Yield (lineno, text) with inline code and link *targets* removed.
 
@@ -226,7 +247,6 @@ def main(argv):
         # link it to the page that does. Registry entries with no expansion
         # ("-") are common knowledge and exempt.
         page_text = " ".join(t for _, t in prose_lines(clean))
-        page_norm = normalize(page_text)
         linked = set()
         for _, line in clean:
             for label in LINK_LABEL_RE.findall(line):
@@ -249,11 +269,11 @@ def main(argv):
             expansion = registry[acro]
             if expansion is None or acro in linked:
                 continue
-            if normalize(expansion) in page_norm:
+            if binds(page_text, acro, expansion):
                 continue
             err("acronym", f, lineno,
-                f"{acro!r} is never expanded or linked on this page "
-                f"(expansion: {expansion!r})")
+                f"{acro!r} is never bound to its expansion on this page "
+                f"(expected {expansion!r} beside a use of {acro})")
 
     order = {"link": 0, "anchor": 1, "acronym": 2, "h1": 3, "fence": 4, "frontmatter": 5}
     errors.sort(key=lambda e: (order[e[0]], str(e[1]), e[2]))

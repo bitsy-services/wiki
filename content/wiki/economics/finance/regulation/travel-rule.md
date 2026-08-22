@@ -16,7 +16,7 @@ For a covered transmittal, the originator's institution must include and pass on
 - The identity of the recipient's institution
 - The beneficiary's name, address, and account number, if received
 
-The receiving institution must retain what it gets. A 2020 [FinCEN](/wiki/economics/finance/regulation/fincen) rulemaking proposed dropping the threshold to $250 for cross-border transfers; it was never finalised, and the $3,000 figure — unindexed since 1995, like most BSA thresholds — still stands.
+The receiving institution must retain what it gets. A 2020 [FinCEN](/wiki/economics/finance/regulation/fincen) rulemaking proposed dropping the threshold to $250 for cross-border transfers; it was never finalised, and the $3,000 figure — unindexed since 1995, like most [BSA](/wiki/economics/finance/regulation/bank-secrecy-act) thresholds — still stands.
 
 ## FATF Recommendation 16 and VASPs
 

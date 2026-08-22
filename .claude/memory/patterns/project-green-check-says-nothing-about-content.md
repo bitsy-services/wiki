@@ -30,6 +30,16 @@ explicit registry (`scripts/acronyms.txt`) plus a per-page check turns
 "remember to expand acronyms" into a build failure, and an *unregistered*
 acronym fails too, so a new one forces the decision instead of slipping through.
 Prefer that shape: a small allow-list the author must edit deliberately, over a
-heuristic that guesses. For what a check still can't reach — truth, tone,
+heuristic that guesses.
+
+**And then attack the check itself.** The first version of the acronym check
+asked only whether the expansion appeared *somewhere on the page*. It passed
+`fincen.md`, where the words sit in the opening paragraph and `CTRs`/`SARs`
+appear six lines later with nothing binding them — the user spotted it
+immediately, on the very lines their editor had been showing all along.
+Requiring the expansion within 180 characters of a use of the acronym found 16
+more pages with the same defect. A check that is too loose is worse than none,
+because it converts "I should look" into "the gate is green"; before claiming a
+check closes a gap, hand-pick a case you know is bad and confirm it fails. For what a check still can't reach — truth, tone,
 readability — use `wiki-reviewer`, and keep going until a round comes back
 clean. Related: [[project-harness-invariants]].

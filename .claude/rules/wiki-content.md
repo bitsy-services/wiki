@@ -13,6 +13,8 @@ Several of these are machine-checked by `scripts/check-content.py`; run
 - Expand every acronym on first use on **each page** that uses it — `automated
   market maker (AMM)` — or link it to the page that expands it. Per-page, not
   per-wiki: a reader landing from a search engine has not read the other pages.
+  The expansion has to sit *beside* the acronym; the same words elsewhere on the
+  page do not define it, and the check enforces the proximity.
   Acronyms live in `scripts/acronyms.txt`; using one that isn't listed fails the
   check, so a new acronym forces the choice (expand it, or register it as
   common knowledge with `-`). *(checked)*

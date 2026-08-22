@@ -77,7 +77,7 @@ And a head is narrow on purpose. Sixty-four numbers is enough to chase one relat
 
 ## Check yourself
 
-Load [GPT-2 small](/wiki/ai/llm/gpt-2) with `attn_implementation="eager"` — the default SDPA path returns an *empty* attentions tuple and no warning — and run it with [`output_attentions=True`](/wiki/ai/llm/running-the-checks). `attentions[0][0, 0]` is a square matrix: every row of it sums to 1.0, and every weight a row assigns to a row *below* itself is exactly 0.0. Now change a word near the top and re-run. Rows below it move; rows above it are bit-identical. The pattern is a function of the input — but only of the input a row can see.
+Load [GPT-2 small](/wiki/ai/llm/gpt-2) with `attn_implementation="eager"` — the default scaled dot-product attention (SDPA) path returns an *empty* attentions tuple and no warning — and run it with [`output_attentions=True`](/wiki/ai/llm/running-the-checks). `attentions[0][0, 0]` is a square matrix: every row of it sums to 1.0, and every weight a row assigns to a row *below* itself is exactly 0.0. Now change a word near the top and re-run. Rows below it move; rows above it are bit-identical. The pattern is a function of the input — but only of the input a row can see.
 
 Then rebuild one pattern yourself and confirm the divisor in step 3 is load-bearing. Two traps sink most attempts, and both are simply steps 1 and 2 taken literally: the projections read a *normalized* row, not the raw one, and `c_attn` is a module to be called rather than a matrix to be sliced — calling it is also what applies the bias you'd otherwise drop.
 

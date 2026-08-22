@@ -18,7 +18,7 @@ Uniswap has gone through several major versions. Each is a separate set of smart
 
 **V4** moves all pools into a single "singleton" contract for gas savings and introduces [hooks](https://docs.uniswap.org/contracts/v4/overview) — plugin contracts that can customize pool behavior (dynamic fees, on-chain limit orders, custom oracles, etc.). V4 is newer and has less tooling and documentation than V3.
 
-**UniswapX** is a separate [intent-based](https://docs.uniswap.org/contracts/uniswapx/overview) system that runs alongside the on-chain protocol. Users sign an order off-chain, and competing "fillers" find the best execution — potentially routing across multiple DEXs or using private liquidity. On-chain settlement acts as a fallback.
+**UniswapX** is a separate [intent-based](https://docs.uniswap.org/contracts/uniswapx/overview) system that runs alongside the on-chain protocol. Users sign an order off-chain, and competing "fillers" find the best execution — potentially routing across multiple [DEXs](/wiki/economics/finance/defi/dex) or using private liquidity. On-chain settlement acts as a fallback.
 
 ## Which Version Should I Use?
 

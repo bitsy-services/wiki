@@ -9,7 +9,7 @@ It is small — on the order of 300 staff — and it has an outsized effect on h
 
 ## What it actually does
 
-**Collects.** FinCEN operates the BSA database, receiving roughly 20 million CTRs and 4 million SARs a year and making them queryable by thousands of law-enforcement and regulatory users across federal, state, and local agencies. FinCEN does not itself investigate crimes; it holds the data others investigate with.
+**Collects.** FinCEN operates the [BSA](/wiki/economics/finance/regulation/bank-secrecy-act) database, receiving roughly 20 million currency transaction reports (CTRs) and 4 million suspicious activity reports (SARs) a year and making them queryable by thousands of law-enforcement and regulatory users across federal, state, and local agencies. FinCEN does not itself investigate crimes; it holds the data others investigate with.
 
 **Writes rules.** The statute is short; the regulations are not. FinCEN decides who counts as a [money services business](/wiki/economics/finance/regulation/money-services-business), what an adequate [anti-money-laundering](/wiki/economics/finance/regulation/anti-money-laundering) program looks like, how far [know your customer](/wiki/economics/finance/regulation/know-your-customer) obligations extend, and where the reporting thresholds sit. Its most consequential act in this domain was not a rule at all but a 2013 interpretive guidance placing administrators and exchangers of convertible virtual currency inside the money-transmitter definition — a document that reshaped an industry without amending a single line of law.
 

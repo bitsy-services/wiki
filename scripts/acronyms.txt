@@ -46,7 +46,7 @@ VRF	verifiable random function
 CCIP	Cross-Chain Interoperability Protocol
 DVM	Data Verification Mechanism
 IIP	IOTA Improvement Proposal
-ANS	Arweave Name System
+ANS	-
 PTB	programmable transaction block
 RLP	recursive length prefix
 TPS	transactions per second

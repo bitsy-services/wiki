@@ -14,7 +14,7 @@ Cryptographic *theory* lives here; the operational business of handling keys and
 
 [Entity addressing](/wiki/cs/entity-addressing) names a tension that runs through databases, domain modelling, language design, and web architecture: are your entities rows inside a container, or first-class objects with their own identity? The mismatch between layers that answered differently is what object-relational mapping (ORM) impedance and REST-over-RPC adapters are made of.
 
-[IPFS](/wiki/cs/ipfs) is what content addressing looks like when it is the whole design: name data by the hash of its contents rather than by where it sits, and the Merkle DAG follows necessarily. It sits here rather than under DeFi because the durable idea is the addressing scheme, not the storage market built on it -- though most of the pages that link here are on the DeFi side, and [Arweave](/wiki/economics/finance/defi/arweave) is its natural sibling.
+[IPFS](/wiki/cs/ipfs) is what content addressing looks like when it is the whole design: name data by the hash of its contents rather than by where it sits, and a [Merkle DAG](/wiki/cs/dag) follows necessarily. It sits here rather than under DeFi because the durable idea is the addressing scheme, not the storage market built on it -- though most of the pages that link here are on the DeFi side, and [Arweave](/wiki/economics/finance/defi/arweave) is its natural sibling.
 
 [Homoiconicity](/wiki/cs/homoiconicity) is the property of a language whose programs are written in its own data structures -- code and data sharing one form, so the language can rewrite itself with ordinary tools.
 

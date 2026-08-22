@@ -53,7 +53,7 @@ Idempotency keys prevent duplicate processing. If the exchange rate shifts signi
 
 ## Security and privacy
 
-Interbox minimises data collection. It does not store personal or transactional data beyond communication records needed for troubleshooting. Off-chain data required to complete a transfer is deleted after settlement. Note that this is only tenable on the regulatory position described below: an MSB owes five-year retention and suspicious-activity reporting, neither of which is compatible with deleting the record.
+Interbox minimises data collection. It does not store personal or transactional data beyond communication records needed for troubleshooting. Off-chain data required to complete a transfer is deleted after settlement. Note that this is only tenable on the regulatory position described below: an [MSB](/wiki/economics/finance/regulation/money-services-business) owes five-year retention and suspicious-activity reporting, neither of which is compatible with deleting the record.
 
 The link between a bank account and a wallet is encrypted on-chain. Interbox will only disclose account linkage under a properly executed court order.
 

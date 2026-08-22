@@ -48,7 +48,7 @@ In concentrated-liquidity pools (Uniswap V3+), LPs choose a price range. If the 
 |---|---|---|
 | Constant product | `x * y = k` -- simple, universal | General-purpose token pairs |
 | StableSwap (Curve) | Blends constant-sum and constant-product | Stablecoins, like-kind assets |
-| Weighted (Balancer) | Multi-token pools with custom weights (e.g., 80/20) | Index-like exposure, reduced IL for certain weightings |
+| Weighted (Balancer) | Multi-token pools with custom weights (e.g., 80/20) | Index-like exposure, reduced [IL](/wiki/economics/finance/defi/impermanent-loss) for certain weightings |
 | Concentrated liquidity | LPs provide liquidity in a chosen price range | Capital-efficient trading on active pairs |
 
 ## Use cases beyond trading

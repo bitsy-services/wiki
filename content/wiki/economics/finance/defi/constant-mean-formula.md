@@ -5,7 +5,7 @@ weight: 17
 
 The constant mean formula is the pricing invariant behind Balancer's weighted pools. Where the [constant product formula](/wiki/economics/finance/defi/constant-product-formula) constrains two-asset pools to a 50/50 split, the constant mean formula generalises to **any number of assets** with **arbitrary weight ratios** -- 80/20, 60/20/20, or any combination that sums to 100%.
 
-This makes it possible to build [liquidity pools](/wiki/economics/finance/defi/liquidity-pool) that behave like self-rebalancing index funds: LPs choose the asset mix they want exposure to, and the [AMM](/wiki/economics/finance/defi/amm) maintains those proportions through trading fees rather than manual rebalancing.
+This makes it possible to build [liquidity pools](/wiki/economics/finance/defi/liquidity-pool) that behave like self-rebalancing index funds: [LPs](/wiki/economics/finance/defi/liquidity-pool) choose the asset mix they want exposure to, and the [AMM](/wiki/economics/finance/defi/amm) maintains those proportions through trading fees rather than manual rebalancing.
 
 ## The invariant
 
@@ -30,7 +30,7 @@ Custom weights reduce that rebalancing. In an 80/20 ETH/USDC pool, the pool hold
 
 The trade-off: lower-weight tokens have thinner effective liquidity, so swaps involving them experience more slippage.
 
-| Pool weights | IL at 2× price change | Effective liquidity depth |
+| Pool weights | [IL](/wiki/economics/finance/defi/impermanent-loss) at 2× price change | Effective liquidity depth |
 |---|---|---|
 | 50/50 | 5.7% | Balanced |
 | 80/20 | 1.6% | Deep for the 80% token, shallow for the 20% |
