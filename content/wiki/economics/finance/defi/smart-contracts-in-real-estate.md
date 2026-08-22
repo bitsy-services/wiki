@@ -44,4 +44,4 @@ Real estate deals frequently require amendments -- repair credits, closing-date 
 
 ### Regulatory Compliance
 
-Tokenized real estate securities fall under securities law in most jurisdictions. Transfer restrictions, accredited-investor checks, and KYC/AML requirements must be baked into the token contract or enforced by a wrapper layer -- adding back some of the intermediary overhead the technology was meant to remove.
+Tokenized real estate securities fall under securities law in most jurisdictions. Transfer restrictions, accredited-investor checks, and [KYC](/wiki/economics/finance/regulation/know-your-customer)/[AML](/wiki/economics/finance/regulation/anti-money-laundering) requirements must be baked into the token contract or enforced by a wrapper layer -- adding back some of the intermediary overhead the technology was meant to remove.

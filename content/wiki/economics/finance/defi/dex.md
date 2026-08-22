@@ -5,7 +5,7 @@ weight: 5
 
 A decentralized exchange (DEX) is a marketplace for trading tokens that runs on-chain, without a central operator holding custody of user funds. Trades settle directly between the user's wallet and a smart contract.
 
-On a centralized exchange (CEX) like Coinbase or Binance, you deposit funds into the exchange's custody, place orders against an order book the exchange operates, and trust the exchange to process withdrawals. A DEX replaces all of that with smart contracts: your tokens never leave your wallet until the moment the trade executes on-chain. There is no account to create, no KYC gate, and no withdrawal queue.
+On a centralized exchange (CEX) like Coinbase or Binance, you deposit funds into the exchange's custody, place orders against an order book the exchange operates, and trust the exchange to process withdrawals. A DEX replaces all of that with smart contracts: your tokens never leave your wallet until the moment the trade executes on-chain. There is no account to create, no [KYC](/wiki/economics/finance/regulation/know-your-customer) gate, and no withdrawal queue.
 
 ## DEX architectures
 

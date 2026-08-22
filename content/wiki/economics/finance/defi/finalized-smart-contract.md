@@ -39,7 +39,7 @@ An upgradeable contract's admin can, in principle, deploy a malicious implementa
 
 ### Censorship resistance
 
-A finalized contract cannot be forced to comply with a court order, sanctions list, or government directive. This was a central issue in the Tornado Cash case -- the protocol's [smart contracts](/wiki/economics/finance/defi/smart-contract) continued to function on-chain even after OFAC sanctions, because they were finalized and no one had the ability to modify them. See [DeFi US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) for more on the legal implications.
+A finalized contract cannot be forced to comply with a court order, sanctions list, or government directive. This was a central issue in the Tornado Cash case -- the protocol's [smart contracts](/wiki/economics/finance/defi/smart-contract) continued to function on-chain even after [OFAC sanctions](/wiki/economics/finance/regulation/ofac-sanctions), because they were finalized and no one had the ability to modify them. The Fifth Circuit ultimately held that an immutable contract is not blockable property at all, and the designation was lifted. See [DeFi US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) for more on the legal implications.
 
 ### Composability guarantees
 

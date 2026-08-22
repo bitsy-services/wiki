@@ -38,5 +38,28 @@ isn't measuring capacity. And when a correction lands, check the *summary*
 paragraph too — round 2's error survived in the first paragraph, which is the
 one paragraph a reader may stop at, long after the body had been fixed.
 
+## Confirmed again, and a second error class (2026-08-22)
+
+The `content/wiki/economics/finance/regulation/` section — a page on the Bank
+Secrecy Act plus six supporting pages — took **four** `wiki-reviewer` rounds to
+come back clean. Same shape: every round found substantive errors, and rounds 2
+and 3 found errors *inside the previous round's fixes* (a corrected sentence
+introduced a wrong count; a hedge on one page then contradicted an unhedged
+claim on a page it linked to).
+
+On statute/regulation pages the dominant error class is **scope**, not fact.
+Citations, dates, form numbers, and dollar thresholds came back almost entirely
+correct across seven pages. What was wrong, repeatedly, was *who a rule binds*:
+the draft applied the CIP and CDD rules to money services businesses, which they
+do not reach, and did so on two pages at once. The failure mode is assuming a
+rule you've correctly described applies to the entity you happen to be writing
+about.
+
+**How to apply:** when a page asserts a legal or regulatory obligation, review
+the *scope* clause separately from the citation — ask which defined category the
+rule names, and whether the subject of the sentence is in it. And when a claim
+gets hedged on one page, grep for the same claim elsewhere; a hedge that isn't
+propagated leaves the wiki contradicting itself across a link.
+
 Related: [[project-harness-invariants]] — the same theme, that a green build
 says nothing about correctness.

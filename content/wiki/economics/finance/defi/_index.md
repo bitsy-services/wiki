@@ -44,7 +44,7 @@ The revenue side is the [collateralization fee](/wiki/economics/finance/defi/col
 
 ## Law and adjacent uses
 
-[DeFi and US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) is a snapshot of a fragmented and fast-moving enforcement landscape. [Smart contracts in real estate](/wiki/economics/finance/defi/smart-contracts-in-real-estate) looks at the most-cited non-financial application and where it actually runs aground.
+[DeFi and US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) is a snapshot of a fragmented and fast-moving enforcement landscape, concentrating on the SEC and CFTC jurisdictional fight; the [regulation](/wiki/economics/finance/regulation) section next door covers the other half — the [Bank Secrecy Act](/wiki/economics/finance/regulation/bank-secrecy-act), [KYC](/wiki/economics/finance/regulation/know-your-customer), and [sanctions](/wiki/economics/finance/regulation/ofac-sanctions). [Smart contracts in real estate](/wiki/economics/finance/defi/smart-contracts-in-real-estate) looks at the most-cited non-financial application and where it actually runs aground.
 
 ## Wiki Pages
 

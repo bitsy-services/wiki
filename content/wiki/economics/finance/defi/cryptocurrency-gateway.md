@@ -13,7 +13,7 @@ Most on/off-ramp activity today flows through centralized services that hold the
 
 Centralized exchanges (Coinbase, Kraken, Binance) are the most common gateway. Users deposit fiat via bank transfer, wire, or card, buy crypto, and withdraw it to a self-custodial wallet. The reverse path -- deposit crypto, sell for fiat, withdraw to a bank -- serves as the off-ramp.
 
-Exchanges typically require full identity verification (KYC) and are subject to the regulatory framework of each jurisdiction they operate in. In the US, this means registration as a Money Services Business with FinCEN and compliance with state money-transmitter laws.
+Exchanges typically require full identity verification ([KYC](/wiki/economics/finance/regulation/know-your-customer)) and are subject to the regulatory framework of each jurisdiction they operate in. In the US, this means registration as a [Money Services Business](/wiki/economics/finance/regulation/money-services-business) with [FinCEN](/wiki/economics/finance/regulation/fincen) and compliance with state money-transmitter laws.
 
 ### Payment processors
 
@@ -34,7 +34,7 @@ Decentralized gateways attempt to remove the trusted intermediary from fiat-cryp
 
 Gateways sit at the boundary between regulated finance and the permissionless crypto ecosystem, which makes them a focal point for regulators.
 
-- **KYC/AML requirements** -- virtually all fiat-touching services must verify customer identity and report suspicious activity. This is mandated by FinCEN in the US, the FCA in the UK, and equivalent bodies elsewhere.
+- **KYC/[AML](/wiki/economics/finance/regulation/anti-money-laundering) requirements** -- virtually all fiat-touching services must verify customer identity and report suspicious activity. In the US this comes from the [Bank Secrecy Act](/wiki/economics/finance/regulation/bank-secrecy-act) and is administered by FinCEN; the FCA and equivalent bodies impose comparable obligations elsewhere. Outbound transfers may also carry [Travel Rule](/wiki/economics/finance/regulation/travel-rule) obligations, and withdrawal addresses are screened against the [OFAC](/wiki/economics/finance/regulation/ofac-sanctions) list.
 - **Money transmitter licensing** -- operating a gateway in the US requires state-by-state money transmitter licenses (or a federal charter), a costly and time-consuming process.
 - **Geographic restrictions** -- many gateways restrict service in jurisdictions with unclear or hostile regulatory environments. See [DeFi US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) for the US-specific landscape.
 
