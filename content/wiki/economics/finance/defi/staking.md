@@ -42,7 +42,7 @@ In DeFi, "staking" is used loosely to describe depositing tokens into a protocol
 | **Slashing** | Validator misbehaviour or downtime can destroy part of the stake (network staking). |
 | **Smart contract bugs** | Deposited tokens are only as safe as the contract holding them. |
 | **Illiquidity** | Unbonding periods mean you cannot exit instantly. Market conditions can change during the wait. |
-| **Price volatility** | Rewards are denominated in the staked token. A 10% APR is meaningless if the token drops 50%. |
+| **Price volatility** | Rewards are denominated in the staked token. A 10% APR (annual percentage rate) is meaningless if the token drops 50%. |
 | **[Impermanent loss](/wiki/economics/finance/defi/impermanent-loss)** | Applies when staking in AMM liquidity pools. The pool rebalances against you as prices move. |
 
 ## External links

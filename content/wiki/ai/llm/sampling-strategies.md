@@ -37,7 +37,7 @@ The difference is a shortlist drawn up by headcount versus one drawn up by merit
 
 Sampling is the cheapest place to change a model's character. No retraining, no weights, decided per request.
 
-The bill is determinism. A greedy model gives the same answer twice; a sampled one doesn't, which is why reproducing a bug report from a production LLM means capturing the sampling parameters and the seed, not just the prompt. It's also the constraint [speculative decoding](/wiki/ai/llm/speculative-decoding) has to work around: a scheme that makes generation faster is only acceptable if it draws from *exactly* the distribution the sampler would have drawn from unaided, and most of the cleverness on that page is in proving it does.
+The bill is determinism. A greedy model gives the same answer twice; a sampled one doesn't, which is why reproducing a bug report from a production [LLM](/wiki/ai/llm) means capturing the sampling parameters and the seed, not just the prompt. It's also the constraint [speculative decoding](/wiki/ai/llm/speculative-decoding) has to work around: a scheme that makes generation faster is only acceptable if it draws from *exactly* the distribution the sampler would have drawn from unaided, and most of the cleverness on that page is in proving it does.
 
 ## Check yourself
 

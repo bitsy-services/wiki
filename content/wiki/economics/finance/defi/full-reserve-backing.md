@@ -22,7 +22,7 @@ The traditional-finance archetype is the **currency board**: a monetary authorit
 
 The same shape recurs in **bearer instruments**: a banknote, a gold or silver certificate, a cashier's check, **scrip**, a traveler's cheque. Each is a claim that holds its face value because it is fully prefunded — the issuer parked the real asset before the instrument circulated. The issuer's economics are not the principal (which it cannot touch) but the **float**: the time value of prefunded reserves held while the instrument is outstanding. American Express's traveler's-cheque business was never the cheque; it was the float on billions in interest-free prepaid funds.
 
-This is the cleanest mental model for a fully-reserved on-chain instrument: *a gold certificate where the gold is an ERC-20 and the vault is a [locked liquidity](/wiki/economics/finance/defi/locked-liquidity) position no one can open.*
+This is the cleanest mental model for a fully-reserved on-chain instrument: *a gold certificate where the gold is an [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) and the vault is a [locked liquidity](/wiki/economics/finance/defi/locked-liquidity) position no one can open.*
 
 ## On-chain
 
@@ -31,7 +31,7 @@ Fully-collateralized wrappers and reserve-backed stablecoins are the DeFi instan
 ## Caveats
 
 - **Backing is not redemption.** "Fully reserved" describes *how much* of *what* sits behind the instrument. It says nothing about *how* — or whether — a holder can get the asset back. A reserve with no withdrawal path is still a full reserve; it just is not a redemption desk. Conflating the two is the most common error (it is also why "[wrapped](/wiki/economics/finance/defi/transfer-on-join-exit-vs-mint-burn)" is the wrong word for a deskless instrument).
-- **Custody is the whole risk surface.** Full reserve removes every insolvency mode *except* loss of the reserve. Where the reserve sits — a multisig, an EOA, an immutable locked position — is the entire security analysis.
+- **Custody is the whole risk surface.** Full reserve removes every insolvency mode *except* loss of the reserve. Where the reserve sits — a multisig, an externally owned account (EOA), an immutable locked position — is the entire security analysis.
 - **No yield to the holder, by construction.** The float accrues to whoever holds the fee/principal float, not to the holder of the instrument. A fully-reserved instrument that paid the holder yield would have to put the reserve to work, which is exactly what makes a reserve fractional.
 
 ## External links

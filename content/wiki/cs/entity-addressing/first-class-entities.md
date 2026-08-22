@@ -64,7 +64,7 @@ In return, you get:
 
 - **Abstraction without boilerplate.** Higher-order functions replace whole categories of design pattern. The Strategy and Visitor patterns are largely artefacts of languages without first-class functions.
 - **Compositional libraries.** A library that takes a first-class function can adapt to any caller's needs; a library that takes a "callback interface" with one method is doing the same thing more verbosely.
-- **Reflection and metaprogramming.** First-class types and modules are the basis of generic programming, ORMs, serialisation, and dependency injection.
+- **Reflection and metaprogramming.** First-class types and modules are the basis of generic programming, object-relational mappers (ORMs), serialisation, and dependency injection.
 
 The trade-off is the language designer's recurring problem, and the answer differs by language because different runtimes can afford different costs. A systems language is happy to keep continuations second-class to avoid the heap allocation; a research language is happy to make everything first-class to keep the semantics clean.
 

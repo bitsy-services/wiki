@@ -45,7 +45,7 @@ Functions marked `public` or `entry` therefore take objects as parameters. There
 
 - `transfer::transfer` — give an object to an address (the object's module must define this for its own type).
 - `transfer::public_transfer` — the same, for any type with `store`, callable from outside the defining module.
-- `transfer::share_object` — make an object *shared*, so anyone may reference it (this is how AMM pools and order books are built).
+- `transfer::share_object` — make an object *shared*, so anyone may reference it (this is how [AMM](/wiki/economics/finance/defi/amm) pools and order books are built).
 
 ```move
 module my_pkg::sword {
@@ -93,7 +93,7 @@ Note that `public struct` (rather than bare `struct`) and ability annotations ar
 | Ownership | explicit and protocol-tracked | implicit in storage layout |
 | Verification | designed for formal verification (Move Prover) | bolted on after the fact |
 
-The tradeoff is real. Move has a steeper learning curve — linear types and the no-global-storage model force a different mental model — and a smaller, younger tooling and library ecosystem than the EVM's. You are trading a large, battle-tested-but-footgun-laden world for a smaller, safer-by-construction one.
+The tradeoff is real. Move has a steeper learning curve — linear types and the no-global-storage model force a different mental model — and a smaller, younger tooling and library ecosystem than the [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm)'s. You are trading a large, battle-tested-but-footgun-laden world for a smaller, safer-by-construction one.
 
 ## External Links
 

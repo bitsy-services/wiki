@@ -1,0 +1,326 @@
+# Acronym registry — checked by scripts/check-content.py.
+#
+# Format:  ACRONYM<TAB>expansion       page must spell it out or link it
+#          ACRONYM<TAB>-               common knowledge / proper noun; exempt
+#
+# The check is per page: any page using an acronym with an expansion must
+# contain that expansion somewhere, or wrap the acronym in a link to the page
+# that defines it. Adding a new acronym to a page fails the check until it is
+# listed here, which is the point — the decision is forced, not forgotten.
+#
+# Plurals are folded automatically ("AMMs" -> AMM, "DEXes" -> DEX).
+
+# --- DeFi and crypto -------------------------------------------------------
+ABI	application binary interface
+AMM	automated market maker
+APR	annual percentage rate
+APY	annual percentage yield
+CBSO	cash-backed synthetic option
+CEX	centralized exchange
+CLMM	concentrated liquidity market maker
+CLOB	central limit order book
+DAO	decentralized autonomous organization
+DEX	decentralized exchange
+EIP	Ethereum Improvement Proposal
+ENS	Ethereum Name Service
+EOA	externally owned account
+ERC	Ethereum Request for Comment
+EVM	Ethereum Virtual Machine
+IL	impermanent loss
+IV	implied volatility
+ITM	in the money
+LP	liquidity provider
+MEV	maximal extractable value
+NFT	non-fungible token
+OTC	over the counter
+OTM	out of the money
+PBS	proposer-builder separation
+RWA	real-world asset
+TVL	total value locked
+TWAP	time-weighted average price
+UTXO	unspent transaction output
+UUPS	universal upgradeable proxy standard
+BFT	Byzantine fault tolerant
+DON	oracle network
+VRF	verifiable random function
+CCIP	Cross-Chain Interoperability Protocol
+DVM	Data Verification Mechanism
+IIP	IOTA Improvement Proposal
+ANS	Arweave Name System
+PTB	programmable transaction block
+RLP	recursive length prefix
+TPS	transactions per second
+SNARK	succinct non-interactive
+ZK	zero-knowledge
+ZKP	zero-knowledge proof
+TEE	trusted execution environment
+SGX	Software Guard Extensions
+TDX	Trust Domain Extensions
+SEV	Secure Encrypted Virtualization
+CCA	Confidential Compute Architecture
+IPFS	InterPlanetary File System
+CID	content identifier
+
+# --- Financial regulation --------------------------------------------------
+AML	anti-money laundering
+BSA	Bank Secrecy Act
+CDD	customer due diligence
+CIP	customer identification program
+CMIR	currency or monetary instruments
+CSBS	Conference of State Bank Supervisors
+CTR	currency transaction report
+EDD	enhanced due diligence
+FATF	Financial Action Task Force
+FBAR	foreign bank and financial accounts
+FDIC	Federal Deposit Insurance Corporation
+FFIEC	Federal Financial Institutions Examination Council
+GAO	Government Accountability Office
+IRS	Internal Revenue Service
+JMLSG	Joint Money Laundering Steering Group
+KYC	know your customer
+MSB	money services business
+NCUA	National Credit Union Administration
+OCC	Comptroller of the Currency
+OFAC	Office of Foreign Assets Control
+SAR	suspicious activity report
+SDN	specially designated nationals
+SEC	Securities and Exchange Commission
+CFTC	Commodity Futures Trading Commission
+VASP	virtual asset service provider
+TRP	Travel Rule Protocol
+
+# --- AI and machine learning ----------------------------------------------
+BPE	byte pair encoding
+DPO	direct preference optimization
+FFN	feed-forward
+FLOP	floating point operation
+GELU	Gaussian error linear unit
+GLU	gated linear unit
+
+GQA	grouped-query attention
+KL	Kullback-Leibler
+KV	key value
+LLM	large language model
+MCP	Model Context Protocol
+MLP	multi-layer perceptron
+MQA	multi-query attention
+NTK	neural tangent kernel
+PPL	perplexity
+PPO	proximal policy optimization
+RLHF	reinforcement learning from human feedback
+SDPA	scaled dot-product attention
+LSP	Language Server Protocol
+
+# --- Computer science ------------------------------------------------------
+C14N	canonicalization
+CQRS	command query responsibility segregation
+CRUD	create read update delete
+DAG	directed acyclic graph
+DDD	domain-driven design
+NFKC	normalization form
+ODMG	Object Data Management Group
+OODBMS	object-oriented database
+ORM	object-relational
+PERT	program evaluation and review technique
+SAML	Security Assertion Markup Language
+SSA	static single assignment
+OWASP	Open Worldwide Application Security Project
+ESAPI	Enterprise Security API
+XSW	XML signature wrapping
+CORBA	common object request broker architecture
+WSDL	web services description language
+IDL	interface definition language
+DCE	distributed computing environment
+OIDC	OpenID Connect
+RBAC	role-based access control
+A2A	agent to agent
+PRNG	pseudo-random number generator
+
+# --- Exempt: general knowledge, proper nouns, tickers, product names -------
+AI	-
+ALAP	-
+ALGOL	-
+AMA	-
+AMD	-
+ANSI	-
+AO	-
+API	-
+AR	-
+ARM	-
+ASAP	-
+AST	-
+ATM	-
+AVAX	-
+AWS	-
+BEAM	-
+BLS12	-
+BN254	-
+BNB	-
+BSC	-
+BTC	-
+CAD	-
+CAM	-
+CDN	-
+CEO	-
+CFR	-
+CI	-
+CLA	-
+CLAUDE	-
+CLI	-
+CLRS	-
+COM	-
+COMP	-
+CPM	-
+CPU	-
+CUDA	-
+CVC	-
+CWE	-
+DA	-
+DAI	-
+DB	-
+DCO	-
+DEEP	-
+DELETE	-
+DID	-
+DNS	-
+DSL	-
+DTD	-
+ECC	-
+EOF	-
+ERC20	-
+ETH	-
+EWS	-
+FAQ	-
+FCA	-
+FIFO	-
+FIN	-
+FIT21	-
+FPC	-
+GB	-
+GDP	-
+GET	-
+GH	-
+GPG	-
+GPT	-
+GPU	-
+GRT	-
+GUI	-
+HSBC	-
+HTTP	-
+HTTPS	-
+HV	-
+IBM	-
+ID	-
+II	-
+III	-
+IMAP	-
+IOTA	-
+IP	-
+ISC	-
+JIT	-
+JSON	-
+JVM	-
+JWS	-
+JWT	-
+KB	-
+KP3R	-
+LBC	-
+LBRY	-
+LINK	-
+LLC	-
+MB	-
+MDPI	-
+MIOTA	-
+MITRE	-
+ML	-
+MUST	-
+NFC	-
+NIZK	-
+NP	-
+OCR	-
+OG	-
+OID	-
+ONC	-
+OPL	-
+OS	-
+OTP	-
+OWA	-
+PATCH	-
+PGA	-
+PHP	-
+PID	-
+PLONK	-
+POL	-
+POP	-
+POST	-
+PR	-
+PUT	-
+R1CS	-
+RAM	-
+RBS	-
+RCS	-
+REIT	-
+REP	-
+REPL	-
+REST	-
+RFC	-
+RGP	-
+RNG	-
+ROFL	-
+ROSE	-
+RPC	-
+RSA	-
+SD	-
+SDK	-
+SEND	-
+SMR	-
+SMS	-
+SMTP	-
+SNP	-
+SOAP	-
+SOL	-
+SQL	-
+SSE	-
+SSN	-
+STARK	-
+SUI	-
+SVG	-
+TD	-
+TEST	-
+TLD	-
+TTL	-
+TWIN	-
+UI	-
+UK	-
+UMA	-
+UN	-
+UNCX	-
+UNI	-
+URI	-
+URL	-
+US	-
+USA	-
+USB	-
+USD	-
+USDC	-
+USDT	-
+USENIX	-
+UTC	-
+UTF	-
+UX	-
+VBA	-
+VC	-
+VM	-
+VS	-
+VSTO	-
+W3C	-
+WAL	-
+WBTC	-
+WETH	-
+WS	-
+WSL	-
+WSL2	-
+XL	-
+XML	-
+XRP	-
+YOU	-

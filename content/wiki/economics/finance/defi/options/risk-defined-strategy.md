@@ -35,7 +35,7 @@ An iron condor sells an out-of-the-money [call](/wiki/economics/finance/defi/opt
 DeFi protocols often enforce risk definition at the contract level:
 
 - **Fully collateralized [option spreads](/wiki/economics/finance/defi/options/option-spread)** -- protocols that tokenize options can lock the maximum loss as collateral in a [smart contract](/wiki/economics/finance/defi/smart-contract) at the time the position is opened. Neither party can lose more than the locked amount.
-- **Bounded LP ranges** -- a concentrated [liquidity-pool](/wiki/economics/finance/defi/liquidity-pool) position in a Uniswap v3-style AMM has a defined worst case: full conversion from one asset to the other across the range, plus [impermanent loss](/wiki/economics/finance/defi/impermanent-loss). The loss is bounded by the value of the deposited capital.
+- **Bounded [LP](/wiki/economics/finance/defi/liquidity-pool) ranges** -- a concentrated [liquidity-pool](/wiki/economics/finance/defi/liquidity-pool) position in a Uniswap v3-style [AMM](/wiki/economics/finance/defi/amm) has a defined worst case: full conversion from one asset to the other across the range, plus [impermanent loss](/wiki/economics/finance/defi/impermanent-loss). The loss is bounded by the value of the deposited capital.
 - **Vault strategies** -- structured vaults that sell covered calls or cash-secured puts enforce the strategy's parameters on-chain, guaranteeing that the position cannot exceed its defined risk.
 
 ## How DeFi Enforces Risk Boundaries

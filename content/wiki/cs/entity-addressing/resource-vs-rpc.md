@@ -24,7 +24,7 @@ OrderService.cancelOrder(orderId, reason)
 
 The entity ("customer", "order") shows up as a *parameter* to the call. There is no separate notion of an addressable customer URL -- only `CustomerService` is addressable, and customers are rows reachable through it.
 
-Modern RPC frameworks ([gRPC](https://grpc.io/), [Apache Thrift](https://thrift.apache.org/), [Cap'n Proto](https://capnproto.org/)) lean into this model. They define services and methods in an IDL, generate client stubs in many languages, and use efficient binary serialisation. The framework handles connection management, framing, and (with HTTP/2 underneath) multiplexing. The programming model is essentially the same as a local method call.
+Modern RPC frameworks ([gRPC](https://grpc.io/), [Apache Thrift](https://thrift.apache.org/), [Cap'n Proto](https://capnproto.org/)) lean into this model. They define services and methods in an interface definition language (IDL), generate client stubs in many languages, and use efficient binary serialisation. The framework handles connection management, framing, and (with HTTP/2 underneath) multiplexing. The programming model is essentially the same as a local method call.
 
 ## REST: resources with their own URIs
 
@@ -66,7 +66,7 @@ The customer is a first-class entity with its own URI. The orders belonging to t
 | Performance | Binary protocols, multiplexed | Text-based by default; HTTP/2 helps |
 | Mental model | "Calling a function on a remote object" | "Manipulating a resource by reference" |
 
-Neither is universally better. RPC is a strong fit when both sides of the API are owned by the same team, when latency and bandwidth matter, when typed contracts are valuable, and when the operations do not map cleanly onto CRUD on resources (most internal microservice traffic). REST is a strong fit when the API has many unknown consumers, when intermediaries (CDNs, browsers, caches) should be able to participate without special knowledge, when long-term evolvability matters more than peak efficiency, and when the domain genuinely is resource-shaped.
+Neither is universally better. RPC is a strong fit when both sides of the API are owned by the same team, when latency and bandwidth matter, when typed contracts are valuable, and when the operations do not map cleanly onto CRUD (create, read, update, delete) operations on resources (most internal microservice traffic). REST is a strong fit when the API has many unknown consumers, when intermediaries (CDNs, browsers, caches) should be able to participate without special knowledge, when long-term evolvability matters more than peak efficiency, and when the domain genuinely is resource-shaped.
 
 ## "REST" in practice
 
@@ -83,8 +83,8 @@ Fielding has [argued forcefully](https://roy.gbiv.com/untangled/2008/rest-apis-m
 
 The split has swung several times.
 
-- **1980s-90s.** RPC dominates the internal-systems world (Sun RPC, DCE, CORBA). The web is a content delivery system, not an integration substrate.
-- **Late 1990s.** SOAP arrives, attempting to bring RPC-over-HTTP with WSDL contracts. It collapses under its own weight (XML, WS-* specifications, generated tooling that does not interoperate).
+- **1980s-90s.** RPC dominates the internal-systems world (Sun RPC, DCE — the Distributed Computing Environment — and CORBA, the Common Object Request Broker Architecture). The web is a content delivery system, not an integration substrate.
+- **Late 1990s.** SOAP arrives, attempting to bring RPC-over-HTTP with Web Services Description Language (WSDL) contracts. It collapses under its own weight (XML, WS-* specifications, generated tooling that does not interoperate).
 - **Mid 2000s.** "REST" rises as a backlash -- simpler, HTTP-native, browser-friendly. AWS exposes both SOAP and REST endpoints early on and the REST ones win.
 - **2010s.** The microservice era turns out to need a lot of internal service-to-service traffic where the resource model is awkward and the overhead of HTTP+JSON matters. gRPC, Thrift, and increasingly typed-IDL approaches return for the internal layer.
 - **2020s.** [GraphQL](https://graphql.org/) and tRPC blur the line further. GraphQL is RPC-flavoured (a single endpoint, a query language) but resource-aware (queries describe the shape of a graph of typed nodes with stable IDs). tRPC drops the IDL and uses TypeScript types as the contract.

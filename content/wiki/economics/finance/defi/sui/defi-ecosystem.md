@@ -3,7 +3,7 @@ title: "DeFi on Sui"
 weight: 80
 ---
 
-Sui's DeFi ecosystem is young, fast-growing, and architecturally distinct from the EVM world. The [object model](/wiki/economics/finance/defi/sui/object-model) and parallel execution that define the chain are not just performance footnotes here — they enable a class of on-chain primitive, the native order book, that is impractical on a globally-locked chain like Ethereum. This page maps the landscape protocol-by-protocol, then turns to the honest part: how mature the ecosystem actually is, and what has gone wrong.
+Sui's DeFi ecosystem is young, fast-growing, and architecturally distinct from the [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) world. The [object model](/wiki/economics/finance/defi/sui/object-model) and parallel execution that define the chain are not just performance footnotes here — they enable a class of on-chain primitive, the native order book, that is impractical on a globally-locked chain like Ethereum. This page maps the landscape protocol-by-protocol, then turns to the honest part: how mature the ecosystem actually is, and what has gone wrong.
 
 ## DeepBook — the native order book
 
@@ -15,7 +15,7 @@ DeepBook v3 introduced its own fee-and-governance token, **DEEP**, with a 10 bil
 
 ## AMM DEXs
 
-Despite DeepBook's prominence, AMMs remain where most retail liquidity sits. **Cetus** is the largest, offering concentrated-liquidity ([CLMM](/wiki/economics/finance/defi/dex)) pools where LPs concentrate capital in a chosen price band for higher fee capture. **Turbos**, **Kriya**, **Aftermath**, and **FlowX** round out the field with their own CLMM and weighted-pool designs. A recurring pattern: many of these integrate DeepBook liquidity directly, so a swap routed through an AMM front-end may settle partly against the native order book — the shared-liquidity thesis in practice.
+Despite DeepBook's prominence, AMMs remain where most retail liquidity sits. **Cetus** is the largest, offering concentrated-liquidity ([CLMM](/wiki/economics/finance/defi/dex)) pools where [LPs](/wiki/economics/finance/defi/liquidity-pool) concentrate capital in a chosen price band for higher fee capture. **Turbos**, **Kriya**, **Aftermath**, and **FlowX** round out the field with their own CLMM and weighted-pool designs. A recurring pattern: many of these integrate DeepBook liquidity directly, so a swap routed through an AMM front-end may settle partly against the native order book — the shared-liquidity thesis in practice.
 
 ## Lending
 
@@ -23,7 +23,7 @@ The major money markets are **Suilend** (the largest lending protocol, with its 
 
 ## Liquid staking
 
-Native SUI staking locks tokens with a validator; **liquid staking** issues a transferable receipt token that accrues rewards while remaining usable as DeFi collateral — see [staking](/wiki/economics/finance/defi/staking) for the general mechanism and its risks (depeg, slashing, validator concentration). On Sui the main issuers are **Haedal** (the largest by TVL), **Volo** (acquired by Navi), and **Aftermath** (afSUI). These liquid staking tokens let SUI holders earn the base staking yield and simultaneously lend, LP, or borrow against the same capital.
+Native SUI staking locks tokens with a validator; **liquid staking** issues a transferable receipt token that accrues rewards while remaining usable as DeFi collateral — see [staking](/wiki/economics/finance/defi/staking) for the general mechanism and its risks (depeg, slashing, validator concentration). On Sui the main issuers are **Haedal** (the largest by total value locked, TVL), **Volo** (acquired by Navi), and **Aftermath** (afSUI). These liquid staking tokens let SUI holders earn the base staking yield and simultaneously lend, LP, or borrow against the same capital.
 
 ## Stablecoins and bridges
 
@@ -31,7 +31,7 @@ Native SUI staking locks tokens with a validator; **liquid staking** issues a tr
 
 ## Aggregators and routers
 
-Sui's [programmable transaction blocks](/wiki/economics/finance/defi/sui/programmable-transaction-blocks) make composability a first-class feature rather than a contract-level afterthought: a single transaction can chain a flash loan, a swap split across DeepBook and several AMMs, and a deposit, all atomically. DEX aggregators and routers exploit this to split orders for best execution across the fragmented AMM liquidity plus the shared DeepBook book.
+Sui's [programmable transaction blocks](/wiki/economics/finance/defi/sui/programmable-transaction-blocks) make composability a first-class feature rather than a contract-level afterthought: a single transaction can chain a flash loan, a swap split across DeepBook and several AMMs, and a deposit, all atomically. [DEX](/wiki/economics/finance/defi/dex) aggregators and routers exploit this to split orders for best execution across the fragmented AMM liquidity plus the shared DeepBook book.
 
 ## State of the ecosystem and risks
 

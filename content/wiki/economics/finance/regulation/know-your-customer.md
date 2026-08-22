@@ -43,6 +43,6 @@ Two directions of work try to reduce the damage rather than merely comply with i
 ## External links
 
 - [FinCEN CDD Rule](https://www.fincen.gov/resources/statutes-regulations/federal-register-notices/customer-due-diligence-requirements) — the beneficial ownership requirements
-- [FFIEC BSA/AML Manual: CIP](https://bsaaml.ffiec.gov/manual/AssessingComplianceWithBSARegulatoryRequirements/01) — how examiners assess identification programs
-- [FATF Recommendation 10](https://www.fatf-gafi.org/en/topics/fatf-recommendations.html) — customer due diligence as an international standard
+- [FFIEC BSA/AML Manual: CIP](https://bsaaml.ffiec.gov/manual/AssessingComplianceWithBSARegulatoryRequirements/01) — the Federal Financial Institutions Examination Council's manual on how examiners assess identification programs
+- [FATF Recommendation 10](https://www.fatf-gafi.org/en/topics/fatf-recommendations.html) — the Financial Action Task Force's international standard for customer due diligence
 - [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model-2.0/) — the standards work on portable, cryptographically verifiable identity claims

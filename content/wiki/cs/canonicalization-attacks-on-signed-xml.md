@@ -33,7 +33,7 @@ An XML signature typically references a signed element by its `Id` attribute. Th
 
 ### Variants
 
-Researchers have catalogued numerous XSW variants depending on where the original element is relocated (sibling, child, ancestor of the `Signature` element) and how the forged element is positioned. The taxonomy from Somorovsky et al. (2012) identifies at least eight distinct attack patterns against SAML-based single sign-on systems.
+Researchers have catalogued numerous XSW variants depending on where the original element is relocated (sibling, child, ancestor of the `Signature` element) and how the forged element is positioned. The taxonomy from Somorovsky et al. (2012) identifies at least eight distinct attack patterns against SAML (Security Assertion Markup Language) single sign-on systems.
 
 ## C14N pitfalls
 

@@ -24,7 +24,7 @@ Protocols handle early resolution in different ways:
 
 - **Optimistic resolution** -- anyone can propose the outcome before the deadline. If no one disputes the proposal within a challenge window, it is accepted. Polymarket and UMA's optimistic oracle use this pattern.
 - **Multi-round oracle** -- a decentralized oracle network votes on the outcome, and successive rounds of dispute resolution can overturn earlier decisions. Augur's dispute-round system is the canonical example.
-- **Trusted resolver** -- a single designated address (often a multisig or DAO) can resolve the market at any time. Simpler but introduces centralization risk.
+- **Trusted resolver** -- a single designated address (often a multisig or [DAO](/wiki/economics/finance/defi/dao)) can resolve the market at any time. Simpler but introduces centralization risk.
 
 ## Invalid Markets and Edge Cases
 

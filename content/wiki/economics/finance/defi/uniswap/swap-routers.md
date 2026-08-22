@@ -56,7 +56,7 @@ Combines V2 and V3 routing into a single contract. Adds `multicall()` for batchi
 The current recommended entry point. Uses a command-based architecture where you encode an array of commands (bytes) and inputs, then call `execute()`. Integrates with [Permit2](https://docs.uniswap.org/contracts/permit2/overview) for gasless, signature-based approvals.
 
 **Strengths:**
-- Supports V2, V3, V4, and NFT purchases in a single transaction
+- Supports V2, V3, V4, and [NFT](/wiki/economics/finance/defi/nft) purchases in a single transaction
 - [Permit2](https://docs.uniswap.org/contracts/permit2/overview) approvals — users approve the Permit2 contract once, then sign off-chain permits per swap (no per-router approval tx)
 - Best gas efficiency — batches multiple operations, uses a single `transferFrom` per token
 - Flexible command system — compose arbitrary sequences of swaps, wraps, transfers, and permits

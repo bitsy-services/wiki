@@ -94,12 +94,12 @@ Re-validation alone is sufficient when `performUpkeep` is naturally idempotent �
 Add forwarder-based access control when:
 
 - **Order-dependent logic** — e.g. processing a queue where the sequence of execution matters and a front-runner could manipulate it.
-- **MEV-sensitive operations** — if `performData` encodes a price or trade route, an attacker who calls `performUpkeep` with crafted data could extract value.
+- **[MEV](/wiki/economics/finance/defi/maximal-extractable-value)-sensitive operations** — if `performData` encodes a price or trade route, an attacker who calls `performUpkeep` with crafted data could extract value.
 - **Gas griefing** — a caller invokes `performUpkeep` to waste gas (and your LINK balance) even though the real condition isn't met, in cases where the re-validation check is expensive.
 
 ## Anti-Patterns
 
-**Checking `tx.origin`** — `tx.origin` is the EOA that submitted the transaction, not the Automation infrastructure. It rotates across node operators, can be spoofed in internal calls, and is broadly considered [an unreliable access control mechanism](https://docs.soliditylang.org/en/latest/security-considerations.html#tx-origin).
+**Checking `tx.origin`** — `tx.origin` is the externally owned account (EOA) that submitted the transaction, not the Automation infrastructure. It rotates across node operators, can be spoofed in internal calls, and is broadly considered [an unreliable access control mechanism](https://docs.soliditylang.org/en/latest/security-considerations.html#tx-origin).
 
 **Maintaining an allowlist of node addresses** — node transmitter addresses change as the network evolves. You'd need to keep the allowlist in sync with the [registry](registry), which is fragile and unnecessary when the forwarder pattern exists.
 

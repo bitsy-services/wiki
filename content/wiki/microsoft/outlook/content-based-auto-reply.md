@@ -336,7 +336,7 @@ What is left is everything that turns a demo into something you can leave runnin
 
 Do this before the app sees real mail. An application permission like `Mail.Read` grants access to **every mailbox in the tenant** by default, so a leaked `CLIENT_SECRET` reads the whole organization's email — the widest blast radius on this page, and the one hardening step that is not optional.
 
-Exchange Online contains it with **RBAC for Applications**: register a pointer to the app's service principal, define a scope naming the mailboxes it may touch, and assign a role across that scope.
+Exchange Online contains it with **RBAC (role-based access control) for Applications**: register a pointer to the app's service principal, define a scope naming the mailboxes it may touch, and assign a role across that scope.
 
 ```powershell
 New-ServicePrincipal -AppId <client-id> -ObjectId <service-principal-object-id> `

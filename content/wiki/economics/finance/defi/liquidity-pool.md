@@ -14,7 +14,7 @@ A typical two-token pool (e.g., ETH/USDC) has:
 - **Reserves** -- the token balances the contract holds. The ratio of reserves determines the current price.
 - **Pricing invariant** -- a formula constraining how reserves change on each trade. For a constant-product pool: `reserve_a * reserve_b = k`.
 - **Fee** -- a percentage (commonly 0.3%) charged on each swap and added to the reserves, growing the pool over time.
-- **LP tokens** -- ERC-20 tokens minted to depositors, representing a pro-rata claim on the pool's reserves and accumulated fees.
+- **LP tokens** -- [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) tokens minted to depositors, representing a pro-rata claim on the pool's reserves and accumulated fees.
 
 ## Providing liquidity
 

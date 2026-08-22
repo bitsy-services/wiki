@@ -3,7 +3,7 @@ title: "IOTA EVM"
 weight: 3
 ---
 
-IOTA EVM is IOTA's fully [Ethereum](/wiki/economics/finance/defi/ethereum/)-compatible smart-contract chain. It is the practical entry point for [DeFi](/wiki/economics/finance/defi/dex) on IOTA: existing [Solidity](/wiki/economics/finance/defi/solidity/) contracts, [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) tooling, MetaMask, Hardhat, and Foundry all work unmodified, with configuration changes only. It launched on mainnet in 2024 and continues to run as a Layer 2 alongside the [Move](/wiki/economics/finance/defi/iota/iota-rebased) Layer 1 introduced by the [Rebased](/wiki/economics/finance/defi/iota/iota-rebased) upgrade.
+IOTA [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) is IOTA's fully [Ethereum](/wiki/economics/finance/defi/ethereum/)-compatible smart-contract chain. It is the practical entry point for [DeFi](/wiki/economics/finance/defi/dex) on IOTA: existing [Solidity](/wiki/economics/finance/defi/solidity/) contracts, [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) tooling, MetaMask, Hardhat, and Foundry all work unmodified, with configuration changes only. It launched on mainnet in 2024 and continues to run as a Layer 2 alongside the [Move](/wiki/economics/finance/defi/iota/iota-rebased) Layer 1 introduced by the [Rebased](/wiki/economics/finance/defi/iota/iota-rebased) upgrade.
 
 ## Architecture
 

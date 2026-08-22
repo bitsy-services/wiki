@@ -42,7 +42,7 @@ IV is not a single number -- it varies by [strike price](/wiki/economics/finance
 
 Two commonly observed patterns:
 
-- **Volatility skew** -- OTM puts tend to have higher IV than ATM options, reflecting demand for downside protection. In crypto markets this skew can be pronounced during drawdowns.
+- **Volatility skew** -- [out-of-the-money](/wiki/economics/finance/defi/options/strike-price) (OTM) puts tend to have higher IV than at-the-money (ATM) options, reflecting demand for downside protection. In crypto markets this skew can be pronounced during drawdowns.
 - **Volatility smile** -- both deep OTM puts and deep OTM calls have higher IV than ATM options, forming a U-shape. This is common in crypto where large moves in either direction are expected.
 
 ## IV and the option greeks
@@ -56,7 +56,7 @@ IV interacts directly with the [option greeks](/wiki/economics/finance/defi/opti
 
 On-chain options protocols must price options without a traditional order book, so they compute IV differently:
 
-- **Lyra** uses a Black-Scholes-based AMM that adjusts IV dynamically based on the protocol's net exposure. When the pool is net short options, IV rises; when net long, IV falls.
+- **Lyra** uses a Black-Scholes-based [AMM](/wiki/economics/finance/defi/amm) that adjusts IV dynamically based on the protocol's net exposure. When the pool is net short options, IV rises; when net long, IV falls.
 - **Hegic** historically used fixed IV inputs set by governance, though later versions moved toward market-driven pricing.
 - **Opyn** (Squeeth) sidesteps per-strike IV entirely by offering a perpetual squared-exposure instrument whose funding rate implicitly reflects volatility.
 
@@ -66,4 +66,4 @@ Because crypto markets are highly volatile relative to traditional assets, IV on
 
 - **Buying options when IV is high** is expensive. If IV subsequently contracts (and the underlying doesn't move enough), the position loses money even if direction is correct.
 - **Selling options when IV is high** can be profitable if realised volatility ends up lower than what was priced in.
-- **Volatility crush** after anticipated events (merges, halvings, FOMC meetings) is a well-known pattern. Traders who buy options before the event and hold through it often lose to the post-event IV collapse.
+- **Volatility crush** after anticipated events (merges, halvings, Federal Open Market Committee meetings) is a well-known pattern. Traders who buy options before the event and hold through it often lose to the post-event IV collapse.

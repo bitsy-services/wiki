@@ -8,6 +8,8 @@ Checks, in order of severity:
   h1        body contains an `# H1` (Hugo Book renders frontmatter title as h1)
   fence     fenced code block has no language for syntax highlighting
   frontmatter  missing title, or non-integer weight
+  acronym   an acronym is unregistered, or used on a page that never expands
+            or links it (registry: scripts/acronyms.txt)
 
 Exit status is 1 if any error is found, 0 otherwise, so this can be used as a
 deterministic gate (see .claude/hooks/verify.sh).
@@ -29,6 +31,53 @@ FENCE_RE = re.compile(r"^(\s*)(`{3,}|~{3,})(.*)$")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
 # Markdown inline links: [text](target). Ignores image links (![...]) via lookbehind.
 LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(\s*([^)\s]+?)\s*(?:\"[^\"]*\")?\)")
+
+
+ACRONYMS_FILE = ROOT / "scripts" / "acronyms.txt"
+# A candidate acronym: an all-caps run of 2-6 chars containing at least two
+# letters, with an optional lowercase plural suffix that is not part of the
+# acronym ("AMMs" -> AMM, "DEXes" -> DEX). The two-letter floor skips version
+# tags such as V3, L2 and Q64.
+ACRONYM_RE = re.compile(r"\b([A-Z][A-Z0-9]{1,5})(?:es|s)?\b")
+INLINE_CODE_RE = re.compile(r"`[^`]*`")
+LINK_LABEL_RE = re.compile(r"(?<!!)\[([^\]]*)\]\([^)]*\)")
+
+
+def load_acronyms():
+    """Return {ACRONYM: expansion or None}. None means 'no expansion needed'."""
+    reg = {}
+    if not ACRONYMS_FILE.exists():
+        return reg
+    for raw in ACRONYMS_FILE.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        acro, _, exp = line.partition("\t")
+        exp = exp.strip()
+        reg[acro.strip()] = None if exp in ("", "-") else exp
+    return reg
+
+
+def normalize(text):
+    """Lowercase, fold -ise/-ize spelling, flatten non-alphanumerics to spaces.
+
+    The spelling fold is applied to both sides of the comparison, so "decentralised
+    oracle network" matches an expansion written the American way.
+    """
+    text = text.lower().replace("isation", "ization").replace("ise", "ize")
+    return re.sub(r"[^a-z0-9]+", " ", text)
+
+
+def prose_lines(clean):
+    """Yield (lineno, text) with inline code and link *targets* removed.
+
+    Link labels are kept: `[AMM](/wiki/...)` still reads as the word AMM, which
+    is what a reader sees, and what the 'is it linked?' test needs.
+    """
+    for lineno, line in clean:
+        line = INLINE_CODE_RE.sub(" ", line)
+        line = LINK_LABEL_RE.sub(lambda m: m.group(1), line)
+        yield lineno, line
 
 
 def split_frontmatter(text):
@@ -88,6 +137,7 @@ def page_url(path):
 
 
 def main(argv):
+    registry = load_acronyms()
     files = sorted(CONTENT.rglob("*.md"))
     files = [f for f in files if f.name != "CLAUDE.md"]
 
@@ -171,7 +221,41 @@ def main(argv):
                 elif anchor and anchor.lower() not in pages[base]["anchors"]:
                     err("anchor", f, lineno, f"no such heading on {base}: #{anchor}")
 
-    order = {"link": 0, "anchor": 1, "h1": 2, "fence": 3, "frontmatter": 4}
+        # --- acronyms ---------------------------------------------------
+        # A page must, somewhere, either spell out each acronym it uses or
+        # link it to the page that does. Registry entries with no expansion
+        # ("-") are common knowledge and exempt.
+        page_text = " ".join(t for _, t in prose_lines(clean))
+        page_norm = normalize(page_text)
+        linked = set()
+        for _, line in clean:
+            for label in LINK_LABEL_RE.findall(line):
+                linked.update(ACRONYM_RE.findall(label))
+
+        first_use = {}
+        for lineno, text in prose_lines(clean):
+            for acro in ACRONYM_RE.findall(text):
+                # Two letters minimum: skips version tags (V3, L2, Q64, D1).
+                if sum(c.isalpha() for c in acro) < 2:
+                    continue
+                first_use.setdefault(acro, lineno)
+
+        for acro, lineno in sorted(first_use.items(), key=lambda kv: kv[1]):
+            if acro not in registry:
+                err("acronym", f, lineno,
+                    f"unregistered acronym {acro!r} — expand it here and add it "
+                    f"to scripts/acronyms.txt")
+                continue
+            expansion = registry[acro]
+            if expansion is None or acro in linked:
+                continue
+            if normalize(expansion) in page_norm:
+                continue
+            err("acronym", f, lineno,
+                f"{acro!r} is never expanded or linked on this page "
+                f"(expansion: {expansion!r})")
+
+    order = {"link": 0, "anchor": 1, "acronym": 2, "h1": 3, "fence": 4, "frontmatter": 5}
     errors.sort(key=lambda e: (order[e[0]], str(e[1]), e[2]))
 
     for kind, path, lineno, msg in errors:

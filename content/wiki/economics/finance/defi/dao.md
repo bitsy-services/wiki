@@ -29,7 +29,7 @@ The smart contracts are the authority. Funds cannot move without a vote, and the
 
 - **MakerDAO** -- Governs the Maker Protocol and the DAI stablecoin. Token holders vote on collateral types, risk parameters, and protocol upgrades.
 - **ConstitutionDAO** -- Raised $40 million in days to bid on a copy of the U.S. Constitution. Lost the auction but demonstrated the speed at which DAOs can coordinate capital.
-- **Nouns DAO** -- One Noun NFT is auctioned daily, and all proceeds go to the treasury. Noun holders govern spending. The model has been widely forked.
+- **Nouns DAO** -- One Noun [NFT](/wiki/economics/finance/defi/nft) is auctioned daily, and all proceeds go to the treasury. Noun holders govern spending. The model has been widely forked.
 - **Aragon** and **DAOstack** -- Frameworks for launching DAOs without writing smart contracts from scratch.
 
 ## Advantages Over Traditional Organizations

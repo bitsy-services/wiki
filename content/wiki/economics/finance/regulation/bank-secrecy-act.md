@@ -39,7 +39,7 @@ Deposit $9,500 Monday + $9,500 Tuesday,
   in order to avoid the CTR               → No CTR. Felony.
 ```
 
-The money can be entirely lawful — wages, a legitimate business's daily till — and the structuring offence still stands, because the thing being prohibited is evasion of the report, not laundering. Through the 2000s and early 2010s the IRS used this to seize the accounts of convenience stores and restaurants whose owners deposited cash under $10,000 out of habit or on their insurer's advice. The practice attracted enough outrage to produce an IRS policy change in 2014 and, eventually, a statutory limit in 2019 confining structuring forfeitures to funds derived from an unlawful source.
+The money can be entirely lawful — wages, a legitimate business's daily till — and the structuring offence still stands, because the thing being prohibited is evasion of the report, not laundering. Through the 2000s and early 2010s the Internal Revenue Service (IRS) used this to seize the accounts of convenience stores and restaurants whose owners deposited cash under $10,000 out of habit or on their insurer's advice. The practice attracted enough outrage to produce an IRS policy change in 2014 and, eventually, a statutory limit in 2019 confining structuring forfeitures to funds derived from an unlawful source.
 
 ### Suspicious Activity Reports
 
@@ -56,7 +56,7 @@ The combination — no downside for over-reporting, criminal exposure for under-
 
 Beyond reporting, the BSA imposes retention duties: five years for most records, including the identifying information behind funds transfers. The best-known of these is the [Travel Rule](/wiki/economics/finance/regulation/travel-rule), which requires that originator and beneficiary details accompany a transmittal of $3,000 or more as it moves between institutions. That rule was written for funds transfers between banks and money transmitters, and has since been aimed, awkwardly, at [blockchain](/wiki/economics/finance/defi/blockchain) transfers.
 
-Two further reports round out the set. An FBAR (FinCEN Form 114) is owed by any US person whose foreign financial accounts together exceed $10,000 at any point in the year — this is the direct descendant of the offshore-secrecy concern that named the Act. A CMIR (Form 105) is owed for physically carrying more than $10,000 in currency or monetary instruments across the border.
+Two further reports round out the set. An FBAR — the Report of Foreign Bank and Financial Accounts, FinCEN Form 114 — is owed by any US person whose foreign financial accounts together exceed $10,000 at any point in the year — this is the direct descendant of the offshore-secrecy concern that named the Act. A CMIR — the Report of International Transportation of Currency or Monetary Instruments, Form 105 — is owed for physically carrying more than $10,000 in currency or monetary instruments across the border.
 
 ## The compliance program
 
@@ -123,7 +123,7 @@ The uncomfortable summary: a legal regime built on the premise that you have sur
 
 The honest answer is that after fifty years, nobody can demonstrate that it does — and the measurement problem is not incidental.
 
-The system produces roughly 20 million CTRs and 4 million SARs a year. What that volume is worth is largely unmeasured: a 2019 GAO review (GAO-19-582) found that the agencies do not regularly collect metrics on how useful BSA reports are, nor feed that information back to the institutions filing them. The most-cited estimate of laundering interdiction, from a 2011 UNODC study, puts the share of criminal proceeds seized at around 0.2%. Meanwhile the direct compliance cost to US financial institutions runs into the tens of billions of dollars annually.
+The system produces roughly 20 million CTRs and 4 million SARs a year. What that volume is worth is largely unmeasured: a 2019 Government Accountability Office review (GAO-19-582) found that the agencies do not regularly collect metrics on how useful BSA reports are, nor feed that information back to the institutions filing them. The most-cited estimate of laundering interdiction, from a 2011 study by the UN Office on Drugs and Crime, puts the share of criminal proceeds seized at around 0.2%. Meanwhile the direct compliance cost to US financial institutions runs into the tens of billions of dollars annually.
 
 The second-order costs are less visible and possibly larger. Because the penalty for a missed filing is unbounded and the revenue from a small account is not, institutions rationally shed entire customer categories: money transmitters serving remittance corridors, charities operating in conflict zones, cannabis businesses, and crypto firms. This is **de-risking**, and there is little sign it reduces the underlying activity rather than pushing it into channels with no reporting at all — which would be the opposite of the statute's purpose.
 
@@ -143,7 +143,7 @@ Everything above lands on this wiki's subject matter in three specific places.
 
 - [31 CFR Chapter X](https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X) — the operative regulations, in full
 - [FinCEN: BSA requirements](https://www.fincen.gov/resources/statutes-regulations) — statutes, regulations, and guidance from the administering agency
-- [FFIEC BSA/AML Examination Manual](https://bsaaml.ffiec.gov/manual) — how examiners actually assess a compliance program
+- [FFIEC BSA/AML Examination Manual](https://bsaaml.ffiec.gov/manual) — the Federal Financial Institutions Examination Council's manual, and how examiners actually assess a compliance program
 - [FinCEN 2013 virtual currency guidance (FIN-2013-G001)](https://www.fincen.gov/resources/statutes-regulations/guidance/application-fincens-regulations-persons-administering) — the document that brought crypto inside the regime
 - [United States v. Miller, 425 U.S. 435 (1976)](https://supreme.justia.com/cases/federal/us/425/435/) — the third-party doctrine as applied to bank records
 - [GAO-19-582: Bank Secrecy Act](https://www.gao.gov/products/gao-19-582) — the review finding that the usefulness of BSA reports is not routinely measured

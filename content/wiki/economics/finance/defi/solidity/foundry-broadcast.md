@@ -22,7 +22,7 @@ Foundry processes this in two phases:
 
 ### Phase 1 — Local simulation
 
-Before anything touches a real network, Foundry runs the entire script in a local EVM. This simulation executes in a single context, so `token.initialize(...)` can reference the address returned by `new MyToken()` even though they will eventually be separate transactions. If any statement reverts during simulation, the script aborts and nothing is broadcast.
+Before anything touches a real network, Foundry runs the entire script in a local [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm). This simulation executes in a single context, so `token.initialize(...)` can reference the address returned by `new MyToken()` even though they will eventually be separate transactions. If any statement reverts during simulation, the script aborts and nothing is broadcast.
 
 ### Phase 2 — Sequential broadcast
 
@@ -103,7 +103,7 @@ The two-phase model creates a window where on-chain state can diverge from what 
 3. Transaction 1 (the deploy) reverts on-chain.
 4. Without `--slow`, transaction 2 was already sent and fails because it references a contract that was never deployed.
 
-This is not a hypothetical — it comes up in practice on busy networks, especially with scripts that interact with shared protocol state (AMM pools, governance contracts, registries).
+This is not a hypothetical — it comes up in practice on busy networks, especially with scripts that interact with shared protocol state ([AMM](/wiki/economics/finance/defi/amm) pools, governance contracts, registries).
 
 ### Achieving true atomicity
 

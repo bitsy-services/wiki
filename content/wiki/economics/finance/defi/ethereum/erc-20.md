@@ -3,7 +3,7 @@ title: "ERC-20"
 weight: 10
 ---
 
-ERC-20 is the standard interface for fungible tokens on [Ethereum](/wiki/economics/finance/defi/ethereum/). Proposed by Fabian Vogelsteller in 2015 (EIP-20), it defines six functions and two events that every compliant token must implement. Because wallets, [DEXs](/wiki/economics/finance/defi/dex), lending protocols, and aggregators all speak ERC-20, any token that implements the interface is instantly composable with the entire ecosystem.
+ERC-20 — the twentieth [Ethereum Request for Comment](/wiki/economics/finance/defi/ethereum/eip) — is the standard interface for fungible tokens on [Ethereum](/wiki/economics/finance/defi/ethereum/). Proposed by Fabian Vogelsteller in 2015 ([EIP](/wiki/economics/finance/defi/ethereum/eip)-20), it defines six functions and two events that every compliant token must implement. Because wallets, [DEXs](/wiki/economics/finance/defi/dex), lending protocols, and aggregators all speak ERC-20, any token that implements the interface is instantly composable with the entire ecosystem.
 
 ## The interface
 
@@ -29,7 +29,7 @@ The ERC-20 spec says `transfer` and `transferFrom` must return `bool`, but sever
 
 ### USDT (no return value)
 
-Tether's `transfer` and `approve` functions return nothing. A [Solidity](/wiki/economics/finance/defi/solidity/) contract that checks the return value with `require(token.transfer(...))` will revert when interacting with USDT, because the EVM interprets the missing return data as a failed `bool` decode.
+Tether's `transfer` and `approve` functions return nothing. A [Solidity](/wiki/economics/finance/defi/solidity/) contract that checks the return value with `require(token.transfer(...))` will revert when interacting with USDT, because the [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) interprets the missing return data as a failed `bool` decode.
 
 ### Fee-on-transfer tokens
 

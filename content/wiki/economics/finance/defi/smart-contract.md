@@ -54,4 +54,4 @@ For Solidity-specific implementation details and patterns, see the [Solidity sec
 
 - [Ethereum.org: Introduction to Smart Contracts](https://ethereum.org/en/developers/docs/smart-contracts/) — official overview
 - [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/) — audited, reusable contract library
-- [Solidity documentation](https://docs.soliditylang.org/) — the primary smart contract language for EVM chains
+- [Solidity documentation](https://docs.soliditylang.org/) — the primary smart contract language for Ethereum Virtual Machine chains

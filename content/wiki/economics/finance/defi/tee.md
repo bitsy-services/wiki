@@ -15,7 +15,7 @@ The feature that makes TEEs useful to remote parties is **attestation**. The CPU
 
 - **Intel SGX** (Software Guard Extensions) — application-level enclaves; the long-standing basis for confidential-computing platforms.
 - **Intel TDX** (Trust Domain Extensions) — newer, VM-level confidentiality (a whole guest VM as a trust domain), easier to port existing workloads into.
-- **AMD SEV-SNP** and **ARM TrustZone / CCA** — comparable approaches from other vendors.
+- **AMD SEV-SNP** (Secure Encrypted Virtualization) and **ARM TrustZone / CCA** (Confidential Compute Architecture) — comparable approaches from other vendors.
 
 ## Trust Model and Limitations
 

@@ -117,7 +117,7 @@ export function handlePoolCreated(event: PoolCreated): void {
 }
 ```
 
-Run `graph codegen` after any schema or ABI change to regenerate the typed classes.
+Run `graph codegen` after any schema or ABI (application binary interface) change to regenerate the typed classes.
 
 ## Data Source Templates
 

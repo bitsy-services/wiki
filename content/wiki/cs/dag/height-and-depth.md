@@ -55,7 +55,7 @@ It is tempting to assume `depth(v) + height(v)` is the same for every node (the 
 depth(v) + height(v) = length of the longest path that passes through v
 ```
 
-That equals the DAG's overall critical-path length **only if `v` lies on a longest path**. Off the critical path the sum is strictly smaller — the difference is the scheduling *slack* of that node. This is precisely the ASAP/ALAP reasoning used in PERT/CPM project scheduling.
+That equals the DAG's overall critical-path length **only if `v` lies on a longest path**. Off the critical path the sum is strictly smaller — the difference is the scheduling *slack* of that node. This is precisely the ASAP/ALAP reasoning used in project scheduling by the program evaluation and review technique (PERT) and the critical path method (CPM).
 
 ## Pseudocode
 

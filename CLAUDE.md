@@ -11,14 +11,14 @@ This is the Bitsy Services Wiki, a Hugo static site using the Hugo Book theme. I
 - `themes/hugo-book` — theme (git submodule, do not edit)
 - `static/` — static assets (images, files)
 - `layouts/` — template overrides; a file here shadows the theme's file of the same name
-- `scripts/` — the checks
+- `scripts/` — the checks; `scripts/acronyms.txt` is the acronym registry they enforce
 - `backlog/` — harness improvement items, consumed one per session
 
 ## Verifying your work
 
 **`scripts/check.sh` is the definition of done.** It builds the site and checks
-every internal link, every `#anchor`, every code fence, and every frontmatter
-block. Run it before you claim a content change is finished; a `Stop` hook runs
+every internal link, every `#anchor`, every code fence, every frontmatter
+block, and every acronym. Run it before you claim a content change is finished; a `Stop` hook runs
 it anyway, and a red check blocks the turn from ending.
 
 The link check is the load-bearing part: **Hugo does not validate internal

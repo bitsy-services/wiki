@@ -7,7 +7,7 @@ Every diagram and sentence here uses one layout, declared once so no page has to
 
 - **Depth runs left to right.** Embedding at the left edge, block 0 next, block 11 further right, unembedding at the right edge. A vector that has been through more blocks is *further right*. Never "deeper," never "up the stack."
 - **Sequence runs top to bottom.** One token position is one row: first token on top, the token you're predicting from at the bottom.
-- **The feature axis is row width.** A row is `d_model` numbers wide, and the only thing that changes that is the MLP bulge — which changes it straight back.
+- **The feature axis is row width.** A row is `d_model` numbers wide, and the only thing that changes that is the [MLP](/wiki/ai/llm/the-mlp) bulge — which changes it straight back.
 
 ```text
                         depth  →

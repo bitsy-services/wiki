@@ -64,7 +64,7 @@ The LP has still *made money* in dollar terms ($2,828 vs. the original $2,000). 
 
 **Pick correlated pairs.** Pools where both tokens move together (e.g. stETH/ETH, USDC/USDT) experience minimal IL because the price ratio stays near 1.
 
-**Earn enough fees.** IL is a cost; trading fees are revenue. A high-volume pool can generate fee income that exceeds the IL. The comparison is always: fee APR vs. expected IL for the pair's volatility.
+**Earn enough fees.** IL is a cost; trading fees are revenue. A high-volume pool can generate fee income that exceeds the IL. The comparison is always: fee APR (annual percentage rate) vs. expected IL for the pair's volatility.
 
 **Use wider ranges.** In concentrated-liquidity AMMs, a wider price range reduces IL exposure (at the cost of lower fee income per dollar of capital). This is the fundamental LP trade-off: concentration amplifies everything.
 

@@ -10,7 +10,7 @@ That object model is paired with the [Move](/wiki/economics/finance/defi/sui/sui
 
 ## Why Sui Is Different
 
-Three design choices distinguish Sui from EVM chains, and most of the rest of this section elaborates on them:
+Three design choices distinguish Sui from [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) chains, and most of the rest of this section elaborates on them:
 
 - **The [object model](/wiki/economics/finance/defi/sui/object-model).** State is a graph of owned, shared, and immutable objects rather than a flat map of account balances. Ownership is explicit and tracked by the protocol.
 - **Parallel execution.** Transactions that touch disjoint sets of objects never contend, so the network scales with available hardware instead of being bottlenecked by a global lock. Transactions touching only *owned* objects skip [consensus](/wiki/economics/finance/defi/sui/consensus) entirely via a "fast path."
@@ -20,7 +20,7 @@ On top of these, Sui adds developer- and user-facing primitives that have no cle
 
 ## Consensus at a Glance
 
-Sui uses **Mysticeti**, a DAG-based Byzantine-fault-tolerant [consensus](/wiki/economics/finance/defi/sui/consensus) protocol, with proof-of-stake validator selection. The **Mysticeti v2** upgrade (rolled out from late 2025) folds transaction validation into consensus and, on Mysten's benchmarks, sustains ~100,000 transactions per second at roughly 390 ms finality. Crucially, single-owner transactions bypass consensus altogether and finalize even faster. See [Consensus](/wiki/economics/finance/defi/sui/consensus) for the Narwhal/Bullshark history and the fast-path vs. consensus-path split.
+Sui uses **Mysticeti**, a [DAG](/wiki/cs/dag)-based Byzantine-fault-tolerant [consensus](/wiki/economics/finance/defi/sui/consensus) protocol, with proof-of-stake validator selection. The **Mysticeti v2** upgrade (rolled out from late 2025) folds transaction validation into consensus and, on Mysten's benchmarks, sustains ~100,000 transactions per second at roughly 390 ms finality. Crucially, single-owner transactions bypass consensus altogether and finalize even faster. See [Consensus](/wiki/economics/finance/defi/sui/consensus) for the Narwhal/Bullshark history and the fast-path vs. consensus-path split.
 
 ## The SUI Token
 
@@ -36,7 +36,7 @@ The native token is **SUI**, with a hard-capped maximum supply of **10 billion**
 - **Parallelism for trading.** [DeepBook](/wiki/economics/finance/defi/sui/defi-ecosystem), Sui's native on-chain central limit order book, exploits parallel execution to deliver a low-latency [DEX](/wiki/economics/finance/defi/dex) primitive that other protocols build on as shared liquidity.
 - **Low, predictable fees.** Gas is fractions of a cent, and the computation/storage split keeps pricing stable; see [Gas & Storage](/wiki/economics/finance/defi/sui/gas-and-storage).
 - **Onboarding.** [zkLogin](/wiki/economics/finance/defi/sui/zklogin) lets [dApps](/wiki/economics/finance/defi/dapp) onboard users with a Google or Apple login instead of a seed phrase, lowering the biggest UX barrier in DeFi.
-- **MEV posture.** Owned-object transactions that skip consensus are not subject to ordering games, narrowing some [MEV](/wiki/economics/finance/defi/maximal-extractable-value) surface — though shared-object DeFi (AMMs, lending) still orders through consensus and is not immune.
+- **MEV posture.** Owned-object transactions that skip consensus are not subject to ordering games, narrowing some [MEV](/wiki/economics/finance/defi/maximal-extractable-value) surface — though shared-object DeFi ([AMMs](/wiki/economics/finance/defi/amm), lending) still orders through consensus and is not immune.
 
 See [DeFi on Sui](/wiki/economics/finance/defi/sui/defi-ecosystem) for the ecosystem map.
 
@@ -46,7 +46,7 @@ See [DeFi on Sui](/wiki/economics/finance/defi/sui/defi-ecosystem) for the ecosy
 - **Programmable privacy stack** — Mysten released **Seal** (decentralized secrets management / threshold encryption; whitepaper January 2026) and **Nautilus** (verifiable off-chain compute in [TEEs](/wiki/economics/finance/defi/tee)). Combined with [Walrus](/wiki/economics/finance/defi/sui/walrus) storage, these target confidential-but-auditable applications and signal a 2026 "privacy pivot."
 - **Walrus mainnet (March 2025)** — Mysten's [decentralized blob-storage network](/wiki/economics/finance/defi/sui/walrus) went live with the WAL token.
 - **DeepBook v3 + DEEP token** — the native order book added flash loans, governance, and its own fee token; see [DeFi on Sui](/wiki/economics/finance/defi/sui/defi-ecosystem).
-- **Security note.** Sui DeFi TVL peaked around **$2.6 B in October 2025** before falling to roughly **$561 M by February 2026**, driven partly by the May 2025 [Cetus](/wiki/economics/finance/defi/sui/defi-ecosystem) exploit and broader market weakness — a reminder that ecosystem maturity lags the protocol's engineering.
+- **Security note.** Sui DeFi total value locked (TVL) peaked around **$2.6 B in October 2025** before falling to roughly **$561 M by February 2026**, driven partly by the May 2025 [Cetus](/wiki/economics/finance/defi/sui/defi-ecosystem) exploit and broader market weakness — a reminder that ecosystem maturity lags the protocol's engineering.
 
 ## External Links
 

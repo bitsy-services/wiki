@@ -7,7 +7,7 @@ Walrus is Mysten Labs' decentralized blob-storage network, built to give [Sui](/
 
 ## The Problem
 
-On-chain state is expensive precisely because every validator stores and re-executes against it. Sui's [storage fund](/wiki/economics/finance/defi/sui/gas-and-storage) is engineered for *small* state — owned [objects](/wiki/economics/finance/defi/sui/object-model), balances, contract data — and prices it accordingly: every validator keeps a full copy forever. Putting megabytes of media, datasets, NFT artwork, website front-ends, AI model weights, or data-availability blobs through that mechanism is economically absurd.
+On-chain state is expensive precisely because every validator stores and re-executes against it. Sui's [storage fund](/wiki/economics/finance/defi/sui/gas-and-storage) is engineered for *small* state — owned [objects](/wiki/economics/finance/defi/sui/object-model), balances, contract data — and prices it accordingly: every validator keeps a full copy forever. Putting megabytes of media, datasets, [NFT](/wiki/economics/finance/defi/nft) artwork, website front-ends, AI model weights, or data-availability blobs through that mechanism is economically absurd.
 
 Walrus splits the concern. The bulk bytes of a **blob** live *off-chain*, distributed across an open network of storage nodes, while the things you actually want a chain for — metadata, proof of availability, payment, and access control — are coordinated *on Sui*. The result is large-data storage at roughly cloud-like cost without surrendering decentralization or programmability.
 

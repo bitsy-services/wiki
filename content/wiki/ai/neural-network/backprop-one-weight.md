@@ -7,7 +7,7 @@ Backprop is how the model finds out which way to adjust each of its weights. Tra
 
 ## The question being asked
 
-Pick one number out of [GPT-2 small](/wiki/ai/llm/gpt-2)'s 124 million — a single entry `w` in block 6's MLP input matrix. Backprop answers exactly one thing about it: *if I nudge `w` up a hair, does the loss go up or down, and how fast?*
+Pick one number out of [GPT-2 small](/wiki/ai/llm/gpt-2)'s 124 million — a single entry `w` in block 6's [MLP](/wiki/ai/neural-network/multi-layer-perceptron) input matrix. Backprop answers exactly one thing about it: *if I nudge `w` up a hair, does the loss go up or down, and how fast?*
 
 That's `∂L/∂w`, the partial derivative of [the loss](/wiki/ai/neural-network/the-loss-function) with respect to that one weight. A positive value means increasing `w` makes the model worse, so decrease it. That's all a gradient is: a direction and a strength, per weight.
 

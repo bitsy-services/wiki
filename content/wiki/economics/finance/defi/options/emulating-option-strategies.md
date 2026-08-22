@@ -5,7 +5,7 @@ weight: 58
 
 Traditional option strategies -- spreads, condors, butterflies -- can be approximated using DeFi primitives even on protocols that do not offer a native options order book. Concentrated [liquidity-pool](/wiki/economics/finance/defi/liquidity-pool) positions, [perpetual options](/wiki/economics/finance/defi/options/perpetual-option), structured vaults, and on-chain binary payoffs can all replicate familiar payoff curves, with trade-offs in precision, cost, and path dependency.
 
-This page bridges the options cluster ([call options](/wiki/economics/finance/defi/options/call-option), [put options](/wiki/economics/finance/defi/options/put-option), [spreads](/wiki/economics/finance/defi/options/option-spread), [verticals](/wiki/economics/finance/defi/options/vertical-spread)) with the [AMM](/wiki/economics/finance/defi/amm) and LP pages.
+This page bridges the options cluster ([call options](/wiki/economics/finance/defi/options/call-option), [put options](/wiki/economics/finance/defi/options/put-option), [spreads](/wiki/economics/finance/defi/options/option-spread), [verticals](/wiki/economics/finance/defi/options/vertical-spread)) with the [AMM](/wiki/economics/finance/defi/amm) and [LP](/wiki/economics/finance/defi/liquidity-pool) pages.
 
 ## Concentrated LP Positions as Synthetic Options
 

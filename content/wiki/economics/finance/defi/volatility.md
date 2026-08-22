@@ -25,7 +25,7 @@ See the [impermanent loss](/wiki/economics/finance/defi/impermanent-loss) page f
 
 ### Concentrated liquidity range selection
 
-In [Uniswap](/wiki/economics/finance/defi/uniswap) V3 and similar [AMMs](/wiki/economics/finance/defi/amm), LPs choose a price range for their liquidity. A narrower range earns more fees per unit of capital but goes out of range more often. Choosing the right range is essentially a volatility bet: you need the range to be wide enough to contain the price path over your intended holding period, but narrow enough to concentrate your capital effectively.
+In [Uniswap](/wiki/economics/finance/defi/uniswap) V3 and similar [AMMs](/wiki/economics/finance/defi/amm), [LPs](/wiki/economics/finance/defi/liquidity-pool) choose a price range for their liquidity. A narrower range earns more fees per unit of capital but goes out of range more often. Choosing the right range is essentially a volatility bet: you need the range to be wide enough to contain the price path over your intended holding period, but narrow enough to concentrate your capital effectively.
 
 High-volatility pairs demand wider ranges; low-volatility pairs reward tight ranges.
 

@@ -3,7 +3,7 @@ title: "Arweave"
 weight: 50
 ---
 
-Arweave is a decentralized storage network built around a single unusual promise: pay once, store forever. Where most storage -- cloud buckets, [IPFS](https://ipfs.tech) pins, traditional hosting -- charges recurring rent and deletes your data the moment you stop paying, Arweave takes an upfront fee and commits to retaining the data in perpetuity. The collection of data stored this way, served over HTTP through gateways, is marketed as the **permaweb**: a permanent, immutable layer of the web.
+Arweave is a decentralized storage network built around a single unusual promise: pay once, store forever. Where most storage -- cloud buckets, [IPFS](/wiki/cs/ipfs) pins, traditional hosting -- charges recurring rent and deletes your data the moment you stop paying, Arweave takes an upfront fee and commits to retaining the data in perpetuity. The collection of data stored this way, served over HTTP through gateways, is marketed as the **permaweb**: a permanent, immutable layer of the web.
 
 That promise is backed by an economic mechanism rather than a legal guarantee, which is where most of the interesting design -- and most of the criticism -- lives.
 
@@ -35,10 +35,10 @@ Data on Arweave is content-addressed: every transaction has an ID derived from i
 
 Two layers make this usable in practice:
 
-- **Bundling (ANS-104).** Writing one Arweave transaction per file is slow and wasteful. The ANS-104 standard packs many independent *data items* -- each individually signed and individually addressable -- into a single base-layer transaction. Bundling services (Irys, formerly Bundlr) let an application upload thousands of items cheaply, often paying in other tokens and settling to Arweave behind the scenes. This is what makes high-volume uploads (NFT media, social posts) economical.
+- **Bundling (ANS-104).** Writing one Arweave transaction per file is slow and wasteful. The ANS-104 standard packs many independent *data items* -- each individually signed and individually addressable -- into a single base-layer transaction. Bundling services (Irys, formerly Bundlr) let an application upload thousands of items cheaply, often paying in other tokens and settling to Arweave behind the scenes. This is what makes high-volume uploads ([NFT](/wiki/economics/finance/defi/nft) media, social posts) economical.
 - **Gateways.** End users do not run Arweave nodes. A gateway such as `arweave.net` indexes the network, resolves transaction IDs, serves data over plain HTTPS, and exposes a GraphQL endpoint for querying transaction metadata and tags. A URL like `https://arweave.net/<tx-id>` is how the permaweb is actually consumed. Gateways are a convenience and a point of centralization -- the data lives on the network, but most reads flow through a handful of gateways.
 
-**ArNS** (the Arweave Name System) adds human-readable names that resolve to permaweb content, the permanent-storage analogue of [ENS](https://ens.domains) for [Ethereum](/wiki/economics/finance/defi/ethereum/).
+**ArNS** (the Arweave Name System) adds human-readable names that resolve to permaweb content, the permanent-storage analogue of the [Ethereum Name Service](https://ens.domains) (ENS) for [Ethereum](/wiki/economics/finance/defi/ethereum/).
 
 ## The AR Token
 

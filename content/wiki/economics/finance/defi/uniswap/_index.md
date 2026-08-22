@@ -12,7 +12,7 @@ It is the dominant [decentralized exchange](https://en.wikipedia.org/wiki/Decent
 
 Uniswap has gone through several major versions. Each is a separate set of smart contracts — older versions remain deployed and functional.
 
-**V2** introduced the core AMM model: every pool holds a 50/50 reserve of two tokens, priced along a constant-product curve (`x * y = k`). Simple and battle-tested, but capital-inefficient — liquidity is spread evenly across all possible prices, so most of it sits idle.
+**V2** introduced the core [AMM](/wiki/economics/finance/defi/amm) model: every pool holds a 50/50 reserve of two tokens, priced along a constant-product curve (`x * y = k`). Simple and battle-tested, but capital-inefficient — liquidity is spread evenly across all possible prices, so most of it sits idle.
 
 **V3** added [concentrated liquidity](https://docs.uniswap.org/concepts/protocol/concentrated-liquidity). Liquidity providers choose a price range for their capital, so the same dollar amount can generate far more trading depth where it matters. V3 also introduced multiple [fee tiers](https://docs.uniswap.org/concepts/protocol/fees#fee-tiers) per pair (0.01%, 0.05%, 0.3%, 1%). This is the most widely integrated version today.
 
@@ -42,7 +42,7 @@ This is the more consequential decision. It determines your approval flow, your 
 
 | Scenario | Use | Why |
 |---|---|---|
-| **New project, EOA-initiated swaps** | **UniversalRouter** | Best gas, Permit2 approvals, routes through V2 + V3 + V4 |
+| **New project, swaps initiated by an externally owned account (EOA)** | **UniversalRouter** | Best gas, Permit2 approvals, routes through V2 + V3 + V4 |
 | **Contract-to-contract swap, want typed Solidity** | **SwapRouter02** | Clean function signatures, easier to compose and debug from Solidity |
 | **Learning / prototyping** | **SwapRouter** (V3) | Simplest interface, most tutorials and examples; see the [ISwapRouter guide](iswap-router) |
 | **Existing integration that works** | Keep what you have | No need to migrate unless you need V4 or Permit2 |

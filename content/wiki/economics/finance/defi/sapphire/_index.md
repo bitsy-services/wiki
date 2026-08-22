@@ -18,13 +18,13 @@ Concretely, encrypted on-chain state unlocks categories of application that are 
 - **Private voting and [DAO](/wiki/economics/finance/defi/dao) governance** — ballots that aren't visible mid-vote prevent vote-buying and bandwagoning.
 - **Hidden-information games** — poker hands, fog-of-war, anything needing secret state that the players themselves can't peek at.
 - **On-chain key management and gated access** — a contract can hold an API key, a decryption key, or a signing key and release outputs only to callers who satisfy on-chain rules, because the key never leaves the enclave.
-- **Confidential DeFi and RWA** — undercollateralized lending against private credit data, balances that aren't world-readable, compliance checks that don't dox the user.
+- **Confidential DeFi and real-world assets (RWA)** — undercollateralized lending against private credit data, balances that aren't world-readable, compliance checks that don't dox the user.
 
 The mental model: on Ethereum, "on-chain" means "public." On Sapphire, "on-chain" can mean "private but verifiable."
 
 ## How Confidentiality Works
 
-Sapphire executes contracts inside a [TEE](/wiki/economics/finance/defi/tee) — historically Intel SGX enclaves. The CPU encrypts enclave memory in hardware, so the machine operator running the node cannot read the contract's working state or storage even with full control of the host. Three things are protected:
+Sapphire executes contracts inside a [TEE](/wiki/economics/finance/defi/tee) — historically Intel SGX (Software Guard Extensions) enclaves. The CPU encrypts enclave memory in hardware, so the machine operator running the node cannot read the contract's working state or storage even with full control of the host. Three things are protected:
 
 - **State** — contract storage is encrypted at rest with keys held by the enclave. Reading the chain's database yields ciphertext.
 - **Calldata** — transaction arguments are encrypted end-to-end from the client to the enclave, so the payload is private even in the mempool.
@@ -36,10 +36,10 @@ Clients trust that an enclave is genuine and running the expected code through *
 
 Most Solidity behaves identically to Ethereum — but confidentiality changes a few things you must design around:
 
-- **State is private automatically.** A `private` or `internal` variable is genuinely unreadable on-chain, not merely un-exposed by the ABI. (Note the inversion of Solidity's usual meaning, where `private` only blocks other *contracts*, not observers.)
-- **View calls must be authenticated.** Because reads can return secrets, an `eth_call` that touches confidential state has to prove *who* is asking. Sapphire authenticates view calls with **EIP-712 signed queries**; the contract checks `msg.sender` and decides what to reveal. Practically, a confidential read may prompt a wallet signature.
+- **State is private automatically.** A `private` or `internal` variable is genuinely unreadable on-chain, not merely un-exposed by the contract's application binary interface (ABI). (Note the inversion of Solidity's usual meaning, where `private` only blocks other *contracts*, not observers.)
+- **View calls must be authenticated.** Because reads can return secrets, an `eth_call` that touches confidential state has to prove *who* is asking. Sapphire authenticates view calls with **[EIP](/wiki/economics/finance/defi/ethereum/eip)-712 signed queries**; the contract checks `msg.sender` and decides what to reveal. Practically, a confidential read may prompt a wallet signature.
 - **Use the client wrapper.** The [`@oasisprotocol/sapphire-paratime`](https://www.npmjs.com/package/@oasisprotocol/sapphire-paratime) package wraps an EIP-1193 provider and transparently encrypts `eth_call`, `eth_estimateGas`, and `eth_signTransaction`. Framework-specific packages layer on top: `@oasisprotocol/sapphire-ethers-v6`, `@oasisprotocol/sapphire-viem-v2`, plus Hardhat and Wagmi integrations. Without the wrapper, transactions still execute but aren't end-to-end encrypted.
-- **Confidential precompiles.** Sapphire adds [precompiled contracts](https://api.docs.oasis.io/sol/sapphire-contracts/contracts/Sapphire.sol/library.Sapphire.html) for secrets work: **secure on-chain randomness** (`Sapphire.randomBytes`, drawn from a per-block VRF seeded by enclave entropy rather than a manipulable block value), symmetric encryption/decryption, and key-pair generation and signing — so a contract can hold and use keys without ever exposing them.
+- **Confidential precompiles.** Sapphire adds [precompiled contracts](https://api.docs.oasis.io/sol/sapphire-contracts/contracts/Sapphire.sol/library.Sapphire.html) for secrets work: **secure on-chain randomness** (`Sapphire.randomBytes`, drawn from a per-block verifiable random function (VRF) seeded by enclave entropy rather than a manipulable block value), symmetric encryption/decryption, and key-pair generation and signing — so a contract can hold and use keys without ever exposing them.
 
 A minimal port is often just: point your tooling at the Sapphire RPC, wrap the provider, and deploy. The confidentiality is in the runtime, not in your contract code.
 
@@ -67,7 +67,7 @@ Ordered roughly by how badly they can bite:
 ## Recent Developments
 
 - **ROFL (Runtime Off-Chain Logic)** reached **mainnet in July 2025** (Oasis Core v24.2). ROFL extends Sapphire's TEE model *off-chain*: developers run verifiable, confidential compute units ("agents") inside enclaves that can talk to Sapphire contracts — well suited to trusted oracles, verifiable compute, and AI agents that must handle secrets. Oasis Core v24.3 added support for **Intel TDX**, moving beyond SGX to VM-level enclaves.
-- The TDX support matters for Sapphire's longer-term trust story: TDX confidential VMs are easier to provision and audit than SGX application enclaves, broadening the hardware base that confidential workloads can run on.
+- The TDX support matters for Sapphire's longer-term trust story: Intel TDX (Trust Domain Extensions) confidential VMs are easier to provision and audit than SGX application enclaves, broadening the hardware base that confidential workloads can run on.
 
 ## External Links
 

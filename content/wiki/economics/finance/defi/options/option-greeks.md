@@ -24,7 +24,7 @@ Delta measures how much an option's price changes for a $1 move in the underlyin
 
 Delta also approximates the probability that the option expires in-the-money. A 0.30-delta call has roughly a 30% chance of finishing ITM.
 
-ATM options have delta near ±0.50. As an option moves deeper ITM, delta approaches ±1; as it moves further OTM, delta approaches 0.
+At-the-money (ATM) options have delta near ±0.50. As an option moves deeper ITM, delta approaches ±1; as it moves further [out-of-the-money](/wiki/economics/finance/defi/options/strike-price) (OTM), delta approaches 0.
 
 ## Gamma (Γ)
 
@@ -86,6 +86,6 @@ An ETH [call option](/wiki/economics/finance/defi/options/call-option) with a $2
 
 ## Greeks in DeFi
 
-On-chain options protocols like Lyra, Hegic, and Opyn expose greeks either directly in their UIs or through their pricing engines. Lyra's AMM, for example, dynamically adjusts pricing based on the pool's aggregate greek exposure -- when the pool accumulates too much short gamma, it widens spreads to discourage further selling.
+On-chain options protocols like Lyra, Hegic, and Opyn expose greeks either directly in their UIs or through their pricing engines. Lyra's [AMM](/wiki/economics/finance/defi/amm), for example, dynamically adjusts pricing based on the pool's aggregate greek exposure -- when the pool accumulates too much short gamma, it widens spreads to discourage further selling.
 
 Understanding greeks is especially relevant for DeFi liquidity providers. Depositing into an options [liquidity pool](/wiki/economics/finance/defi/liquidity-pool) means implicitly taking the other side of user trades, which creates greek exposures that the pool manages through hedging or pricing adjustments.

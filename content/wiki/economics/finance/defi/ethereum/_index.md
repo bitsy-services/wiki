@@ -22,11 +22,11 @@ Under PoS, validators lock up ETH as collateral ([staking](/wiki/economics/finan
 
 ## Token Standards
 
-Ethereum's token standards define how digital assets behave on the network. The major ones:
+Ethereum's token standards define how digital assets behave on the network. Each is an [ERC](/wiki/economics/finance/defi/ethereum/eip) — an application-level proposal that nothing in the protocol enforces. The major ones:
 
 - **[ERC-20](/wiki/economics/finance/defi/ethereum/erc-20)** -- The standard for fungible tokens. Nearly every DeFi token (USDC, DAI, UNI, LINK) is an ERC-20. It defines a common interface for transfer, approval, and balance queries.
-- **ERC-721** -- The standard for non-fungible tokens (NFTs). Each token has a unique ID and represents ownership of a distinct item.
-- **ERC-1155** -- A multi-token standard that supports both fungible and non-fungible tokens in a single contract, reducing deployment costs.
+- **[ERC-721](/wiki/economics/finance/defi/ethereum/erc-721)** -- The standard for [non-fungible tokens](/wiki/economics/finance/defi/nft) (NFTs). Each token has a unique ID and represents ownership of a distinct item.
+- **[ERC-1155](/wiki/economics/finance/defi/ethereum/erc-1155)** -- A multi-token standard that supports both fungible and non-fungible tokens in a single contract, reducing deployment costs.
 - **[ERC-8004](/wiki/economics/finance/defi/ethereum/erc-8004)** -- A newer standard relevant to the Bitsy ecosystem.
 
 Several widely-used standards extend ERC-20 rather than replace it, and each has its own page here. [ERC-4626](/wiki/economics/finance/defi/ethereum/erc-4626) is the tokenized vault standard -- one interface for depositing assets, receiving shares, and redeeming them for the underlying plus yield -- and it is what lets any yield-bearing vault be integrated without bespoke code.

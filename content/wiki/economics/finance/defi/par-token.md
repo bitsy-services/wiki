@@ -3,7 +3,7 @@ title: "Par Token"
 weight: 90
 ---
 
-A **par token** is a token whose price against one specific reference asset is structurally clamped to a hard, narrow band starting at parity — acquirable at a known maximum premium, exitable at no worse than par — backed at least 1:1 by the real reference asset, with no oracle, no redemption function, and no governance, permissionlessly instantiable for any ERC-20.
+A **par token** is a token whose price against one specific reference asset is structurally clamped to a hard, narrow band starting at parity — acquirable at a known maximum premium, exitable at no worse than par — backed at least 1:1 by the real reference asset, with no oracle, no redemption function, and no governance, permissionlessly instantiable for any [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20).
 
 It is not a new primitive. It is a specific *composition* of documented ones, and the value is in the conjunction.
 
@@ -19,7 +19,7 @@ It is not a new primitive. It is a specific *composition* of documented ones, an
 
 ## The definition, stated to be attacked
 
-> A par token's price against its reference asset is bounded to `[1.0000, 1.0001)` for the whole of circulating supply, by construction; backed ≥1:1 by the real reference asset accumulated in the position; with no oracle, no redemption function, no governance, and no party — issuer, LP, keeper — able to alter, withdraw, or unwind any of it; permissionlessly instantiable for any ERC-20.
+> A par token's price against its reference asset is bounded to `[1.0000, 1.0001)` for the whole of circulating supply, by construction; backed ≥1:1 by the real reference asset accumulated in the position; with no oracle, no redemption function, no governance, and no party — issuer, [LP](/wiki/economics/finance/defi/liquidity-pool), keeper — able to alter, withdraw, or unwind any of it; permissionlessly instantiable for any ERC-20.
 
 That sentence is falsifiable: a critic can try to name the missing actor, or a prior instance. That is the property it is written to have.
 

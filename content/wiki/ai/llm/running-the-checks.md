@@ -63,8 +63,8 @@ That `wte`/`lm_head` sharing is [weight tying](/wiki/ai/llm/unembedding-and-logi
 
 ### Two more switches some checks flip
 
-- **Attention weights.** To read the attention pattern itself, load with `attn_implementation="eager"` and pass `output_attentions=True`; then `outputs.attentions` is a tuple of `[1, 12, n, n]` matrices. The faster default (SDPA) path doesn't reliably hand those back, so the checks in [one attention head](/wiki/ai/llm/one-attention-head) and [attention](/wiki/ai/llm/attention) pin `eager` on purpose.
-- **The KV cache.** `model.generate(...)` and a plain forward pass both take `use_cache=True` (the default) or `False`. The tokens are identical either way — [the cache](/wiki/ai/llm/kv-cache) is an optimization, not an approximation — which is exactly the check on that page.
+- **Attention weights.** To read the attention pattern itself, load with `attn_implementation="eager"` and pass `output_attentions=True`; then `outputs.attentions` is a tuple of `[1, 12, n, n]` matrices. The faster default SDPA (scaled dot-product attention) path doesn't reliably hand those back, so the checks in [one attention head](/wiki/ai/llm/one-attention-head) and [attention](/wiki/ai/llm/attention) pin `eager` on purpose.
+- **The KV cache.** `model.generate(...)` and a plain forward pass both take `use_cache=True` (the default) or `False`. The tokens are identical either way — [the KV cache](/wiki/ai/llm/kv-cache) is an optimization, not an approximation — which is exactly the check on that page.
 
 ### Replacing a module's output mid-pass
 
@@ -104,7 +104,7 @@ python data/shakespeare_char/prepare.py                    # build the dataset
 python train.py config/train_shakespeare_char.py --device=cpu --compile=False
 ```
 
-Two files matter for the checks. `model.py` holds the architecture — this is where "in nanoGPT, delete both skips" or "swap one block's MLP for eight copies plus a router" happen, as edits to those ~300 lines. `train.py` runs the training loop and prints the loss you're asked to watch. nanoGPT can also load GPT-2's pretrained weights, with `GPT.from_pretrained('gpt2')`, which is how the [grouped-query attention](/wiki/ai/llm/grouped-query-attention) check starts from the real model before changing it.
+Two files matter for the checks. `model.py` holds the architecture — this is where "in nanoGPT, delete both skips" or "swap one block's [MLP](/wiki/ai/llm/the-mlp) for eight copies plus a router" happen, as edits to those ~300 lines. `train.py` runs the training loop and prints the loss you're asked to watch. nanoGPT can also load GPT-2's pretrained weights, with `GPT.from_pretrained('gpt2')`, which is how the [grouped-query attention](/wiki/ai/llm/grouped-query-attention) check starts from the real model before changing it.
 
 ## No model: just torch (or tiktoken)
 

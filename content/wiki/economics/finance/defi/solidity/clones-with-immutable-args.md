@@ -5,7 +5,7 @@ weight: 1
 
 ## Overview
 
-[Minimal proxies](https://eips.ethereum.org/EIPS/eip-1167) (EIP-1167 clones) are the cheapest way to deploy many instances of the same contract. Each clone delegates every call to a shared **implementation** contract, so you only pay for ~45 bytes of creation code instead of re-deploying the full bytecode.
+[Minimal proxies](https://eips.ethereum.org/EIPS/eip-1167) ([EIP](/wiki/economics/finance/defi/ethereum/eip)-1167 clones) are the cheapest way to deploy many instances of the same contract. Each clone delegates every call to a shared **implementation** contract, so you only pay for ~45 bytes of creation code instead of re-deploying the full bytecode.
 
 The limitation is that clones share the implementation's storage layout, so each instance still needs its own initialiser call to set instance-specific state — and that initialiser writes to storage, which is expensive.
 
@@ -70,7 +70,7 @@ contract RewardPool {
 }
 ```
 
-The factory deploys clones with ABI-encoded data:
+The factory deploys clones with data in the standard application binary interface (ABI) encoding:
 
 ```solidity
 // SPDX-License-Identifier: MIT

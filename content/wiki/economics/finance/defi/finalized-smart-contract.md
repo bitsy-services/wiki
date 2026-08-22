@@ -13,7 +13,7 @@ A smart contract on [Ethereum](/wiki/economics/finance/defi/ethereum/) is finali
 
 - **No proxy pattern** -- the contract is not behind an upgradeable proxy. It executes its own logic directly.
 - **No admin functions** -- there are no owner-only functions that can change parameters, pause operations, or migrate state.
-- **No self-destruct** -- the contract cannot be destroyed by its deployer (note: the `SELFDESTRUCT` opcode was deprecated in EIP-6780, but contracts deployed before the change may still have it).
+- **No self-destruct** -- the contract cannot be destroyed by its deployer (note: the `SELFDESTRUCT` opcode was deprecated in [EIP](/wiki/economics/finance/defi/ethereum/eip)-6780, but contracts deployed before the change may still have it).
 - **Ownership renounced or absent** -- if the contract inherited an ownership model, ownership has been transferred to the zero address or was never set.
 
 ## The upgradability spectrum
@@ -25,7 +25,7 @@ Most DeFi contracts are not fully finalized. Instead, they sit somewhere on a sp
 | **Finalized** | None | Maximum trust, zero recourse if a bug is found |
 | **Timelock + multisig** | Slow, transparent | Changes are visible days in advance; users can exit |
 | **Transparent proxy** | Admin-controlled | Allows bug fixes but requires trust in the admin |
-| **UUPS proxy** | Admin-controlled | Similar to transparent proxy, slightly more gas efficient |
+| **UUPS (universal upgradeable proxy standard) proxy** | Admin-controlled | Similar to transparent proxy, slightly more gas efficient |
 | **Diamond (EIP-2535)** | Modular | Individual facets can be upgraded independently |
 | **Beacon proxy** | Admin-controlled | Multiple proxies upgraded simultaneously via a shared beacon |
 

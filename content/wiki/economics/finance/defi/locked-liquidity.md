@@ -8,7 +8,7 @@ Locked liquidity is an [AMM](/wiki/economics/finance/defi/amm) position whose pr
 ## Three ways to lock
 
 - **Time-lock.** A locker contract holds the position and releases it after a deadline. Common for launches; only as good as "until the timer ends," and the cliff is a known risk date.
-- **Burn.** Send the LP token (or V2 LP shares) to a dead address. Irreversible, but crude — you also burn the ability to ever collect fees, and V3/V4 positions are NFTs with accrued fees, so burning is lossy.
+- **Burn.** Send the [LP](/wiki/economics/finance/defi/liquidity-pool) token (or V2 LP shares) to a dead address. Irreversible, but crude — you also burn the ability to ever collect fees, and V3/V4 positions are [NFTs](/wiki/economics/finance/defi/nft) with accrued fees, so burning is lossy.
 - **No withdrawal path.** Own the position via a contract that simply never implements decrease-liquidity. Principal is unreachable because no code can reach it; fees remain collectable. This is the strongest and most precise form.
 
 ## Fee-only ownership

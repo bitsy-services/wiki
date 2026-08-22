@@ -48,15 +48,15 @@ The usual advice -- attributed to Vaughn Vernon in *[Implementing Domain-Driven 
 
 ## Aggregates and event sourcing
 
-The aggregate boundary aligns naturally with [event sourcing](https://martinfowler.com/eaaDev/EventSourcing.html): the aggregate is the unit whose state is reconstructed by replaying its event stream. Each appended event is checked against the in-memory aggregate state, so invariants are enforced before the event is persisted. CQRS systems typically use aggregates as the write model and a separate denormalised projection as the read model.
+The aggregate boundary aligns naturally with [event sourcing](https://martinfowler.com/eaaDev/EventSourcing.html): the aggregate is the unit whose state is reconstructed by replaying its event stream. Each appended event is checked against the in-memory aggregate state, so invariants are enforced before the event is persisted. CQRS (command query responsibility segregation) systems typically use aggregates as the write model and a separate denormalised projection as the read model.
 
-This pairs the pattern with another resolution of the [entity-addressing tension](/wiki/cs/entity-addressing): the *write* side treats data as first-class objects with strict boundaries; the *read* side flattens them back into row-shaped projections optimised for query patterns. The mismatch is moved out of the storage layer and into the model deliberately, rather than fought against in an ORM.
+This pairs the pattern with another resolution of the [entity-addressing tension](/wiki/cs/entity-addressing): the *write* side treats data as first-class objects with strict boundaries; the *read* side flattens them back into row-shaped projections optimised for query patterns. The mismatch is moved out of the storage layer and into the model deliberately, rather than fought against in an object-relational mapper (ORM).
 
 ## When the pattern does not fit
 
 DDD's tactical patterns assume a transactional, behaviour-rich domain. They fit awkwardly when:
 
-- The system is essentially CRUD -- there are no interesting invariants, and an aggregate root adds ceremony without value.
+- The system is essentially CRUD (create, read, update, delete) -- there are no interesting invariants, and an aggregate root adds ceremony without value.
 - The data is naturally a graph with no clear roots -- social networks, knowledge graphs, dependency graphs. Forcing aggregate boundaries onto a graph either creates artificial roots or fragments the graph in ways that hurt queries.
 - The dominant access pattern is analytical, not transactional. Aggregates exist to make transactional consistency cheap; an analytics workload does not need them.
 

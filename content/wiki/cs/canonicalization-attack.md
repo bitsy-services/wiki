@@ -28,7 +28,7 @@ URL-encoding `../` produces `%2e%2e%2f`. If a filter decodes once and checks the
 
 ### Unicode normalization
 
-Some systems normalize Unicode to NFC or NFKC before comparison. An attacker might register a username using a visually identical but canonically different character sequence -- for example, using a Cyrillic "а" (U+0430) where Latin "a" (U+0061) is expected. If the authentication system normalizes but the registration system does not (or vice versa), the attacker can impersonate another user.
+Some systems normalize Unicode to one of its standard normalization forms (NFC, NFKC) before comparison. An attacker might register a username using a visually identical but canonically different character sequence -- for example, using a Cyrillic "а" (U+0430) where Latin "a" (U+0061) is expected. If the authentication system normalizes but the registration system does not (or vice versa), the attacker can impersonate another user.
 
 ### XML structure manipulation
 
@@ -46,7 +46,7 @@ The fix is straightforward in principle: **canonicalize first, then validate the
 2. **Reject ambiguous input.** Rather than trying to normalize everything, refuse input that contains encoding tricks -- double-encoded characters, overlong UTF-8 sequences, or path traversal sequences.
 3. **Use allowlists over blocklists.** A blocklist that tries to enumerate dangerous patterns will always miss edge cases. An allowlist that specifies exactly what valid input looks like is more robust.
 4. **Ensure pipeline consistency.** Every component that touches the data should agree on its canonical form. Audit the full path from input to processing.
-5. **Leverage established libraries.** For example, OWASP's ESAPI provides canonicalization utilities designed to handle multi-layer encoding ([CWE-88](https://cwe.mitre.org/data/definitions/88.html) discusses this in the context of argument delimiters).
+5. **Leverage established libraries.** For example, the Open Worldwide Application Security Project's ESAPI (Enterprise Security API) library provides canonicalization utilities designed to handle multi-layer encoding ([CWE-88](https://cwe.mitre.org/data/definitions/88.html) discusses this in the context of argument delimiters).
 
 ## Further reading
 

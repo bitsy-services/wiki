@@ -74,7 +74,7 @@ The defining advantage of an agent is that it can check its own work against the
 
 - **Prefer environmental verification to self-evaluation.** A passing test, a clean compile, a returned HTTP 200 is ground truth. A model asked "did you do this correctly?" without running anything will frequently say yes regardless. Wire the check to the world, not to the model's opinion.
 - **Use a separate evaluator with a rubric for fuzzy criteria.** Where there is no test (research quality, writing, completeness), an evaluator model scoring against an explicit rubric — factual accuracy, completeness, source quality — applied by a *different* call than the one that produced the work catches errors the producer is blind to.
-- **Evaluate the system early and small.** A rubric over ~20 representative cases, plus human review for the edge cases automation misses, surfaces systemic bias far sooner than waiting to build a large eval set. Human testers reliably find failure classes that LLM-as-judge does not.
+- **Evaluate the system early and small.** A rubric over ~20 representative cases, plus human review for the edge cases automation misses, surfaces systemic bias far sooner than waiting to build a large eval set. Human testers reliably find failure classes that [LLM](/wiki/ai/llm)-as-judge does not.
 
 ## Pitfalls, by severity
 

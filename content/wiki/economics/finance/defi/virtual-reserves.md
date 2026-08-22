@@ -9,7 +9,7 @@ Virtual reserves are a mathematical abstraction used by [AMMs](/wiki/economics/f
 
 In a standard [constant product](/wiki/economics/finance/defi/constant-product-formula) pool, liquidity is spread across every price from zero to infinity. If a pool holds 10 ETH and 25,000 USDC, most of that capital sits at prices far from the current market and never facilitates a trade. The capital is real but idle.
 
-Concentrated liquidity fixes this by letting LPs deploy capital within a chosen price range. But if you restrict liquidity to a range, the basic `x * y = k` formula no longer applies directly -- you can't just use the actual token balances, because one or both will hit zero at the edges of the range. Virtual reserves are the bridge between range-bound positions and the familiar constant product math.
+Concentrated liquidity fixes this by letting [LPs](/wiki/economics/finance/defi/liquidity-pool) deploy capital within a chosen price range. But if you restrict liquidity to a range, the basic `x * y = k` formula no longer applies directly -- you can't just use the actual token balances, because one or both will hit zero at the edges of the range. Virtual reserves are the bridge between range-bound positions and the familiar constant product math.
 
 ## How it works
 

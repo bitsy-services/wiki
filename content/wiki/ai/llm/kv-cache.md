@@ -3,7 +3,7 @@ title: "The KV Cache"
 weight: 260
 ---
 
-The KV cache is the reason generating a long response doesn't get dramatically slower with every word added. Producing each new token means running the model over everything written so far — and nearly all of that work is identical to the work already done for the previous token, over text that hasn't changed since. The cache is the observation that the repetition isn't merely wasteful but entirely avoidable: the model can keep what it worked out about each earlier word and reuse it, unchanged, for the rest of the conversation. It is the most important optimization in serving a language model, and it is paid for in memory.
+The KV (key/value) cache is the reason generating a long response doesn't get dramatically slower with every word added. Producing each new token means running the model over everything written so far — and nearly all of that work is identical to the work already done for the previous token, over text that hasn't changed since. The cache is the observation that the repetition isn't merely wasteful but entirely avoidable: the model can keep what it worked out about each earlier word and reuse it, unchanged, for the rest of the conversation. It is the most important optimization in serving a language model, and it is paid for in memory.
 
 ## The waste, stated plainly
 
@@ -21,7 +21,7 @@ It's the difference between reading a book with marginal notes and re-reading it
 
 ## What a step costs once you have it
 
-With the cache in place, each new token does one row's worth of work: project the new row to its query, key, and value, append that key and value to the store, attend against everything in the store, run the MLP.
+With the cache in place, each new token does one row's worth of work: project the new row to its query, key, and value, append that key and value to the store, attend against everything in the store, run the [MLP](/wiki/ai/llm/the-mlp).
 
 Attending to *n* rows still costs O(n) — the new row does have to be compared against every earlier one, and no cache avoids that. What's gone is the rebuilding of those *n* rows, which is a whole factor of *n* off every step.
 

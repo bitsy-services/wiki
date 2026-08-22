@@ -80,7 +80,7 @@ The invariant `Σᵢ Lᵢ · Δf = L · Δf = F` falls out automatically because
 - **Constant gas per swap.** A swap's fee accounting is one read and one write per token, regardless of whether the pool has 10 LPs or 10 million.
 - **Permissionless, asynchronous claims.** LPs collect whenever they want. The pool does not care if some positions are never poked — their fees remain recoverable indefinitely.
 - **No griefing surface.** You cannot force the pool to iterate a list, because there is no list.
-- **NFT-wrapped positions.** Because each position is a pure function of two tick snapshots and one stored `feeGrowthInsideLast`, Uniswap's [NonfungiblePositionManager](https://github.com/Uniswap/v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol) can wrap positions in [ERC-721](https://en.wikipedia.org/wiki/ERC-721) tokens and transfer them freely. The new owner pokes and is paid correctly.
+- **[NFT](/wiki/economics/finance/defi/nft)-wrapped positions.** Because each position is a pure function of two tick snapshots and one stored `feeGrowthInsideLast`, Uniswap's [NonfungiblePositionManager](https://github.com/Uniswap/v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol) can wrap positions in [ERC-721](/wiki/economics/finance/defi/ethereum/erc-721) tokens and transfer them freely. The new owner pokes and is paid correctly.
 
 ## What It Costs
 

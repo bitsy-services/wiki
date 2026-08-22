@@ -47,7 +47,7 @@ For anyone operating in this space:
 - Voluntary self-disclosure of an apparent violation substantially reduces the penalty, and is the standard advice once one is discovered.
 - A [DEX](/wiki/economics/finance/defi/dex) front-end that blocks sanctioned addresses is doing OFAC compliance, not AML compliance; these are different controls with different triggers.
 
-[DeFi and US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) sets this alongside the SEC and CFTC pieces of the picture.
+[DeFi and US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) sets this alongside the Securities and Exchange Commission and Commodity Futures Trading Commission pieces of the picture.
 
 ## External links
 

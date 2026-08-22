@@ -2,5 +2,4 @@
 - [Unnecessary prompting](friction/global-unnecessary-prompting.md) — don't ask "want me to adjust?" when the task is already clear
 - [Harness invariants](project-harness-invariants.md) — Hugo doesn't check internal links; rules scope with `paths:` not `globs:`; the theme renders no h1
 - [AI section worked example](project-ai-section-worked-example.md) — reuse the "Claude Code writes a wiki page" example across all ai pages; don't invent new ones
-- [Argument pages need repeated review](friction/project-argument-pages-need-repeated-review.md) — essays that argue a thesis need review rounds until one comes back clean; a green check says nothing about whether the claims are true, and on regulatory pages the recurring error is scope (who a rule binds), not the citation
-- [check.sh misses Write-tool artifacts](friction/project-check-misses-write-tool-artifacts.md) — stray `</content>` tags at the end of a file pass every check; read the tail back after a whole-file Write
+- [A green check says nothing about content](patterns/project-green-check-says-nothing-about-content.md) — check.sh validates structure, not prose; when a content rule breaks twice, make it a check

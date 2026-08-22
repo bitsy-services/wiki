@@ -37,7 +37,7 @@ This is the **output amount before fees**. In practice, AMMs charge a fee (typic
 dy = (y * dx * 997) / (x * 1000 + dx * 997)
 ```
 
-The fee stays in the pool, slightly increasing `k` after every trade. This is how LPs earn income.
+The fee stays in the pool, slightly increasing `k` after every trade. This is how [LPs](/wiki/economics/finance/defi/liquidity-pool) earn income.
 
 ## Price and marginal price
 

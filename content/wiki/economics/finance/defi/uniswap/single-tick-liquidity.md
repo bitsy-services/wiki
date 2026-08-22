@@ -24,7 +24,7 @@ The defining property is what happens at the edges, not in the middle:
 - While the position has inventory on the side you are buying, you trade at ~the tick price regardless of size. Depth is finite but flat.
 - When that side is fully consumed, price reaches the top of the tick and stops. It cannot continue up through that position because the position is empty above it. The next trade only proceeds if there is liquidity in an adjacent tick.
 
-This inverts the usual AMM intuition. A normal pool gives you continuous price impact and infinite (but ever-worsening) depth. A single-tick position gives you near-zero price impact and a hard quantity ceiling.
+This inverts the usual [AMM](/wiki/economics/finance/defi/amm) intuition. A normal pool gives you continuous price impact and infinite (but ever-worsening) depth. A single-tick position gives you near-zero price impact and a hard quantity ceiling.
 
 ## Single-sided seeding
 
@@ -33,7 +33,7 @@ A single-tick position can be seeded entirely in one token by starting price at 
 ## Where it shows up
 
 - **Range orders.** Uniswap documents the single-tick position explicitly as an on-chain limit order: seed it out-of-range, let price cross it, withdraw the other side. The fill is the same fixed-price behavior described here.
-- **Tight stable pairs.** LPs cluster in a few ticks around 1:1 because correlated assets never need the rest of the curve.
+- **Tight stable pairs.** [LPs](/wiki/economics/finance/defi/liquidity-pool) cluster in a few ticks around 1:1 because correlated assets never need the rest of the curve.
 - **Par tokens.** A [par token](../../par-token) seats its entire supply in one tick at `tick = 0`, never withdraws it, and never adds liquidity below it — turning the "fixed price until exhausted" property into a permanent peg.
 
 ## Caveats

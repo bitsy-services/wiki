@@ -55,7 +55,7 @@ The verifier checks the proof using a pairing equation:
 
 where e is a bilinear pairing on the chosen elliptic curve (typically BN254 or BLS12-381). This equation holds if and only if the prover knew a valid witness. Verification requires a fixed number of pairing operations and is independent of the circuit's complexity.
 
-On [Ethereum](/wiki/economics/finance/defi/ethereum/), the BN254 pairing is available as a precompiled contract (EIP-196 and EIP-197), making Groth16 verification cost roughly 200,000--300,000 gas -- cheap enough for on-chain use.
+On [Ethereum](/wiki/economics/finance/defi/ethereum/), the BN254 pairing is available as a precompiled contract ([EIP](/wiki/economics/finance/defi/ethereum/eip)-196 and EIP-197), making Groth16 verification cost roughly 200,000--300,000 gas -- cheap enough for on-chain use.
 
 ## Where Groth16 is used
 

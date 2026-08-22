@@ -9,7 +9,7 @@ Context length is how much text a model can take into account at once, and it is
 
 Exactly one thing. Every row scores every row it can see, which is an n × n matrix of scores — per head, per block. That matrix, and the weighted sum that follows it, are the only parts of a transformer whose cost grows with the square of the sequence.
 
-Everything else is linear. The Q/K/V projections, the MLP, and the norms all chew through one row at a time and neither know nor care how many rows there are, so doubling the context simply doubles their work. Attention's score matrix *quadruples*.
+Everything else is linear. The Q/K/V projections, the [MLP](/wiki/ai/llm/the-mlp), and the norms all chew through one row at a time and neither know nor care how many rows there are, so doubling the context simply doubles their work. Attention's score matrix *quadruples*.
 
 ## So O(n²) is a crossover, not a flat tax
 
@@ -35,7 +35,7 @@ That's the arithmetic sitting underneath [context engineering](/wiki/ai/context-
 
 Count arithmetic; don't trust a stopwatch. The claim to test is that attention is a minority of the work below the crossover, so compute the score matmul's share of a block directly: it's `n / (n + 6·d_model)`. At n = 128 that's **2.6%** of a [GPT-2 small](/wiki/ai/llm/gpt-2) block, and at n = 1024 — the largest window the model has — it's still only **18%**. Attention quadruples with every doubling and is nonetheless outvoted for the whole of GPT-2's range, which is the crossover argument in two numbers. Push `n` to 4,600 on paper and the share reaches half, by construction.
 
-Then try to see it on a clock, and watch the measurement fail. Wall-clock won't quadruple cleanly: small `n` is dominated by fixed overhead, and past n ≈ 1024 the score matrix falls out of cache and jumps by *more* than 4×. Both effects are real and neither is the quadratic term — which is why the FLOP count is the honest instrument here and timing is not.
+Then try to see it on a clock, and watch the measurement fail. Wall-clock won't quadruple cleanly: small `n` is dominated by fixed overhead, and past n ≈ 1024 the score matrix falls out of cache and jumps by *more* than 4×. Both effects are real and neither is the quadratic term — which is why the FLOP (floating-point operation) count is the honest instrument here and timing is not.
 
 ## Depends on / leads to
 

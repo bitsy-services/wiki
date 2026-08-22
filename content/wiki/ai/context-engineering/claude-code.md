@@ -33,7 +33,7 @@ This repository is a live specimen. `CLAUDE.md` carries build commands and struc
 
 - **Hooks** — zero context cost; deterministic scripts the harness runs, not text the model reads. Use them for anything that must happen every time without exception (a lint-on-save, a block on writing outside `content/`).
 - **Skills** — low cost; a folder of instructions loaded only when relevant. A "draft a wiki page" skill lives here.
-- **Plugins / MCP** — medium-to-high cost; whole tool schemas present every turn whether called or not.
+- **Plugins / [MCP](/wiki/ai/mcp)** — medium-to-high cost; whole tool schemas present every turn whether called or not.
 
 The rule that follows: encode a constraint as a hook before a rule, and a rule before a tool, because that order is also cheapest-context-first.
 

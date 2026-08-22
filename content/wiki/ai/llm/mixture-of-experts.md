@@ -23,7 +23,7 @@ Don't push it as far as the word *specialist*, though. The routing is much stran
 
 ## The trade: parameters for FLOPs
 
-Eight experts give a block eight times the MLP weights, but each row still runs through only one or two, so compute per token barely moves.
+Eight experts give a block eight times the MLP weights, but each row still runs through only one or two, so the floating point operations per token barely move.
 
 Mixtral is the standard worked example: 46.7B parameters in total, 12.9B **active** per token — that second figure being a top-2 number. Route to a single expert instead and only about 7B would be active, at half the MLP arithmetic. What you're buying is capacity, meaning more places to put what the model knows, without buying much latency.
 

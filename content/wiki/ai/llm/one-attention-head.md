@@ -71,7 +71,7 @@ That blend is still stuck in the head's narrow subspace, so a final learned matr
 
 ## What one head is worth
 
-The head is strictly vertical. It moves information between rows and never within one — that is the MLP's job, and the two never overlap.
+The head is strictly vertical. It moves information between rows and never within one — that is the [MLP](/wiki/ai/llm/the-mlp)'s job, and the two never overlap.
 
 And a head is narrow on purpose. Sixty-four numbers is enough to chase one relationship: *the noun this adjective belongs to*, *the open bracket this close bracket matches*, *the token that followed the last time this one appeared*. It is nowhere near enough to chase all of them at once. That limitation is not a flaw to be engineered away; it's the reason a block runs [twelve heads side by side](/wiki/ai/llm/multi-head-attention), each free to specialize in something different.
 

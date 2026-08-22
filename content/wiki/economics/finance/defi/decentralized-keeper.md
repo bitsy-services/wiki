@@ -3,7 +3,7 @@ title: Decentralized Keeper
 weight: 65
 ---
 
-A decentralized keeper is an autonomous agent -- or a network of such agents -- that monitors on-chain conditions and executes [smart contract](/wiki/economics/finance/defi/smart-contract) functions when those conditions are met. Keepers handle the "cron jobs" of DeFi: liquidations, [oracle](/wiki/economics/finance/defi/oracle-node) price updates, reward harvesting, limit-order execution, and any other task that a contract cannot trigger by itself because the EVM has no built-in scheduler.
+A decentralized keeper is an autonomous agent -- or a network of such agents -- that monitors on-chain conditions and executes [smart contract](/wiki/economics/finance/defi/smart-contract) functions when those conditions are met. Keepers handle the "cron jobs" of DeFi: liquidations, [oracle](/wiki/economics/finance/defi/oracle-node) price updates, reward harvesting, limit-order execution, and any other task that a contract cannot trigger by itself because the [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) has no built-in scheduler.
 
 ## Why Keepers Exist
 
@@ -25,7 +25,7 @@ A single centralized bot can perform the same mechanical task, but it introduces
 | Oracle price-feed updates | [Chainlink](/wiki/economics/finance/defi/oracle-node) data feeds |
 | Yield harvesting and auto-compounding | Yearn, Beefy |
 | Limit and stop-loss order execution | [DEX](/wiki/economics/finance/defi/dex) aggregators, on-chain order books |
-| Rebalancing LP positions | Concentrated-liquidity managers |
+| Rebalancing [LP](/wiki/economics/finance/defi/liquidity-pool) positions | Concentrated-liquidity managers |
 | Options and futures settlement | On-chain derivatives protocols |
 
 ## Avoiding Duplicate Execution

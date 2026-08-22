@@ -3,11 +3,11 @@ title: "The Object Model"
 weight: 10
 ---
 
-Sui's single most distinctive idea is that there are no accounts holding balances in the [Ethereum](/wiki/economics/finance/defi/ethereum/) sense. Everything on-chain — coins, NFTs, AMM pools, published [smart contract](/wiki/economics/finance/defi/smart-contract) code, configuration — is a discrete, typed **object**. State is a graph of these objects rather than a global key-value store keyed by address. Understanding this model is the key to understanding why Sui can execute transactions in parallel and why its developers think about ownership the way they do.
+Sui's single most distinctive idea is that there are no accounts holding balances in the [Ethereum](/wiki/economics/finance/defi/ethereum/) sense. Everything on-chain — coins, [NFTs](/wiki/economics/finance/defi/nft), [AMM](/wiki/economics/finance/defi/amm) pools, published [smart contract](/wiki/economics/finance/defi/smart-contract) code, configuration — is a discrete, typed **object**. State is a graph of these objects rather than a global key-value store keyed by address. Understanding this model is the key to understanding why Sui can execute transactions in parallel and why its developers think about ownership the way they do.
 
 ## Objects vs. the Account Model
 
-On Ethereum, a contract owns a slice of a single global storage trie. Your ERC-20 balance is an entry in a mapping that lives inside the token contract's storage; "your" tokens are just a number the contract attributes to your address. Reading or writing that mapping touches shared contract state, so the protocol cannot know in advance whether two transactions will collide — it must execute them one after another to be safe.
+On Ethereum, a contract owns a slice of a single global storage trie. Your [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) balance is an entry in a mapping that lives inside the token contract's storage; "your" tokens are just a number the contract attributes to your address. Reading or writing that mapping touches shared contract state, so the protocol cannot know in advance whether two transactions will collide — it must execute them one after another to be safe.
 
 Sui inverts this. A `Coin<SUI>` is itself an object that you hold directly. An NFT is an object. The data structures a DeFi protocol uses are objects. Each object is a self-contained, typed value defined in [Move](/wiki/economics/finance/defi/sui/sui-move), the resource-oriented language Sui inherits from the Diem project (and which it shares with [IOTA](/wiki/economics/finance/defi/iota/)).
 

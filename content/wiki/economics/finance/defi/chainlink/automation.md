@@ -77,7 +77,7 @@ contract MyAutomatedContract is AutomationCompatibleInterface {
 
 ### 2. Deploy & Verify
 
-Deploy to your target network and verify on the [block explorer](https://en.wikipedia.org/wiki/Block_explorer) so the Automation UI can read the [ABI](https://docs.soliditylang.org/en/latest/abi-spec.html).
+Deploy to your target network and verify on the [block explorer](https://en.wikipedia.org/wiki/Block_explorer) so the Automation UI can read the [application binary interface](https://docs.soliditylang.org/en/latest/abi-spec.html) (ABI).
 
 ```bash
 forge create src/MyAutomatedContract.sol:MyAutomatedContract \

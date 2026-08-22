@@ -21,7 +21,7 @@ Money transmission has no *de minimis* threshold, and that is the asymmetry to n
 Size is not the same as scope, though. Three limitations run across the MSB definition as a whole:
 
 - Banks and foreign banks are excluded.
-- So is anyone registered with and functionally regulated or examined by the SEC or CFTC — which is why a broker-dealer is not an MSB.
+- So is anyone registered with and functionally regulated or examined by the Securities and Exchange Commission (SEC) or the Commodity Futures Trading Commission (CFTC) — which is why a broker-dealer is not an MSB.
 - So is a natural person conducting any of the first five activities on an infrequent basis and not for gain or profit.
 
 The definition also reaches only businesses operating wholly or in substantial part within the United States. Several further carve-outs sit inside the money transmitter capacity specifically; the two builders actually reach for are payment processors, and transfers that are integral to the sale of goods or the provision of services.
@@ -55,4 +55,4 @@ A related structural argument is that transmission means delivery to *another pe
 - [31 CFR 1010.100(ff)](https://www.ecfr.gov/current/title-31/section-1010.100#p-1010.100(ff)) — the MSB definition
 - [FinCEN MSB registration](https://www.fincen.gov/money-services-business-msb-registration) — how and when to register
 - [FinCEN 2019 CVC guidance](https://www.fincen.gov/resources/statutes-regulations/guidance/application-fincens-regulations-certain-business-models) — the control test applied to crypto business models
-- [CSBS Money Transmission Modernization Act](https://www.csbs.org/money-transmission-modernization-act) — the state harmonisation effort
+- [CSBS Money Transmission Modernization Act](https://www.csbs.org/money-transmission-modernization-act) — the Conference of State Bank Supervisors' state harmonisation effort

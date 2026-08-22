@@ -80,7 +80,7 @@ In DeFi specifically, prediction markets are interesting because:
 ## Risks
 
 - **Oracle manipulation.** If the resolution oracle can be bribed or manipulated, the market is compromised. This is the fundamental attack surface.
-- **Regulatory uncertainty.** Prediction markets that resemble gambling or derivatives may face legal restrictions depending on jurisdiction. Polymarket restricted US users after CFTC scrutiny.
+- **Regulatory uncertainty.** Prediction markets that resemble gambling or derivatives may face legal restrictions depending on jurisdiction. Polymarket restricted US users after scrutiny from the Commodity Futures Trading Commission (CFTC).
 - **Thin liquidity.** Niche markets may not attract enough participants for reliable price discovery. Prices in illiquid markets can be noisy and misleading.
 
 ## External links

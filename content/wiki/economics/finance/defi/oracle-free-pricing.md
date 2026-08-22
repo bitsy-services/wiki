@@ -9,7 +9,7 @@ Oracle-free pricing means a contract derives the price of an asset entirely from
 
 A price [oracle](/wiki/economics/finance/defi/oracle-node) imports an external fact onto the chain: "ETH is worth 3,000 USDC." Anything that depends on that import inherits its failure modes:
 
-- **Manipulation.** Spot oracles can be moved by a flash-loaned trade; TWAP oracles can be moved by sustained pressure.
+- **Manipulation.** Spot oracles can be moved by a flash-loaned trade; time-weighted average price (TWAP) oracles can be moved by sustained pressure.
 - **Liveness.** A feed that stalls or lags during volatility breaks everything reading it.
 - **Trust and governance.** Someone chooses the source, the update cadence, the deviation threshold — and can change them.
 

@@ -7,7 +7,7 @@ A **Programmable Transaction Block** (PTB) is a single Sui transaction built as 
 
 ## No Glue Contract Required
 
-The closest analogue on [Ethereum](/wiki/economics/finance/defi/ethereum/) is the "multicall" or router pattern: to batch N actions atomically, you must deploy a smart contract that performs them in its own function body, because the EVM gives the client no way to chain arbitrary calls within one transaction. That deployed contract is on-chain glue you have to write, audit, and maintain.
+The closest analogue on [Ethereum](/wiki/economics/finance/defi/ethereum/) is the "multicall" or router pattern: to batch N actions atomically, you must deploy a smart contract that performs them in its own function body, because the [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) gives the client no way to chain arbitrary calls within one transaction. That deployed contract is on-chain glue you have to write, audit, and maintain.
 
 Sui inverts this. The PTB *is* the composition layer, assembled client-side and submitted as data. You can compose calls across protocols you do not control and have never deployed code against, with no intermediary contract. This is why PTBs are central to how [dApps](/wiki/economics/finance/defi/dapp) and DeFi aggregators are built on Sui — the composability lives in the transaction, not in a bespoke contract.
 
@@ -53,7 +53,7 @@ Note that `tx.gas` references the gas coin directly — `splitCoins` peels a new
 - **Composability without on-chain glue.** Chain actions across unrelated protocols with no router contract to deploy or trust.
 - **Atomicity.** Partial execution is impossible, so multi-step DeFi flows (split → swap → stake → transfer) cannot leave funds stranded mid-sequence.
 - **Fewer round-trips and lower cost.** One signature, one transaction, one gas payment for what would otherwise be several transactions or a custom contract deployment.
-- **Aggregator-friendly.** Routers and DEX aggregators compose pool calls dynamically per request instead of shipping a new contract for each strategy.
+- **Aggregator-friendly.** Routers and [DEX](/wiki/economics/finance/defi/dex) aggregators compose pool calls dynamically per request instead of shipping a new contract for each strategy.
 
 ## External Links
 

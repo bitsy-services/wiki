@@ -22,7 +22,7 @@ Nothing here is legal advice. It is an attempt to explain a body of law well eno
 
 ## Elsewhere in the wiki
 
-[DeFi and US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) covers the securities and derivatives side — the SEC and CFTC jurisdictional fight — and stays in the [DeFi](/wiki/economics/finance/defi) section because it is about that subject specifically. [Interbox](/wiki/economics/finance/defi/interbox) is the worked example of designing around this material rather than merely complying with it.
+[DeFi and US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) covers the securities and derivatives side — the jurisdictional fight between the Securities and Exchange Commission (SEC) and the Commodity Futures Trading Commission (CFTC) — and stays in the [DeFi](/wiki/economics/finance/defi) section because it is about that subject specifically. [Interbox](/wiki/economics/finance/defi/interbox) is the worked example of designing around this material rather than merely complying with it.
 
 ## Wiki Pages
 

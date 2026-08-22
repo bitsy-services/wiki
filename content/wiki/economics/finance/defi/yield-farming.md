@@ -12,7 +12,7 @@ The basic idea: protocols need liquidity to function. [Decentralized exchanges](
 A typical yield farming position involves stacking multiple sources of return:
 
 1. **Base yield** -- trading fees from providing liquidity to an [AMM](/wiki/economics/finance/defi/amm) pool, or interest from lending on a platform like Aave or Compound.
-2. **Incentive rewards** -- additional tokens distributed by the protocol to LPs who stake their LP tokens in a farming contract. This is the "mining" in liquidity mining.
+2. **Incentive rewards** -- additional tokens distributed by the protocol to [LPs](/wiki/economics/finance/defi/liquidity-pool) who stake their LP tokens in a farming contract. This is the "mining" in liquidity mining.
 3. **Compounding** -- reinvesting earned rewards back into the position to generate compound returns. Yield aggregators like Yearn automate this.
 
 ### Example

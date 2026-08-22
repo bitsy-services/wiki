@@ -27,7 +27,7 @@ Pure on-chain order books exist but are expensive in gas and slow on L1 chains. 
 
 ### Intent-based DEXs
 
-A newer category where users sign an *intent* ("I want to sell 1 ETH for at least 2,500 USDC") and off-chain solvers compete to fill it at the best price. UniswapX and CoW Swap are leading examples. This model can tap both on-chain and off-chain liquidity and can protect users from MEV extraction.
+A newer category where users sign an *intent* ("I want to sell 1 ETH for at least 2,500 USDC") and off-chain solvers compete to fill it at the best price. UniswapX and CoW Swap are leading examples. This model can tap both on-chain and off-chain liquidity and can protect users from [MEV](/wiki/economics/finance/defi/maximal-extractable-value) extraction.
 
 ## Why DEXs matter
 

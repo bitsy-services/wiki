@@ -36,8 +36,8 @@ The prototype mints **clones** keyed by some identity (e.g. an original asset + 
 ## Prior art
 
 - **Uniswap factory** — the original permissionless pool factory; one `createPair`/`createPool` call, no gate.
-- **Token launchers** — fair-launch and memecoin factories deploying token + LP in one transaction.
-- **Bitsy: Lepton** — a permissionless fixed-supply token factory using `CREATE2` + EIP-1167.
+- **Token launchers** — fair-launch and memecoin factories deploying token + [LP](/wiki/economics/finance/defi/liquidity-pool) in one transaction.
+- **Bitsy: Lepton** — a permissionless fixed-supply token factory using `CREATE2` + [EIP](/wiki/economics/finance/defi/ethereum/eip)-1167.
 - **Bitsy: Manifold / Reflector** — two-level fair-launch and 1:1-mirror factories built on the same clone machinery.
 
 ## External links

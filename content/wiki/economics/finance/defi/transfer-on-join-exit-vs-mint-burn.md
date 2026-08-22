@@ -42,7 +42,7 @@ In this pattern, the pool mints new ERC-20 tokens to the depositor and burns the
 - **Higher gas cost.** Minting and burning involve more storage operations and event emissions than a simple internal ledger update.
 - **Additional [smart contract](/wiki/economics/finance/defi/smart-contract) surface.** The mint/burn logic adds code paths that must be audited. Bugs in share-price calculation (e.g., rounding errors, donation attacks on empty vaults) have been a recurring source of exploits.
 
-Most modern [AMMs](/wiki/economics/finance/defi/amm) -- including [Uniswap](/wiki/economics/finance/defi/uniswap) v2/v3 LP tokens and Balancer pool tokens -- use mint/burn. Yield aggregators and lending vaults almost universally follow this pattern.
+Most modern [AMMs](/wiki/economics/finance/defi/amm) -- including [Uniswap](/wiki/economics/finance/defi/uniswap) v2/v3 [LP](/wiki/economics/finance/defi/liquidity-pool) tokens and Balancer pool tokens -- use mint/burn. Yield aggregators and lending vaults almost universally follow this pattern.
 
 ## Comparison
 

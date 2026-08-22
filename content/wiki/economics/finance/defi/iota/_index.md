@@ -23,7 +23,7 @@ The pivot is the single most important thing to understand about IOTA. Most thir
 
 Post-Rebased, IOTA exposes two programming surfaces:
 
-- **Move on Layer 1** — resource-oriented contracts executing directly against the new object ledger, with parallel execution and a DAG-based BFT consensus. (Rebased launched on Mysten Labs' [Mysticeti](https://blog.iota.org/iota-rebased-technical-view/); in May 2026 IOTA replaced it on mainnet with its own [Starfish](https://blog.iota.org/why-starfish-matters/) protocol — see [IOTA Rebased](/wiki/economics/finance/defi/iota/iota-rebased#consensus-mysticeti-to-starfish).)
+- **Move on Layer 1** — resource-oriented contracts executing directly against the new object ledger, with parallel execution and a Byzantine-fault-tolerant (BFT) consensus over a [DAG](/wiki/cs/dag). (Rebased launched on Mysten Labs' [Mysticeti](https://blog.iota.org/iota-rebased-technical-view/); in May 2026 IOTA replaced it on mainnet with its own [Starfish](https://blog.iota.org/why-starfish-matters/) protocol — see [IOTA Rebased](/wiki/economics/finance/defi/iota/iota-rebased#consensus-mysticeti-to-starfish).)
 - **[IOTA EVM](/wiki/economics/finance/defi/iota/iota-evm)** — a fully [EVM](/wiki/economics/finance/defi/ethereum/)-compatible chain where existing [Solidity](/wiki/economics/finance/defi/solidity/) and [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) tooling works unmodified. This remains the practical entry point for porting existing [DeFi](/wiki/economics/finance/defi/dex) protocols.
 
 The IOTA Foundation has signalled an intent to eventually fold EVM execution into Layer 1. As of mid-2026 that integration is still on the roadmap rather than shipped — the two run side by side, bridged for asset transfers.
@@ -39,14 +39,14 @@ IOTA's positioning is real-world assets, supply chain, and machine payments rath
 
 ## The IOTA Token
 
-The native token is **IOTA** (historically tickered MIOTA). Under Rebased it pays gas, is burned on every transaction, and is the staking asset for dPoS. Delegated staking has paid roughly **10–15% APY** since launch, funded by issuance of about 767,000 IOTA per epoch (~6% annual inflation, set to decline over time). A separate incentivised network, **Shimmer (SMR)**, served as the staging ground for protocol upgrades; with Rebased live, Shimmer's role is largely historical.
+The native token is **IOTA** (historically tickered MIOTA). Under Rebased it pays gas, is burned on every transaction, and is the staking asset for dPoS. Delegated staking has paid roughly **10–15% APY** (annual percentage yield) since launch, funded by issuance of about 767,000 IOTA per epoch (~6% annual inflation, set to decline over time). A separate incentivised network, **Shimmer (SMR)**, served as the staging ground for protocol upgrades; with Rebased live, Shimmer's role is largely historical.
 
 ## Recent Developments and Roadmap
 
 The year after Rebased has been one of steady protocol hardening plus an aggressive enterprise pivot. Highlights through mid-2026:
 
 - **Starfish consensus (May 2026)** — mainnet protocol v24 swapped Mysticeti for IOTA's own [Starfish](https://blog.iota.org/why-starfish-matters/), an uncertified-DAG BFT protocol with rigorous liveness proofs and better tail latency under adverse conditions. Detail on [the Rebased page](/wiki/economics/finance/defi/iota/iota-rebased#consensus-mysticeti-to-starfish).
-- **Account abstraction** — programmable on-chain accounts (dynamic authentication, native multisig à la Safe) specified in IIP-0009 and live on dev/test networks, with mainnet rollout in progress.
+- **Account abstraction** — programmable on-chain accounts (dynamic authentication, native multisig à la Safe) specified in IIP-0009 (an IOTA Improvement Proposal) and live on dev/test networks, with mainnet rollout in progress.
 - **Identity and naming** — **IOTA Names** (human-readable addresses) launched on mainnet, and **IOTA Identity 1.9** added SD-JWT credentials aligned to the W3C Data Model 2.0.
 - **TWIN goes live** — the Trade Worldwide Information Network reached mainnet in early 2026, with national pilots in Kenya and the UK (Teesside) and exploration in Rwanda. The Manifesto targets 5+ country pilots within 12 months and 30+ by 2030.
 - **Validator decentralisation** — IIP-8 (protocol v20) introduced dynamic minimum validator commissions to discourage stake concentration; mainnet validators require a 2,000,000 IOTA minimum self-stake.

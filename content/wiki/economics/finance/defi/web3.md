@@ -19,7 +19,7 @@ The pitch: Web 1.0 was read-only (static pages). Web 2.0 was read-write (user-ge
 
 ## Criticism
 
-Web3 has drawn pointed criticism. Jack Dorsey argued that venture capital funding behind many Web3 projects recreates the same power dynamics it claims to replace: "You don't own web3. The VCs and their LPs do." Elon Musk called it "more marketing buzzword than reality."
+Web3 has drawn pointed criticism. Jack Dorsey argued that venture capital funding behind many Web3 projects recreates the same power dynamics it claims to replace: "You don't own web3. The VCs and their LPs do." (The LPs there are a venture fund's limited partners, not a pool's [liquidity providers](/wiki/economics/finance/defi/liquidity-pool).) Elon Musk called it "more marketing buzzword than reality."
 
 The practical criticism has weight too. On-chain transactions are slow and expensive compared to centralized alternatives. User experience remains poor -- key management, gas fees, and irreversible transactions create steep onboarding barriers. Many "decentralized" applications still depend on centralized frontends, RPC providers, or cloud hosting.
 

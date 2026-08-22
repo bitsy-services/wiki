@@ -26,7 +26,7 @@ The legacy **Hosted Service** was deprecated in favour of the decentralised netw
 |---|---|---|
 | **Operator** | Edge & Node (centralised) | Decentralised indexer network |
 | **Cost** | Free | Query fees paid in GRT |
-| **Chains** | Many EVM + non-EVM | Expanding; see [supported networks](https://thegraph.com/docs/en/developing/supported-networks/) |
+| **Chains** | Many [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) + non-EVM | Expanding; see [supported networks](https://thegraph.com/docs/en/developing/supported-networks/) |
 | **Reliability** | Single point of failure | Redundant indexers |
 
 New subgraphs should target **Subgraph Studio** and the decentralised network.

@@ -3,7 +3,7 @@ title: "GPT-2"
 weight: 30
 ---
 
-GPT-2 is the language model this section takes apart. OpenAI built it to test one idea — that a program trained only to guess the next piece of text, given enough ordinary writing to practise on, would pick up skills nobody set out to teach it — and it worked well enough to point the whole field in the direction it has been going ever since. It is also, by current standards, small and completely open: the weights are published, it runs on a laptop, and it is built the same way as the models people pay for today. Pivotal and openable at once is a rare combination, and it is why every page here uses GPT-2 as its worked example.
+GPT-2 — Generative Pre-trained Transformer 2 — is the language model this section takes apart. OpenAI built it to test one idea — that a program trained only to guess the next piece of text, given enough ordinary writing to practise on, would pick up skills nobody set out to teach it — and it worked well enough to point the whole field in the direction it has been going ever since. It is also, by current standards, small and completely open: the weights are published, it runs on a laptop, and it is built the same way as the models people pay for today. Pivotal and openable at once is a rare combination, and it is why every page here uses GPT-2 as its worked example.
 
 ## Why the worked example is a model from 2019
 

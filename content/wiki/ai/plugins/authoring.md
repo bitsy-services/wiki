@@ -73,9 +73,9 @@ The components most commonly added on top, in roughly the order people reach for
 
 - **Hooks** (`hooks/hooks.json`) — deterministic shell commands the harness fires on tool events. Lint-on-save, pre-commit checks, formatters. The schema is the same as the `hooks` block in `settings.json`, so an existing hook lifts in directly.
 - **Subagents** (`agents/`) — named agents the model can delegate to with their own system prompt, tool set, and model choice. The cleanest packaging unit for a specialist behavior like a code reviewer or a research forager.
-- **MCP servers** (`.mcp.json`) — external tool servers the plugin brings along. Useful for capabilities that are not just prompts — a real API, a database, a search backend.
+- **[MCP](/wiki/ai/mcp) servers** (`.mcp.json`) — external tool servers the plugin brings along. Useful for capabilities that are not just prompts — a real API, a database, a search backend.
 
-The full surface (LSP, monitors, `bin/`, default `settings.json`) is documented in the [components inventory](/wiki/ai/plugins/claude-code#anatomy) on the consumer page; the principle is to add a component only when the cheaper form does not do the job.
+The full surface (Language Server Protocol servers, monitors, `bin/`, default `settings.json`) is documented in the [components inventory](/wiki/ai/plugins/claude-code#anatomy) on the consumer page; the principle is to add a component only when the cheaper form does not do the job.
 
 ## Distributing the plugin to yourself
 

@@ -9,7 +9,7 @@ Two distinct flavours of mining show up in practice. The math is similar — Kec
 
 | Variant | What you brute-force | What it produces |
 |---|---|---|
-| **EOA vanity** | A 32-byte private key | A user/account address with a chosen pattern |
+| **EOA (externally owned account) vanity** | A 32-byte private key | A user/account address with a chosen pattern |
 | **CREATE2 salt mining** | The 32-byte `salt` argument | A contract address with a chosen pattern |
 
 ## The Search Space
@@ -50,7 +50,7 @@ Step 2 is the bottleneck. A scalar multiplication on secp256k1 is much more expe
 
 ### Use Cases
 
-- **Branding** — a recognisable prefix is more memorable than a random hash. Many DAO treasuries, bridges, and OG project addresses are mined.
+- **Branding** — a recognisable prefix is more memorable than a random hash. Many [DAO](/wiki/economics/finance/defi/dao) treasuries, bridges, and OG project addresses are mined.
 - **Phishing resistance** — users learn to recognise the prefix of a legitimate address. (Weak; attackers can mine confusable addresses too.)
 - **Burn / sink addresses** — `0x000…dead`, `0x000…0000`, etc. These don't need mining since no one holds the key.
 
@@ -63,7 +63,7 @@ EOA vanity addresses **do not save gas**. The address only appears on chain when
 The flaw was in the seed:
 
 - profanity used `xoshiro256**` to generate candidate keys.
-- It seeded the PRNG from a **32-bit value** (a `time(NULL)` cast or similar). 2³² states is exhaustively searchable on commodity hardware in hours.
+- It seeded the pseudo-random number generator (PRNG) from a **32-bit value** (a `time(NULL)` cast or similar). 2³² states is exhaustively searchable on commodity hardware in hours.
 - Given any single address-key pair from a profanity batch, an attacker could recover the seed by trying all 2³² values, and thereby recover *every other key the same run produced* — including the lucky one the user kept.
 
 Multiple high-value wallets, including a vanity address holding Wintermute treasury funds, were drained. Total losses are estimated in the high tens of millions of USD.
@@ -76,7 +76,7 @@ Modern forks (e.g. `profanity-2`, `vanity-eth`) seed from the OS entropy pool. V
 
 ## CREATE2 Salt Mining
 
-[`CREATE2`](https://eips.ethereum.org/EIPS/eip-1014) (EIP-1014) deploys a contract to a deterministic address derived from the deployer, a chosen 32-byte `salt`, and the hash of the init code:
+[`CREATE2`](https://eips.ethereum.org/EIPS/eip-1014) ([EIP](/wiki/economics/finance/defi/ethereum/eip)-1014) deploys a contract to a deterministic address derived from the deployer, a chosen 32-byte `salt`, and the hash of the init code:
 
 ```text
 addr = keccak256(0xff ++ deployer ++ salt ++ keccak256(initCode))[12:]
@@ -88,7 +88,7 @@ You can vary `salt` until the resulting `addr` has the pattern you want. Unlike 
 
 Leading zero bytes in a contract address translate directly into ongoing gas savings every time the address is used:
 
-- **Calldata** — under [EIP-2028](https://eips.ethereum.org/EIPS/eip-2028), each zero byte in transaction calldata costs **4 gas** versus **16 gas** for a non-zero byte. An address embedded in calldata (e.g. as a `to` field, an ABI-encoded argument, a Multicall target) saves **12 gas per leading zero byte per call**.
+- **Calldata** — under [EIP-2028](https://eips.ethereum.org/EIPS/eip-2028), each zero byte in transaction calldata costs **4 gas** versus **16 gas** for a non-zero byte. An address embedded in calldata (e.g. as a `to` field, an argument encoded in the contract's application binary interface (ABI) format, a Multicall target) saves **12 gas per leading zero byte per call**.
 - **Bytecode `PUSH`** — pushing the address as an immediate inside another contract uses `PUSHN` where `N` equals the number of significant bytes. An address with `k` leading zero bytes can be pushed with `PUSH(20-k)` instead of `PUSH20`, shrinking deployed bytecode by `k` bytes (200·`k` gas saved at deployment, plus a smaller code object forever after).
 
 For a contract that is the target of millions of transactions — Seaport, Uniswap routers, the Gnosis Safe singleton — those 12-gas-per-byte savings dominate the one-time cost of mining. [OpenSea's Seaport 1.1](https://opensea.io/blog/articles/introducing-seaport-protocol) is the canonical example: its address `0x00000000006c3852cbEf3e08E8dF289169EdE581` has six leading zero bytes, saving 72 gas of calldata cost per call site that references it.
@@ -113,7 +113,7 @@ Six zero bytes is the current practical sweet spot — feasible on a small GPU c
 - **[`ERADICATE2`](https://github.com/johguse/ERADICATE2)** — the CREATE2 sibling of `profanity`, by the same author. CUDA. Searches for leading/trailing patterns. Not affected by the profanity PRNG bug because the salt is not a secret — there is nothing to recover.
 - **[`cast create2`](https://book.getfoundry.sh/reference/cast/cast-create2)** — Foundry's built-in CPU miner. Convenient for short prefixes (4–6 hex chars) where you don't need GPU throughput.
 
-For shared-deployer scenarios, the standard pattern is to deploy via the [deterministic deployer at `0x4e59b44847b379578588920cA78FbF26c0B4956C`](https://github.com/Arachnid/deterministic-deployment-proxy) — a stateless `CREATE2` factory that exists at the same address on every EVM chain. Mining a salt against this deployer yields the same contract address everywhere, which matters for cross-chain protocols.
+For shared-deployer scenarios, the standard pattern is to deploy via the [deterministic deployer at `0x4e59b44847b379578588920cA78FbF26c0B4956C`](https://github.com/Arachnid/deterministic-deployment-proxy) — a stateless `CREATE2` factory that exists at the same address on every [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) chain. Mining a salt against this deployer yields the same contract address everywhere, which matters for cross-chain protocols.
 
 ### Salt Mining Has No Cryptographic Risk
 
@@ -143,7 +143,7 @@ Cloud GPU rentals (RunPod, vast.ai, Lambda Labs) are usually cheaper than buying
 {{< /hint >}}
 
 {{< hint warning >}}
-**Don't conflate "leading zeros" with "small address."** `0x0000…ABCD` and `0xABCD…0000` are very different — only leading zeros translate into `PUSHN` and calldata gas savings, because RLP and ABI encodings are big-endian. Trailing-zero vanity addresses look pretty but save no gas.
+**Don't conflate "leading zeros" with "small address."** `0x0000…ABCD` and `0xABCD…0000` are very different — only leading zeros translate into `PUSHN` and calldata gas savings, because the recursive length prefix (RLP) and ABI encodings are big-endian. Trailing-zero vanity addresses look pretty but save no gas.
 {{< /hint >}}
 
 {{< hint info >}}

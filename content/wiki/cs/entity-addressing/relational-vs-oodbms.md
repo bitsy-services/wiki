@@ -5,7 +5,7 @@ weight: 10
 
 The relational and object-oriented database camps disagreed about the most basic question a data store has to answer: **what is an entity, and how do you point at one?** The relational model says an entity is a row in a table, identified by the values of its primary-key columns and reachable only by querying that table. An object-oriented database (OODBMS) says an entity is an object with its own machine-level identity, reachable by following a reference -- much like a pointer in a programming language.
 
-Both models survived, but uneasily, and the friction between them is the source of the long-running ["object-relational impedance mismatch"](https://en.wikipedia.org/wiki/Object%E2%80%93relational_impedance_mismatch) literature and the entire ORM industry that grew up around it. It is a textbook case of the larger [entity-addressing tension](/wiki/cs/entity-addressing).
+Both models survived, but uneasily, and the friction between them is the source of the long-running ["object-relational impedance mismatch"](https://en.wikipedia.org/wiki/Object%E2%80%93relational_impedance_mismatch) literature and the entire object-relational mapping (ORM) industry that grew up around it. It is a textbook case of the larger [entity-addressing tension](/wiki/cs/entity-addressing).
 
 ## The relational model
 
@@ -63,7 +63,7 @@ The container-vs-object debate did not end; it migrated.
 
 - **Document stores** (MongoDB, CouchDB) sit closer to the object camp -- a document has its own identity (`_id`), can be retrieved directly without a join, and nests its sub-entities as embedded sub-objects. The trade-off they reintroduced is the difficulty of cross-document consistency.
 - **Graph databases** (Neo4j, Dgraph) take the object stance further still: nodes are first-class entities, edges are first-class entities, and the language is built around traversal rather than joins.
-- **[Content-addressed stores](/wiki/cs/dag)** (Git, IPFS) push the object stance to its limit: an entity's identity is the hash of its content. There is no enclosing container at all -- references are global, immutable, and verifiable without any directory lookup.
+- **[Content-addressed stores](/wiki/cs/dag)** (Git, [IPFS](/wiki/cs/ipfs)) push the object stance to its limit: an entity's identity is the hash of its content. There is no enclosing container at all -- references are global, immutable, and verifiable without any directory lookup.
 - **Modern ORMs** (Prisma, Drizzle) have largely retreated from the goal of "objects all the way down" and now embrace SQL as a first-class output, generating typed query builders rather than hiding the relational model. The mismatch is acknowledged rather than concealed.
 
 The relational model's victory in operational data stores is now more than fifty years old, but the underlying question -- whether an entity is a row in a container or an object with its own identity -- remains a live design choice every time a new storage layer is built.

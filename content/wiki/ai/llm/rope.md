@@ -52,7 +52,7 @@ Three things fall out, and each is a direct consequence of encoding position as 
 
 **It lives inside attention.** RoPE rotates q and k and nothing else — never the [values](/wiki/ai/llm/qkv-projections), never the [residual stream](/wiki/ai/llm/residual-stream). Position isn't stirred into the token once at the left edge; it's reapplied fresh inside every block, every time attention runs.
 
-**The window stretches afterward.** Here is where the headline finally lands: a model trained at 8k tokens routinely ships with a 128k-token window. That's possible because the rotation is *continuous* in position — position 8,000.5 is a perfectly good angle even if training never used it. Nudge the frequencies (raise the base, or interpolate positions so the trained range is stretched to cover a longer one), fine-tune briefly, and the model works well past the length it saw in training. NTK-aware scaling, position interpolation, and YaRN are all variations on that one move — and it's how long-context models got long.
+**The window stretches afterward.** Here is where the headline finally lands: a model trained at 8k tokens routinely ships with a 128k-token window. That's possible because the rotation is *continuous* in position — position 8,000.5 is a perfectly good angle even if training never used it. Nudge the frequencies (raise the base, or interpolate positions so the trained range is stretched to cover a longer one), fine-tune briefly, and the model works well past the length it saw in training. NTK-aware (neural tangent kernel) scaling, position interpolation, and YaRN are all variations on that one move — and it's how long-context models got long.
 
 ## Check yourself
 

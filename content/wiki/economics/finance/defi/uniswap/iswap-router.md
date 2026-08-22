@@ -11,7 +11,7 @@ weight: 1
 
 The canonical deployment is the **SwapRouter** contract. On most chains the address is `0xE592427A0AEce92De3Edee1F18E0157C05861564`.
 
-> **Note:** Uniswap has since shipped **SwapRouter02** (combines V2 + V3 routing) and the **UniversalRouter** (V2, V3, Permit2, NFT purchases). For new integrations, evaluate those first — they offer better gas efficiency and approval flows via [Permit2](https://docs.uniswap.org/contracts/permit2/overview). This guide covers the original SwapRouter, which remains widely deployed and is the simplest to learn from.
+> **Note:** Uniswap has since shipped **SwapRouter02** (combines V2 + V3 routing) and the **UniversalRouter** (V2, V3, Permit2, [NFT](/wiki/economics/finance/defi/nft) purchases). For new integrations, evaluate those first — they offer better gas efficiency and approval flows via [Permit2](https://docs.uniswap.org/contracts/permit2/overview). This guide covers the original SwapRouter, which remains widely deployed and is the simplest to learn from.
 
 ## Installation
 

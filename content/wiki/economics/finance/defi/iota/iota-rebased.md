@@ -9,8 +9,8 @@ IOTA Rebased is the protocol overhaul that went live on mainnet on **5 May 2025*
 
 | | Pre-Rebased (Tangle) | Rebased (May 2025+) |
 |---|---|---|
-| Ledger | DAG of transactions | Object ledger on the Move VM |
-| Consensus | Tip approval + Coordinator milestones | DAG-based BFT dPoS, no Coordinator (Mysticeti at launch, Starfish since May 2026) |
+| Ledger | [DAG](/wiki/cs/dag) of transactions | Object ledger on the Move VM |
+| Consensus | Tip approval + Coordinator milestones | Byzantine-fault-tolerant (BFT) dPoS over a DAG, no Coordinator (Mysticeti at launch, Starfish since May 2026) |
 | Validators | Foundation Coordinator | Up to ~150 permissionless, staked |
 | Fees | None | ~0.005 IOTA per tx, burned |
 | Finality | Probabilistic (cumulative weight) | Deterministic, sub-second |
@@ -28,13 +28,13 @@ Validators are elected by stake; IOTA holders who do not run infrastructure **de
 
 Rebased launched on **Mysticeti**, the DAG-based BFT consensus from Mysten Labs. Mysticeti's "uncertified DAG" design achieves very low latency but, as later research showed, lacks rigorous liveness proofs — under adversarial network conditions honest validators could fail to commit even after the network stabilised (a desynchronization attack). In **May 2026**, mainnet protocol **v24** (release v1.21.1) replaced it with **[Starfish](https://blog.iota.org/why-starfish-matters/)** (IIP-2), IOTA's own consensus protocol. Starfish keeps the uncertified-DAG efficiency but adds a "push pacemaker" and *Encoded Cordial Dissemination* (Reed–Solomon erasure coding plus data-availability certificates) to guarantee liveness and keep communication linear as the validator set grows. Reported p99 latency improved from roughly 486 ms to 312 ms versus Mysticeti.
 
-Published figures: **50,000+ TPS** capacity and finality on the order of **400–500 ms**. Treat these as benchmark/target numbers, as with any L1's headline throughput.
+Published figures: **50,000+ transactions per second** capacity and finality on the order of **400–500 ms**. Treat these as benchmark/target numbers, as with any L1's headline throughput.
 
 ## Fees and Tokenomics
 
 IOTA is no longer strictly feeless. Each transaction costs roughly **0.005 IOTA** on average, and that fee is **burned**, applying deflationary pressure. Fees are framed as a congestion-control mechanism, not a revenue model — they are deliberately tiny, and applications can **sponsor** fees so end users still experience a feeless flow.
 
-Staking is inflationary to fund rewards: on the order of **767,000 IOTA minted per epoch**, an initial inflation rate near **6%** (set to decline over time), distributed to validators and their delegators. Realised yields have run roughly **10–15% APY** depending on the staked ratio and validator commissions. Net token supply pressure is the burn rate against this issuance. A later upgrade — IIP-8, mainnet protocol **v20** — added *dynamic minimum validator commissions* to discourage stake concentration; running a mainnet validator requires a self-stake of at least **2,000,000 IOTA**.
+Staking is inflationary to fund rewards: on the order of **767,000 IOTA minted per epoch**, an initial inflation rate near **6%** (set to decline over time), distributed to validators and their delegators. Realised yields have run roughly **10–15% APY** (annual percentage yield) depending on the staked ratio and validator commissions. Net token supply pressure is the burn rate against this issuance. A later upgrade — IIP-8, mainnet protocol **v20** — added *dynamic minimum validator commissions* to discourage stake concentration; running a mainnet validator requires a self-stake of at least **2,000,000 IOTA**.
 
 ## Relationship to IOTA EVM
 

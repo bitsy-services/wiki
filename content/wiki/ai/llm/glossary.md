@@ -9,7 +9,7 @@ The general vocabulary every network shares — *layer*, *activations*, *bend*, 
 
 | Term | Means | Elsewhere called |
 |---|---|---|
-| **token** | one entry from the model's fixed inventory of text chunks, roughly the size of a short word. The unit everything downstream is counted in | subword, BPE token, wordpiece |
+| **token** | one entry from the model's fixed inventory of text chunks, roughly the size of a short word. The unit everything downstream is counted in | subword, BPE (byte-pair encoding) token, wordpiece |
 | **vocabulary** | the whole inventory of tokens — 50,257 in [GPT-2](/wiki/ai/llm/gpt-2). Sets the width of the logits | vocab, `n_vocab` |
 | **weights** | the numbers the model's arithmetic is done with, and the only thing training changes. *Parameters* means the same thing, and this subsection uses both — "weights" by default, "parameters" where the surrounding term of art demands it | `n_params` |
 | **row** | one token position's vector at some depth — `d_model` numbers wide | activation, hidden state, token representation |
@@ -19,7 +19,7 @@ The general vocabulary every network shares — *layer*, *activations*, *bend*, 
 | **MLP bulge** | [the MLP](/wiki/ai/llm/the-mlp) widening a row to 4×`d_model` (3072) and back down. The only place a row isn't `d_model` wide | feed-forward, FFN, hidden dim |
 | **head** | one attention channel: its own Q/K/V projections into a 64-wide subspace. 12 per block in GPT-2 small | attention head |
 | **attention pattern** | one row's post-softmax weights over the rows it can see. Sums to 1 | attention weights, attention map |
-| **KV cache** | keys and values already computed for earlier rows, kept so the next token doesn't recompute them | `past_key_values`, decoder cache |
+| **KV cache** | the key/value pairs already computed for earlier rows, kept so the next token doesn't recompute them | `past_key_values`, decoder cache |
 | **logits** | the raw scores at the right edge — one per vocabulary entry (50,257), before softmax | scores, unnormalized log-probs |
 | **unembedding** | the matrix that turns the final row into logits. Tied to the embedding in GPT-2 | `lm_head`, output head, `W_U` |
 | **perplexity** | `exp(loss)` — roughly, how many tokens the model is choosing between | PPL |

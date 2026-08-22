@@ -7,7 +7,7 @@ Weight sharing is the fact that the model uses the same numbers everywhere along
 
 ## What the alternative would actually look like
 
-The point is clearest if you take the other option seriously for a moment. Suppose there really were a "block 6 for position 300" — its own attention matrices, its own MLP, distinct from block 6's machinery at position 299.
+The point is clearest if you take the other option seriously for a moment. Suppose there really were a "block 6 for position 300" — its own attention matrices, its own [MLP](/wiki/ai/llm/the-mlp), distinct from block 6's machinery at position 299.
 
 The parameter count is the least of the problems, though it is spectacular. The blocks hold about 85M of GPT-2 small's weights; multiply those by 1024 positions and you have a model of roughly 87 billion, no more capable than the 124M one it came from.
 

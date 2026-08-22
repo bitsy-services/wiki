@@ -49,7 +49,7 @@ UMA's optimistic oracle assumes data is correct unless disputed. A proposer post
 | Risk | Description |
 |------|-------------|
 | **Data source failure** | If the APIs an oracle queries go down or return stale data, the on-chain value becomes unreliable. |
-| **Flash loan price manipulation** | An attacker can manipulate a DEX spot price within a single transaction. Oracles that read DEX prices directly (rather than using TWAPs or off-chain sources) are vulnerable. |
+| **Flash loan price manipulation** | An attacker can manipulate a [DEX](/wiki/economics/finance/defi/dex) spot price within a single transaction. Oracles that read DEX prices directly (rather than using time-weighted average prices, TWAPs, or off-chain sources) are vulnerable. |
 | **Insufficient decentralisation** | A feed with only a few nodes is easier to corrupt than one with many independent operators. |
 | **Latency** | On-chain updates lag real-world prices. During volatile markets, this gap can be exploited — especially in lending protocol liquidations. |
 
@@ -57,7 +57,7 @@ UMA's optimistic oracle assumes data is correct unless disputed. A proposer post
 
 - **Price feeds** — the backbone of DeFi. Lending protocols ([Aave](https://aave.com), [Compound](https://compound.finance)), [DEXs](/wiki/economics/finance/defi/dex), and derivatives platforms all depend on accurate, timely price data.
 - **Proof of reserves** — verifying that off-chain or cross-chain collateral actually exists.
-- **Randomness** — Chainlink VRF provides verifiable randomness for NFT mints, lotteries, and gaming.
+- **Randomness** — Chainlink VRF provides verifiable randomness for [NFT](/wiki/economics/finance/defi/nft) mints, lotteries, and gaming.
 - **Automation** — triggering contract functions when conditions are met (see [Chainlink Automation](/wiki/economics/finance/defi/chainlink/automation)).
 
 ## External links

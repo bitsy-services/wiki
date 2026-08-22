@@ -11,7 +11,7 @@ The term covers a huge range: [DEXs](/wiki/economics/finance/defi/dex) like [Uni
 
 A dApp has two layers:
 
-- **Frontend.** A conventional web or mobile interface. It reads chain state through an RPC provider and submits transactions on the user's behalf. Some projects host their frontend on IPFS or Arweave so it cannot be taken down, but most still use traditional hosting.
+- **Frontend.** A conventional web or mobile interface. It reads chain state through an RPC provider and submits transactions on the user's behalf. Some projects host their frontend on [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/finance/defi/arweave) so it cannot be taken down, but most still use traditional hosting.
 - **Backend (smart contracts).** One or more contracts deployed to a blockchain like [Ethereum](/wiki/economics/finance/defi/ethereum/). These handle all state that needs to be trustless -- token balances, pool reserves, governance votes. Once deployed, the code is immutable unless the contract is explicitly upgradeable.
 
 The wallet (MetaMask, Rabby, a hardware signer) bridges the two layers. It holds the user's private key, signs transactions locally, and sends them to the network.
@@ -34,7 +34,7 @@ No intermediary custodies the funds at any point.
 |---|---|---|
 | DeFi | Lending, trading, [yield farming](/wiki/economics/finance/defi/yield-farming) | Uniswap, Aave, Compound |
 | Governance | On-chain voting and treasury management | [DAOs](/wiki/economics/finance/defi/dao), Gnosis Safe |
-| Gaming / NFTs | Ownership of in-game assets | Axie Infinity, OpenSea |
+| Gaming / [NFTs](/wiki/economics/finance/defi/nft) | Ownership of in-game assets | Axie Infinity, OpenSea |
 | Storage | Decentralized file hosting | Filecoin, Arweave |
 
 ## Trade-offs

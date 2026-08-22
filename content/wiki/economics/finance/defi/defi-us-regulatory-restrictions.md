@@ -35,7 +35,7 @@ The CFTC regulates commodity futures and derivatives. It has classified Bitcoin 
 ### For users
 
 - **Geo-blocking** -- many DeFi protocols block US IP addresses or require attestation that the user is not a US person. This is enforced at the front-end level; the underlying [smart contracts](/wiki/economics/finance/defi/smart-contract) remain permissionless on-chain.
-- **Tax reporting** -- US users must report crypto gains and losses. The IRS treats cryptocurrency as property, and every swap, including token-to-token trades on a DEX, is a taxable event.
+- **Tax reporting** -- US users must report crypto gains and losses. The Internal Revenue Service (IRS) treats cryptocurrency as property, and every swap, including token-to-token trades on a DEX, is a taxable event.
 - **OFAC compliance** -- interacting with sanctioned addresses (knowingly or not) carries civil and potentially criminal liability. [Sanctions are strict-liability and bind every US person](/wiki/economics/finance/regulation/ofac-sanctions), not just regulated institutions.
 
 ### For builders
