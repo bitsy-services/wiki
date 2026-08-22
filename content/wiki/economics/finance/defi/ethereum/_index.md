@@ -29,6 +29,10 @@ Ethereum's token standards define how digital assets behave on the network. The 
 - **ERC-1155** -- A multi-token standard that supports both fungible and non-fungible tokens in a single contract, reducing deployment costs.
 - **[ERC-8004](/wiki/economics/finance/defi/ethereum/erc-8004)** -- A newer standard relevant to the Bitsy ecosystem.
 
+Several widely-used standards extend ERC-20 rather than replace it, and each has its own page here. [ERC-4626](/wiki/economics/finance/defi/ethereum/erc-4626) is the tokenized vault standard -- one interface for depositing assets, receiving shares, and redeeming them for the underlying plus yield -- and it is what lets any yield-bearing vault be integrated without bespoke code.
+
+The other three attack the same wart: ERC-20's `approve` + `transferFrom` two-step, which costs two transactions and leaves a standing allowance in between. [ERC-667](/wiki/economics/finance/defi/ethereum/erc-667) was the early proposal for a `transferAndCall`; [ERC-677](/wiki/economics/finance/defi/ethereum/erc-677) is the version that stuck, best known as the standard behind Chainlink's LINK token; and [ERC-1363](/wiki/economics/finance/defi/ethereum/erc-1363) is the fully-specified modern take, adding callback hooks to both transfers and approvals.
+
 These standards matter because they enable composability -- any application that understands ERC-20 can work with any ERC-20 token, which is why [DEXs](/wiki/economics/finance/defi/dex), [liquidity pools](/wiki/economics/finance/defi/liquidity-pool), and lending protocols can all interoperate.
 
 ## Ethereum and DeFi

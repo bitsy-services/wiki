@@ -54,6 +54,10 @@ This is distinct from the *data source chain* a subgraph indexes — a subgraph 
 - [Graph Explorer](https://thegraph.com/explorer) — browse and query published subgraphs
 - [GraphQL Playground](https://thegraph.com/docs/en/querying/graphql-api/) — API reference for subgraph queries
 
+## Pages in This Section
+
+[Subgraphs](/wiki/economics/finance/defi/the-graph/subgraphs) covers the authoring side -- the anatomy of the manifest, schema, and AssemblyScript mappings that turn contract events into queryable entities. [Querying](/wiki/economics/finance/defi/the-graph/querying) covers the consuming side: hitting a deployed subgraph's GraphQL endpoint from any HTTP client, with no SDK required.
+
 ## Wiki Pages
 
 {{< section >}}
