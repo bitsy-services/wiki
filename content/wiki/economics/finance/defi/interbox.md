@@ -27,7 +27,7 @@ Funds arrive in the wallet within minutes, depending on network settlement.
 
 ### Zelle-initiated
 
-1. Send funds via Zelle -- the US bank-to-bank instant payment network -- to an Interbox alias that encodes the currency and network -- e.g. `eth.ethereum@inter.box`, `usdc.polygon@inter.box`, `usdt.tron@inter.box`.
+1. Send funds via [Zelle](/wiki/economics/finance/payments/zelle) -- the US bank-to-bank instant payment network -- to an Interbox alias that encodes the currency and network -- e.g. `eth.ethereum@inter.box`, `usdc.polygon@inter.box`, `usdt.tron@inter.box`.
 2. Open the link Interbox sends to your bank alias.
 3. Connect your wallet and confirm.
 
@@ -35,7 +35,7 @@ Funds arrive within seconds for fast-settlement networks.
 
 ## Compatibility
 
-**Banks:** Any U.S. bank that supports Zelle.
+**Banks:** Any U.S. bank that supports Zelle, which is roughly two thousand institutions -- see [how Zelle works](/wiki/economics/finance/payments/zelle/how-it-works).
 
 **Wallets:** MetaMask and any [Ethereum](/wiki/economics/finance/defi/ethereum/)-compatible wallet via WalletConnect (Trust Wallet, Rainbow, Argent, Safe, etc.).
 

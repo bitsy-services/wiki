@@ -61,6 +61,16 @@ CCA	Confidential Compute Architecture
 IPFS	InterPlanetary File System
 CID	content identifier
 
+# --- Payments --------------------------------------------------------------
+ACH	automated clearing house
+APP	authorized push payment
+CFPB	Consumer Financial Protection Bureau
+CHIPS	Clearing House Interbank Payments System
+EFTA	Electronic Fund Transfer Act
+P2P	peer-to-peer
+RTP	real-time payments
+UPI	Unified Payments Interface
+
 # --- Financial regulation --------------------------------------------------
 AML	anti-money laundering
 BSA	Bank Secrecy Act
@@ -191,7 +201,9 @@ ERC20	-
 ETH	-
 EWS	-
 FAQ	-
+FBI	-
 FCA	-
+FCC	-
 FIFO	-
 FIN	-
 FIT21	-
@@ -217,6 +229,7 @@ IMAP	-
 IOTA	-
 IP	-
 ISC	-
+ISO	-
 JIT	-
 JSON	-
 JVM	-
@@ -250,6 +263,7 @@ PGA	-
 PHP	-
 PID	-
 PLONK	-
+PNC	-
 POL	-
 POP	-
 POST	-
@@ -273,6 +287,7 @@ RSA	-
 SD	-
 SDK	-
 SEND	-
+SIM	-
 SMR	-
 SMS	-
 SMTP	-

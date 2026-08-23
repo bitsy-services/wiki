@@ -16,9 +16,11 @@ Nothing here is legal advice. It is an attempt to explain a body of law well eno
 
 [Know your customer](/wiki/economics/finance/regulation/know-your-customer) is the obligation users actually meet: identify the customer, understand their expected behaviour, keep checking. [Money services business](/wiki/economics/finance/regulation/money-services-business) is the category that determines whether the obligation applies to you at all — the box nearly every crypto business lands in, and the one that turns a software company into a regulated financial institution. The [Travel Rule](/wiki/economics/finance/regulation/travel-rule) is the specific requirement that identifying data accompany a transfer between institutions, and the clearest case of a rule written for one architecture being applied to another.
 
-## The adjacent regime
+## The adjacent regimes
 
 [OFAC sanctions](/wiki/economics/finance/regulation/ofac-sanctions) is administered by the same department and run by the same compliance teams, but works on a different principle: it requires you to block rather than to report, it binds every US person rather than defined institutions, and it is strict-liability. It is also where the confrontation between immutable code and enforcement has been sharpest, in the sanctioning and eventual delisting of Tornado Cash.
+
+[Regulation E](/wiki/economics/finance/regulation/regulation-e) points the other way entirely. Where the rest of this section conscripts institutions into law enforcement, Regulation E allocates a private loss between a bank and its own customer after an electronic payment goes wrong — and it is the rule now failing hardest, because it was drafted in 1978 and is being applied to the irrevocable instant transfers of [Zelle](/wiki/economics/finance/payments/zelle) and its equivalents.
 
 ## Elsewhere in the wiki
 
