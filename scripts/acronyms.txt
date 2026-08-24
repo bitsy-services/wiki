@@ -318,6 +318,7 @@ USA	-
 USB	-
 USD	-
 USDC	-
+USDI	-
 USDT	-
 USENIX	-
 UTC	-
