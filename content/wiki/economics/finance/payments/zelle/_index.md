@@ -4,7 +4,7 @@ weight: 10
 bookCollapseSection: true
 ---
 
-Zelle is a bank-owned network for sending money between US deposit accounts using nothing but the recipient's mobile number or email address. It is embedded directly in the mobile apps of roughly two thousand banks and credit unions, it is free to consumers, and the money lands in the recipient's account in minutes. In 2024 it carried about $1.05 trillion across 3.6 billion transactions — more volume than every other US [peer-to-peer (P2P)](/wiki/economics/finance/payments) service combined, and the first such network to pass a trillion dollars in a year.
+Zelle is a bank-owned network for sending money between US deposit accounts using nothing but the recipient's mobile number, email address, or tag. It is embedded directly in the mobile apps of roughly two thousand banks and credit unions, it is free to consumers, and the money lands in the recipient's account in minutes. In 2024 it carried about $1.05 trillion across 3.6 billion transactions — more volume than every other US [peer-to-peer (P2P)](/wiki/economics/finance/payments) service combined, and the first such network to pass a trillion dollars in a year.
 
 It is also the clearest example in American finance of a system whose defining property is a deliberate design choice that its users do not know they agreed to: a completed Zelle payment cannot be recalled.
 
@@ -18,7 +18,7 @@ The strategic goal was never to make money on payments. It was to make sure that
 
 [How it works](/wiki/economics/finance/payments/zelle/how-it-works) is the mechanism: what Zelle actually transmits, why the recipient sees funds long before the banks settle with each other, and why calling it a "payment rail" is a category error.
 
-[Tokens and enrollment](/wiki/economics/finance/payments/zelle/tokens-and-enrollment) covers the directory that makes the whole thing usable — a phone number or email address bound to one deposit account — and the failure modes that binding creates, from mistyped digits to enrollment hijacking.
+[Zelle alias](/wiki/economics/finance/payments/zelle/alias) covers the directory that makes the whole thing usable — a phone number, email address, or tag bound to one deposit account — and the failure modes that binding creates, from mistyped digits to enrollment hijacking.
 
 [Fraud and liability](/wiki/economics/finance/payments/zelle/fraud-and-liability) is the consequential page. Irrevocability plus a directory keyed on identifiers that anyone can claim to control produces a specific crime, and US law has no settled answer to who pays for it.
 

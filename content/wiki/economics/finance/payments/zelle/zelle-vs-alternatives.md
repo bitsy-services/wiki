@@ -27,7 +27,7 @@ The consequences are not symmetric. Zelle's model means the Federal Deposit Insu
 
 In the other direction, the stored-value providers *have* somewhere to intervene. A balance in a company's control can be frozen, reversed, or held pending a dispute. Zelle gave up the ability to do that in exchange for never touching the money at all, which is a defensible trade for the operator and a worse one for the person who was defrauded.
 
-The social layer is a genuine product difference rather than decoration. Venmo's feed and handles solved discovery — you find people in the app — while Zelle deliberately has no discovery mechanism at all, only a [token you must already know](/wiki/economics/finance/payments/zelle/tokens-and-enrollment). Zelle is a tool for paying people you know; Venmo became a place where you also find them.
+The social layer is a genuine product difference rather than decoration. Venmo's feed and handles solved discovery — you find people in the app — while Zelle had for most of its life no discovery mechanism at all, only an [alias you must already know](/wiki/economics/finance/payments/zelle/alias). The [Zelle tag](/wiki/economics/finance/payments/zelle/alias#three-kinds-of-alias) closes part of that gap: a business can publish a handle without publishing a phone number. It is still not a feed, and there is nothing to browse. Zelle is a tool for paying people you know; Venmo became a place where you also find them.
 
 ## Against the instant rails
 

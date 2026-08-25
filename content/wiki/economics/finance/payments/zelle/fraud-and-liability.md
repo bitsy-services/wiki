@@ -5,7 +5,7 @@ weight: 30
 
 Zelle's fraud problem is not a bug in the implementation. It is the direct, foreseeable consequence of building an irrevocable payment system for consumers and then declining to decide who eats the loss when a consumer is tricked into using it.
 
-The mechanics are covered in [how it works](/wiki/economics/finance/payments/zelle/how-it-works) and [tokens and enrollment](/wiki/economics/finance/payments/zelle/tokens-and-enrollment). This page is about the legal question they produce, which remains genuinely unresolved in the United States and has been settled elsewhere.
+The mechanics are covered in [how it works](/wiki/economics/finance/payments/zelle/how-it-works) and [the Zelle alias](/wiki/economics/finance/payments/zelle/alias). This page is about the legal question they produce, which remains genuinely unresolved in the United States and has been settled elsewhere.
 
 ## The distinction everything turns on
 
@@ -51,7 +51,7 @@ The record is short and unfinished.
 
 **July 2024: the Senate report.** The Permanent Subcommittee on Investigations published findings on the three largest Zelle banks, reporting roughly $166 million in disputed scam and fraud claims across those institutions in 2023, and a reimbursement rate on unauthorized-transfer claims that had fallen sharply since 2019. The subcommittee's framing was that the banks had been slow to reimburse even in the category they conceded was covered.
 
-**December 2024: the CFPB sues.** The Consumer Financial Protection Bureau (CFPB) filed suit against Early Warning Services, Bank of America, JPMorgan Chase, and Wells Fargo, alleging that they had rushed Zelle to market without adequate identity verification or fraud controls and had failed to investigate claims properly, with consumer losses exceeding $870 million over seven years. Notably, much of the complaint targeted the [enrollment problem](/wiki/economics/finance/payments/zelle/tokens-and-enrollment#enrollment-hijacking) — tokens that could be claimed and re-claimed with little verification — rather than resting solely on the authorized-versus-unauthorized line.
+**December 2024: the CFPB sues.** The Consumer Financial Protection Bureau (CFPB) filed suit against Early Warning Services, Bank of America, JPMorgan Chase, and Wells Fargo, alleging that they had rushed Zelle to market without adequate identity verification or fraud controls and had failed to investigate claims properly, with consumer losses exceeding $870 million over seven years. Notably, much of the complaint targeted the [enrollment problem](/wiki/economics/finance/payments/zelle/alias#enrollment-hijacking) — aliases that could be claimed and re-claimed with little verification — rather than resting solely on the authorized-versus-unauthorized line.
 
 **March 2025: the CFPB dismisses its own case.** Following a change of administration and a broad retreat from pending enforcement, the Bureau voluntarily dismissed the suit with prejudice. Nothing was adjudicated. The legal question the complaint raised is exactly as open as it was before it was filed, and the venue has shifted towards state attorneys general and private litigation.
 

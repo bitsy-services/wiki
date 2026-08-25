@@ -9,7 +9,7 @@ Almost every surprising property of the system — the speed, the irrevocability
 
 ## What actually happens when you press send
 
-You open your bank's app, choose Zelle, and enter a mobile number or email address — a **token** — plus an amount. What follows takes seconds and involves four parties.
+You open your bank's app, choose Zelle, and enter a mobile number, email address, or tag — an [alias](/wiki/economics/finance/payments/zelle/alias) — plus an amount. What follows takes seconds and involves four parties.
 
 ```text
   Sender                 Sending bank         Zelle network        Receiving bank
@@ -39,11 +39,11 @@ So the "instant" in instant payment is a credit decision, not a settlement guara
 
 Zelle is **credit-push** only: value moves only when the account holder's own bank initiates it. There is no mechanism by which a recipient reaches into a sender's account, the way a card transaction or an ACH debit does.
 
-This buys two things. Fraud on the network cannot take the shape of an unauthorized pull — nobody can drain your account by knowing your token, the way they can with a stolen card number. And because the sending bank checks the balance before the message goes out, a Zelle payment cannot bounce; there is no return-for-insufficient-funds path.
+This buys two things. Fraud on the network cannot take the shape of an unauthorized pull — nobody can drain your account by knowing your alias, the way they can with a stolen card number. And because the sending bank checks the balance before the message goes out, a Zelle payment cannot bounce; there is no return-for-insufficient-funds path.
 
 It also costs one thing, and it is a large one. A push payment is complete the moment it is pushed. There is no clearing window in which anyone reconsiders, and consequently **no consumer-facing recall**. If the recipient is enrolled, the payment is done. Your bank can ask the receiving bank to return the funds as a courtesy; the receiving bank has no obligation to comply, and if the recipient has already moved the money, nothing to return. That asymmetry is the whole subject of [fraud and liability](/wiki/economics/finance/payments/zelle/fraud-and-liability).
 
-Payments to a token that is *not* yet enrolled behave differently, and are the one case where a sender gets a second chance — see [tokens and enrollment](/wiki/economics/finance/payments/zelle/tokens-and-enrollment#the-unenrolled-recipient).
+Payments to an alias that is *not* yet enrolled behave differently, and are the one case where a sender gets a second chance — see [the unenrolled recipient](/wiki/economics/finance/payments/zelle/alias#the-unenrolled-recipient).
 
 ## What Early Warning Services actually is
 
@@ -61,7 +61,7 @@ The lineage explains the shape.
 - **2016** — Early Warning Services acquires clearXchange, giving the directory an operator with existing risk infrastructure and relationships with essentially every US bank.
 - **June 2017** — Relaunch as Zelle, with a common brand, a standard integration for banks of any size, and a standalone app for customers whose institutions had not yet joined.
 - **2022 onwards** — Small-business support arrives; network reach passes two thousand institutions; volume compounds.
-- **2025** — The standalone Zelle app is retired. Around two percent of volume ran through it, and its existence had become a liability: an app that anyone could enroll in was the natural entry point for the [enrollment attacks](/wiki/economics/finance/payments/zelle/tokens-and-enrollment#enrollment-hijacking) the network wanted to eliminate. Zelle now exists only inside the app of a bank that has already identified you.
+- **2025** — The standalone Zelle app is retired. Around two percent of volume ran through it, and its existence had become a liability: an app that anyone could enroll in was the natural entry point for the [enrollment attacks](/wiki/economics/finance/payments/zelle/alias#enrollment-hijacking) the network wanted to eliminate. Zelle now exists only inside the app of a bank that has already identified you.
 
 That last move is a good summary of the whole design philosophy. Zelle's security model is not cryptographic and it is not procedural — it is that every participant on both ends has been through [know your customer](/wiki/economics/finance/regulation/know-your-customer) at a regulated institution. Take that away and there is nothing left holding it up.
 
