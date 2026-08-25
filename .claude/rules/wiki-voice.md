@@ -9,6 +9,12 @@ subject rather than in the reader's reaction to it, and content to let a good
 fact land on its own. A page earns the reader's attention by being dense with
 information, not by telling them that what is coming will be important.
 
+Applying this file to a page or section has a name here: **deadpanning** it.
+To deadpan a page is to state each good fact and let it land without telling
+the reader it was a good fact. "Deadpan `content/wiki/ai/llm/`" means run this
+pass over those pages. (Commit 5636b8f calls the same pass *de-cheesing*, which
+is the older name for it.)
+
 ## Every sentence carries a fact
 
 Aim for prose where each sentence adds a fact, a number, a mechanism, a
