@@ -3,7 +3,7 @@ title: "Canonicalization Attacks on Signed XML"
 weight: 11
 ---
 
-XML digital signatures bind a cryptographic signature to a canonicalized representation of an XML document (or a portion of it). This creates a gap that attackers can exploit: the signature covers what the canonicalization algorithm *sees*, but the application processes what the XML parser *produces*. When those two views diverge, an attacker can modify the document's effective meaning without invalidating its signature.
+XML digital signatures bind a cryptographic signature to a canonicalized representation of an XML document (or a portion of it). The signature therefore covers what the canonicalization algorithm *sees*, while the application acts on what the XML parser *produces*, and when those two views diverge an attacker can change the document's effective meaning without invalidating its signature.
 
 This page focuses on XML-specific attacks. For the general concept, see [Canonicalization Attack](/wiki/cs/canonicalization-attack).
 
@@ -20,7 +20,7 @@ The attack surface lies in step 1 and 2: if the attacker can manipulate the docu
 
 ## XML Signature Wrapping (XSW)
 
-XSW is the most well-known class of attack against XML signatures. The core idea: move the signed element to a location the application ignores, and place a forged element where the application expects to find it.
+XSW moves the signed element to a location the application ignores, and places a forged element where the application expects to find it.
 
 ### Mechanism
 
@@ -45,7 +45,7 @@ Even without XSW, the canonicalization algorithm itself can introduce issues:
 
 ## Namespace manipulation
 
-XML namespaces add another layer of complexity:
+XML namespaces give the attacker three more levers:
 
 - An attacker can redefine a namespace prefix to point to a different URI, changing the semantic meaning of elements without altering their local names.
 - Namespace declarations on ancestor elements can shadow or override those on descendant elements, and different C14N algorithms handle this differently.

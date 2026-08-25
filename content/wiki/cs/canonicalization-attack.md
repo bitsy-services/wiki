@@ -7,14 +7,14 @@ A canonicalization attack exploits inconsistencies in how systems normalize data
 
 ## What is canonicalization?
 
-Canonicalization (sometimes abbreviated C14N) is the process of converting data that has more than one valid representation into a single, standard form. Examples are everywhere:
+Canonicalization (sometimes abbreviated C14N) is the process of converting data that has more than one valid representation into a single, standard form:
 
 - **File paths**: `/var/www/../www/index.html` and `/var/www/index.html` refer to the same file.
 - **URLs**: `https://example.com/%2e%2e/admin` and `https://example.com/../admin` encode the same traversal.
 - **Unicode**: the character "é" can be a single code point (U+00E9) or a base letter plus a combining accent (U+0065 U+0301).
 - **XML**: attribute ordering, whitespace handling, and namespace declarations can all vary without changing the document's logical content.
 
-Canonicalization is necessary for correctness -- you need it for digital signatures, caching, deduplication, and access control. The vulnerability arises when canonicalization is *inconsistent* across components, or when validation happens before canonicalization rather than after.
+Canonicalization is necessary for correctness -- digital signatures, caching, deduplication, and access control all depend on it. The vulnerability arises when canonicalization is *inconsistent* across components, or when validation happens before canonicalization rather than after.
 
 ## Attack patterns
 
@@ -38,7 +38,7 @@ Some systems normalize Unicode to one of its standard normalization forms (NFC, 
 
 The most common root cause is performing security checks on raw input and then canonicalizing afterward. MITRE catalogues this as [CWE-180](https://cwe.mitre.org/data/definitions/180.html) ("Incorrect Behavior Order: Validate Before Canonicalize"). The related [CWE-179](https://cwe.mitre.org/data/definitions/179.html) covers the broader category of premature validation.
 
-The fix is straightforward in principle: **canonicalize first, then validate the canonical form**. In practice, this requires knowing every canonicalization step in the pipeline and ensuring no later component re-interprets the data.
+The fix is to **canonicalize first, then validate the canonical form**, which in practice requires knowing every canonicalization step in the pipeline and ensuring no later component re-interprets the data.
 
 ## Mitigations
 

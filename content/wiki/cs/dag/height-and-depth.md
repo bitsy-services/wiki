@@ -10,22 +10,22 @@ level(v) = 0                                  if v has no dependencies
          = 1 + max(level(d) for d in deps(v)) otherwise
 ```
 
-A node with nothing below it is `0`; every other node is one more than the deepest thing it depends on. Is that **height** or **depth**? The short answer: by the standard tree analogy it is **height**, but the word is convention-dependent and the only safe practice is to define the recurrence explicitly rather than rely on the label. This page explains why the ambiguity exists and how to reason about it precisely.
+A node with nothing below it is `0`; every other node is one more than the deepest thing it depends on. Is that **height** or **depth**? By the standard tree analogy it is **height**, but the word is convention-dependent, and the only safe practice is to define the recurrence explicitly rather than rely on the label.
 
 ## Trees: the Baseline
 
 The terms come from rooted trees, where they are unambiguous and *opposite* in direction:
 
-- **Depth** of a node is the number of edges from the **root** down to it. The root has depth `0`. Depth grows as you move *away from the root*.
-- **Height** of a node is the number of edges on the longest path from it down to a **leaf**. Leaves have height `0`. Height grows as you move *toward the root*.
+- **Depth** of a node is the number of edges from the **root** down to it. The root has depth `0`. Depth grows *away from the root*.
+- **Height** of a node is the number of edges on the longest path from it down to a **leaf**. Leaves have height `0`. Height grows *toward the root*.
 
 The two are measured from opposite ends. Depth counts down from the root; height counts up from the leaves.
 
 ## Mapping the Recurrence onto the Tree Picture
 
-The recurrence above bottoms out at nodes with *no dependencies* and assigns them `0`. Those nodes are the **sinks** of the "depends-on" relation — the analogue of a tree's leaves. The value then increases as you move toward the nodes that depend on everything else.
+The recurrence above bottoms out at nodes with *no dependencies* and assigns them `0`. Those nodes are the **sinks** of the "depends-on" relation — the analogue of a tree's leaves. The value then increases toward the nodes that depend on everything else.
 
-That is exactly the tree definition of **height**: leaves are `0`, and a node is `1 + max` over its children. So the quantity you asked about is **height** — specifically, *the length of the longest path from the node to a dependency-free sink.*
+That is exactly the tree definition of **height**: leaves are `0`, and a node is `1 + max` over its children. The quantity in the recurrence is **height** — specifically, *the length of the longest path from the node to a dependency-free sink.*
 
 The dual quantity — `0` at the **sources** (nodes nothing depends on) and `1 + max` over *predecessors* — is **depth**: the length of the longest path from a source down to the node.
 
@@ -34,14 +34,14 @@ The dual quantity — `0` at the **sources** (nodes nothing depends on) and `1 +
 | **Height(v)** | sinks (no dependencies) | sources | longest path *from* `v` to a sink |
 | **Depth(v)** | sources (nothing depends on it) | sinks | longest path *to* `v` from a source |
 
-Your recurrence is the **Height(v)** row.
+The recurrence at the top of this page is the **Height(v)** row.
 
 ## Direction Is the Real Source of Confusion
 
-A DAG has no single root, so "up" and "down" are not intrinsic — they depend entirely on **which way you orient the edges and which end you call the bottom.** This is why people disagree:
+A DAG has no single root, so "up" and "down" are not intrinsic — they depend entirely on **which way the edges are oriented and which end is called the bottom.** This is why people disagree:
 
-- Draw dependencies *below* their dependents (the common "the foundation is at the bottom" mental model) and the leaf-level dependency-free nodes sit at the bottom. Counting up from them is naturally "height."
-- Draw dependents *below* (a "drill-down into what this needs" mental model) and the same nodes sit at the bottom of a different picture, and many practitioners call your recurrence the **dependency depth** — "how deep does this thing's dependency tree go."
+- Drawn with dependencies *below* their dependents — the common "the foundation is at the bottom" model — the leaf-level dependency-free nodes sit at the bottom, and counting up from them is naturally "height."
+- Drawn with dependents *below* — a "drill-down into what this needs" model — the same nodes sit at the bottom of a different picture, and many practitioners call the same recurrence the **dependency depth**: "how deep does this thing's dependency tree go."
 
 Both camps are internally consistent. Graph-theory-by-tree-analogy says **height** (leaves = 0). Everyday "how deep is the dependency tree" usage says **depth**. Neither is wrong; they have just fixed different ends as the origin.
 
@@ -88,9 +88,9 @@ def height(v, deps, memo, on_stack):
     return memo[v]
 ```
 
-## Related Terms You Will Encounter
+## Other Names for the Same Quantity
 
-The same quantity travels under several names depending on the field:
+The vocabulary shifts by field:
 
 - **Level** or **rank** — graph drawing (Sugiyama layered layout) calls longest-path layering the node's *level*.
 - **Topological generation** — the set of all nodes sharing a given height; generation 0 is exactly the sinks.

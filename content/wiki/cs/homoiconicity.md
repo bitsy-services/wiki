@@ -5,7 +5,7 @@ weight: 20
 
 Homoiconicity is a property of programming languages in which programs are represented using the language's own data structures. The term combines the Greek *homo* (same) and *icon* (representation) -- code and data share the same form, and the language can manipulate its own code with the same tools it uses to manipulate any other data.
 
-## Why it matters
+## What code-as-data buys
 
 When code is data, a program can inspect, generate, and transform other programs (or itself) at compile time or runtime using ordinary language constructs. This makes several things practical that are awkward or impossible in non-homoiconic languages:
 
@@ -18,7 +18,7 @@ When code is data, a program can inspect, generate, and transform other programs
 
 ### Lisp
 
-Lisp is the canonical example. All Lisp code is written as S-expressions -- nested lists that are also Lisp's primary data structure. The expression `(+ 1 2)` is simultaneously a function call and a list of three elements. Lisp's `quote` form prevents evaluation, letting you treat code as data:
+Lisp is the canonical example. All Lisp code is written as S-expressions -- nested lists that are also Lisp's primary data structure. The expression `(+ 1 2)` is simultaneously a function call and a list of three elements. Lisp's `quote` form prevents evaluation, so a form can be handled as the list it is:
 
 ```lisp
 (defmacro when (condition &body body)
@@ -40,7 +40,7 @@ Clojure's emphasis on immutable data structures makes macro-generated code easie
 
 ### Rebol and Red
 
-Rebol (and its successor Red) take a different approach. Rather than parenthesized S-expressions, they use a flat block syntax where everything -- code, data, markup -- is composed from a common set of datatypes (words, blocks, strings, integers, etc.). A block `[print "hello"]` is both executable code and an inert data container depending on context:
+Rebol (and its successor Red) drop parenthesized S-expressions for a flat block syntax where everything -- code, data, markup -- is composed from a common set of datatypes (words, blocks, strings, integers, etc.). A block `[print "hello"]` is both executable code and an inert data container depending on context:
 
 ```red
 rule: [some digit]

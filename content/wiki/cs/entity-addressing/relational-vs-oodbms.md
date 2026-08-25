@@ -3,9 +3,9 @@ title: "Relational vs. Object-Oriented Databases"
 weight: 10
 ---
 
-The relational and object-oriented database camps disagreed about the most basic question a data store has to answer: **what is an entity, and how do you point at one?** The relational model says an entity is a row in a table, identified by the values of its primary-key columns and reachable only by querying that table. An object-oriented database (OODBMS) says an entity is an object with its own machine-level identity, reachable by following a reference -- much like a pointer in a programming language.
+The relational and object-oriented database camps disagreed about what a data store is holding: **what is an entity, and how is one addressed?** The relational model says an entity is a row in a table, identified by the values of its primary-key columns and reachable only by querying that table. An object-oriented database (OODBMS) says an entity is an object with its own machine-level identity, reachable by following a reference -- much like a pointer in a programming language.
 
-Both models survived, but uneasily, and the friction between them is the source of the long-running ["object-relational impedance mismatch"](https://en.wikipedia.org/wiki/Object%E2%80%93relational_impedance_mismatch) literature and the entire object-relational mapping (ORM) industry that grew up around it. It is a textbook case of the larger [entity-addressing tension](/wiki/cs/entity-addressing).
+Both models survived, and the friction between them is what the long-running ["object-relational impedance mismatch"](https://en.wikipedia.org/wiki/Object%E2%80%93relational_impedance_mismatch) literature is about and what the object-relational mapping (ORM) industry exists to absorb -- one instance of the larger [entity-addressing tension](/wiki/cs/entity-addressing).
 
 ## The relational model
 

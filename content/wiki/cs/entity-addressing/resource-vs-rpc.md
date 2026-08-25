@@ -7,8 +7,6 @@ Two architectural stances dominate the design of networked APIs. **Resource-orie
 
 The distinction maps cleanly onto the [broader entity-addressing tension](/wiki/cs/entity-addressing). REST treats each resource as a first-class object with a global, dereferenceable address. RPC treats resources as rows inside a service container, addressed by parameter rather than by URI.
 
-The choice has consequences that outlast the API version: cacheability, evolvability, client tooling, and even what kind of company can use the API at all.
-
 ## RPC: methods on a service
 
 RPC, as a programming model, predates the web. It traces back to Birrell & Nelson's *[Implementing Remote Procedure Calls](https://dl.acm.org/doi/10.1145/357980.357392)* (1984), with earlier antecedents in Xerox's Courier and Sun's [ONC RPC](https://datatracker.ietf.org/doc/html/rfc5531). The premise is that a network call should look like a local function call: the client invokes a named method on a remote service, the runtime serialises the arguments, the server deserialises them, runs the method, and returns the result.
@@ -39,7 +37,7 @@ The defining constraints, in Fielding's terms, are:
 - **Layered system.** Intermediaries (proxies, caches, gateways) can sit between client and server without the client knowing.
 - **Code on demand** (optional).
 
-The "uniform interface" constraint is what gives REST its character. It has four sub-constraints, but the one most directly relevant to the entity-addressing question is **identification of resources**: every resource has a URI, and the URI is the canonical way to refer to it.
+Of the uniform interface's four sub-constraints, the one that answers the entity-addressing question is **identification of resources**: every resource has a URI, and the URI is the canonical way to refer to it.
 
 A REST interface looks like a hierarchy of nouns:
 
@@ -77,7 +75,7 @@ A widely cited piece by Leonard Richardson divides the design space into a [matu
 - **Level 2** -- multiple URIs and HTTP verbs. The common interpretation of "REST" in industry. Most API providers stop here.
 - **Level 3** -- adds [hypermedia](https://en.wikipedia.org/wiki/HATEOAS) -- responses include links to related resources, so clients discover the API rather than hard-coding URIs.
 
-Fielding has [argued forcefully](https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) that only Level 3 is actually REST in his original sense; what most people call REST is "Level 2 with REST styling". The pragmatic argument for stopping at Level 2 is that hypermedia is genuinely useful only when clients are written to discover at runtime -- and almost none are, because almost all clients are written against a known API version with code-generated bindings.
+Fielding has [argued](https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) that only Level 3 is REST in his original sense; what most people call REST is "Level 2 with REST styling". The pragmatic argument for stopping at Level 2 is that hypermedia is genuinely useful only when clients are written to discover at runtime -- and almost none are, because almost all clients are written against a known API version with code-generated bindings.
 
 ## The pendulum
 
@@ -91,7 +89,7 @@ The split has swung several times.
 
 The current pattern in many organisations is "REST or GraphQL at the public edge, gRPC inside" -- the resource-oriented model where addressability and evolvability matter, the RPC model where the consumers are known and efficiency matters.
 
-## The deeper question
+## What the debate is about
 
 What the debate keeps litigating is whether a resource is a *thing the API talks about* or a *thing that exists in its own right at an address*. RPC takes the first view: customers are mentioned in `CustomerService` calls, they are not themselves the address. REST takes the second: the customer at `/customers/42` *is* the customer, in the same way that an [actor's PID](/wiki/cs/entity-addressing/actor-model) *is* the actor, the [aggregate root's identity](/wiki/cs/entity-addressing/aggregate-root) *is* the aggregate, or an [OODBMS object's OID](/wiki/cs/entity-addressing/relational-vs-oodbms) *is* the object.
 

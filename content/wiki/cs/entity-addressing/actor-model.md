@@ -23,7 +23,7 @@ An actor, on receiving a message, may do only three things -- the so-called *axi
 
 That is the entire model. There is no built-in shared state, no synchronisation primitives, no locks, no transactions. Concurrency emerges because actors process messages independently; ordering is constrained only by the per-actor mailbox (each actor handles its own messages one at a time) and causality (an actor can only send to addresses it has been told about).
 
-The implications shape everything else:
+Three properties follow from those three rules:
 
 - **Identity is a first-class value.** An actor address can be sent in a message, stored, compared, and used to send -- but it cannot be forged or guessed, which is the basis of the model's [object-capability](https://en.wikipedia.org/wiki/Object-capability_model) security properties.
 - **No address, no access.** Because addresses are the only way to send messages, an actor that has never been given another's address cannot interfere with it. Authority is conveyed by reference.
@@ -31,13 +31,11 @@ The implications shape everything else:
 
 ## Implementations
 
-The model migrated from theory to practice through a handful of influential systems.
-
 ### Erlang
 
-Joe Armstrong's [Erlang](https://www.erlang.org/), built at Ericsson starting in 1986, is the most widely deployed actor implementation. Every Erlang process is an actor: it has a PID (process identifier), a private heap, and a mailbox. Processes are cheap (tens of thousands per node is unremarkable), preemptively scheduled by the BEAM VM, and isolated -- one crashing does not corrupt another.
+Joe Armstrong's [Erlang](https://www.erlang.org/), built at Ericsson starting in 1986, is the most widely deployed actor implementation: Ericsson's telephony switches, RabbitMQ, WhatsApp, and -- through Elixir -- Discord all run on its BEAM virtual machine. Every Erlang process is an actor: it has a PID (process identifier), a private heap, and a mailbox. Processes are cheap (tens of thousands per node is unremarkable), preemptively scheduled by the BEAM VM, and isolated -- one crashing does not corrupt another.
 
-Erlang added two ideas that became almost as influential as the actor model itself:
+Erlang added two ideas the actor model itself does not require:
 
 - **"Let it crash."** Rather than defensively coding every error path, an actor crashes on unexpected input. A supervising actor restarts it. Fault tolerance becomes a structural property of the [supervision tree](https://www.erlang.org/doc/system/sup_princ.html) rather than something each actor implements.
 - **Hot code reloading.** Because actors communicate only by message, swapping an actor's behaviour mid-flight is straightforward -- the new code takes effect on the next message.

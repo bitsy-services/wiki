@@ -11,8 +11,8 @@ An **aggregate** is a cluster of associated domain objects that should be treate
 
 The pattern solves three problems that show up in any non-trivial domain model:
 
-1. **Consistency boundaries.** Some invariants involve multiple objects ("the sum of an order's line items must equal the order total"). Without a defined boundary, every change to any object could in principle violate any invariant, and the system becomes impossible to reason about. An aggregate declares: "these invariants are enforced together, atomically, inside this boundary."
-2. **Concurrency control.** If the consistency boundary is explicit, concurrent modifications can be serialised at the boundary -- typically with an optimistic lock (a `version` column) on the root. Without aggregates, you either lock too little (and corrupt invariants) or too much (and kill throughput).
+1. **Consistency boundaries.** Some invariants involve multiple objects ("the sum of an order's line items must equal the order total"). Without a defined boundary, every change to any object could in principle violate any invariant, so no change can be argued safe without checking the whole model. An aggregate declares: "these invariants are enforced together, atomically, inside this boundary."
+2. **Concurrency control.** If the consistency boundary is explicit, concurrent modifications can be serialised at the boundary -- typically with an optimistic lock (a `version` column) on the root. Without aggregates, the lock is either too small (and invariants corrupt) or too large (and throughput collapses).
 3. **Reference discipline.** Without rules, external code accumulates references to whatever interior objects happen to be convenient, and the model loses its shape. Aggregates make those references illegal, forcing callers to go through the root.
 
 ## The rules
@@ -39,7 +39,7 @@ This is the same distinction made by [relational databases vs. OODBMS](/wiki/cs/
 
 ## Sizing aggregates
 
-Aggregate size is the perennial design question, and getting it wrong has predictable costs:
+Sizing is the decision the pattern leaves open, and it fails in two directions:
 
 - **Too large.** Every modification to any interior object loads, locks, and saves the whole aggregate. Concurrency drops; reads get heavier. A `Customer` aggregate that includes every order the customer has ever placed will collapse under its own weight.
 - **Too small.** Invariants that should be enforced inside one aggregate end up split across two, requiring eventual-consistency machinery (domain events, sagas) where a single transaction would have sufficed.

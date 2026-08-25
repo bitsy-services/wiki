@@ -4,7 +4,7 @@ weight: 5
 bookCollapseSection: true
 ---
 
-A **directed acyclic graph** (DAG) is a [directed graph](https://en.wikipedia.org/wiki/Directed_graph) with no directed cycles: starting from any node and following edges in their direction, you can never return to where you began. That single constraint — acyclicity — is what makes DAGs one of the most useful structures in computing. It guarantees a consistent ordering of nodes and lets recursive definitions over the graph terminate.
+A **directed acyclic graph** (DAG) is a [directed graph](https://en.wikipedia.org/wiki/Directed_graph) with no directed cycles: following edges in their direction from any node, no path returns to that node. That single constraint guarantees a consistent ordering of nodes and lets recursive definitions over the graph terminate.
 
 DAGs generalise both **sequences** (a chain is a DAG where every node has at most one predecessor and one successor) and **trees** (a tree is a DAG where every node has at most one parent). A DAG relaxes the tree's single-parent rule: a node may be reachable along several distinct paths, as long as none of those paths loops back.
 
@@ -19,9 +19,9 @@ Two derived notions recur constantly:
 
 Every non-empty DAG has at least one source and at least one sink — a fact that follows directly from acyclicity and is the basis of most DAG algorithms.
 
-## Why Acyclicity Matters
+## What Acyclicity Buys
 
-The defining property is not cosmetic. It buys three things at once:
+Three properties follow at once:
 
 - **A topological order exists.** A graph admits a [topological ordering](https://en.wikipedia.org/wiki/Topological_sorting) — a linear arrangement of vertices where every edge points "forward" — *if and only if* it is acyclic. This is the formal sense in which a DAG encodes a set of "X must come before Y" constraints.
 - **Recursion over the graph terminates.** Any function defined as "compute something for a node in terms of its neighbours" is well-defined on a DAG. The same recurrence on a cyclic graph either fails to terminate or has no fixed point. The [height/depth recurrence](/wiki/cs/dag/height-and-depth) is the canonical example.
@@ -41,7 +41,7 @@ A practical corollary: running the height/depth recurrence and watching for non-
 - **Uniqueness holds if and only if the DAG contains a directed [Hamiltonian path](https://en.wikipedia.org/wiki/Hamiltonian_path)** — one path threading through *every* node. Equivalently, the partial order is already total (a single chain) with no incomparable pairs left to reorder.
 - **Otherwise the ordering is not unique.** Independent nodes can be sequenced in any relative order, so there are multiple — often exponentially many — valid topological orders. Counting them (the linear extensions of the partial order) is [#P-complete](https://en.wikipedia.org/wiki/Sharp-P-complete) in general.
 
-A direct test falls out of [Kahn's algorithm](https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm): the order is unique exactly when the set of in-degree-zero ("ready") nodes has size one at every step. The first time two nodes are simultaneously ready, you have a real choice — and therefore more than one valid ordering.
+A direct test falls out of [Kahn's algorithm](https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm): the order is unique exactly when the set of in-degree-zero ("ready") nodes has size one at every step. The first time two nodes are simultaneously ready, there is a real choice — and therefore more than one valid ordering.
 
 This is the same incomparability that surfaces in the [height/depth recurrence](/wiki/cs/dag/height-and-depth): the per-node *level* is unique, so the *layering* is unambiguous, but nodes sharing a level are incomparable and the order chosen among them is arbitrary. The layering is canonical; flattening it into one sequence generally is not.
 
@@ -57,7 +57,7 @@ This is the same incomparability that surfaces in the [height/depth recurrence](
 
 ## Where DAGs Show Up
 
-DAGs are the implicit data model behind a surprising amount of infrastructure:
+The same structure is the implicit data model in systems that otherwise have little in common:
 
 - **Build systems** — Make, Bazel, and Ninja model targets and their prerequisites as a DAG, then topologically order the work.
 - **Task and dataflow schedulers** — Airflow, Spark, and TensorFlow graphs are DAGs of operations.

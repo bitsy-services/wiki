@@ -3,7 +3,7 @@ title: "Zero-Knowledge Proofs"
 weight: 30
 ---
 
-A zero-knowledge proof (ZKP) is a cryptographic protocol that allows one party (the **prover**) to convince another party (the **verifier**) that a statement is true, without revealing any information beyond the truth of the statement itself. The prover demonstrates *knowledge* without disclosing *content*.
+A zero-knowledge proof (ZKP) is a cryptographic protocol that allows one party (the **prover**) to convince another party (the **verifier**) that a statement is true, without revealing any information beyond the truth of the statement itself.
 
 ## Three properties
 
@@ -26,13 +26,13 @@ After *n* rounds, a faker's probability of success is (1/2)^n. After 20 rounds, 
 
 ## Interactive vs. non-interactive
 
-The cave example is an **interactive** proof -- it requires real-time back-and-forth between prover and verifier. This is impractical for many applications (you cannot ask every [blockchain](/wiki/economics/finance/defi/blockchain) node to participate in a live conversation).
+The cave example is an **interactive** proof -- it requires real-time back-and-forth between prover and verifier. That rules out any verifier that is not a live counterparty: every [blockchain](/wiki/economics/finance/defi/blockchain) node would have to join the conversation in real time.
 
 **Non-interactive zero-knowledge proofs (NIZKs)** remove the interaction requirement. The prover generates a single proof string that anyone can verify independently. The Fiat-Shamir heuristic is the standard technique for converting an interactive proof into a non-interactive one: the verifier's random challenges are replaced by hash function outputs derived from the prover's commitments.
 
 Most modern ZKP systems are non-interactive. They fall into two broad families:
 
-- **zk-SNARKs** (Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge) -- produce small, fast-to-verify proofs but typically require a trusted setup ceremony. [Groth16](/wiki/economics/finance/defi/groth16) is the most widely deployed zk-SNARK construction.
+- **zk-SNARKs** (Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge) -- produce small, fast-to-verify proofs but typically require a trusted setup ceremony. A [Groth16](/wiki/economics/finance/defi/groth16) proof is three group elements regardless of how large the circuit is, which is what Zcash's Sapling circuit and the circom/snarkjs toolchain emit.
 - **zk-STARKs** (Scalable Transparent Arguments of Knowledge) -- avoid trusted setup by relying on hash functions rather than elliptic-curve pairings, at the cost of larger proof sizes.
 
 ## Applications
@@ -43,7 +43,7 @@ Most modern ZKP systems are non-interactive. They fall into two broad families:
 
 ### Rollups
 
-On [Ethereum](/wiki/economics/finance/defi/ethereum), ZK rollups batch hundreds or thousands of transactions off-chain, compute the resulting state, and post a single zero-knowledge proof to the main chain. The proof convinces the on-chain verifier that all batched transactions were executed correctly, without re-executing them. This dramatically increases throughput while inheriting the security of the base layer.
+On [Ethereum](/wiki/economics/finance/defi/ethereum), ZK rollups batch hundreds or thousands of transactions off-chain, compute the resulting state, and post a single zero-knowledge proof to the main chain. The proof convinces the on-chain verifier that all batched transactions were executed correctly, without re-executing them. Verification costs the same whether the batch held ten transactions or ten thousand, so the per-transaction cost on the base layer falls with batch size while settlement still happens there.
 
 ### Authentication
 

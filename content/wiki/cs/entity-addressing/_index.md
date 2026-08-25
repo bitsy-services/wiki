@@ -4,9 +4,9 @@ weight: 25
 bookCollapseSection: true
 ---
 
-A recurring tension runs through computer science: when you model a collection of related entities, do you treat them as **rows inside a container** -- addressed by *(container, local id)* -- or as **first-class objects** with their own identity, addressable directly?
+A recurring tension runs through computer science: in a collection of related entities, is each one a **row inside a container** -- addressed by *(container, local id)* -- or a **first-class object** with its own identity, addressable directly?
 
-The choice is rarely framed in those terms, but it shows up everywhere. Databases, domain modelling, programming-language design, distributed systems, and web architecture all wrestle with the same question, often arriving at incompatible answers that then have to be reconciled at every boundary.
+The choice is rarely framed in those terms, but databases, domain modelling, programming-language design, distributed systems, and web architecture all answer it, often incompatibly, and the answers then have to be reconciled at every boundary between them.
 
 ## The two stances
 
@@ -33,7 +33,7 @@ Neither stance is universally right. Container-with-rows wins when the contained
 
 The pattern recurs because each level of the stack faces the same trade-off independently. A storage engine chooses how to lay rows out on disk; a domain model chooses how to expose those rows to business logic; a service layer chooses how to expose the domain to clients; a UI chooses how to address widgets. At each level, the designer either commits to local-id-within-a-container (cheaper, more rigid) or to globally addressable first-class objects (more flexible, more bookkeeping).
 
-The mismatches between layers -- ORM impedance, REST-over-RPC adapters, actor references serialised through database foreign keys -- are the visible scars of choices made differently at different levels of the same system. Recognising the underlying distinction makes it easier to see why a particular boundary feels awkward and what the alternatives would cost.
+The mismatches between layers -- ORM impedance, REST-over-RPC adapters, actor references serialised through database foreign keys -- are the visible scars of choices made differently at different levels of the same system.
 
 ## Wiki Pages
 
