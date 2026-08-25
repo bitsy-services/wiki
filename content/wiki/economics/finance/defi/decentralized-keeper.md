@@ -9,9 +9,9 @@ A decentralized keeper is an autonomous agent -- or a network of such agents -- 
 
 Smart contracts on [Ethereum](/wiki/economics/finance/defi/ethereum/) and other chains are reactive -- they run only when an external account submits a transaction. Many protocol-critical actions (liquidating an under-collateralized loan, settling an expired option, compounding [yield-farming](/wiki/economics/finance/defi/yield-farming) rewards) must happen promptly, yet the contract cannot call itself. Keepers bridge this gap by watching for trigger conditions off-chain and submitting the necessary transaction when the time comes.
 
-## Why Decentralization Matters
+## Single operator vs. network
 
-A single centralized bot can perform the same mechanical task, but it introduces a single point of failure. If the operator goes offline, misses a block, or acts maliciously, the protocol suffers. Decentralized keeper networks distribute the work across many independent participants, which provides:
+A single centralized bot performs the same mechanical task, and it fails the same way every time: if the operator goes offline, misses a block, or decides not to submit, nothing happens and the protocol carries the loss. Spreading the work across many independent participants buys three things:
 
 - **Liveness** -- if one keeper is down, others pick up the task.
 - **Censorship resistance** -- no single party can withhold execution.
@@ -34,7 +34,7 @@ When multiple keepers watch the same trigger, naive execution would waste gas on
 
 1. **On-chain state locks** -- the contract flips a flag or advances a nonce as part of the keeper's transaction, causing any competing transaction to revert.
 2. **Turn-based rotation** -- keepers are assigned time slots or round-robin order so only one is eligible at any moment. [Chainlink Automation](/wiki/economics/finance/defi/chainlink/automation) uses a rotating-leader model.
-3. **First-past-the-post rewards** -- only the transaction that actually changes state earns the reward; duplicate attempts simply burn gas, which is a strong economic disincentive.
+3. **First-past-the-post rewards** -- only the transaction that actually changes state earns the reward; duplicate attempts simply burn gas.
 4. **Off-chain coordination** -- some networks let keepers signal intent before submitting, reducing on-chain collisions.
 
 ## Major Implementations

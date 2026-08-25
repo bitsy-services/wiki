@@ -53,7 +53,7 @@ A [call option](/wiki/economics/finance/defi/options/call-option) gives the righ
 
 DeFi protocols like Lyra, Hegic, and Opyn implement puts as [smart contracts](/wiki/economics/finance/defi/smart-contract) on [Ethereum](/wiki/economics/finance/defi/ethereum/) and other chains. The seller's collateral is locked in the contract, removing counterparty risk. Settlement at expiry is automatic -- if the put is ITM, the holder receives the difference between the strike and the spot price.
 
-Puts are especially popular on-chain as portfolio insurance. Holding ETH plus an ETH put creates a position with limited downside, which is attractive in the high-[volatility](/wiki/economics/finance/defi/volatility) crypto environment.
+Puts are used on-chain mostly as portfolio insurance: ETH plus an ETH put is a position whose loss stops at the strike no matter how far spot falls below it, which is worth more where [volatility](/wiki/economics/finance/defi/volatility) is higher and costs more for the same reason.
 
 ## Risks
 

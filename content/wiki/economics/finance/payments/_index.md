@@ -12,7 +12,7 @@ This section covers the rails that answer them in the United States, and in part
 
 The US has no single payment system. It has five, layered by age, and each embeds the assumptions of the era that produced it.
 
-**The automated clearing house (ACH)** is the batch rail, and by volume the backbone: payroll, bill pay, and most account-to-account transfers. Instructions are collected into files, exchanged between two operators — the Federal Reserve's FedACH and The Clearing House's Electronic Payments Network — and settled net at fixed windows. Same-day windows exist, but the default experience is one to three business days. It is governed by the Nacha operating rules, and, crucially, an entry can be *returned* after the fact.
+**The automated clearing house (ACH)** is the batch rail, and by volume the backbone: payroll, bill pay, and most account-to-account transfers. Instructions are collected into files, exchanged between two operators — the Federal Reserve's FedACH and The Clearing House's Electronic Payments Network — and settled net at fixed windows. Same-day windows exist, but the default experience is one to three business days. It is governed by the Nacha operating rules, and an entry can be *returned* after the fact.
 
 **Wires** are the real-time gross settlement rail. Fedwire, run by the Federal Reserve, and CHIPS — the Clearing House Interbank Payments System, privately operated and netted — move large values with finality: once the receiving bank is credited, there is no mechanism to reverse it. They cost tens of dollars, run only on business days, and are correspondingly rare in consumer life.
 

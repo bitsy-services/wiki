@@ -3,9 +3,9 @@ title: Micro-Transactions
 weight: 63
 ---
 
-A **micro-transaction** is a payment small enough that traditional payment infrastructure cannot process it economically -- typically fractions of a cent to a few cents. On [blockchains](/wiki/economics/finance/defi/blockchain) like [Ethereum](/wiki/economics/finance/defi/ethereum/), transaction fees often exceed the value being transferred, making naive on-chain micro-transactions impractical. Solving this problem is one of the key challenges for pay-per-use business models, streaming payments, and machine-to-machine commerce.
+A **micro-transaction** is a payment small enough that traditional payment infrastructure cannot process it economically -- typically fractions of a cent to a few cents. On [blockchains](/wiki/economics/finance/defi/blockchain) like [Ethereum](/wiki/economics/finance/defi/ethereum/), transaction fees often exceed the value being transferred, making naive on-chain micro-transactions impractical. Pay-per-use billing, streaming payments, and machine-to-machine commerce all wait on solving it.
 
-## Why Micro-Transactions Matter
+## Patterns that require them
 
 Many useful payment patterns only work when individual transfers can be vanishingly small:
 
@@ -18,7 +18,7 @@ These patterns require transaction costs to be negligible relative to the paymen
 
 ## The Gas Cost Problem
 
-Every transaction on a [blockchain](/wiki/economics/finance/defi/blockchain) competes for block space and must pay a fee to validators. On Ethereum mainnet, even a simple [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) transfer costs tens of thousands of gas units. During periods of high demand, this translates to fees that dwarf micro-transaction values by orders of magnitude.
+Every transaction on a [blockchain](/wiki/economics/finance/defi/blockchain) competes for block space and must pay a fee to validators. On Ethereum mainnet, even a simple [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) transfer costs tens of thousands of gas units — a few dollars at ordinary prices, three orders of magnitude or more above the payment it would be carrying, and worse during congestion.
 
 The problem is not unique to Ethereum -- any chain with meaningful decentralization faces a version of this tradeoff between security and per-transaction cost.
 

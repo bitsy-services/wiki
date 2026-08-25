@@ -9,11 +9,10 @@ argued over, and ratified. An **Ethereum Request for Comments (ERC)** is one
 category of EIP — the category covering application-level conventions such as
 token interfaces.
 
-The two names get used interchangeably in casual writing, and that is the source
-of most of the confusion. They are not two processes. ERC is a *subset* of EIP,
-and both draw from the same number sequence, which is why the standard filed as
-EIP-20 is called [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20)
-everywhere else.
+The two names get used interchangeably in casual writing. They are not two
+processes: ERC is a *subset* of EIP, and both draw from the same number
+sequence, so the standard filed as EIP-20 is called
+[ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) everywhere else.
 
 Since late 2023 they also live in different repositories. Every ERC document
 moved to `ethereum/ERCs` — the old ones too, so `erc-20.md` is there rather
@@ -35,8 +34,7 @@ time.
 
 ## Types and categories
 
-This is the part most summaries get wrong, including ones that should know
-better. EIP-1 defines three **types**. Only one of them is subdivided:
+EIP-1 defines three **types**, and only one of them is subdivided:
 
 | Type | Category | What it changes | Who must adopt it |
 |---|---|---|---|
@@ -49,11 +47,10 @@ better. EIP-1 defines three **types**. Only one of them is subdivided:
 
 So an ERC is not a peer of Meta and Informational — it is one of four categories
 *inside* Standards Track. On the EIPs index a token standard shows as
-`type: Standards Track, category: ERC`, and both fields matter when you are
-trying to find something.
+`type: Standards Track, category: ERC`, and both fields matter when searching
+for one.
 
-The ERC row is the important one, and it is routinely misunderstood: **an ERC
-is not enforced by the protocol.** The
+**An ERC is not enforced by the protocol.** The
 [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm)
 has no idea what ERC-20 is. A contract "is" an ERC-20 token purely because it
 exposes the functions that wallets and
@@ -90,8 +87,8 @@ still change, not whether the standard is real.
 
 ## Reading an EIP
 
-Every proposal carries the same sections, and several of them are worth reading
-before the specification itself:
+Every proposal carries the same sections, and several of them carry more
+information than the specification does:
 
 - **Motivation** — the problem being solved. If this doesn't describe a problem
   you have, the rest is noise.

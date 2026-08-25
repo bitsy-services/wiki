@@ -3,11 +3,11 @@ title: "OFAC Sanctions"
 weight: 70
 ---
 
-The Office of Foreign Assets Control (OFAC) administers US economic sanctions. It is part of Treasury, as [FinCEN](/wiki/economics/finance/regulation/fincen) is, and in practice the same compliance team handles both — but the two regimes are legally distinct in a way that matters enormously to anyone building financial software.
+The Office of Foreign Assets Control (OFAC) administers US economic sanctions. It is part of Treasury, as [FinCEN](/wiki/economics/finance/regulation/fincen) is, and in practice the same compliance team handles both — but the two regimes are legally distinct.
 
 The [Bank Secrecy Act](/wiki/economics/finance/regulation/bank-secrecy-act) and the [anti-money-laundering](/wiki/economics/finance/regulation/anti-money-laundering) regime built on it require you to *report*. OFAC requires you to *stop*.
 
-## The difference that matters
+## The difference
 
 | | BSA / AML | OFAC |
 |---|---|---|
@@ -30,13 +30,13 @@ OFAC publishes crypto addresses as identifiers on SDN entries, which is what mak
 
 The crypto-specific question is whether a sanctions regime designed for people and companies can be applied to code that has neither.
 
-In August 2022 OFAC designated Tornado Cash, an [Ethereum](/wiki/economics/finance/defi/ethereum) mixing protocol, adding its [smart contract](/wiki/economics/finance/defi/smart-contract) addresses to the SDN List. This was the first designation aimed at autonomous, immutable software rather than at an entity. The immediate effects were unprecedented: US persons were prohibited from interacting with the contracts, front-ends went dark, developers had GitHub accounts suspended, and — because the contracts accepted deposits from anyone — third parties could send funds to an American's address from the sanctioned protocol, creating an interaction the recipient had no way to refuse.
+In August 2022 OFAC designated Tornado Cash, an [Ethereum](/wiki/economics/finance/defi/ethereum) mixing protocol, adding its [smart contract](/wiki/economics/finance/defi/smart-contract) addresses to the SDN List. This was the first designation aimed at autonomous, immutable software rather than at an entity. The effects reached well past the protocol itself. US persons were prohibited from interacting with the contracts, front-ends went dark, developers had GitHub accounts suspended, and — because the contracts accepted deposits from anyone — third parties could send funds to an American's address from the sanctioned protocol, creating an interaction the recipient had no way to refuse.
 
-The legal challenge turned on a narrow question with wide consequences. In *Van Loon v. Department of the Treasury* (Fifth Circuit, November 2024), the court held that the immutable Tornado Cash smart contracts are not "property" within the meaning of the International Emergency Economic Powers Act, because nobody can own or control them — a contract that cannot be altered, deleted, or directed by any person cannot be blocked, since there is nothing to block. Treasury removed the designation in March 2025.
+In *Van Loon v. Department of the Treasury* (Fifth Circuit, November 2024), the court held that the immutable Tornado Cash smart contracts are not "property" within the meaning of the International Emergency Economic Powers Act, because nobody can own or control them — a contract that cannot be altered, deleted, or directed by any person cannot be blocked, since there is nothing to block. Treasury removed the designation in March 2025.
 
 The ruling is narrower than it is often reported to be. It does not hold that developers are beyond reach, that mixing is lawful, or that other authorities are unavailable — FinCEN's proposed special measures on mixing as a class, and criminal prosecutions under the unlicensed-money-transmission statute, both survive it untouched. What it establishes is a specific limit: the property-blocking mechanism requires an owner, and a [finalized smart contract](/wiki/economics/finance/defi/finalized-smart-contract) does not have one.
 
-That is worth stating precisely because it is the clearest case so far of immutability functioning as a legal fact rather than merely a technical one — and of the enforcement response moving, immediately, to the parties who *can* be reached.
+Immutability functioned there as a legal fact rather than merely a technical one, and the enforcement response moved immediately to the parties who *can* be reached.
 
 ## Practical exposure
 

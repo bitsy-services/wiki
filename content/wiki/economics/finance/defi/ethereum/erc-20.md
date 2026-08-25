@@ -3,7 +3,7 @@ title: "ERC-20"
 weight: 10
 ---
 
-ERC-20 — the twentieth [Ethereum Request for Comment](/wiki/economics/finance/defi/ethereum/eip) — is the standard interface for fungible tokens on [Ethereum](/wiki/economics/finance/defi/ethereum/). Proposed by Fabian Vogelsteller in 2015 ([EIP](/wiki/economics/finance/defi/ethereum/eip)-20), it defines six functions and two events that every compliant token must implement. Because wallets, [DEXs](/wiki/economics/finance/defi/dex), lending protocols, and aggregators all speak ERC-20, any token that implements the interface is instantly composable with the entire ecosystem.
+ERC-20 — the twentieth [Ethereum Request for Comment](/wiki/economics/finance/defi/ethereum/eip) — is the standard interface for fungible tokens on [Ethereum](/wiki/economics/finance/defi/ethereum/). Proposed by Fabian Vogelsteller in 2015 ([EIP](/wiki/economics/finance/defi/ethereum/eip)-20), it defines six functions and two events that every compliant token must implement. Wallets, [DEXs](/wiki/economics/finance/defi/dex), lending protocols, and aggregators all speak ERC-20, so a token that implements the interface is tradeable and usable as collateral on the day it deploys, without asking any of them to add support for it.
 
 ## The interface
 
@@ -73,7 +73,7 @@ contract Vault {
 
 ## Permit (EIP-2612)
 
-EIP-2612 extends ERC-20 with a `permit` function that allows approvals via off-chain signatures instead of a separate on-chain `approve` transaction. The user signs a typed message; the contract calls `permit` to set the allowance and `transferFrom` in a single transaction. This saves gas and improves UX, especially on L2s.
+EIP-2612 extends ERC-20 with a `permit` function that allows approvals via off-chain signatures instead of a separate on-chain `approve` transaction. The user signs a typed message; the contract calls `permit` to set the allowance and `transferFrom` in a single transaction. It removes one on-chain transaction from every approve-then-spend flow, and with it the standing allowance that would otherwise sit between the two.
 
 ## Related standards
 
@@ -87,6 +87,6 @@ EIP-2612 extends ERC-20 with a `permit` function that allows approvals via off-c
 ## External links
 
 - [EIP-20 specification](https://eips.ethereum.org/EIPS/eip-20) — the canonical standard
-- [OpenZeppelin ERC20 implementation](https://docs.openzeppelin.com/contracts/5.x/erc20) — battle-tested reference implementation
+- [OpenZeppelin ERC20 implementation](https://docs.openzeppelin.com/contracts/5.x/erc20) — the reference implementation most deployed tokens inherit from
 - [OpenZeppelin SafeERC20](https://docs.openzeppelin.com/contracts/5.x/api/token/erc20#SafeERC20) — library documentation
 - [EIP-2612: Permit](https://eips.ethereum.org/EIPS/eip-2612) — gasless approval extension

@@ -17,7 +17,7 @@ Since the relaunch the Foundation has steered hard toward a single thesis, forma
 | Tangle (pre-2025) | DAG of transactions; each tx approves two prior ones | None | Gated by a Foundation-run **Coordinator** | Off-ledger only (IOTA EVM as an L2) |
 | [IOTA Rebased](/wiki/economics/finance/defi/iota/iota-rebased) (May 2025+) | Object ledger on the Move VM | ~0.005 IOTA per tx, burned | dPoS, permissionless staked validators, no Coordinator | Native Move on L1; [IOTA EVM](/wiki/economics/finance/defi/iota/iota-evm) still runs as L2 |
 
-The pivot is the single most important thing to understand about IOTA. Most third-party explainers, exchange pages, and older documentation describe the Tangle as if it were still the production system. It is not — see [The Tangle](/wiki/economics/finance/defi/iota/tangle) for what it was and why it was retired.
+Most third-party explainers, exchange pages, and older documentation still describe the Tangle as if it were the production system. It is not — see [The Tangle](/wiki/economics/finance/defi/iota/tangle) for what it was and why it was retired.
 
 ## Two Smart-Contract Environments
 
@@ -28,7 +28,7 @@ Post-Rebased, IOTA exposes two programming surfaces:
 
 The IOTA Foundation has signalled an intent to eventually fold EVM execution into Layer 1. As of mid-2026 that integration is still on the roadmap rather than shipped — the two run side by side, bridged for asset transfers.
 
-## Why It Matters for DeFi
+## The DeFi-relevant parts
 
 IOTA's positioning is real-world assets, supply chain, and machine payments rather than pure on-chain speculation. The DeFi-relevant takeaways:
 

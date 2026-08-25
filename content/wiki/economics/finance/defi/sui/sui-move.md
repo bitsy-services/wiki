@@ -5,13 +5,13 @@ weight: 20
 
 Move is a resource-oriented programming language created at Meta for the Diem (Libra) project. When that project wound down, the language survived its sponsor: it now underpins several chains, of which Sui is the most prominent. **Sui Move** is Mysten Labs' dialect, adapted to fit Sui's [object model](/wiki/economics/finance/defi/sui/object-model) rather than the account storage of the original ("core") Move and its other major descendant, Aptos Move. [IOTA](/wiki/economics/finance/defi/iota/) runs the same Mysten dialect, so the material here applies there too.
 
-The language's central idea is that on-chain assets should be ordinary typed values that the type system refuses to copy, drop, or otherwise mishandle. This is the opposite of [Solidity](/wiki/economics/finance/defi/solidity/), where a token balance is just a number in a mapping and nothing in the language stops you from forgetting to update it. If you write [smart contracts](/wiki/economics/finance/defi/smart-contract) on [Ethereum](/wiki/economics/finance/defi/ethereum/), Move will feel both familiar and strange: the tooling rhymes, but the safety guarantees are enforced by the compiler instead of by convention.
+The language's central idea is that on-chain assets should be ordinary typed values that the type system refuses to copy, drop, or otherwise mishandle. This is the opposite of [Solidity](/wiki/economics/finance/defi/solidity/), where a token balance is just a number in a mapping and nothing in the language stops you from forgetting to update it. The tooling rhymes with [Ethereum](/wiki/economics/finance/defi/ethereum/)'s, and the safety guarantees that [smart contract](/wiki/economics/finance/defi/smart-contract) authors there maintain by convention are enforced here by the compiler.
 
 ## Resources and Linear Types
 
-A `struct` in Move is a value with *linear* (or "affine") semantics. By default the type system will not implicitly copy it and will not let it silently go out of scope. Once you hold one, you must do something deliberate with it — return it, store it, or pass it on. You cannot duplicate a coin by assigning it to two variables, and you cannot lose one by dropping it on the floor; both are compile errors. Whole bug classes — accidental token loss, double-spends from a stray copy — are simply not expressible.
+A `struct` in Move is a value with *linear* (or "affine") semantics. By default the type system will not implicitly copy it and will not let it silently go out of scope. A value in hand has to be disposed of deliberately — returned, stored, or passed on. Duplicating a coin by assigning it to two variables and losing one by letting it fall out of scope are both compile errors. Whole bug classes — accidental token loss, double-spends from a stray copy — are simply not expressible.
 
-This is what "resource-oriented" means in practice. An asset is not a number you remember to decrement; it is a value the compiler tracks from creation to destruction.
+That is what "resource-oriented" means in practice: an asset is not a number someone remembers to decrement, it is a value the compiler tracks from creation to destruction.
 
 ## Abilities
 
@@ -39,7 +39,7 @@ module my_pkg::sword {
 
 ## No Global Storage
 
-This is the single biggest difference between Sui Move and core/Aptos Move. In core Move, contracts read and write a per-account global store with `move_to`, `borrow_global`, and `move_from`. Sui Move has none of that. State lives entirely in [objects](/wiki/economics/finance/defi/sui/object-model), and a function can only touch the objects explicitly passed into it.
+In core Move, contracts read and write a per-account global store with `move_to`, `borrow_global`, and `move_from`. Sui Move has none of that. State lives entirely in [objects](/wiki/economics/finance/defi/sui/object-model), and a function can only touch the objects explicitly passed into it.
 
 Functions marked `public` or `entry` therefore take objects as parameters. There is no ambient "the caller's storage" to reach into — if a function needs an object, that object must appear in its signature, which is exactly what lets Sui schedule non-overlapping transactions in parallel. To get an object back out to a user, you call one of:
 
@@ -93,7 +93,7 @@ Note that `public struct` (rather than bare `struct`) and ability annotations ar
 | Ownership | explicit and protocol-tracked | implicit in storage layout |
 | Verification | designed for formal verification (Move Prover) | bolted on after the fact |
 
-The tradeoff is real. Move has a steeper learning curve — linear types and the no-global-storage model force a different mental model — and a smaller, younger tooling and library ecosystem than the [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm)'s. You are trading a large, battle-tested-but-footgun-laden world for a smaller, safer-by-construction one.
+The tradeoff is real. Move has a steeper learning curve — linear types and the no-global-storage model force a different mental model — and a smaller, younger tooling and library ecosystem than the [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm)'s. The trade is a large ecosystem with well-catalogued footguns for a smaller one with fewer of them available.
 
 ## External Links
 

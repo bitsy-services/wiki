@@ -21,7 +21,7 @@ Bitcoin, launched in 2009, demonstrated that a decentralized payment network cou
 
 A user signs a transaction with their private key and broadcasts it to the network. Validators confirm that the sender has sufficient balance and that the signature is valid. The transaction is included in a block, and once the block is added to the chain, the transfer is final.
 
-Transaction fees (called "gas" on Ethereum) compensate validators for processing. Fees fluctuate with network demand -- during high-activity periods, they can spike significantly.
+Transaction fees (called "gas" on Ethereum) compensate validators for processing. Fees track network demand, and on Ethereum mainnet the same transfer has cost anywhere from a few cents to tens of dollars depending on when it was sent.
 
 ## Use Cases
 
@@ -35,7 +35,7 @@ Transaction fees (called "gas" on Ethereum) compensate validators for processing
 
 ## Risks
 
-**Volatility** -- Crypto prices can move dramatically in short periods. This is true even of large-cap assets like Bitcoin and Ether.
+**Volatility** -- Double-digit percentage moves in a day are routine, and not only in thin markets: Bitcoin and Ether do it too.
 
 **Security** -- The blockchain itself is secure, but the ecosystem around it -- exchanges, wallets, bridges -- is a frequent target for exploits. Private key management is the user's responsibility.
 

@@ -39,4 +39,4 @@ Collateralization fees are held in the CBSO contract during the option's lifetim
 
 ## Comparison with Traditional Finance
 
-The collateralization fee is analogous to the interest or maintenance fees charged on margin accounts, or MakerDAO's "stability fee" on DAI vaults. The key difference is enforcement: in DeFi, the fee is calculated and collected entirely by the [smart contract](/wiki/economics/finance/defi/smart-contract), with no intermediary involved and no possibility of discretionary waiver.
+The collateralization fee is analogous to the interest or maintenance fees charged on margin accounts, or MakerDAO's "stability fee" on DAI vaults. The difference is enforcement: the fee is calculated and collected entirely by the [smart contract](/wiki/economics/finance/defi/smart-contract), with no intermediary in the path and no discretionary waiver available to anyone.

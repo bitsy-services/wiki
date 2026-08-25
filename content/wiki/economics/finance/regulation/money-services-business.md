@@ -16,7 +16,7 @@ A money services business (MSB) is the [Bank Secrecy Act](/wiki/economics/financ
 - **Provider of prepaid access**, and separately **seller of prepaid access** — the stored-value categories, split into two capacities by the 2011 prepaid access rule.
 - **The US Postal Service**
 
-Money transmission has no *de minimis* threshold, and that is the asymmetry to notice. Dealers in foreign exchange, check cashers, and issuers or sellers of traveler's checks and money orders are caught only above $1,000 per person per day, and sellers of prepaid access only above $10,000. Money transmission has no such floor, so no volume of activity is small enough to fall outside it on size alone.
+Money transmission has no *de minimis* threshold. Dealers in foreign exchange, check cashers, and issuers or sellers of traveler's checks and money orders are caught only above $1,000 per person per day, and sellers of prepaid access only above $10,000. Money transmission has no such floor, so no volume of activity is small enough to fall outside it on size alone.
 
 Size is not the same as scope, though. Three limitations run across the MSB definition as a whole:
 
@@ -34,7 +34,7 @@ Three separate burdens, and the first one is the smallest.
 
 **A full [BSA](/wiki/economics/finance/regulation/bank-secrecy-act) program.** Written policies, a designated compliance officer, ongoing training, independent testing, risk-based [KYC](/wiki/economics/finance/regulation/know-your-customer), transaction monitoring, and [Suspicious Activity Reports](/wiki/economics/finance/regulation/bank-secrecy-act#suspicious-activity-reports) at a $2,000 threshold — lower than the $5,000 that applies to banks. Records retained five years, and the [Travel Rule](/wiki/economics/finance/regulation/travel-rule) applied to qualifying transmittals.
 
-**State money transmitter licensing.** This is the real barrier. Registration is federal, but *licensing* is state by state — roughly 50 jurisdictions, each with its own application, surety bond, minimum net worth requirement, examination schedule, and fee. Total cost to license nationwide is commonly quoted in the several millions of dollars and takes years. The Money Transmission Modernization Act, a model law adopted by a growing number of states, is an attempt at harmonisation, and it has helped at the margins without changing the shape of the problem.
+**State money transmitter licensing.** Registration is federal, but *licensing* is state by state — roughly 50 jurisdictions, each with its own application, surety bond, minimum net worth requirement, examination schedule, and fee. Total cost to license nationwide is commonly quoted in the several millions of dollars and takes years. The Money Transmission Modernization Act, a model law adopted by a growing number of states, is an attempt at harmonisation, and it has helped at the margins without changing the shape of the problem.
 
 Failing to hold a required licence is not merely a regulatory matter: 18 U.S.C. § 1960 makes operating an unlicensed money transmitting business a federal crime, and it does not require the government to prove the money was dirty.
 

@@ -3,9 +3,9 @@ title: "Volatility"
 weight: 22
 ---
 
-Volatility measures how much an asset's price moves over a given period. In traditional finance it is a statistical concept -- the annualised standard deviation of returns. In DeFi it is something you *feel* directly, because it drives [impermanent loss](/wiki/economics/finance/defi/impermanent-loss), liquidation risk, option pricing, and the profitability of [liquidity pool](/wiki/economics/finance/defi/liquidity-pool) positions.
+Volatility measures how much an asset's price moves over a given period. In traditional finance it is a statistical concept -- the annualised standard deviation of returns. In DeFi it is an input rather than a description: it sets [impermanent loss](/wiki/economics/finance/defi/impermanent-loss), the loan-to-value ratio a lending protocol will accept, the premium on an option, and whether a [liquidity pool](/wiki/economics/finance/defi/liquidity-pool) position clears its costs.
 
-[Cryptocurrency](/wiki/economics/finance/defi/cryptocurrency) markets are structurally more volatile than most traditional asset classes. Tokens trade 24/7 on fragmented venues with thin order books, and prices respond sharply to regulatory news, exploit events, and social-media momentum. Understanding volatility is not optional for anyone deploying capital in DeFi.
+[Cryptocurrency](/wiki/economics/finance/defi/cryptocurrency) markets are structurally more volatile than most traditional asset classes. Tokens trade 24/7 on fragmented venues with thin order books, and prices respond sharply to regulatory news, exploit events, and social-media momentum.
 
 ## Historical vs. implied
 
@@ -15,17 +15,17 @@ Volatility measures how much an asset's price moves over a given period. In trad
 
 DeFi options protocols like Lyra and Premia surface IV on-chain, making it a tradeable quantity rather than just a risk measure.
 
-## Why volatility matters in DeFi
+## What depends on it
 
 ### Impermanent loss
 
-IL is a direct function of price divergence between pool assets. The more volatile the pair, the more likely prices diverge, and the larger the IL. For a constant-product pool, the formula depends only on the price ratio -- and volatility determines how far that ratio is likely to travel. This is why stablecoin-stablecoin pools (low volatility) have tiny IL, while ETH/memecoin pools (extreme volatility) can suffer double-digit percentage losses.
+IL is a direct function of price divergence between pool assets. The more volatile the pair, the more likely prices diverge, and the larger the IL. For a constant-product pool, the formula depends only on the price ratio -- and volatility determines how far that ratio is likely to travel. Stablecoin-stablecoin pools barely move that ratio and see near-zero IL; ETH/memecoin pools move it by multiples, and double-digit percentage losses follow directly from the table.
 
 See the [impermanent loss](/wiki/economics/finance/defi/impermanent-loss) page for the formula and a table of IL at various price ratios.
 
 ### Concentrated liquidity range selection
 
-In [Uniswap](/wiki/economics/finance/defi/uniswap) V3 and similar [AMMs](/wiki/economics/finance/defi/amm), [LPs](/wiki/economics/finance/defi/liquidity-pool) choose a price range for their liquidity. A narrower range earns more fees per unit of capital but goes out of range more often. Choosing the right range is essentially a volatility bet: you need the range to be wide enough to contain the price path over your intended holding period, but narrow enough to concentrate your capital effectively.
+In [Uniswap](/wiki/economics/finance/defi/uniswap) V3 and similar [AMMs](/wiki/economics/finance/defi/amm), [LPs](/wiki/economics/finance/defi/liquidity-pool) choose a price range for their liquidity. A narrower range earns more fees per unit of capital but goes out of range more often. Choosing a range is a volatility bet in both directions: wide enough to contain the price path over the intended holding period, narrow enough that the capital sits where trades actually happen.
 
 High-volatility pairs demand wider ranges; low-volatility pairs reward tight ranges.
 
@@ -35,7 +35,7 @@ Lending protocols like Aave and Compound liquidate borrowers whose collateral va
 
 ### Option pricing
 
-On-chain options (Lyra, Premia, Hegic) price contracts using IV. When IV is high, premiums are expensive -- good for sellers, costly for buyers. When IV is low, buying options is cheaper but there is less expected movement to profit from. Volatility is not just a risk factor; it is the primary input to the option's value.
+On-chain options (Lyra, Premia, Hegic) price contracts using IV. When IV is high, premiums are expensive -- good for sellers, costly for buyers. When IV is low, buying options is cheaper but there is less expected movement to profit from. For an at-the-money option the premium is close to linear in IV, so a doubling of the volatility input roughly doubles what the contract costs.
 
 ## Measuring volatility on-chain
 

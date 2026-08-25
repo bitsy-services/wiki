@@ -4,8 +4,8 @@ weight: 9
 ---
 
 A **non-fungible token (NFT)** is a token whose units are not interchangeable.
-That is the whole definition, and it is a statement about bookkeeping rather
-than about art.
+It is a claim about bookkeeping rather than about art: the contract records
+which specific token belongs to whom, and says nothing about what it depicts.
 
 ## Fungible vs non-fungible
 
@@ -35,10 +35,9 @@ quantity from an identified object, applied to on-chain state.
 
 The standard for this on Ethereum is
 [ERC-721](/wiki/economics/finance/defi/ethereum/erc-721), which replaces
-ERC-20's `transfer(to, amount)` with `transferFrom(from, to, tokenId)` — or,
-in the form you should actually reach for,
-`safeTransferFrom(from, to, tokenId)`. What separates the two is covered under
-[pitfalls](#pitfalls) below.
+ERC-20's `transfer(to, amount)` with `transferFrom(from, to, tokenId)` and adds
+`safeTransferFrom(from, to, tokenId)` — the variant that checks whether the
+recipient can hold the token, covered under [pitfalls](#pitfalls) below.
 [ERC-1155](/wiki/economics/finance/defi/ethereum/erc-1155) splits the
 difference: one contract holds many token IDs, each with its own supply, so it
 can represent both kinds at once.
@@ -87,10 +86,6 @@ NFTs are used well beyond collectibles, and in most of these cases the
   models a property as *fungible* fractional shares, because divisibility and a
   liquid secondary market matter more there than a single indivisible deed.
 
-The Uniswap case is the clearest illustration of why the standard exists: the
-protocol did not choose an NFT for aesthetics, it chose one because the thing
-being represented has per-instance state.
-
 ## Pitfalls
 
 Ordered worst-first.
@@ -98,17 +93,17 @@ Ordered worst-first.
 - **Approval scope.** `setApprovalForAll` grants an operator every token in the
   collection, present and future, until revoked. It is the ERC-721 analogue of
   an unlimited ERC-20 allowance, and it is what most phishing signatures are
-  after: one signature, the whole collection. This is how NFTs are actually
-  stolen.
+  after: one signature, the whole collection. Most NFT theft runs through this
+  call rather than through a stolen key.
 - **`transferFrom` to a contract that cannot handle it.** ERC-721 has no plain
   `transfer`. Bare `transferFrom` to a contract with no ERC-721 receiver hook
   strands the token: the contract is now the owner, and unless it happens to
   expose a rescue function there is no way to move it again. This is not a burn
   — a burn means sending to `address(0)`, which `transferFrom` rejects — but
   the practical result is usually the same.
-  `safeTransferFrom` checks for the hook and reverts instead. Use it.
+  `safeTransferFrom` checks for the hook and reverts instead.
 - **Metadata that isn't content-addressed.** As above: a mutable `tokenURI`
-  means the issuer can change what you own after you buy it.
+  lets the issuer change what a token depicts after it has been sold.
 - **Royalties are not enforced on-chain.** ERC-2981 exposes a royalty *query*.
   Whether a marketplace honours it is a marketplace policy, not a protocol rule
   — the same voluntary-adoption property that governs every

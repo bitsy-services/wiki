@@ -5,13 +5,13 @@ weight: 3
 
 A smart contract is a program deployed to a blockchain that executes automatically when its functions are called. Once deployed, the code is immutable (unless the contract uses an upgradeable proxy pattern) and its execution is deterministic — given the same state and inputs, every node on the network will produce the same result.
 
-Smart contracts are the building blocks of DeFi. Every [DEX](/wiki/economics/finance/defi/dex), lending protocol, [liquidity pool](/wiki/economics/finance/defi/liquidity-pool), and token is a smart contract or a set of interacting smart contracts.
+Every [DEX](/wiki/economics/finance/defi/dex), lending protocol, [liquidity pool](/wiki/economics/finance/defi/liquidity-pool), and token in DeFi is a smart contract, or a set of contracts calling each other.
 
-## Why they matter
+## What they replace
 
-Traditional agreements require trust in a counterparty or enforcement by a third party (a court, an escrow agent, a clearinghouse). A smart contract replaces this with **trust in code** — the terms execute exactly as written, visible to anyone, and enforceable by the network's consensus mechanism.
+A traditional agreement is backed by a counterparty's willingness to perform, or by a third party that can compel performance — a court, an escrow agent, a clearinghouse. A smart contract substitutes published code: the terms are readable before anyone commits to them, they execute exactly as written, and the network's consensus mechanism is what enforces them.
 
-This makes it possible to build financial protocols that are:
+Protocols built this way are:
 
 - **Permissionless** — anyone can interact with them, no account application required.
 - **Composable** — one contract can call another, enabling complex systems to be built from simple primitives.

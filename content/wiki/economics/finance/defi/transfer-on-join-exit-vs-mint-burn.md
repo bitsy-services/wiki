@@ -36,7 +36,7 @@ In this pattern, the pool mints new ERC-20 tokens to the depositor and burns the
 
 ### Characteristics
 
-- **Full ERC-20 composability.** Share tokens can be transferred, traded, staked elsewhere, or used as collateral in lending protocols. This is the foundation of DeFi's composability -- one protocol's output becomes another's input.
+- **Full ERC-20 composability.** Share tokens can be transferred, traded, staked elsewhere, or used as collateral in lending protocols: one protocol's output becomes another's input.
 - **Standard accounting.** Ownership is tracked by the ERC-20 `balanceOf` mapping and `totalSupply`. No custom bookkeeping is needed.
 - **[ERC-4626](/wiki/economics/finance/defi/ethereum/erc-4626) compatibility.** The tokenized-vault standard formalizes this pattern with a uniform interface for deposit, withdraw, and share-price calculation. Protocols that follow ERC-4626 are automatically compatible with any integration that speaks the same interface.
 - **Higher gas cost.** Minting and burning involve more storage operations and event emissions than a simple internal ledger update.
@@ -57,6 +57,6 @@ Most modern [AMMs](/wiki/economics/finance/defi/amm) -- including [Uniswap](/wik
 
 ## When to Use Which
 
-**Mint/burn is the default choice** for any pool or vault that needs to participate in the broader DeFi ecosystem. The gas overhead is modest relative to the composability it enables, and ERC-4626 provides a battle-tested reference implementation.
+**Mint/burn is the default choice** for any pool or vault that needs to participate in the broader DeFi ecosystem. The gas overhead is modest relative to the composability it enables, and ERC-4626's reference implementations already handle the share-price rounding and empty-vault cases that produced the exploits above.
 
 **Transfer on join/exit** makes sense in narrow cases where the position should explicitly not be transferable -- for example, a staking contract where the protocol wants to prevent liquid staking derivatives, or an internal accounting module within a larger system that already handles its own share tracking.

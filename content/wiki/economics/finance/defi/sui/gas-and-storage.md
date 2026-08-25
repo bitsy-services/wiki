@@ -3,7 +3,7 @@ title: "Gas & Storage"
 weight: 50
 ---
 
-Sui prices a transaction with two meters, not one. Every transaction pays a **computation fee** for the work the validators do, and a **storage fee** for the bytes it leaves behind on-chain. The two are quoted, accrued, and reasoned about independently. This is the first thing that surprises anyone arriving from [Ethereum](/wiki/economics/finance/defi/ethereum/), where a single gas market bundles execution and state growth into one volatile per-unit price set by an auction. Sui unbundles them deliberately, because the cost of running a computation now and the cost of storing data forever are genuinely different economic problems.
+Sui prices a transaction with two meters, not one. Every transaction pays a **computation fee** for the work the validators do, and a **storage fee** for the bytes it leaves behind on-chain. The two are quoted, accrued, and reasoned about independently. [Ethereum](/wiki/economics/finance/defi/ethereum/) bundles both into one volatile per-unit price set by an auction. Sui separates them because running a computation once and storing its output forever are different economic problems: one cost lands on the validators processing the transaction, the other on whoever is running the network years later.
 
 ## The Two Components
 
@@ -25,9 +25,9 @@ Users submit a *gas price* with each transaction. As long as it is at or above t
 
 ## The Storage Fund
 
-Here is the structural difference from most chains. Storage fees are **not** paid out to the current validators who happen to process the transaction. They are escrowed in a protocol-managed **storage fund**.
+Storage fees are **not** paid out to the validators who happen to process the transaction. They are escrowed in a protocol-managed **storage fund**.
 
-The fund exists to solve a timing mismatch: data written today must be stored by validators for years, but the validator set that stores it in 2030 is not the one that collected the fee in 2026. Rather than paying current validators for future work, the fund holds the deposit and contributes it as stake-like principal to the staking rewards pool. Its "earnings" are redirected to whichever validators are securing the network in each future epoch, compensating them for the ongoing cost of retaining that state. Whoever is storing your data is being paid to do so, indefinitely.
+The fund exists to solve a timing mismatch: data written today must be stored by validators for years, but the validator set that stores it in 2030 is not the one that collected the fee in 2026. Rather than paying current validators for future work, the fund holds the deposit and contributes it as stake-like principal to the staking rewards pool. Its "earnings" are redirected to whichever validators are securing the network in each future epoch, compensating them for the ongoing cost of retaining that state. Whoever is storing the data is being paid to do so, in the epoch they are storing it.
 
 ## Storage Rebates
 
@@ -41,7 +41,7 @@ SUI's total supply is hard-capped at 10 billion. The non-refundable 1% of every 
 
 ## Paying for Gas in Practice
 
-Gas on Sui is paid from SUI coin objects you own. A transaction can designate multiple gas coins, and a [Programmable Transaction Block](/wiki/economics/finance/defi/sui/programmable-transaction-blocks) can merge several SUI coins into the gas payment, so you are not blocked by having your balance split across many small coins. Because owned-object transactions take Sui's fast path and skip [consensus](/wiki/economics/finance/defi/sui/consensus), there is also no ordering auction to bid into. In day-to-day use a transaction costs a fraction of a US cent, and the computation/storage split keeps that cost stable across market conditions.
+Gas on Sui is paid from SUI coin objects you own. A transaction can designate multiple gas coins, and a [Programmable Transaction Block](/wiki/economics/finance/defi/sui/programmable-transaction-blocks) can merge several SUI coins into the gas payment, so a balance split across many small coins is not itself an obstacle. Because owned-object transactions take Sui's fast path and skip [consensus](/wiki/economics/finance/defi/sui/consensus), there is also no ordering auction to bid into. In day-to-day use a transaction costs a fraction of a US cent, and the computation/storage split keeps that cost stable across market conditions.
 
 ## External Links
 

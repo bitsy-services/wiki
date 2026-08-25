@@ -5,7 +5,7 @@ weight: 1
 
 A blockchain is a distributed ledger made up of blocks -- records containing a cryptographic hash of the previous block, a timestamp, and transaction data (typically structured as a Merkle tree). Because each block references the one before it, altering any historical record would require recomputing every subsequent block, making the ledger effectively immutable once written.
 
-This property -- append-only, tamper-evident history shared across many nodes -- is what makes blockchains useful as trust infrastructure. No single party controls the ledger, and no single party needs to be trusted.
+No single party controls that history, and no single party has to be trusted for it to hold: the guarantee comes from the cost of recomputing the chain, not from an operator's promise not to edit it.
 
 ## How It Works
 
@@ -41,7 +41,7 @@ Beyond finance and naming, blockchains have been applied to:
 - **Energy trading** -- peer-to-peer energy markets without a central utility
 - **Identity** -- self-sovereign identity systems where users control their own credentials
 
-The breadth of these applications varies widely in maturity. Financial use cases (cryptocurrency, DeFi) are the most developed; others remain largely experimental.
+Financial use cases (cryptocurrency, DeFi) carry real money at scale; the rest are largely pilots that have not displaced the databases they were meant to replace.
 
 ## Environmental Impact
 

@@ -3,17 +3,17 @@ title: "Constant Product Formula"
 weight: 16
 ---
 
-The constant product formula is the pricing rule at the heart of most [AMM](/wiki/economics/finance/defi/amm)-based [decentralized exchanges](/wiki/economics/finance/defi/dex). It is elegant in its simplicity: a [liquidity pool](/wiki/economics/finance/defi/liquidity-pool) holds reserves of two tokens, and their product must remain constant through every trade.
+The constant product formula is the pricing rule at the heart of most [AMM](/wiki/economics/finance/defi/amm)-based [decentralized exchanges](/wiki/economics/finance/defi/dex). A [liquidity pool](/wiki/economics/finance/defi/liquidity-pool) holds reserves of two tokens, and their product must remain constant through every trade.
 
 ```text
 x * y = k
 ```
 
-where `x` and `y` are the reserve quantities and `k` is the invariant. [Uniswap](/wiki/economics/finance/defi/uniswap) V2, SushiSwap, and most early AMMs use this formula. Understanding it is the key to understanding how on-chain trading, slippage, and [impermanent loss](/wiki/economics/finance/defi/impermanent-loss) work.
+where `x` and `y` are the reserve quantities and `k` is the invariant. [Uniswap](/wiki/economics/finance/defi/uniswap) V2, SushiSwap, and most early AMMs use this formula. Slippage and [impermanent loss](/wiki/economics/finance/defi/impermanent-loss) are both consequences of this single constraint rather than separate mechanisms.
 
 ## Intuition
 
-Imagine a pool with 10 ETH and 25,000 USDC. The product is 250,000. If you want to buy ETH, you add USDC to the pool and remove ETH. But the formula constrains the outcome -- you can never drain all the ETH because as the supply shrinks, the price rises toward infinity along a hyperbolic curve. Conversely, adding a tiny amount of USDC when the pool is deep barely moves the price.
+Take a pool with 10 ETH and 25,000 USDC. The product is 250,000. Buying ETH means adding USDC and removing ETH, and the invariant is what bounds the result: the ETH reserve can never reach zero, because as it shrinks the price rises toward infinity along a hyperbolic curve. At the other end, a small USDC deposit into a deep pool barely moves the price at all.
 
 This creates a natural supply-demand curve: scarce assets become expensive, abundant assets become cheap. No order book, no market maker, no off-chain infrastructure -- just arithmetic.
 
@@ -59,9 +59,9 @@ For a small trade `dx << x`, the output is approximately:
 dy ≈ (y / x) * dx
 ```
 
-which is just the spot price times the input -- minimal slippage. But a trade that represents, say, 10% of the Token X reserve will receive noticeably fewer tokens per unit than the spot price implies. In a $100K pool, a $10K trade suffers substantial slippage. In a $100M pool, the same trade barely registers.
+which is just the spot price times the input -- minimal slippage. For larger trades the effective price is worse than spot by a factor of `1 / (1 + dx/x)`. A trade taking 10% of the Token X reserve therefore pays about 9% above spot, and a $10K swap against a pool holding $100M of the input token pays about 0.01% above it — three orders of magnitude apart on the same formula.
 
-This is why **total value locked (TVL)** matters: deeper pools mean less slippage for traders and a better trading experience.
+That ratio is what a pool's **total value locked (TVL)** figure feeds into. Depth is not a separate quality of a pool; it is the denominator in every price a trader gets.
 
 ## Worked example
 

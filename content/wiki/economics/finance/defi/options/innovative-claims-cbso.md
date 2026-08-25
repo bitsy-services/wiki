@@ -3,7 +3,7 @@ title: Innovative Claims of CBSOs
 weight: 84
 ---
 
-[Cash-backed synthetic options](/wiki/economics/finance/defi/options/cash-backed-synthetic-option) (CBSOs) combine several properties that, taken together, distinguish them from both traditional options and existing DeFi derivatives. This page catalogs the novel design claims of the CBSO system -- useful for understanding what makes the architecture distinctive and where it advances the state of the art.
+[Cash-backed synthetic options](/wiki/economics/finance/defi/options/cash-backed-synthetic-option) (CBSOs) combine several properties that, taken together, distinguish them from both traditional options and existing DeFi derivatives. The claims below are separable: each states one property of the design and the conventional arrangement it departs from.
 
 ## Core Innovations
 

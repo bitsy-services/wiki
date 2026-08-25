@@ -9,7 +9,7 @@ A permissionless token factory is a contract anyone can call to deploy a new tok
 
 Deploying a fresh contract per token is expensive. The standard construction is a **factory** that stamps out **minimal-proxy clones** ([EIP-1167](https://eips.ethereum.org/EIPS/eip-1167)): every token is a tiny proxy delegating to one shared implementation. Deployment cost collapses to roughly the cost of the proxy. Pair this with `CREATE2` and each clone's address is **deterministic** — a pure function of the factory, the implementation, and the salt — so the address is known before deployment and is identical across chains.
 
-Determinism is not a detail; it is what lets other contracts and other chains reference an instance that does not exist yet, and what lets a clone resolve to the same address everywhere while pointing at chain-local assets underneath.
+Determinism is what lets other contracts and other chains reference an instance that does not exist yet, and what lets a clone resolve to the same address everywhere while pointing at chain-local assets underneath.
 
 ## Two-level factories
 

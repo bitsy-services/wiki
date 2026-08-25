@@ -28,7 +28,7 @@ At-the-money (ATM) options have delta near ±0.50. As an option moves deeper ITM
 
 ## Gamma (Γ)
 
-Gamma is the rate of change of delta per $1 move in the underlying. It tells you how *quickly* delta shifts as the spot price moves.
+Gamma is the rate of change of delta per $1 move in the underlying — how *quickly* the position's directional exposure shifts as the spot price moves.
 
 - Gamma is highest for ATM options and near-term expirations.
 - Deep ITM and deep OTM options have low gamma because their deltas are already near their extremes.
@@ -43,7 +43,7 @@ Theta measures the daily erosion of an option's value due to the passage of time
 - Theta accelerates as expiry approaches, especially for ATM options.
 - Option *buyers* are hurt by theta; option *sellers* benefit from it.
 
-Theta is the cost of holding optionality. The closer to expiry, the faster it decays, which is why short-dated options are popular with sellers and dangerous for buyers who need the underlying to move quickly.
+Theta is the cost of holding optionality, and it accelerates toward expiry, so short-dated options pay sellers fastest and punish buyers who need the underlying to move on a schedule.
 
 ## Vega (ν)
 
@@ -68,7 +68,7 @@ Rho matters most for long-dated options. For the short-dated contracts typical i
 
 The greeks do not operate in isolation:
 
-- **Delta + Gamma**: gamma tells you how unstable your delta hedge is. High gamma means frequent rebalancing.
+- **Delta + Gamma**: gamma measures how unstable a delta hedge is. High gamma means frequent rebalancing.
 - **Vega + Theta**: high-IV options have more time value, so they also have higher theta. Selling expensive (high-IV) options earns more theta but carries more vega risk if IV rises further.
 - **Delta + Vega**: a change in IV shifts the probability distribution of outcomes, which changes delta. This second-order effect (*vanna*) matters for large portfolios.
 
@@ -88,4 +88,4 @@ An ETH [call option](/wiki/economics/finance/defi/options/call-option) with a $2
 
 On-chain options protocols like Lyra, Hegic, and Opyn expose greeks either directly in their UIs or through their pricing engines. Lyra's [AMM](/wiki/economics/finance/defi/amm), for example, dynamically adjusts pricing based on the pool's aggregate greek exposure -- when the pool accumulates too much short gamma, it widens spreads to discourage further selling.
 
-Understanding greeks is especially relevant for DeFi liquidity providers. Depositing into an options [liquidity pool](/wiki/economics/finance/defi/liquidity-pool) means implicitly taking the other side of user trades, which creates greek exposures that the pool manages through hedging or pricing adjustments.
+A DeFi liquidity provider takes these exposures without picking them. Depositing into an options [liquidity pool](/wiki/economics/finance/defi/liquidity-pool) means implicitly taking the other side of every user trade, and the pool manages the resulting greek exposures through hedging or pricing adjustments rather than passing the choice back to the depositor.

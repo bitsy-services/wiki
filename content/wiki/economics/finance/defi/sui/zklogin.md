@@ -5,7 +5,7 @@ weight: 60
 
 zkLogin is Sui's native primitive for controlling an on-chain address with an existing Web2 login. A user signs in with Google, Apple, Facebook, Twitch, or any other OpenID Connect provider, and from that login alone derives and operates a fully self-custodial Sui address — no seed phrase, no browser extension, no private key for the user to back up. It is the mechanism behind the onboarding pitch in the [Sui overview](/wiki/economics/finance/defi/sui/): log in with Google, start transacting.
 
-The trick is that the credential proving who you are never touches the chain, and the chain never learns which Google account is behind an address. Both properties fall out of a [zero-knowledge proof](/wiki/cs/zero-knowledge-proofs) over the login token. To follow the rest of this page it helps to know two acronyms: **OAuth 2.0** is the protocol that lets one site delegate "sign in with X" to a provider; **OpenID Connect (OIDC)** is the identity layer on top of OAuth that has the provider return a signed **JWT** (JSON Web Token) asserting who the user is.
+The credential proving who the user is never touches the chain, and the chain never learns which Google account is behind an address. Both properties fall out of a [zero-knowledge proof](/wiki/cs/zero-knowledge-proofs) over the login token. To follow the rest of this page it helps to know two acronyms: **OAuth 2.0** is the protocol that lets one site delegate "sign in with X" to a provider; **OpenID Connect (OIDC)** is the identity layer on top of OAuth that has the provider return a signed **JWT** (JSON Web Token) asserting who the user is.
 
 ## How a Login Becomes an Address
 
@@ -23,7 +23,7 @@ The chain therefore verifies "this person holds a current login from Google for 
 
 ## The Two-Factor Security Model
 
-zkLogin is a two-factor scheme, and this is the single most important thing to internalize. To move funds you need **both** a fresh OAuth login **and** the salt. Compromising the Google account alone is useless to an attacker — without the salt they cannot reconstruct the address or its proof. This is a genuine security upgrade over a single seed phrase.
+zkLogin is a two-factor scheme: moving funds requires **both** a fresh OAuth login **and** the salt. Compromising the Google account alone is useless to an attacker, because without the salt they cannot reconstruct the address or its proof. A stolen seed phrase has no second factor standing behind it.
 
 The flip side is symmetric: lose access to **both** the salt and the OAuth account and the address is gone forever, exactly like a lost seed phrase. So **salt management is the central design decision** of any zkLogin integration, and it is fundamentally a custody tradeoff:
 
@@ -37,9 +37,9 @@ There is no universally correct choice; pick based on how much custody risk and 
 
 Because the credential is consumed inside the zero-knowledge proof, no third party — and not even the OAuth provider — can link an on-chain zkLogin address back to the underlying Google or Apple identity. The provider sees an ordinary login with an opaque nonce; observers see an address and a proof. The salt is what severs the last link between `sub`/`iss`/`aud` and the address, so even someone who later learns the JWT cannot find the address without it.
 
-## Why It Matters
+## What it replaces
 
-Seed phrases are the largest onboarding barrier in crypto: they are intimidating, easy to lose, and a magnet for phishing. zkLogin removes them while keeping the address self-custodial — the user, not a company, authorizes every transaction with their ephemeral key. Contrast this with custodial "social login" wallets, where signing in with Google really means a service holds the keys on your behalf and you are trusting them not to freeze or seize the account. zkLogin gives the same one-tap experience without surrendering custody.
+Seed phrases are the largest onboarding barrier in crypto: they are intimidating, easy to lose, and a magnet for phishing. zkLogin removes them while keeping the address self-custodial — the user, not a company, authorizes every transaction with their ephemeral key. Custodial "social login" wallets offer the same one tap, but there signing in with Google means a service holds the keys and can freeze or seize the account. zkLogin produces the same experience with the signing key in the browser instead.
 
 ## Gotchas and Limitations
 

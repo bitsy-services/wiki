@@ -23,7 +23,7 @@ It is small — on the order of 300 staff — and it has an outsized effect on h
 
 Section 311 of the USA PATRIOT Act lets Treasury designate a foreign jurisdiction, institution, account type, or class of transaction as a "primary money laundering concern" and impose one or more of five special measures. They escalate: the first is additional recordkeeping and reporting, the fifth is a prohibition on US institutions maintaining *correspondent accounts* — the accounts a foreign bank holds at a US bank in order to clear dollars. Because dollar clearing is close to non-optional in international finance, a fifth-measure designation is effectively a death sentence, and the mere proposal of one has been enough to collapse banks.
 
-FinCEN proposed using this authority in 2023 against convertible virtual currency mixing as a *class of transaction* — the first time the power had been aimed at a category of activity rather than a named entity. The proposal was for the first special measure, recordkeeping and reporting on covered mixing transactions, not a correspondent-account cutoff. The framing is what matters: a class designation reaches software and protocols, not just companies.
+FinCEN proposed using this authority in 2023 against convertible virtual currency mixing as a *class of transaction* — the first time the power had been aimed at a category of activity rather than a named entity. The proposal was for the first special measure, recordkeeping and reporting on covered mixing transactions, not a correspondent-account cutoff. A class designation reaches software and protocols, not just companies.
 
 ## FinCEN and crypto
 

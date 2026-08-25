@@ -22,7 +22,7 @@ One flow, in four steps.
 3. Send the money via [Zelle](/wiki/economics/finance/payments/zelle) — the US bank-to-bank instant payment network — to `usd@inter.box`, with the Box Code in the payment memo.
 4. The stablecoin arrives at the signed destination, minus the fee.
 
-The memo carries the routing, which is the design's most consequential choice. Because the destination lives inside a signed message rather than in the address string, **one alias serves every asset and network**. A code is specific to one combination of account, network and currency; changing any of them means signing a new one.
+The memo carries the routing, and because the destination lives inside a signed message rather than in the address string, **one alias serves every asset and network**. A code is specific to one combination of account, network and currency; changing any of them means signing a new one.
 
 Earlier descriptions of Interbox — including a second, site-initiated flow in which the user receives a signed link by email or text and approves a payment request in their banking app — describe a design that was not built.
 
@@ -64,7 +64,7 @@ Interbox facilitates transfers between accounts owned by the same person -- it d
 
 That is an argument rather than a plain reading. The regulation says "to another **location or person**," and its explicit same-person carve-out covers only the physical transportation of currency, so whether the position holds turns on FinCEN administrative rulings and the specific facts.
 
-It also depends on the architecture genuinely enforcing the same-person constraint — which, as the section above records, it does not. Anyone can pay anyone's Box Code. Until the account-to-wallet link is built, "same person at both ends" describes how the service is meant to be used rather than a property of its design, and an argument that rests on a usage convention is a considerably weaker one. This is the clearest example in this wiki of the general shape noted on the [Bank Secrecy Act](/wiki/economics/finance/regulation/bank-secrecy-act) page: the gap between what a technology can attest and what a regulation will accept, widened here by the attestation not yet existing.
+It also depends on the architecture genuinely enforcing the same-person constraint — which, as the section above records, it does not. Anyone can pay anyone's Box Code. Until the account-to-wallet link is built, "same person at both ends" describes how the service is meant to be used rather than a property of its design, and an argument that rests on a usage convention is a considerably weaker one. It is an instance of the shape noted on the [Bank Secrecy Act](/wiki/economics/finance/regulation/bank-secrecy-act) page — the gap between what a technology can attest and what a regulation will accept — widened here by the attestation not yet existing.
 
 ## External links
 

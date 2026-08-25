@@ -7,9 +7,9 @@ A cash-backed synthetic option (CBSO) is a fully collateralized, on-chain deriva
 
 [Bull bets](/wiki/economics/finance/defi/options/bull-bet) and [bear bets](/wiki/economics/finance/defi/options/bear-bet) are specific implementations of CBSOs, packaging [bull call spreads](/wiki/economics/finance/defi/options/bull-call-spread) and [bear put spreads](/wiki/economics/finance/defi/options/bear-put-spread) respectively into single mintable tokens.
 
-## Why Full Collateralization Matters
+## What full collateralization removes
 
-Traditional options sellers face potentially unlimited liability (for naked calls) or rely on margin systems that can force liquidation during volatile markets. CBSOs eliminate both problems:
+A traditional options seller carries either unlimited liability (on a naked call) or a margin system that can force liquidation at the worst moment in a volatile market. Locking the maximum payout upfront removes both:
 
 - **No margin calls.** The maximum payout is locked in the contract at mint time. The seller's worst case is losing the entire stake -- which is already deposited.
 - **No counterparty credit risk.** Settlement is guaranteed by the collateral held in the smart contract, not by a clearinghouse or broker.

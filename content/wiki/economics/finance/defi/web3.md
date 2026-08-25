@@ -13,7 +13,7 @@ The pitch: Web 1.0 was read-only (static pages). Web 2.0 was read-write (user-ge
 
 **Governance** -- [DAOs](/wiki/economics/finance/defi/dao) replace corporate boards with token-weighted voting. Protocol upgrades, treasury allocations, and policy changes can be decided by the community that uses the protocol.
 
-**Permissionless composition** -- [Smart contracts](/wiki/economics/finance/defi/smart-contract) on public blockchains are open by default. Anyone can build on top of existing protocols without asking permission, which is why DeFi protocols like [Uniswap](/wiki/economics/finance/defi/uniswap) can be integrated into other applications freely.
+**Permissionless composition** -- [Smart contracts](/wiki/economics/finance/defi/smart-contract) on public blockchains are open by default. Anyone can build on top of an existing protocol without asking permission, so an aggregator can route through [Uniswap](/wiki/economics/finance/defi/uniswap) without a partnership agreement, an API key, or Uniswap knowing it happened.
 
 **Identity** -- Systems like ENS (Ethereum Name Service) and on-chain attestations let users build portable, self-sovereign identity without relying on a centralized provider.
 
@@ -23,7 +23,7 @@ Web3 has drawn pointed criticism. Jack Dorsey argued that venture capital fundin
 
 The practical criticism has weight too. On-chain transactions are slow and expensive compared to centralized alternatives. User experience remains poor -- key management, gas fees, and irreversible transactions create steep onboarding barriers. Many "decentralized" applications still depend on centralized frontends, RPC providers, or cloud hosting.
 
-Whether Web3 achieves its goals or remains a niche ideology is an open question. The underlying technologies -- blockchains, smart contracts, token standards -- are real and useful regardless of how the branding plays out.
+The underlying technologies -- blockchains, smart contracts, token standards -- work whether or not the branding survives, and most of this wiki treats them separately from the label.
 
 ## External Links
 

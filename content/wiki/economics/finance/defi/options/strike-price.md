@@ -3,7 +3,7 @@ title: Strike Price
 weight: 52
 ---
 
-The **strike price** (also called the exercise price) is the fixed price at which an option holder can buy or sell the underlying asset. For a [call option](/wiki/economics/finance/defi/options/call-option) the strike is the purchase price; for a [put option](/wiki/economics/finance/defi/options/put-option) the strike is the sale price. It is the single most important parameter when selecting an options contract because it determines moneyness, intrinsic value, and the risk/reward profile of the trade.
+The **strike price** (also called the exercise price) is the fixed price at which an option holder can buy or sell the underlying asset. For a [call option](/wiki/economics/finance/defi/options/call-option) the strike is the purchase price; for a [put option](/wiki/economics/finance/defi/options/put-option) the strike is the sale price. It determines the option's moneyness, its intrinsic value, and the payoff the trade can produce; the other parameters modify a choice this one has already made.
 
 ## Moneyness
 

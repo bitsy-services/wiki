@@ -13,7 +13,7 @@ The Act does not create bank secrecy. It abolishes it.
 
 Neither half of the 1970 Act is called the Bank Secrecy Act. Title I is the financial-recordkeeping half, now at 12 U.S.C. §§ 1829b and 1951–1959; Title II is the Currency and Foreign Transactions Reporting Act, which is where the reporting duties come from. The popular name is best read against the legislative history, which dwells on the secret *foreign* accounts — Swiss and Caribbean — that Congress meant to pierce. The theory was that criminal enterprises generate cash, cash has to enter the banking system to be useful, and the entry point is therefore the place to watch. Rather than have the government surveil the banks, the government conscripted the banks to surveil their customers and hand over the results.
 
-That inversion is the whole design, and it explains almost every downstream oddity. Your bank is not your fiduciary in this matter. It is a deputised reporter with a legal obligation to file paperwork about you, a legal prohibition on telling you it did, and a statutory immunity from being sued by you for filing it.
+Your bank is not your fiduciary in this matter. It is a deputised reporter with a legal obligation to file paperwork about you, a legal prohibition on telling you it did, and a statutory immunity from being sued by you for filing it.
 
 The reporting statute is codified at 31 U.S.C. §§ 5311–5336. The regulations that actually bind anyone are at 31 CFR Chapter X, written and enforced by [FinCEN](/wiki/economics/finance/regulation/fincen).
 
@@ -50,7 +50,7 @@ Two features make the SAR structurally different from any other report a busines
 - **Tipping off is a crime.** The institution may not tell the subject that a SAR was filed, or even that one is contemplated. If your account is closed the week after unusual activity, nobody involved is permitted to explain why.
 - **The filer is immune.** 31 U.S.C. § 5318(g)(3) grants a safe harbour from civil liability for filing, including for filings that turn out to be wrong.
 
-The combination — no downside for over-reporting, criminal exposure for under-reporting — produces exactly the incentive you would expect. Defensive filing is the norm; roughly 4 million SARs are filed annually, and the marginal one is filed to protect the institution rather than because anyone believes a crime occurred.
+The combination — no downside for over-reporting, criminal exposure for under-reporting — makes defensive filing the norm. Roughly 4 million SARs are filed annually, and the marginal one is filed to protect the institution rather than because anyone involved believes a crime occurred.
 
 ### Recordkeeping and the Travel Rule
 
@@ -84,7 +84,7 @@ The 1970 Act was thin. Five later statutes and one regulation made it what it is
 
 **The CDD Rule (2016)** — a regulation rather than a statute — added the beneficial-ownership requirement described above: for a legal-entity customer, identify every individual owning 25% or more, plus one individual with significant control.
 
-**The Anti-Money Laundering Act of 2020** modernised the statute for the first time in a generation. It created a beneficial-ownership registry at FinCEN under the Corporate Transparency Act — intended to shift the reporting burden from banks to companies themselves, though the bank-side obligation was never conformed and remains in force — established a whistleblower program, expanded Treasury's subpoena power over foreign banks with US correspondent accounts, and, importantly for this wiki, wrote "value that substitutes for currency or funds" into the statutory definition of a financial institution at 31 U.S.C. § 5312(a)(2), putting [cryptocurrency](/wiki/economics/finance/defi/cryptocurrency) businesses inside the statute rather than inside a guidance document. The registry itself has had a rough life: after litigation and a series of injunctions, a March 2025 interim final rule narrowed the reporting obligation to foreign companies, exempting domestic ones — still the operative position as of mid-2026.
+**The Anti-Money Laundering Act of 2020** modernised the statute for the first time in a generation. It created a beneficial-ownership registry at FinCEN under the Corporate Transparency Act — intended to shift the reporting burden from banks to companies themselves, though the bank-side obligation was never conformed and remains in force — established a whistleblower program, expanded Treasury's subpoena power over foreign banks with US correspondent accounts, and wrote "value that substitutes for currency or funds" into the statutory definition of a financial institution at 31 U.S.C. § 5312(a)(2), putting [cryptocurrency](/wiki/economics/finance/defi/cryptocurrency) businesses inside the statute rather than inside a guidance document. The registry itself has had a rough life: after litigation and a series of injunctions, a March 2025 interim final rule narrowed the reporting obligation to foreign companies, exempting domestic ones — still the operative position as of mid-2026.
 
 ## Who it applies to
 
@@ -96,7 +96,7 @@ FinCEN's 2013 guidance placed *administrators and exchangers* of convertible vir
 
 Civil penalties run per violation and, for program failures, can be assessed per day. Willful violations carry up to five years' imprisonment under 31 U.S.C. § 5322, rising to ten where the violation accompanies another federal crime or a pattern of illegal activity exceeding $100,000 in a year. Prosecutors also reach for 18 U.S.C. § 1960, operating an unlicensed money transmitting business, which does not require proof that the money was dirty — only that the licence was missing.
 
-The corporate numbers are what make this a board-level concern:
+Recent corporate penalties:
 
 | Case | Year | Penalty |
 |------|------|---------|
@@ -117,11 +117,11 @@ This is the **third-party doctrine**, and it escaped banking almost at once — 
 
 Congress responded to *Miller* with the Right to Financial Privacy Act of 1978, which imposes notice and process requirements on government access to bank records — with a large exception for anything filed under the BSA. The reports the Act compels are precisely the ones the privacy statute does not protect.
 
-The uncomfortable summary: a legal regime built on the premise that you have surrendered your privacy by using a bank cannot be escaped by not using a bank, because cash above the threshold is itself reportable, and deliberately keeping it below the threshold is a separate felony. This is the argument that motivates most cryptographic approaches to payment, and it is worth understanding on its own terms before evaluating whether those approaches answer it.
+A regime built on the premise that privacy was surrendered by using a bank cannot be escaped by not using one: cash above the threshold is itself reportable, and deliberately keeping it below the threshold is a separate felony. That is the argument motivating most cryptographic approaches to payment; whether any of them answers it is a separate question.
 
 ## Does it work?
 
-The honest answer is that after fifty years, nobody can demonstrate that it does — and the measurement problem is not incidental.
+After fifty years nobody can demonstrate that it does, and the measurement problem is structural rather than incidental.
 
 The system produces roughly 20 million CTRs and 4 million SARs a year. What that volume is worth is largely unmeasured: a 2019 Government Accountability Office review (GAO-19-582) found that the agencies do not regularly collect metrics on how useful BSA reports are, nor feed that information back to the institutions filing them. The most-cited estimate of laundering interdiction, from a 2011 study by the UN Office on Drugs and Crime, puts the share of criminal proceeds seized at around 0.2%. Meanwhile the direct compliance cost to US financial institutions runs into the tens of billions of dollars annually.
 
@@ -133,11 +133,11 @@ The defence is that a suspicion-based, warrant-free trawl of the payment system 
 
 Everything above lands on this wiki's subject matter in three specific places.
 
-**Custodial services are banks.** Any business that holds customer cryptocurrency and converts it to or from fiat is a money transmitter, must register with FinCEN, and owes a full AML program: identity verification at onboarding, transaction monitoring, SARs at the $2,000 threshold, and the Travel Rule on outbound transfers. This is the entire explanation for why an exchange account feels like a bank account.
+**Custodial services are banks.** Any business that holds customer cryptocurrency and converts it to or from fiat is a money transmitter, must register with FinCEN, and owes a full AML program: identity verification at onboarding, transaction monitoring, SARs at the $2,000 threshold, and the Travel Rule on outbound transfers. That is why an exchange account feels like a bank account.
 
 **Non-custodial software is the contested frontier.** A [finalized smart contract](/wiki/economics/finance/defi/finalized-smart-contract) has no operator to register, no customer to identify, and nobody able to file a SAR. Whether that is a gap in the law or a feature of the technology is being decided case by case, and the cases so far have gone badly for developers of privacy tooling. The adjacent [OFAC sanctions](/wiki/economics/finance/regulation/ofac-sanctions) regime — which is not the BSA, and works quite differently — has been the sharper instrument there.
 
-**The [KYC](/wiki/economics/finance/regulation/know-your-customer) data itself is the liability.** Every exchange that onboards a user accumulates a copy of that user's identity documents, and every copy is a breach waiting to happen. [Interbox](/wiki/economics/finance/defi/interbox) is an argument that this duplication is unnecessary: the diligence has already been done once, by the bank, and a cryptographic link between a verified account and a self-custodied wallet could carry the assurance without carrying the documents. Nothing in the current rules lets one institution rely on another's work, which is what makes this a design proposal rather than a compliance option — and the gap between what the technology can attest and what the regulations will accept is the general shape of most interesting work in this area.
+**The [KYC](/wiki/economics/finance/regulation/know-your-customer) data itself is the liability.** Every exchange that onboards a user accumulates a copy of that user's identity documents, and every copy is a breach waiting to happen. [Interbox](/wiki/economics/finance/defi/interbox) is an argument that this duplication is unnecessary: the diligence has already been done once, by the bank, and a cryptographic link between a verified account and a self-custodied wallet could carry the assurance without carrying the documents. Nothing in the current rules lets one institution rely on another's work, which is what makes this a design proposal rather than a compliance option — and the gap between what the technology can attest and what the regulations will accept is the general shape of the problem in this area.
 
 ## External links
 

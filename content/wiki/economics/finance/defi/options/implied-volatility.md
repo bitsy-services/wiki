@@ -9,7 +9,7 @@ Higher IV means options are more expensive because the market expects larger pri
 
 ## IV vs. historical volatility
 
-[Volatility](/wiki/economics/finance/defi/volatility) can be measured in two fundamentally different ways:
+[Volatility](/wiki/economics/finance/defi/volatility) can be measured in two directions:
 
 | | Historical (realised) volatility | Implied volatility |
 |---|---|---|

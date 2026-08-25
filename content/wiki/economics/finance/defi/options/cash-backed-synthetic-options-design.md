@@ -3,7 +3,7 @@ title: Cash-Backed Synthetic Options Design
 weight: 81
 ---
 
-This page describes the smart contract architecture behind [Cash-Backed Synthetic Options (CBSOs)](/wiki/economics/finance/defi/options/cash-backed-synthetic-option). The system is composed of four primary contracts -- Option, Option Factory, Option Settler, and [Fee Box](/wiki/economics/finance/defi/fee-box) -- plus an external Asset Price Oracle.
+The [Cash-Backed Synthetic Option (CBSO)](/wiki/economics/finance/defi/options/cash-backed-synthetic-option) system is four contracts -- Option, Option Factory, Option Settler, and [Fee Box](/wiki/economics/finance/defi/fee-box) -- plus an external Asset Price Oracle that the first three all read from.
 
 ## Option Contract
 
@@ -37,7 +37,7 @@ The Asset Price Oracle aggregates price reports from decentralized [oracle nodes
 - **`getPrice()`** -- Returns the latest aggregated price.
 - **`finalizePrice()`** -- Locks the price at expiry, making it immutable for settlement. Once finalized, the oracle becomes a [finalized smart contract](/wiki/economics/finance/defi/finalized-smart-contract) for that expiry -- its state can no longer change.
 
-The finalization step is critical: it ensures that all options sharing the same expiry settle against the same price, eliminating race conditions and front-running during settlement.
+Finalization is what makes every option sharing an expiry settle against the same number, which closes both the race between settlement calls and the front-running that a still-moving price would invite.
 
 ## Option Factory
 

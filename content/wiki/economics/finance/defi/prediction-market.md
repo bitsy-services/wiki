@@ -13,9 +13,7 @@ In DeFi, prediction markets run on [smart contracts](/wiki/economics/finance/def
 
 A market starts with a question and a set of mutually exclusive outcomes. For a binary market ("Yes" / "No"), the protocol mints one token for each outcome. A complete set -- one Yes token plus one No token -- always redeems for exactly $1 (or 1 USDC, etc.) at settlement, regardless of which outcome wins.
 
-This means:
-- If you buy a Yes token for $0.35 and the event happens, you receive $1. Profit: $0.65.
-- If the event does not happen, your token is worth $0.00. Loss: $0.35.
+So a Yes token bought at $0.35 pays $1 if the event happens, a profit of $0.65, and $0.00 if it does not, a loss of the whole $0.35. The two prices sum to $1 because the two payouts do.
 
 Prices are free to move between $0 and $1 as new information arrives. Trading is continuous -- participants buy and sell outcome tokens on an order book or through an [AMM](/wiki/economics/finance/defi/amm).
 
@@ -27,7 +25,7 @@ When the event concludes, someone (or some mechanism) reports the actual outcome
 2. Allows holders of the winning token to redeem for the full payout.
 3. Makes losing tokens worthless.
 
-Resolution is the hardest design problem. The market is only as trustworthy as the entity determining the outcome. Different platforms handle this differently (see below).
+Resolution is the step every other guarantee rests on: the payout is only as trustworthy as whatever determines the outcome, and the contract will pay the wrong side just as irreversibly as the right one. Platforms differ mainly in how they answer this.
 
 ## Major platforms
 
@@ -67,19 +65,19 @@ The choice of oracle determines the market's credibility. Centralised resolution
 
 **Scalar.** The payout is proportional to where the actual value falls within a range. Example: "What will ETH's price be on June 30?" If the range is $1,000 to $5,000 and the actual price is $3,000, a Long token pays $0.50 and a Short token pays $0.50.
 
-## Why prediction markets matter
+## What the price signal is good for
 
-Prediction markets are among the most direct applications of the "wisdom of crowds" idea: when people have money at stake, they aggregate and reveal information more honestly than polls or pundit forecasts. Empirically, prediction markets have been strong forecasters for elections, policy outcomes, and economic indicators.
+A forecast costs the forecaster nothing; a position costs them the position. The Iowa Electronic Markets, running since 1988, have generally landed closer to the final vote share than contemporaneous national polls, and that is the case for reading a market price as a probability estimate rather than an opinion.
 
-In DeFi specifically, prediction markets are interesting because:
+In DeFi specifically:
 
-- They create a price signal for any verifiable event, which other protocols can consume.
-- They demonstrate the power of [smart contract](/wiki/economics/finance/defi/smart-contract) settlement -- no bookmaker, no counterparty, no delayed payout.
-- They push the boundaries of decentralised oracle design, a problem that matters well beyond prediction markets.
+- The price is a machine-readable probability for any verifiable event, which other contracts can consume as an input.
+- Settlement runs with no bookmaker, no counterparty, and no delay between the outcome and the payout.
+- Resolution is the hardest case in [oracle](/wiki/economics/finance/defi/oracle-node) design, because the fact being reported is often a judgement rather than a number.
 
 ## Risks
 
-- **Oracle manipulation.** If the resolution oracle can be bribed or manipulated, the market is compromised. This is the fundamental attack surface.
+- **Oracle manipulation.** A bribed or manipulated resolution oracle makes the contract pay the losing side, and every other guarantee in the contract holds while it does so.
 - **Regulatory uncertainty.** Prediction markets that resemble gambling or derivatives may face legal restrictions depending on jurisdiction. Polymarket restricted US users after scrutiny from the Commodity Futures Trading Commission (CFTC).
 - **Thin liquidity.** Niche markets may not attract enough participants for reliable price discovery. Prices in illiquid markets can be noisy and misleading.
 

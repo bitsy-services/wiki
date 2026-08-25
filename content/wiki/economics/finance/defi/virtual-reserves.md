@@ -9,7 +9,7 @@ Virtual reserves are a mathematical abstraction used by [AMMs](/wiki/economics/f
 
 In a standard [constant product](/wiki/economics/finance/defi/constant-product-formula) pool, liquidity is spread across every price from zero to infinity. If a pool holds 10 ETH and 25,000 USDC, most of that capital sits at prices far from the current market and never facilitates a trade. The capital is real but idle.
 
-Concentrated liquidity fixes this by letting [LPs](/wiki/economics/finance/defi/liquidity-pool) deploy capital within a chosen price range. But if you restrict liquidity to a range, the basic `x * y = k` formula no longer applies directly -- you can't just use the actual token balances, because one or both will hit zero at the edges of the range. Virtual reserves are the bridge between range-bound positions and the familiar constant product math.
+Concentrated liquidity fixes this by letting [LPs](/wiki/economics/finance/defi/liquidity-pool) deploy capital within a chosen price range, which breaks the basic `x * y = k` formula: the actual token balances can no longer be fed to it directly, because one or the other reaches zero at the edge of the range. Virtual reserves are the bridge between a range-bound position and the constant product math.
 
 ## How it works
 
@@ -58,7 +58,7 @@ Consider an LP providing liquidity around a current price of 2,500 USDC/ETH:
 | 2,400 -- 2,600 | ~50x | $50K acts like $2.5M |
 | 2,490 -- 2,510 | ~500x | $50K acts like $25M |
 
-Tighter ranges mean dramatically better execution for traders, but the LP faces a higher chance of the price leaving the range, at which point the position stops earning fees and is fully converted into the less valuable token.
+A tighter range gives traders the execution of a much deeper pool — 500× deeper at the bottom of that table — and gives the LP a much higher chance of the price leaving the range, at which point the position stops earning fees and sits fully converted into the less valuable token.
 
 ## Beyond Uniswap V3
 
@@ -68,13 +68,11 @@ Virtual reserves appear in other contexts:
 - **Trader Joe's Liquidity Book** discretizes the price space into bins. Each bin functions like a tiny pool with its own virtual reserves.
 - **Launch pools and bonding curves** sometimes initialize with virtual reserves to set an opening price without requiring actual token deposits. A new token might launch with zero real reserves but virtual reserves that imply a starting price, ensuring the first buyer doesn't get an absurdly cheap fill.
 
-The bonding-curve use case is worth distinguishing: in concentrated liquidity, virtual reserves are a mathematical convenience that doesn't create tokens from nothing. In a launch pool with virtual reserves, the protocol is genuinely behaving *as if* tokens exist that don't -- this can be a feature (controlled price discovery) or a risk (the price floor is illusory if the virtual reserves aren't backed by anything).
+The two uses differ in what stands behind the offset. In concentrated liquidity the virtual component is bookkeeping: the range is bounded, and the LP has deposited every token the curve can actually pay out inside it. In a launch pool the protocol quotes against tokens that do not exist, which buys controlled price discovery and means the implied floor holds only as long as nobody tries to sell into it.
 
-## Intuition
+## Consequence for impermanent loss
 
-Think of virtual reserves as a lens that magnifies a small amount of capital within a narrow price window. Outside that window, the magnification disappears. The math is identical to a full-range constant product pool -- the only difference is that the "reserves" the formula sees are partly real tokens in the contract and partly phantom offsets that make the curve work for a bounded range.
-
-This is why concentrated liquidity positions exhibit sharper [impermanent loss](/wiki/economics/finance/defi/impermanent-loss): the same price movement causes a larger proportional change in the real reserves, because those real reserves are a smaller fraction of the virtual reserves the curve is operating on.
+A concentrated position takes sharper [impermanent loss](/wiki/economics/finance/defi/impermanent-loss) than a full-range one for the same price move, and the multiplier table explains why. The curve computes against the virtual reserves, but only the real reserves change hands, so a given move consumes a much larger fraction of what the LP actually deposited. A 50× position is 50× more capital-efficient and takes roughly 50× the divergence exposure per dollar deposited.
 
 ## External links
 

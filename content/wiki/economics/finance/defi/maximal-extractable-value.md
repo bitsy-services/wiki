@@ -5,11 +5,11 @@ weight: 35
 
 Maximal Extractable Value (MEV) is the profit that can be captured by reordering, inserting, or censoring transactions within a block. It exists because the order in which transactions execute affects their outcomes — and the entity assembling a block gets to choose that order.
 
-MEV matters because it is an invisible tax on every [DEX](/wiki/economics/finance/defi/dex) trade, every lending-protocol liquidation, and every on-chain auction. Understanding it is essential to understanding why transactions sometimes fail, why gas spikes happen, and why DeFi protocols are designed the way they are.
+It is charged against every [DEX](/wiki/economics/finance/defi/dex) trade, every lending-protocol liquidation, and every on-chain auction, and it surfaces downstream as reverted transactions, gas spikes, and protocol designs built specifically to deny it.
 
 ## Why transaction ordering creates value
 
-On an [AMM](/wiki/economics/finance/defi/amm) like [Uniswap](/wiki/economics/finance/defi/uniswap), a large swap moves the price. Anyone who can insert a transaction *before* that swap — buying the token cheap — and another *after* — selling it at the new, higher price — captures risk-free profit. The original trader gets worse execution. This is a **sandwich attack**, and it is the most visceral form of MEV.
+On an [AMM](/wiki/economics/finance/defi/amm) like [Uniswap](/wiki/economics/finance/defi/uniswap), a large swap moves the price. Anyone who can insert a transaction *before* that swap — buying the token cheap — and another *after* — selling it at the new, higher price — captures risk-free profit. The original trader gets worse execution. This is a **sandwich attack**.
 
 More broadly, any time the outcome of a transaction depends on blockchain state that can be influenced by transaction ordering, MEV exists.
 
@@ -17,7 +17,7 @@ More broadly, any time the outcome of a transaction depends on blockchain state 
 
 ### Arbitrage
 
-When the price of a token differs between two DEXs, a searcher submits a transaction that buys on the cheap venue and sells on the expensive one in a single atomic transaction. This is the most benign form of MEV — it aligns prices across markets and improves efficiency.
+When the price of a token differs between two DEXs, a searcher submits a transaction that buys on the cheap venue and sells on the expensive one in a single atomic transaction. This is the form of MEV with no counterparty to lose by it: the profit is the gap between two venues, and taking it is what closes the gap.
 
 ### Sandwich attacks
 

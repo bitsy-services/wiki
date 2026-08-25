@@ -3,9 +3,9 @@ title: "Fee Distribution in Concentrated Liquidity"
 weight: 10
 ---
 
-In [Uniswap V2](../), every liquidity provider owns a fraction of a single, full-range pool. Fees accrue to the reserves themselves, so an LP's share grows automatically: when you burn your LP token you withdraw slightly more of each asset than you deposited, and the difference is your fees. No per-LP bookkeeping is needed because there is nothing to book — the pool is one giant homogeneous pot.
+In [Uniswap V2](../), every liquidity provider owns a fraction of a single, full-range pool. Fees accrue to the reserves themselves, so an LP's share grows automatically: burning the LP token returns slightly more of each asset than went in, and the difference is the fees. No per-LP bookkeeping is needed because there is nothing to book — the pool is one giant homogeneous pot.
 
-[Concentrated liquidity](https://docs.uniswap.org/concepts/protocol/concentrated-liquidity) breaks that symmetry. Each position occupies its own price range, and only positions whose range contains the current price earn fees on a given swap. The naïve implementation would keep a list of active positions and, on each swap, iterate over them paying out pro-rata. That would be catastrophic: gas per swap would scale with the number of LPs, and a single spammer could brick the pool by opening a million dust positions.
+[Concentrated liquidity](https://docs.uniswap.org/concepts/protocol/concentrated-liquidity) breaks that symmetry. Each position occupies its own price range, and only positions whose range contains the current price earn fees on a given swap. The naïve implementation would keep a list of active positions and, on each swap, iterate over them paying out pro-rata. Gas per swap would then scale with the number of LPs, and a single spammer could brick the pool by opening a million dust positions.
 
 Uniswap V3 (and V4, which inherits the same accounting) sidesteps this entirely. **No code path in the protocol ever iterates over LPs.** Swaps are O(1) in LP count. Claims are O(1) per LP. The trick is a *pull-based accumulator*: the pool records one running number per swap, and each LP, whenever they feel like it, subtracts two snapshots of that number to learn what they're owed.
 
@@ -29,7 +29,7 @@ Because everyone in range contributed `L` proportionally, everyone gets paid pro
 
 A position only earns fees while the price is inside its range. So each LP needs to know not the global accumulator, but the portion of it that accrued *while the price was between my lower and upper ticks*. Call this `feeGrowthInside`.
 
-Uniswap computes it with a clever decomposition. Every initialized tick stores a `feeGrowthOutside` value, representing accumulator growth on the "other side" of that tick relative to the current price. The semantics are defined recursively: when the price crosses a tick, the pool flips that tick's `feeGrowthOutside` to `feeGrowthGlobal - feeGrowthOutside`. This is the only update ticks need during a swap, and it happens inside `Tick.cross` in `Tick.sol`.
+Uniswap computes it by decomposition. Every initialized tick stores a `feeGrowthOutside` value, representing accumulator growth on the "other side" of that tick relative to the current price. The semantics are defined recursively: when the price crosses a tick, the pool flips that tick's `feeGrowthOutside` to `feeGrowthGlobal - feeGrowthOutside`. This is the only update ticks need during a swap, and it happens inside `Tick.cross` in `Tick.sol`.
 
 With this invariant, the growth inside any range can be recovered in O(1):
 
@@ -79,7 +79,7 @@ The invariant `Σᵢ Lᵢ · Δf = L · Δf = F` falls out automatically because
 
 - **Constant gas per swap.** A swap's fee accounting is one read and one write per token, regardless of whether the pool has 10 LPs or 10 million.
 - **Permissionless, asynchronous claims.** LPs collect whenever they want. The pool does not care if some positions are never poked — their fees remain recoverable indefinitely.
-- **No griefing surface.** You cannot force the pool to iterate a list, because there is no list.
+- **No griefing surface.** Nothing can force the pool to iterate a list, because there is no list.
 - **[NFT](/wiki/economics/finance/defi/nft)-wrapped positions.** Because each position is a pure function of two tick snapshots and one stored `feeGrowthInsideLast`, Uniswap's [NonfungiblePositionManager](https://github.com/Uniswap/v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol) can wrap positions in [ERC-721](/wiki/economics/finance/defi/ethereum/erc-721) tokens and transfer them freely. The new owner pokes and is paid correctly.
 
 ## What It Costs
@@ -87,7 +87,3 @@ The invariant `Σᵢ Lᵢ · Δf = L · Δf = F` falls out automatically because
 - **Precision loss at low liquidity.** The `feeAmount / liquidity` division rounds down. When `liquidity` is large relative to `feeAmount`, the truncation is a few wei per swap and LPs absorb it silently. When `liquidity` is tiny, more of the fee can be lost to rounding — one reason why very shallow pools are a bad deal for LPs.
 - **Per-tick storage.** Every initialized tick needs a `feeGrowthOutside` slot per token. Initializing a tick (by opening a position at a previously unused price) is therefore noticeably more expensive than subsequent uses of that tick.
 - **Crossing complexity.** The tick-crossing logic in `Pool.swap` has to flip `feeGrowthOutside` for every tick the price passes through. This is O(ticks crossed), not O(LPs), and in practice bounded by the tick spacing — but it is the one place where swap gas is not strictly constant.
-
----
-
-**Takeaway:** A naïve fee distributor pushes money to a list of recipients; Uniswap's accumulator lets each recipient pull the same arithmetic identity and arrive at the right answer alone.

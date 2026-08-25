@@ -5,7 +5,7 @@ weight: 6
 
 A DAO is an organization governed by [smart contracts](/wiki/economics/finance/defi/smart-contract) on a [blockchain](/wiki/economics/finance/defi/blockchain) rather than by a traditional management hierarchy. Rules are encoded in code, the treasury is managed on-chain, and decisions are made through proposals that members vote on. No single person or board has unilateral control.
 
-DAOs matter because they offer a credibly neutral governance structure. Once the smart contracts are deployed, the rules apply equally to everyone -- including the founders. This makes them a natural fit for managing DeFi protocols, shared treasuries, and any situation where participants need to coordinate without trusting a central operator.
+Once the smart contracts are deployed, the rules apply equally to everyone, founders included — there is no seat that can spend the treasury outside the process. DeFi protocols, shared treasuries, and grant committees use the structure for exactly that: coordinating money among participants who have no particular reason to trust each other.
 
 ## How DAOs Work
 
@@ -32,7 +32,7 @@ The smart contracts are the authority. Funds cannot move without a vote, and the
 - **Nouns DAO** -- One Noun [NFT](/wiki/economics/finance/defi/nft) is auctioned daily, and all proceeds go to the treasury. Noun holders govern spending. The model has been widely forked.
 - **Aragon** and **DAOstack** -- Frameworks for launching DAOs without writing smart contracts from scratch.
 
-## Advantages Over Traditional Organizations
+## Compared with a company
 
 **Transparency** -- Every proposal, vote, and fund movement is on-chain and auditable by anyone.
 

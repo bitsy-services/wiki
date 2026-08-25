@@ -33,7 +33,7 @@ Several widely-used standards extend ERC-20 rather than replace it, and each has
 
 The other three attack the same wart: ERC-20's `approve` + `transferFrom` two-step, which costs two transactions and leaves a standing allowance in between. [ERC-667](/wiki/economics/finance/defi/ethereum/erc-667) was the early proposal for a `transferAndCall`; [ERC-677](/wiki/economics/finance/defi/ethereum/erc-677) is the version that stuck, best known as the standard behind Chainlink's LINK token; and [ERC-1363](/wiki/economics/finance/defi/ethereum/erc-1363) is the fully-specified modern take, adding callback hooks to both transfers and approvals.
 
-These standards matter because they enable composability -- any application that understands ERC-20 can work with any ERC-20 token, which is why [DEXs](/wiki/economics/finance/defi/dex), [liquidity pools](/wiki/economics/finance/defi/liquidity-pool), and lending protocols can all interoperate.
+Any application that understands ERC-20 works with every ERC-20 token, so a [DEX](/wiki/economics/finance/defi/dex), a [liquidity pool](/wiki/economics/finance/defi/liquidity-pool), and a lending protocol can pass the same asset between them without any of them knowing what it is.
 
 ## Ethereum and DeFi
 
@@ -50,7 +50,7 @@ The composability of Ethereum's smart contracts means these protocols can be lay
 
 ## Scalability and Layer 2
 
-Ethereum's base layer processes roughly 15-30 transactions per second, which is insufficient for mass adoption. During high-demand periods, gas fees spike to levels that price out smaller users.
+Ethereum's base layer processes roughly 15-30 transactions per second, two to three orders of magnitude below what the card networks settle. During high-demand periods, gas fees rise until the marginal user stops transacting, which is the only mechanism the chain has for rationing that throughput.
 
 The scaling roadmap centers on Layer 2 (L2) solutions -- separate chains that process transactions off the main chain and post compressed proofs back to Ethereum for security:
 

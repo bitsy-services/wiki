@@ -5,7 +5,7 @@ weight: 55
 
 An **option spread** is a strategy that combines buying and selling multiple options on the same underlying asset, with different [strike prices](/wiki/economics/finance/defi/options/strike-price), expiration dates, or both. By pairing a long option with a short option, the trader caps both risk and reward -- the short leg offsets part of the long leg's cost, while the long leg limits the short leg's downside.
 
-Spreads are the workhorse of structured options trading. Naked options expose the seller to unlimited (or near-unlimited) loss; spreads bound that loss to a known maximum, making them practical for both retail traders and on-chain protocols that need to collateralize positions.
+Naked options expose the seller to unlimited, or near-unlimited, loss. A spread bounds that loss to a number known at entry, which is what makes the position collateralizable at all — a protocol can escrow the maximum loss instead of demanding a margin buffer against an open-ended one.
 
 ## Debit spreads vs. credit spreads
 
@@ -67,4 +67,4 @@ The right spread depends on the market view:
 | Neutral / range-bound | Iron condor, butterfly | Credit |
 | Volatility expansion | Calendar spread (long) | Debit |
 
-The [option Greeks](/wiki/economics/finance/defi/options/option-greeks) -- particularly delta, theta, and vega -- determine how a spread's value changes as the underlying moves, time passes, and implied volatility shifts. Understanding them is essential for selecting strikes and managing open positions.
+The [option Greeks](/wiki/economics/finance/defi/options/option-greeks) -- particularly delta, theta, and vega -- determine how a spread's value changes as the underlying moves, time passes, and implied volatility shifts. A spread's net greek is the long leg's minus the short leg's, so a spread decays more slowly and reacts to volatility less than the long option would on its own.

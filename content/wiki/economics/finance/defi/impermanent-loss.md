@@ -3,13 +3,13 @@ title: "Impermanent Loss"
 weight: 20
 ---
 
-Impermanent loss (IL) is the difference in value between holding tokens in a [liquidity pool](/wiki/economics/finance/defi/liquidity-pool) and simply holding them in a wallet. It is the cost a liquidity provider (LP) pays for the pool's automatic rebalancing — and it is the single most important risk to understand before depositing into an [AMM](/wiki/economics/finance/defi/amm).
+Impermanent loss (IL) is the difference in value between holding tokens in a [liquidity pool](/wiki/economics/finance/defi/liquidity-pool) and simply holding them in a wallet. It is the cost a liquidity provider (LP) pays for the pool's automatic rebalancing, and on a volatile pair it can exceed everything the position earns in fees over the same period.
 
 ## Intuition
 
-An AMM pool always sells the token that is going up and buys the token that is going down. This is the mechanism that keeps the pool's price in line with the market. The side effect is that an LP ends up with less of the appreciating token and more of the depreciating one — the opposite of what a holder would have.
+An [automated market maker](/wiki/economics/finance/defi/amm) (AMM) pool always sells the token that is going up and buys the token that is going down. This is the mechanism that keeps the pool's price in line with the market. The side effect is that an LP ends up with less of the appreciating token and more of the depreciating one — the opposite of what a holder would have.
 
-If prices revert, the loss disappears — hence "impermanent." If you withdraw while prices are diverged, the loss is realised.
+If prices revert, the loss disappears — hence "impermanent." Withdrawing while they are still diverged realises it.
 
 ## How it works
 
@@ -38,7 +38,7 @@ This only depends on **how much the ratio changed**, not on the direction. A 2×
 | 4×                | 20.0%  |
 | 5×                | 25.5%  |
 
-The relationship is non-linear: small price moves barely matter, but large divergences get expensive fast.
+For small moves IL grows with the square of the log price change, which is why the first 25% of divergence costs 0.6% and the jump from 2× to 4× costs another 14 points.
 
 ## Worked example
 
@@ -66,7 +66,7 @@ The LP has still *made money* in dollar terms ($2,828 vs. the original $2,000). 
 
 **Earn enough fees.** IL is a cost; trading fees are revenue. A high-volume pool can generate fee income that exceeds the IL. The comparison is always: fee APR (annual percentage rate) vs. expected IL for the pair's volatility.
 
-**Use wider ranges.** In concentrated-liquidity AMMs, a wider price range reduces IL exposure (at the cost of lower fee income per dollar of capital). This is the fundamental LP trade-off: concentration amplifies everything.
+**Use wider ranges.** In concentrated-liquidity AMMs, a wider price range reduces IL exposure (at the cost of lower fee income per dollar of capital). Concentration multiplies fee income and IL by the same factor, so the choice sets the scale of the position rather than its risk-to-reward ratio.
 
 **Active management.** Rebalancing positions as prices move can reduce IL, but introduces gas costs and complexity. Several protocols ([Arrakis](https://www.arrakis.finance/), [Gamma](https://www.gamma.xyz/)) automate this.
 

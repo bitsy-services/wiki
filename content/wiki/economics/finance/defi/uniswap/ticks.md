@@ -41,7 +41,7 @@ The price here is `token1 / token0`: how many units of token1 one unit of token0
 | 69081 | ≈ 1000 | 1000× |
 | 887272 | ≈ 3.4 × 10³⁸ | maximum (`MAX_TICK`) |
 
-Two anchors worth internalizing: **a tick is a basis point**, and **doubling the price takes ≈ 6932 ticks**. Almost every tick-level calculation you run into falls out of those two facts.
+**A tick is a basis point**, and **doubling the price takes ≈ 6932 ticks**. Almost every tick-level calculation falls out of those two facts.
 
 ## sqrtPriceX96
 
@@ -76,7 +76,7 @@ Not every tick is usable as a position boundary. Each pool has a *tick spacing* 
 | 0.30% | 60 | ≈ 0.60% |
 | 1.00% | 200 | ≈ 2.02% |
 
-Wider spacing is a gas-vs-granularity trade-off. Every initialized tick costs a `SSTORE` and — crucially — the pool has to stop and update bookkeeping every time a swap crosses one. Pairs whose price moves smoothly (ETH/stablecoin) can afford dense ticks because most swaps don't cross many of them. Volatile or exotic pairs benefit from sparser ticks to keep swap gas bounded.
+Wider spacing is a gas-vs-granularity trade-off. Every initialized tick costs a `SSTORE`, and the pool has to stop and update bookkeeping every time a swap crosses one. Pairs whose price moves smoothly (ETH/stablecoin) can afford dense ticks because most swaps don't cross many of them. Volatile or exotic pairs benefit from sparser ticks to keep swap gas bounded.
 
 In V4 the pool creator chooses `tickSpacing` at initialization; it is no longer bolted to the fee tier. Hooks can effectively behave like custom fee tiers, so the protocol exposes the underlying parameter.
 
@@ -92,7 +92,7 @@ This is why [fee distribution](fee-distribution) piggybacks on ticks: the per-ti
 
 ## Tick Bounds
 
-The min and max ticks, ±887272, are not arbitrary. They are the largest tick indices for which `sqrt(1.0001^i)` still fits in a `uint160`. In price terms that is roughly the range `[2⁻¹²⁸, 2¹²⁸]` — enough headroom for any realistic token pair, even wildly mispriced launch tokens or tokens denominated in different decimals.
+The min and max ticks, ±887272, are the largest tick indices for which `sqrt(1.0001^i)` still fits in a `uint160`. In price terms that is roughly the range `[2⁻¹²⁸, 2¹²⁸]` — enough headroom for any realistic token pair, even wildly mispriced launch tokens or tokens denominated in different decimals.
 
 A position cannot extend past those bounds, and no swap can push `sqrtPriceX96` outside them. If a pair's market price would imply a tick beyond ±887272, the pool is mis-parameterized — usually the fix is to deploy it with reversed token ordering, or with one side scaled to a sensible unit via a wrapper.
 

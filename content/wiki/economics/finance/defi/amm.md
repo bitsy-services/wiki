@@ -19,15 +19,15 @@ The simplest and most widely deployed model. Two token reserves, x and y, are co
 
 ### Constant sum (x + y = k)
 
-The reserves sum to a constant, giving zero slippage at any trade size. Sounds ideal, but it means the pool can be fully drained of one asset. In practice this is only useful in narrow cases like stablecoin pairs where the price is tightly pegged.
+The reserves sum to a constant, giving zero slippage at any trade size. Zero slippage also means the quoted price never moves away from an arbitrageur, so the moment the external price leaves the peg the whole reserve of the cheaper asset can be bought out. In practice this only works for pairs that are tightly pegged, and then only alongside another curve.
 
 ### Constant mean (weighted pools)
 
-Balancer generalizes the constant product to multiple tokens with arbitrary weightings. Instead of a 50/50 two-token pool, you can have an 80/20 ETH/USDC pool or a pool with five tokens. The invariant becomes the weighted geometric mean of all reserve balances.
+Balancer generalizes the constant product to multiple tokens with arbitrary weightings. Instead of a 50/50 two-token pool, a pool can be 80/20 ETH/USDC, or hold five tokens at once. The invariant becomes the weighted geometric mean of all reserve balances.
 
 ### Concentrated liquidity
 
-[Uniswap](/wiki/economics/finance/defi/uniswap) V3 introduced concentrated liquidity, where LPs choose a price range in which their capital is active. Within that range the pool behaves like a much deeper constant-product pool. Outside it, the LP's position is inactive. This dramatically improves capital efficiency but requires LPs to actively manage their positions. Uniswap V4 extends this with hooks that allow custom logic on every swap.
+[Uniswap](/wiki/economics/finance/defi/uniswap) V3 introduced concentrated liquidity, where LPs choose a price range in which their capital is active. Within that range the pool behaves like a much deeper constant-product pool. Outside it, the LP's position is inactive. Capital efficiency improves by roughly the ratio of the full curve to the chosen range — a factor in the thousands for a tight stablecoin band — and the cost is a position that has to be re-ranged as the price moves. Uniswap V4 extends this with hooks that allow custom logic on every swap.
 
 ### StableSwap (Curve)
 
@@ -35,15 +35,13 @@ Curve's StableSwap invariant blends a constant-sum and constant-product curve, p
 
 ## How a swap works
 
-A constant-product AMM illustrates the basic mechanics:
-
 1. The pool holds reserves of Token A and Token B. The invariant is `a * b = k`.
 2. A trader sends `da` of Token A to the pool. The new Token A reserve becomes `a + da`.
 3. The contract computes the new Token B reserve: `b' = k / (a + da)`.
 4. The trader receives `b - b'` of Token B (minus a fee, typically 0.3%).
 5. The fee is added to the reserves, slightly increasing k and rewarding LPs.
 
-Because the curve is convex, larger trades push the price further -- this is **slippage**. A $100 swap in a $10M pool barely moves the price; the same swap in a $100K pool moves it substantially.
+Because the curve is convex, larger trades push the price further -- this is **slippage**. Price impact scales with the trade as a fraction of the reserves, so a $100 swap against a $10M pool moves the price by a few thousandths of a percent and the same swap against a $100K pool moves it a hundred times as much.
 
 ## Roles in an AMM
 
@@ -58,7 +56,7 @@ Because the curve is convex, larger trades push the price further -- this is **s
 - **[Impermanent loss](/wiki/economics/finance/defi/impermanent-loss)** is the dominant risk for LPs. In volatile pairs, IL can exceed fee income, making the position a net loss.
 - **Slippage** on large trades is inherent to the bonding curve. Concentrated liquidity and deeper pools reduce it but don't eliminate it.
 - **MEV (maximal extractable value)** -- sandwich attacks and front-running target AMM traders. A searcher sees a pending swap, trades ahead of it (pushing the price), and trades behind it (profiting from the movement). Private mempools and intent-based routing (UniswapX) are the main countermeasures.
-- **Smart contract risk** -- the pool is only as safe as its code. Major AMMs like Uniswap have been extensively audited and battle-tested, but forks and new designs carry higher risk.
+- **Smart contract risk** -- the pool is only as safe as its code. Uniswap's v2 core has been live and unmodified since 2020, holding billions across every market condition since; a fork with edits, or a new curve, has none of that record behind it.
 
 ## Notable AMM protocols
 

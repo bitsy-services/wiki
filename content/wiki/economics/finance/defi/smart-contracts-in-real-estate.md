@@ -3,7 +3,7 @@ title: Smart Contracts in Real Estate
 weight: 66
 ---
 
-Real estate transactions are slow, expensive, and burdened with intermediaries -- title companies, escrow agents, lawyers, and brokers each take a cut. [Smart contracts](/wiki/economics/finance/defi/smart-contract) on a [blockchain](/wiki/economics/finance/defi/blockchain) can automate much of this pipeline, cutting costs and reducing the surface area for disputes.
+A property transaction passes through title companies, escrow agents, lawyers, and brokers, each of whom takes a fee and adds days. [Smart contracts](/wiki/economics/finance/defi/smart-contract) on a [blockchain](/wiki/economics/finance/defi/blockchain) can automate much of that pipeline, because escrow release, deed transfer, and rent collection all reduce to conditions a contract can check and act on.
 
 ## Tokenized Ownership
 
@@ -32,7 +32,7 @@ Lease terms -- rent amount, due date, late penalties, security deposit rules -- 
 
 ### Legal Recognition
 
-Most jurisdictions do not recognize a blockchain transaction as a valid deed transfer. Smart contracts can automate the financial mechanics, but a parallel paper process is still required to satisfy local recording statutes. This is the single largest barrier to adoption.
+Most jurisdictions do not recognize a blockchain transaction as a valid deed transfer. Smart contracts can automate the financial mechanics, but a parallel paper process is still required to satisfy local recording statutes — no amount of on-chain automation removes the county recorder from the transaction.
 
 ### Oracle Dependency
 

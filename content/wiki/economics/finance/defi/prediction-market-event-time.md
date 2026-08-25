@@ -3,7 +3,7 @@ title: Prediction Market Event Time
 weight: 46
 ---
 
-**Event time** is the moment a [prediction market](/wiki/economics/finance/defi/prediction-market) determines its outcome. It governs when trading stops, when resolution begins, and when winning shares become redeemable. Getting event time right is one of the hardest design problems in on-chain prediction markets because it sits at the intersection of real-world timing, [oracle](/wiki/economics/finance/defi/oracle-node) reliability, and [smart contract](/wiki/economics/finance/defi/smart-contract) mechanics.
+**Event time** is the moment a [prediction market](/wiki/economics/finance/defi/prediction-market) determines its outcome. It governs when trading stops, when resolution begins, and when winning shares become redeemable. It sits at the intersection of real-world timing, [oracle](/wiki/economics/finance/defi/oracle-node) reliability, and [smart contract](/wiki/economics/finance/defi/smart-contract) mechanics, and getting it wrong strands capital in a decided market, settles an undecided one, or resolves the wrong side of a close call.
 
 ## Resolution Lifecycle
 
@@ -32,7 +32,7 @@ Not every event resolves cleanly. Markets must define what happens when:
 
 - **The event does not occur** -- a scheduled fight is canceled, a product launch is postponed indefinitely. Most protocols define an "Invalid" outcome that returns funds to participants proportionally.
 - **The outcome is ambiguous** -- the resolution criteria were not specific enough, or multiple interpretations are defensible. Well-designed markets invest heavily in precise resolution rules up front to minimize this risk.
-- **The oracle fails** -- the data source is unavailable, compromised, or reports contradictory data. Fallback mechanisms (secondary oracles, governance votes, manual override) are essential.
+- **The oracle fails** -- the data source is unavailable, compromised, or reports contradictory data. Without a fallback — a secondary oracle, a governance vote, a manual override — the market cannot settle at all, and the capital in it stays locked indefinitely.
 
 ## Time Zone and Timestamp Pitfalls
 

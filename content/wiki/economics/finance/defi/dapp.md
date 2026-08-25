@@ -18,8 +18,6 @@ The wallet (MetaMask, Rabby, a hardware signer) bridges the two layers. It holds
 
 ## How a swap works on Uniswap
 
-A concrete example makes the architecture tangible:
-
 1. The user opens the Uniswap web app and connects their wallet.
 2. They select an [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) token pair and enter an amount.
 3. The frontend calls the router contract's `swap` function, encoding the parameters into a transaction.
@@ -41,11 +39,11 @@ No intermediary custodies the funds at any point.
 
 **Censorship resistance.** Because the contracts live on a public blockchain, no single entity can shut them down. Even if a frontend is taken offline, anyone can interact with the contracts directly or deploy an alternative frontend.
 
-**Transparency.** Contract code and all transactions are publicly auditable. For financial applications this is a meaningful trust improvement over opaque centralized systems.
+**Transparency.** Contract code and all transactions are publicly auditable. A pool's reserves, a protocol's fee parameters, and every trade that moved them can be read off the chain directly rather than taken from a disclosure the operator chose to publish.
 
 **Scalability.** Blockchains have limited throughput. On Ethereum mainnet, gas costs spike during congestion. Layer-2 rollups (Optimism, Arbitrum, Base) improve this by batching transactions off-chain and posting proofs on-chain.
 
-**User experience.** Users must manage wallets, approve token spending, pay gas fees, and understand transaction finality. The UX gap between dApps and traditional apps is narrowing but still significant.
+**User experience.** Users must manage wallets, approve token spending, pay gas fees, and understand transaction finality. Account abstraction and embedded wallets remove several of those steps, at the cost of reintroducing a party — a key-share custodian, a bundler, a paymaster — that can be compelled or can simply go down.
 
 **Smart contract risk.** Bugs in contracts can lead to permanent loss of funds. There is no customer support to reverse a transaction. Audits and formal verification reduce but do not eliminate this risk.
 

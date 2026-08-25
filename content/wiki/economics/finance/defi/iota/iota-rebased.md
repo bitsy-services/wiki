@@ -46,7 +46,7 @@ Post-launch, IOTA has been adding **account abstraction** (specified in IIP-0009
 
 ## Roadmap
 
-Rebased was the foundation, not the finish line. The trajectory through 2026, per the [IOTA Manifesto](https://manifesto.iota.org/) and quarterly updates:
+The trajectory through 2026, per the [IOTA Manifesto](https://manifesto.iota.org/) and quarterly updates:
 
 - **Consensus and node performance** — Starfish on mainnet; a FastCommitSyncer that restores faulted nodes ~20–30× faster; an indexer rebuilt for ~80× throughput on data-heavy reads; gRPC node APIs.
 - **Account abstraction to mainnet** — finishing the rollout begun on test networks.

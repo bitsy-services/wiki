@@ -18,21 +18,21 @@ A typical two-token pool (e.g., ETH/USDC) has:
 
 ## Providing liquidity
 
-To become an LP, you deposit tokens into the pool's smart contract. In a standard constant-product pool, you deposit both tokens in the current ratio -- if the pool is 50% ETH and 50% USDC by value, you supply both. The contract mints LP tokens proportional to your share of the total reserves.
+An LP deposits tokens into the pool's smart contract. A standard constant-product pool requires both tokens in the current reserve ratio, so a 50/50 ETH/USDC pool takes equal value of each. The contract mints LP tokens in proportion to the depositor's share of the total reserves.
 
-When you withdraw, you burn your LP tokens and receive your share of both tokens. The amounts will differ from what you deposited because trades have shifted the reserve ratio, and fees have accumulated.
+Withdrawing burns those LP tokens and returns that share of whatever the reserves now hold. The amounts differ from what went in: trades have shifted the ratio, and fees have accumulated on top.
 
 ### Worked example
 
-A pool holds 10 ETH and 25,000 USDC (ETH at $2,500). You deposit 1 ETH and 2,500 USDC, receiving LP tokens representing 10% of the pool. Over time, trading fees increase the reserves to 10.5 ETH and 26,250 USDC. Your 10% share is now worth 1.05 ETH + 2,625 USDC -- the fee income.
+A pool holds 10 ETH and 25,000 USDC (ETH at $2,500). A deposit of 1 ETH and 2,500 USDC mints LP tokens worth 10% of the pool. Trading fees then raise the reserves to 10.5 ETH and 26,250 USDC, and the same 10% share is now 1.05 ETH + 2,625 USDC — a 5% return on both legs.
 
-But if ETH's price has also moved, the reserve ratio has shifted, and [impermanent loss](/wiki/economics/finance/defi/impermanent-loss) may offset some or all of the fee income.
+That calculation holds the ETH price fixed. If it moved, the reserve ratio moved with it, and [impermanent loss](/wiki/economics/finance/defi/impermanent-loss) offsets some or all of the fee income.
 
 ## Risks
 
 ### Impermanent loss
 
-The most significant risk for LPs. When the price ratio of pooled tokens changes from the ratio at deposit time, an LP ends up with less value than if they had simply held the tokens. The loss is "impermanent" only if prices revert. In practice, for volatile pairs, impermanent loss is often permanent and can exceed fee income. See [impermanent loss](/wiki/economics/finance/defi/impermanent-loss) for the mechanics and math.
+When the price ratio of the pooled tokens moves away from the ratio at deposit time, the LP ends up with less value than someone who simply held the two tokens. The loss is "impermanent" only if prices revert. In practice, for volatile pairs, impermanent loss is often permanent and can exceed fee income. See [impermanent loss](/wiki/economics/finance/defi/impermanent-loss) for the mechanics and math.
 
 ### Smart contract risk
 
@@ -53,7 +53,7 @@ In concentrated-liquidity pools (Uniswap V3+), LPs choose a price range. If the 
 
 ## Use cases beyond trading
 
-Liquidity pools are the building block for much of DeFi:
+The same contract shape shows up well outside trading:
 
 - **[Yield farming](/wiki/economics/finance/defi/yield-farming)** -- protocols incentivize LPs with additional token rewards on top of trading fees.
 - **Lending** -- platforms like Aave and Compound use pool-based models where depositors supply tokens that borrowers draw from.

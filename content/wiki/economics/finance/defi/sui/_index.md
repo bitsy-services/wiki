@@ -6,9 +6,9 @@ bookCollapseSection: true
 
 [Sui](https://sui.io/) is a high-throughput, low-latency [Layer 1](/wiki/economics/finance/defi/blockchain) [blockchain](/wiki/economics/finance/defi/blockchain) built by **Mysten Labs**, a team of engineers and researchers who previously built the Diem (Libra) and Novi projects at Meta. It launched its mainnet in **May 2023**. Sui's defining bet is that the account-and-balance model used by [Ethereum](/wiki/economics/finance/defi/ethereum/) and most other chains is the wrong primitive for scaling: instead, Sui represents all on-chain state as discrete, typed [objects](/wiki/economics/finance/defi/sui/object-model), which lets independent transactions execute *in parallel* rather than single-file.
 
-That object model is paired with the [Move](/wiki/economics/finance/defi/sui/sui-move) language — a resource-oriented language, also created at Meta, in which on-chain assets are first-class values the type system refuses to copy or silently drop. Sui shares this Move/object lineage with [IOTA](/wiki/economics/finance/defi/iota/), which rebased its own mainnet onto the same Mysten Labs research stack in 2025. If you know one, much of the other will feel familiar.
+That object model is paired with the [Move](/wiki/economics/finance/defi/sui/sui-move) language — a resource-oriented language, also created at Meta, in which on-chain assets are first-class values the type system refuses to copy or silently drop. Sui shares this Move/object lineage with [IOTA](/wiki/economics/finance/defi/iota/), which rebased its own mainnet onto the same Mysten Labs research stack in 2025 — the two now share the language, the object model, and much of the tooling.
 
-## Why Sui Is Different
+## Three design choices
 
 Three design choices distinguish Sui from [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) chains, and most of the rest of this section elaborates on them:
 
@@ -20,7 +20,7 @@ On top of these, Sui adds developer- and user-facing primitives that have no cle
 
 ## Consensus at a Glance
 
-Sui uses **Mysticeti**, a [DAG](/wiki/cs/dag)-based Byzantine-fault-tolerant [consensus](/wiki/economics/finance/defi/sui/consensus) protocol, with proof-of-stake validator selection. The **Mysticeti v2** upgrade (rolled out from late 2025) folds transaction validation into consensus and, on Mysten's benchmarks, sustains ~100,000 transactions per second at roughly 390 ms finality. Crucially, single-owner transactions bypass consensus altogether and finalize even faster. See [Consensus](/wiki/economics/finance/defi/sui/consensus) for the Narwhal/Bullshark history and the fast-path vs. consensus-path split.
+Sui uses **Mysticeti**, a [DAG](/wiki/cs/dag)-based Byzantine-fault-tolerant [consensus](/wiki/economics/finance/defi/sui/consensus) protocol, with proof-of-stake validator selection. The **Mysticeti v2** upgrade (rolled out from late 2025) folds transaction validation into consensus and, on Mysten's benchmarks, sustains ~100,000 transactions per second at roughly 390 ms finality. Single-owner transactions bypass consensus altogether and finalize faster still. See [Consensus](/wiki/economics/finance/defi/sui/consensus) for the Narwhal/Bullshark history and the fast-path vs. consensus-path split.
 
 ## The SUI Token
 
@@ -31,11 +31,11 @@ The native token is **SUI**, with a hard-capped maximum supply of **10 billion**
 - **Storage fund** — fees for on-chain storage are escrowed in a protocol-managed [storage fund](/wiki/economics/finance/defi/sui/gas-and-storage), which pays future validators for retaining that data and is refunded (rebated) when data is deleted. As usage grows, SUI accumulates in the fund and is effectively removed from circulation.
 - **Governance** — on-chain voting on protocol parameters.
 
-## Why It Matters for DeFi
+## The DeFi-relevant parts
 
 - **Parallelism for trading.** [DeepBook](/wiki/economics/finance/defi/sui/defi-ecosystem), Sui's native on-chain central limit order book, exploits parallel execution to deliver a low-latency [DEX](/wiki/economics/finance/defi/dex) primitive that other protocols build on as shared liquidity.
 - **Low, predictable fees.** Gas is fractions of a cent, and the computation/storage split keeps pricing stable; see [Gas & Storage](/wiki/economics/finance/defi/sui/gas-and-storage).
-- **Onboarding.** [zkLogin](/wiki/economics/finance/defi/sui/zklogin) lets [dApps](/wiki/economics/finance/defi/dapp) onboard users with a Google or Apple login instead of a seed phrase, lowering the biggest UX barrier in DeFi.
+- **Onboarding.** [zkLogin](/wiki/economics/finance/defi/sui/zklogin) lets [dApps](/wiki/economics/finance/defi/dapp) onboard users with a Google or Apple login, removing the seed phrase — the step at which most non-crypto users stop.
 - **MEV posture.** Owned-object transactions that skip consensus are not subject to ordering games, narrowing some [MEV](/wiki/economics/finance/defi/maximal-extractable-value) surface — though shared-object DeFi ([AMMs](/wiki/economics/finance/defi/amm), lending) still orders through consensus and is not immune.
 
 See [DeFi on Sui](/wiki/economics/finance/defi/sui/defi-ecosystem) for the ecosystem map.

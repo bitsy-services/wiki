@@ -5,7 +5,7 @@ weight: 80
 
 Regulation E is the rule that decides whether a consumer gets their money back after an electronic payment goes wrong. It sits at 12 CFR Part 1005, implements the Electronic Fund Transfer Act (EFTA) of 1978, and is administered by the Consumer Financial Protection Bureau (CFPB).
 
-It is the closest thing US law has to a consumer bill of rights for payments, and it is showing its age badly. Written for a world of automated teller machines and preauthorized debits, it is now the governing rule for [instant irrevocable transfers](/wiki/economics/finance/payments/zelle) it never contemplated, and the mismatch is producing the largest unresolved question in American consumer finance.
+It is the closest thing US law has to a consumer bill of rights for payments. Written for a world of automated teller machines and preauthorized debits, it now governs [instant irrevocable transfers](/wiki/economics/finance/payments/zelle) it never contemplated, and the question that follows — who bears the loss when a consumer is talked into pressing send — has no federal answer.
 
 Nothing here is legal advice.
 
@@ -25,7 +25,7 @@ Three obligations do most of the work.
 
 An **unauthorized electronic fund transfer** is defined as one initiated by a person other than the consumer, without actual authority to initiate it, and from which the consumer receives no benefit.
 
-Read that clause carefully, because a great deal turns on it. It asks *who initiated the transfer*. It does not ask whether the consumer's decision to initiate was procured by deception.
+It asks *who initiated the transfer*. It does not ask whether the consumer's decision to initiate was procured by deception.
 
 This was an unremarkable line to draw in 1978. The frauds of the era involved somebody physically taking a card, or a machine malfunctioning, and in both cases the consumer plainly did not press the button. On an instant push rail, the dominant fraud is the opposite shape: the victim is manipulated into pressing the button themselves. The industry reads that case as authorized and therefore outside the rule. That reading is textually defensible and leaves the loss with the least-informed party on the least-reversible rail — the argument set out in detail on [Zelle's fraud and liability page](/wiki/economics/finance/payments/zelle/fraud-and-liability).
 

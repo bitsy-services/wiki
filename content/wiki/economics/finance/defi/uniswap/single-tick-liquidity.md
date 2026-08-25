@@ -21,10 +21,10 @@ So a position seeded at tick `i` covers exactly `[1.0001^i, 1.0001^(i+1))` — a
 
 The defining property is what happens at the edges, not in the middle:
 
-- While the position has inventory on the side you are buying, you trade at ~the tick price regardless of size. Depth is finite but flat.
+- While the position holds inventory on the side being bought, trades fill at ~the tick price regardless of size. Depth is finite but flat.
 - When that side is fully consumed, price reaches the top of the tick and stops. It cannot continue up through that position because the position is empty above it. The next trade only proceeds if there is liquidity in an adjacent tick.
 
-This inverts the usual [AMM](/wiki/economics/finance/defi/amm) intuition. A normal pool gives you continuous price impact and infinite (but ever-worsening) depth. A single-tick position gives you near-zero price impact and a hard quantity ceiling.
+A normal [AMM](/wiki/economics/finance/defi/amm) pool has continuous price impact and unbounded but ever-worsening depth. A single-tick position has the opposite pair: near-zero price impact, and a hard quantity ceiling.
 
 ## Single-sided seeding
 

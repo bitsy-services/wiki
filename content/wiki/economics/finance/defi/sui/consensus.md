@@ -3,13 +3,13 @@ title: "Consensus"
 weight: 40
 ---
 
-Most blockchains funnel every transaction through a single global agreement step: validators must agree on one total order for all transactions before any of them execute. That step is the throughput bottleneck, and it is also where ordering games — front-running, sandwiching — become possible. Sui's central insight is that *most* transactions don't actually need a global order at all. Whether a transaction needs consensus depends entirely on the [object model](/wiki/economics/finance/defi/sui/object-model): specifically, whether it touches *owned* objects or *shared* objects.
+Most blockchains funnel every transaction through a single global agreement step: validators must agree on one total order for all transactions before any of them execute. That step is the throughput bottleneck, and it is also where ordering games — front-running, sandwiching — become possible. Most transactions do not need a global order at all. Whether a transaction needs consensus depends entirely on the [object model](/wiki/economics/finance/defi/sui/object-model): specifically, whether it touches *owned* objects or *shared* objects.
 
 ## The Two-Path Execution Model
 
 ### The fast path (consensusless)
 
-A transaction that touches only **owned objects** — objects controlled by a single address — does **not** go through full consensus. The reasoning is structural: only the owner can mutate an owned object, so there is no competing writer to order against. If two transactions never contend for the same mutable state, there is nothing to serialize. Asking a global consensus protocol to order them would be pure overhead.
+A transaction that touches only **owned objects** — objects controlled by a single address — does **not** go through full consensus. The reasoning is structural: only the owner can mutate an owned object, so there is no competing writer to order against. If two transactions never contend for the same mutable state, there is nothing to serialize. Ordering them through a global consensus protocol adds latency and buys nothing.
 
 Instead, validators certify these transactions through a **Byzantine-consistent-broadcast** style path. The client sends the transaction to validators, each checks it against the object's current version and signs, and once a quorum of signatures (a *certificate*) is collected the transaction is final. There is no agreement round, no waiting for a leader, no DAG commit rule — just verify and certify. The result is very low latency; Mysticeti's own measurements put single-owner finality around 250 ms.
 
@@ -37,7 +37,7 @@ The two-path split changes the [MEV](/wiki/economics/finance/defi/maximal-extrac
 
 ## Shared Lineage with IOTA
 
-This consensus stack is not Sui's alone. When [IOTA](/wiki/economics/finance/defi/iota/) rebased its mainnet onto the Mysten Labs research stack in 2025, it launched on Mysticeti from the same lineage. IOTA later moved to its own **Starfish** protocol — another uncertified-DAG BFT design — but the family resemblance is direct. If you understand Sui's consensus path, you already understand most of IOTA Rebased's.
+This consensus stack is not Sui's alone. When [IOTA](/wiki/economics/finance/defi/iota/) rebased its mainnet onto the Mysten Labs research stack in 2025, it launched on Mysticeti from the same lineage. IOTA later moved to its own **Starfish** protocol — another uncertified-DAG BFT design — but the family resemblance is direct. The fast-path/consensus-path split and the uncertified-DAG commit rule carry over almost unchanged.
 
 ## External Links
 

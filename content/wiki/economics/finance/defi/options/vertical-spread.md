@@ -96,7 +96,7 @@ The width between strikes determines the risk/reward tradeoff:
 - **Narrow spreads** (e.g. 1--2 strikes apart) -- lower cost, lower max profit, higher probability of max loss. Essentially leveraged directional bets.
 - **Wide spreads** (e.g. 5--10 strikes apart) -- higher cost, higher max profit, lower probability of max profit. Approach the behavior of a single long option as width increases.
 
-The [option Greeks](/wiki/economics/finance/defi/options/option-greeks) help calibrate strike choice. Delta approximates the probability that the short strike expires in-the-money; theta tells you how much time decay works for or against the position daily.
+The [option Greeks](/wiki/economics/finance/defi/options/option-greeks) help calibrate strike choice. Delta approximates the probability that the short strike expires in-the-money; theta gives the daily time decay working for or against the position.
 
 ## Vertical spreads in DeFi
 

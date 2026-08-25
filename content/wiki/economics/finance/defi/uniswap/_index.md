@@ -4,7 +4,7 @@ weight: 2
 bookCollapseSection: true
 ---
 
-Uniswap lets you swap one [ERC-20](https://en.wikipedia.org/wiki/ERC-20) token for another directly on-chain, without an order book or counterparty. Instead of matching buyers and sellers, it uses [liquidity pools](https://en.wikipedia.org/wiki/Constant_function_market_maker) — smart contracts that hold reserves of two tokens and price swaps algorithmically. Anyone can trade against a pool, and anyone can deposit tokens into one to earn fees.
+Uniswap swaps one [ERC-20](https://en.wikipedia.org/wiki/ERC-20) token for another directly on-chain, without an order book or a counterparty on the other side of the trade. Instead of matching buyers and sellers, it uses [liquidity pools](https://en.wikipedia.org/wiki/Constant_function_market_maker) — smart contracts that hold reserves of two tokens and price swaps algorithmically. Anyone can trade against a pool, and anyone can deposit tokens into one to earn fees.
 
 It is the dominant [decentralized exchange](https://en.wikipedia.org/wiki/Decentralized_exchange) on [Ethereum](https://en.wikipedia.org/wiki/Ethereum) and most [L2s](https://en.wikipedia.org/wiki/Blockchain_scaling#Layer_2), handling billions of dollars in daily volume.
 
@@ -12,7 +12,7 @@ It is the dominant [decentralized exchange](https://en.wikipedia.org/wiki/Decent
 
 Uniswap has gone through several major versions. Each is a separate set of smart contracts — older versions remain deployed and functional.
 
-**V2** introduced the core [AMM](/wiki/economics/finance/defi/amm) model: every pool holds a 50/50 reserve of two tokens, priced along a constant-product curve (`x * y = k`). Simple and battle-tested, but capital-inefficient — liquidity is spread evenly across all possible prices, so most of it sits idle.
+**V2** introduced the core [AMM](/wiki/economics/finance/defi/amm) model: every pool holds a 50/50 reserve of two tokens, priced along a constant-product curve (`x * y = k`). The core contracts have been live and unmodified since 2020, and they are capital-inefficient: liquidity is spread evenly across every possible price, so most of it sits idle.
 
 **V3** added [concentrated liquidity](https://docs.uniswap.org/concepts/protocol/concentrated-liquidity). Liquidity providers choose a price range for their capital, so the same dollar amount can generate far more trading depth where it matters. V3 also introduced multiple [fee tiers](https://docs.uniswap.org/concepts/protocol/fees#fee-tiers) per pair (0.01%, 0.05%, 0.3%, 1%). This is the most widely integrated version today.
 
@@ -47,7 +47,7 @@ This is the more consequential decision. It determines your approval flow, your 
 | **Learning / prototyping** | **SwapRouter** (V3) | Simplest interface, most tutorials and examples; see the [ISwapRouter guide](iswap-router) |
 | **Existing integration that works** | Keep what you have | No need to migrate unless you need V4 or Permit2 |
 
-The UniversalRouter uses encoded command bytes instead of named functions, which makes it harder to read and debug in Solidity — that's why on-chain contracts often prefer SwapRouter02 even though UniversalRouter is technically superior.
+The UniversalRouter uses encoded command bytes instead of named functions, which makes it harder to read and debug in Solidity — so on-chain contracts often prefer SwapRouter02 even though UniversalRouter costs less gas and reaches more pool versions.
 
 For a full comparison (approval flows, gas costs, code examples), see [SwapRouter vs SwapRouter02 vs UniversalRouter](swap-routers).
 

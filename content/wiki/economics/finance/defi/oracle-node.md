@@ -3,7 +3,7 @@ title: "Oracle Node"
 weight: 40
 ---
 
-An oracle node is a piece of software that feeds external data into a blockchain. [Smart contracts](/wiki/economics/finance/defi/smart-contract) can only read on-chain state — they have no way to make HTTP requests, query databases, or observe the physical world. Oracles bridge this gap, and the nodes that run them are the infrastructure that makes data-dependent DeFi possible.
+An oracle node is a piece of software that feeds external data into a blockchain. [Smart contracts](/wiki/economics/finance/defi/smart-contract) can only read on-chain state — they have no way to make HTTP requests, query databases, or observe the physical world. Oracles bridge that gap.
 
 Without oracles, a lending protocol cannot know the price of collateral, an insurance contract cannot verify whether a flight was delayed, and a prediction market cannot settle bets.
 
@@ -11,9 +11,9 @@ Without oracles, a lending protocol cannot know the price of collateral, an insu
 
 A blockchain's security model assumes that all participants can independently verify every state transition. External data breaks this assumption — there is no way to trustlessly prove that ETH is trading at $1,800 on Coinbase. Someone has to attest to it.
 
-This is the **oracle problem**: how do you get trusted data into a trustless system?
+This is the **oracle problem**: data that has to be trusted must enter a system built so that nothing has to be.
 
-The practical answer is redundancy and incentive design. Instead of trusting one source, you aggregate reports from many independent nodes and penalise dishonest reporters.
+The practical answer is redundancy plus incentive design. Rather than one source, an aggregator takes reports from many independent nodes, discards the outliers, and penalises the operators who produce them.
 
 ## How oracle nodes work
 
@@ -22,7 +22,7 @@ The practical answer is redundancy and incentive design. Instead of trusting one
 3. **Submit** — the signed report is submitted to an on-chain aggregator contract.
 4. **Aggregate** — the contract collects reports from multiple nodes and produces a canonical value, typically a median. Outliers are discarded.
 
-The aggregation step is critical. A single compromised node can submit a bad value, but it cannot shift the median unless a majority of nodes collude.
+A single compromised node can submit any value it likes and still not move the median, so corrupting a feed means corrupting a majority of its nodes simultaneously.
 
 ## Oracle network designs
 
@@ -55,7 +55,7 @@ UMA's optimistic oracle assumes data is correct unless disputed. A proposer post
 
 ## Common use cases
 
-- **Price feeds** — the backbone of DeFi. Lending protocols ([Aave](https://aave.com), [Compound](https://compound.finance)), [DEXs](/wiki/economics/finance/defi/dex), and derivatives platforms all depend on accurate, timely price data.
+- **Price feeds** — the highest-volume category by a wide margin. Lending protocols ([Aave](https://aave.com), [Compound](https://compound.finance)), [DEXs](/wiki/economics/finance/defi/dex), and derivatives platforms all depend on accurate, timely price data.
 - **Proof of reserves** — verifying that off-chain or cross-chain collateral actually exists.
 - **Randomness** — Chainlink VRF provides verifiable randomness for [NFT](/wiki/economics/finance/defi/nft) mints, lotteries, and gaming.
 - **Automation** — triggering contract functions when conditions are met (see [Chainlink Automation](/wiki/economics/finance/defi/chainlink/automation)).

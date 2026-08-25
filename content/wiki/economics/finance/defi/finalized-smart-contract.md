@@ -5,7 +5,7 @@ weight: 8
 
 A finalized smart contract is one that has been deployed to a [blockchain](/wiki/economics/finance/defi/blockchain) with no mechanism for anyone -- including its original developer -- to modify its code or behavior. Once finalized, the contract runs exactly as written for as long as the blockchain exists.
 
-This is the strongest form of the immutability property that makes [smart contracts](/wiki/economics/finance/defi/smart-contract) useful in the first place. A finalized contract cannot be censored, paused, upgraded, or tampered with by governments, corporations, or the developers who wrote it.
+It is the limit case of the immutability that separates a [smart contract](/wiki/economics/finance/defi/smart-contract) from a hosted service: a finalized contract cannot be censored, paused, upgraded, or tampered with by a government, a corporation, or the developers who wrote it, because none of them retains a function that would do it.
 
 ## What finalization means in practice
 
@@ -31,7 +31,7 @@ Most DeFi contracts are not fully finalized. Instead, they sit somewhere on a sp
 
 The transparent proxy and UUPS patterns are the most common in production DeFi. They allow the development team to fix critical bugs or respond to exploits, but they require users to trust that the admin keys are held securely and used responsibly.
 
-## Why finalization matters
+## What it changes
 
 ### Fund-loss risk from upgradeable contracts
 
@@ -43,7 +43,7 @@ A finalized contract cannot be forced to comply with a court order, sanctions li
 
 ### Composability guarantees
 
-Other protocols that integrate with a finalized contract can rely on its behavior never changing. This is critical for [DeFi](/wiki/economics/finance/defi/dex) composability -- a lending protocol that accepts a certain token as collateral needs to trust that the token contract's transfer logic will not be altered.
+Other protocols that integrate with a finalized contract can rely on its behavior never changing. [DeFi](/wiki/economics/finance/defi/dex) composability rests on this: a lending protocol that accepts a token as collateral is relying on that token's transfer logic never changing underneath it.
 
 ## When finalization is appropriate
 

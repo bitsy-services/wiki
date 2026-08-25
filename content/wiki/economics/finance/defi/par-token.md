@@ -5,7 +5,7 @@ weight: 90
 
 A **par token** is a token whose price against one specific reference asset is structurally clamped to a hard, narrow band starting at parity — acquirable at a known maximum premium, exitable at no worse than par — backed at least 1:1 by the real reference asset, with no oracle, no redemption function, and no governance, permissionlessly instantiable for any [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20).
 
-It is not a new primitive. It is a specific *composition* of documented ones, and the value is in the conjunction.
+It is not a new primitive but a specific *composition* of documented ones.
 
 ## A coined term, on purpose
 
@@ -21,7 +21,7 @@ It is not a new primitive. It is a specific *composition* of documented ones, an
 
 > A par token's price against its reference asset is bounded to `[1.0000, 1.0001)` for the whole of circulating supply, by construction; backed ≥1:1 by the real reference asset accumulated in the position; with no oracle, no redemption function, no governance, and no party — issuer, [LP](/wiki/economics/finance/defi/liquidity-pool), keeper — able to alter, withdraw, or unwind any of it; permissionlessly instantiable for any ERC-20.
 
-That sentence is falsifiable: a critic can try to name the missing actor, or a prior instance. That is the property it is written to have.
+That sentence is falsifiable: a critic can try to name the missing actor, or a prior instance.
 
 ## The composition
 
@@ -34,19 +34,19 @@ A par token is exactly these six techniques, locked together:
 5. [Full-reserve backing](/wiki/economics/finance/defi/full-reserve-backing) — the reserve is the real originals accumulated 1:1 as buyers swap in.
 6. [Permissionless token factory](/wiki/economics/finance/defi/permissionless-token-factory) — anyone can instantiate one for any ERC-20, no gate.
 
-## Why the conjunction is more than the parts
+## What each part alone is missing
 
-Each constituent is individually mundane. None of them, alone, is a par token:
+Each constituent is documented and unremarkable on its own, and none of them alone is a par token:
 
 - Locked liquidity alone does not peg anything.
 - A single-tick position alone is not permanent, oracle-free-by-design, or 1:1-collateralized.
 - A liquidity floor alone bounds only the downside.
 
-The non-obvious part is that single-sided full-supply seating, permanent lock, *and* serving as 1:1 reserve are goals that fight each other in naive designs — and making all three hold at once, with every discretionary actor deleted, is the mechanism. The emergent property is a **closure**: an immutable, oracle-free, redemption-free, governance-free, permissionlessly-instantiable hard peg by construction.
+Single-sided full-supply seating, a permanent lock, *and* serving as the 1:1 reserve are goals that fight each other in naive designs. Making all three hold at once, with every discretionary actor deleted, produces a **closure**: an immutable, oracle-free, redemption-free, governance-free, permissionlessly-instantiable hard peg by construction.
 
 ## What it is *not*
 
-- **Not redeemable at a desk.** There is no burn-to-redeem function. You exit by *selling back into the same locked position at ≥ par*. "Economically recoverable" — true. "Redeemable 1:1" — false. This distinction is the single most common misreading.
+- **Not redeemable at a desk.** There is no burn-to-redeem function. The exit is a sale back into the same locked position at ≥ par. "Economically recoverable" — true. "Redeemable 1:1" — false.
 - **Not a synthetic.** It does not track the reference asset via an oracle. It *holds* the reference asset.
 - **Not arbitrage-maintained.** Nothing acts to restore the peg. The peg is where the liquidity is.
 

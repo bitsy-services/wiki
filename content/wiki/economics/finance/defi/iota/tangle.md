@@ -3,7 +3,7 @@ title: "The Tangle"
 weight: 1
 ---
 
-The Tangle was IOTA's original ledger: a [directed acyclic graph](/wiki/cs/dag/) (DAG) of transactions rather than a chain of blocks. It defined the network from launch until the [IOTA Rebased](/wiki/economics/finance/defi/iota/iota-rebased) upgrade in May 2025 retired it. Understanding it still matters, because most third-party material describes IOTA as if the Tangle were the live system.
+The Tangle was IOTA's original ledger: a [directed acyclic graph](/wiki/cs/dag/) (DAG) of transactions rather than a chain of blocks. It defined the network from launch until the [IOTA Rebased](/wiki/economics/finance/defi/iota/iota-rebased) upgrade retired it in May 2025, and most third-party material still describes IOTA as though it were the live system.
 
 ## What the Tangle Is
 
@@ -17,11 +17,11 @@ Because issuing a transaction also did the work of validating two others, throug
 
 ## Feeless by Design
 
-With no miners competing for block rewards, there was no fee market. The sender's proof-of-work substituted for a fee. This was the entire point: IOTA targeted the machine economy, where billions of [micropayments](/wiki/economics/finance/defi/micro-transactions) between devices would be uneconomical if each carried a gas cost. Feelessness, not smart-contract expressiveness, was the original value proposition.
+With no miners competing for block rewards, there was no fee market. The sender's proof-of-work substituted for a fee. IOTA targeted the machine economy, where billions of [micropayments](/wiki/economics/finance/defi/micro-transactions) between devices would be uneconomical if each carried a gas cost, and feelessness rather than smart-contract expressiveness was the original value proposition.
 
 ## The Coordinator
 
-The Tangle had a well-known caveat. While the network was small, an attacker with modest hashing power could outpace honest tip approval and rewrite history (a "parasite chain" attack). IOTA's mitigation was the **Coordinator**: a node operated by the IOTA Foundation that periodically issued signed **milestones**. A transaction was considered confirmed only once referenced by a milestone.
+While the network was small, an attacker with modest hashing power could outpace honest tip approval and rewrite history — a "parasite chain" attack. IOTA's mitigation was the **Coordinator**: a node operated by the IOTA Foundation that periodically issued signed **milestones**. A transaction was considered confirmed only once referenced by a milestone.
 
 This made the Coordinator a single point of trust and control — it could, in principle, censor or halt the network — and it drew sustained criticism that IOTA was not genuinely decentralised. Removing it was a years-long research programme branded **Coordicide** (and later **IOTA 2.0**).
 
@@ -29,7 +29,7 @@ This made the Coordinator a single point of trust and control — it could, in p
 
 Coordicide never reached a production mainnet under the Tangle model. Meanwhile the ecosystem's demands shifted toward expressive [smart contracts](/wiki/economics/finance/defi/smart-contract), deterministic finality, and competitive throughput — areas where the DAG, having no account or unspent-transaction-output (UTXO) model, was awkward to extend. Rather than ship Coordicide, the Foundation pivoted: [IOTA Rebased](/wiki/economics/finance/defi/iota/iota-rebased) replaced the Tangle ledger entirely with a Move-based object ledger and delegated-proof-of-stake consensus.
 
-A subtle point often muddled in coverage: Rebased did not abandon DAGs. Its Byzantine-fault-tolerant (BFT) consensus is itself DAG-structured — Mysticeti at launch, and **Starfish** since the May 2026 mainnet upgrade. What was retired is the *Tangle as the ledger and validation model* — the feeless, Coordinator-gated, tip-approval design — not the use of a DAG anywhere in the stack.
+Rebased did not abandon DAGs, contrary to how the switch is usually summarised. Its Byzantine-fault-tolerant (BFT) consensus is itself DAG-structured — Mysticeti at launch, and **Starfish** since the May 2026 mainnet upgrade. What was retired is the *Tangle as the ledger and validation model* — the feeless, Coordinator-gated, tip-approval design — not the use of a DAG anywhere in the stack.
 
 ## External Links
 

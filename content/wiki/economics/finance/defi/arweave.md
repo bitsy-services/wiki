@@ -3,23 +3,23 @@ title: "Arweave"
 weight: 50
 ---
 
-Arweave is a decentralized storage network built around a single unusual promise: pay once, store forever. Where most storage -- cloud buckets, [IPFS](/wiki/cs/ipfs) pins, traditional hosting -- charges recurring rent and deletes your data the moment you stop paying, Arweave takes an upfront fee and commits to retaining the data in perpetuity. The collection of data stored this way, served over HTTP through gateways, is marketed as the **permaweb**: a permanent, immutable layer of the web.
+Arweave is a decentralized storage network built around a single unusual promise: pay once, store forever. Where most storage -- cloud buckets, [IPFS](/wiki/cs/ipfs) pins, traditional hosting -- charges recurring rent and deletes the data the moment payment stops, Arweave takes an upfront fee and commits to retaining it in perpetuity. The collection of data stored this way, served over HTTP through gateways, is marketed as the **permaweb**: a permanent, immutable layer of the web.
 
-That promise is backed by an economic mechanism rather than a legal guarantee, which is where most of the interesting design -- and most of the criticism -- lives.
+That promise is backed by an economic mechanism rather than a legal guarantee, and the mechanism is a bet on the price of storing a byte continuing to fall.
 
 ## The Endowment Model
 
-The pay-once economics rest on a bet about the cost of storage. When you upload data, a portion of your fee covers the miners' immediate costs and the bulk is swept into a shared **storage endowment**. The endowment pays out to miners over time to compensate them for continuing to store old data.
+The pay-once economics rest on a bet about the cost of storage. On upload, a portion of the fee covers the miners' immediate costs and the bulk is swept into a shared **storage endowment**. The endowment pays out to miners over time to compensate them for continuing to store old data.
 
 The model assumes [Kryder's law](https://en.wikipedia.org/wiki/Mark_Kryder#Kryder's_law) holds: the cost of storing a byte falls year over year (historically ~30%+ annually, though Arweave models a deliberately conservative ~0.5%). If storage keeps getting cheaper, a fixed endowment denominated in real terms can fund storage indefinitely, because each future year of retention costs less than the last. The protocol prices uploads using a conservative cost projection so the endowment stays solvent even if the decline slows dramatically.
 
-This is the load-bearing assumption of the entire system. "Permanent" is not a cryptographic guarantee like the immutability of a [blockchain](/wiki/economics/finance/defi/blockchain) record -- it is a forecast that storage economics will continue to behave as they have for decades. If Kryder's law stalls for a sustained period, the endowment's runway shortens.
+"Permanent" is therefore not a cryptographic guarantee like the immutability of a [blockchain](/wiki/economics/finance/defi/blockchain) record; it is a forecast that storage economics will keep behaving as they have for decades, and a sustained stall in Kryder's law shortens the endowment's runway directly.
 
 ## The Blockweave
 
 Arweave does not use a conventional [blockchain](/wiki/economics/finance/defi/blockchain). Its data structure is the **blockweave**: each block links not only to the previous block (as in a normal chain) but also to a random earlier block, the *recall block*. To mine a new block, a miner must prove it has access to the data in that recall block.
 
-This is the **Proof of Access (PoA)** insight. In a normal [proof-of-work](/wiki/economics/finance/defi/blockchain) chain, miners are rewarded for spending energy; they have no incentive to retain old data. Arweave instead makes possession of historical data a precondition for mining. A miner that has discarded old blocks simply cannot answer the recall challenge and is excluded from rewards. Storage replication becomes a side effect of the consensus mechanism rather than an afterthought.
+That is **Proof of Access (PoA)**. In a normal [proof-of-work](/wiki/economics/finance/defi/blockchain) chain, miners are rewarded for spending energy; they have no incentive to retain old data. Arweave instead makes possession of historical data a precondition for mining. A miner that has discarded old blocks simply cannot answer the recall challenge and is excluded from rewards. Storage replication becomes a side effect of the consensus mechanism rather than an afterthought.
 
 The mechanism has evolved through several iterations:
 
@@ -42,7 +42,7 @@ Two layers make this usable in practice:
 
 ## The AR Token
 
-[AR](https://www.arweave.org) is the network's native [cryptocurrency](/wiki/economics/finance/defi/cryptocurrency). It pays for storage and rewards miners, with the endowment denominated in AR. Supply is capped: roughly 55 million tokens existed at genesis, with up to ~11 million more released as block rewards, for a maximum of about 66 million AR. Because storage demand drives token demand and the endowment locks tokens up over long horizons, the token's value is coupled to actual usage of the network rather than purely to speculation -- at least in theory.
+[AR](https://www.arweave.org) is the network's native [cryptocurrency](/wiki/economics/finance/defi/cryptocurrency). It pays for storage and rewards miners, with the endowment denominated in AR. Supply is capped: roughly 55 million tokens existed at genesis, with up to ~11 million more released as block rewards, for a maximum of about 66 million AR. Storage demand drives token demand, and the endowment locks tokens up over long horizons, so the design couples the token's value to network usage. The market has not always priced it that way.
 
 ## AO: Compute on Top of Storage
 
@@ -69,7 +69,7 @@ IPFS is purely an addressing and transfer protocol with no built-in incentive to
 
 ## Trade-offs and Criticisms
 
-Order these by what actually bites:
+Ordered by what actually bites:
 
 - **Permanence is a forecast, not a guarantee.** The whole system rests on Kryder's-law economics. A long stall in falling storage costs, or a collapse in the AR token's value relative to real storage costs, would stress the endowment. "Forever" is a well-engineered probabilistic claim, not a certainty.
 - **Immutable means immutable -- including the things you regret.** Permanent, uncensorable storage means illegal, harmful, or simply mistaken content cannot be removed. Gateways can refuse to *serve* specific content (content moderation at the edge), but the data remains on the network. This is a feature for censorship resistance and a serious liability everywhere else.

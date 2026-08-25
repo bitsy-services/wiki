@@ -17,7 +17,7 @@ A typical yield farming position involves stacking multiple sources of return:
 
 ### Example
 
-You provide ETH and USDC to a [Uniswap](/wiki/economics/finance/defi/uniswap) pool, receiving LP tokens. You then stake those LP tokens in a farming contract that distributes a governance token (e.g., UNI or a partner project's token). Your return is the combination of the 0.3% swap fees from the pool plus the farming reward tokens.
+A farmer supplies ETH and USDC to a [Uniswap](/wiki/economics/finance/defi/uniswap) pool and receives LP tokens, then stakes those LP tokens in a farming contract that distributes a governance token (UNI, or a partner project's). The return is the pool's 0.3% swap fees plus the reward tokens, minus whatever the position loses to divergence.
 
 ## Measuring returns
 
@@ -41,15 +41,15 @@ TVL is the total dollar value of assets deposited in a protocol. It is a rough p
 
 ## Risks
 
-Yield farming is not passive income. The headline APY numbers obscure real risks.
+The headline APY is a gross number. It prices none of the risks below, and several of them routinely exceed it.
 
 ### Impermanent loss
 
-If you are farming an AMM pool, you are an LP, and you are exposed to [impermanent loss](/wiki/economics/finance/defi/impermanent-loss). A pool paying 30% APY in fees looks attractive until the underlying pair diverges 40% and the IL exceeds your earnings. Stablecoin pools and correlated-asset pools reduce this risk.
+Farming an AMM pool makes the farmer an LP, with an LP's exposure to [impermanent loss](/wiki/economics/finance/defi/impermanent-loss). A pool paying 30% APY in fees stays ahead of IL until the pair's price ratio moves by roughly 6×, and behind it after. Stablecoin and correlated-asset pools keep that ratio near 1, which is why their much lower advertised yields are not necessarily worse.
 
 ### Smart contract risk
 
-Every protocol you interact with is a smart contract that could have bugs. Yield farmers often stack positions across multiple protocols (deposit in Aave, borrow, LP on Uniswap, stake in a farm) -- each layer is an additional point of failure. Stick to audited, battle-tested protocols for the bulk of your capital.
+Yield farmers often stack positions across several protocols at once — deposit in Aave, borrow, LP on Uniswap, stake the LP token in a farm. The position fails if any one of those four contracts fails, so the failure probabilities compound in the wrong direction while the yields add up in the advertised one.
 
 ### Token reward dilution
 

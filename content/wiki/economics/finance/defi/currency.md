@@ -3,7 +3,7 @@ title: "Currency"
 weight: 0
 ---
 
-Currency is any widely accepted medium of exchange, unit of account, and store of value. It is the foundational abstraction that makes trade possible -- without it, every transaction requires a direct barter of goods or services.
+Currency is any widely accepted medium of exchange, unit of account, and store of value. Without one, every trade has to be a direct barter, which requires each side to want what the other is offering at the same moment and in the same proportion.
 
 ## Forms of currency
 

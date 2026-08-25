@@ -29,7 +29,7 @@ In practice, the authorized distributor is typically a governance contract (a [D
 
 ## Distribution Patterns
 
-The Fee Box is deliberately simple -- it collects and holds fees, then distributes them on instruction. The *policy* for how fees are distributed lives outside the Fee Box itself, which keeps the contract focused and auditable. Common distribution patterns include:
+The Fee Box is deliberately simple -- it collects and holds fees, then distributes them on instruction. The *policy* for how fees are distributed lives outside the Fee Box, so changing that policy never touches the contract holding the balance. Common distribution patterns include:
 
 - **Treasury funding.** Fees route to a protocol treasury contract for operational expenses or development.
 - **Staking rewards.** Fees distribute to token holders who have [staked](/wiki/economics/finance/defi/staking) governance tokens, aligning protocol revenue with governance participation.

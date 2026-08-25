@@ -3,9 +3,9 @@ title: "Vanity Addresses and Salt Mining"
 weight: 35
 ---
 
-A *vanity address* is an Ethereum address whose hex encoding contains a desired pattern — a leading run of zeros, a recognisable prefix like `0xC0FFEE…`, or a trailing brand suffix. Because addresses are derived from a hash, you cannot ask for a specific address; you have to *mine* for one by trying inputs until the output matches your filter.
+A *vanity address* is an Ethereum address whose hex encoding contains a desired pattern — a leading run of zeros, a recognisable prefix like `0xC0FFEE…`, or a trailing brand suffix. Because addresses are derived from a hash, a specific address cannot be requested; one has to be *mined*, by trying inputs until the output matches the filter.
 
-Two distinct flavours of mining show up in practice. The math is similar — Keccak-256 has no exploitable structure, so each candidate is an independent uniform draw — but the input you vary, the cost of a hit, and the security implications are very different.
+Two distinct flavours of mining show up in practice. The math is the same in both — Keccak-256 has no exploitable structure, so each candidate is an independent uniform draw — while the input that varies, the cost of a hit, and the security implications are not.
 
 | Variant | What you brute-force | What it produces |
 |---|---|---|
@@ -29,7 +29,7 @@ Because Keccak-256 is indistinguishable from a random oracle for this purpose, m
 
 Each additional hex character costs 16×. Each additional zero *byte* (two hex chars at the same fixed value) costs 256×. The "wall time" column above assumes a modest single-GPU rig hashing at one billion guesses per second; high-end miners and clusters scale roughly linearly from there.
 
-The distribution is geometric: the median is `0.69 × 16ᴺ` and the 99th percentile is around `4.6 × 16ᴺ`. Plan for variance — running until you "should have" found a hit and giving up at the mean is a coin flip.
+The distribution is geometric: the median is `0.69 × 16ᴺ` and the 99th percentile is around `4.6 × 16ᴺ`. Plan for variance: stopping at the mean leaves a ~37% chance of having found nothing.
 
 ## EOA Vanity Mining
 
@@ -69,7 +69,7 @@ The flaw was in the seed:
 Multiple high-value wallets, including a vanity address holding Wintermute treasury funds, were drained. Total losses are estimated in the high tens of millions of USD.
 
 {{< hint danger >}}
-**Treat any EOA vanity address generated before late 2022 as compromised** unless you are certain the tool used a cryptographically strong seed (e.g. `/dev/urandom`, `getrandom(2)`). When in doubt, sweep funds to a freshly generated wallet and abandon the vanity key. The lesson generalises: PRNG seeding is the weakest link in any key-generation pipeline, and a 32-bit seed can never be safe.
+**Treat any EOA vanity address generated before late 2022 as compromised** unless you are certain the tool used a cryptographically strong seed (e.g. `/dev/urandom`, `getrandom(2)`). When in doubt, sweep funds to a freshly generated wallet and abandon the vanity key. PRNG seeding is the weakest link in any key-generation pipeline: a 32-bit seed is exhaustible on commodity hardware no matter how strong everything downstream of it is.
 {{< /hint >}}
 
 Modern forks (e.g. `profanity-2`, `vanity-eth`) seed from the OS entropy pool. Verify before running any tool that you found on GitHub — the original `profanity` repository is archived but the binaries are still floating around.
@@ -82,7 +82,7 @@ Modern forks (e.g. `profanity-2`, `vanity-eth`) seed from the OS entropy pool. V
 addr = keccak256(0xff ++ deployer ++ salt ++ keccak256(initCode))[12:]
 ```
 
-You can vary `salt` until the resulting `addr` has the pattern you want. Unlike EOA mining there is no elliptic-curve step — each candidate is one Keccak-256 (the inner `keccak256(initCode)` is computed once and cached). GPU throughput on consumer cards is in the multi-GH/s range.
+The `salt` can be varied until the resulting `addr` carries the pattern. Unlike EOA mining there is no elliptic-curve step — each candidate is one Keccak-256 (the inner `keccak256(initCode)` is computed once and cached). GPU throughput on consumer cards is in the multi-GH/s range.
 
 ### Why Mine a Contract Address — Gas Savings
 

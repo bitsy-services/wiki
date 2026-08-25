@@ -5,7 +5,7 @@ weight: 5
 
 A decentralized exchange (DEX) is a marketplace for trading tokens that runs on-chain, without a central operator holding custody of user funds. Trades settle directly between the user's wallet and a smart contract.
 
-On a centralized exchange (CEX) like Coinbase or Binance, you deposit funds into the exchange's custody, place orders against an order book the exchange operates, and trust the exchange to process withdrawals. A DEX replaces all of that with smart contracts: your tokens never leave your wallet until the moment the trade executes on-chain. There is no account to create, no [KYC](/wiki/economics/finance/regulation/know-your-customer) gate, and no withdrawal queue.
+A centralized exchange (CEX) like Coinbase or Binance takes deposits into its own custody, matches orders on an order book it operates, and pays out on request. A DEX replaces all three with smart contracts, and the tokens stay in the trader's wallet until the block that executes the swap. There is no account to create, no [KYC](/wiki/economics/finance/regulation/know-your-customer) gate, and no withdrawal queue, because there is nothing on deposit to withdraw.
 
 ## DEX architectures
 
@@ -29,9 +29,9 @@ Pure on-chain order books exist but are expensive in gas and slow on L1 chains. 
 
 A newer category where users sign an *intent* ("I want to sell 1 ETH for at least 2,500 USDC") and off-chain solvers compete to fill it at the best price. UniswapX and CoW Swap are leading examples. This model can tap both on-chain and off-chain liquidity and can protect users from [MEV](/wiki/economics/finance/defi/maximal-extractable-value) extraction.
 
-## Why DEXs matter
+## Properties that follow from the design
 
-**Self-custody.** You trade directly from your wallet. No exchange hack, insolvency, or withdrawal freeze can lock your funds.
+**Self-custody.** Tokens move from the trader's wallet into the pool and back in one transaction. An exchange hack, insolvency, or withdrawal freeze cannot strand them, because the exchange never held them.
 
 **Permissionlessness.** Anyone can list a token by creating a liquidity pool, and anyone can trade it. There is no listing committee.
 
@@ -43,7 +43,7 @@ A newer category where users sign an *intent* ("I want to sell 1 ETH for at leas
 
 - **Liquidity depth.** CEXs still dominate in raw liquidity for major pairs. DEXs rely on incentivized liquidity provision, which can dry up when rewards end.
 - **Execution speed.** On-chain settlement means trades are limited by block times. L2 DEXs largely close this gap.
-- **Gas costs.** Every swap is a transaction. On [Ethereum](/wiki/economics/finance/defi/ethereum/) L1 this can be expensive; L2s and alt-L1s reduce costs significantly.
+- **Gas costs.** Every swap is a transaction. On [Ethereum](/wiki/economics/finance/defi/ethereum/) L1 a swap costs dollars at ordinary gas prices and far more during congestion; L2s and alt-L1s bring it down to cents.
 - **UX complexity.** Managing wallets, signing transactions, and setting slippage tolerances is still harder than clicking "Buy" on a CEX.
 - **MEV exposure.** Public mempools let searchers front-run or sandwich trades. Intent-based DEXs and private mempools are the main mitigations.
 

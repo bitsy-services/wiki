@@ -3,7 +3,7 @@ title: "SwapRouter vs SwapRouter02 vs UniversalRouter"
 weight: 2
 ---
 
-Uniswap has shipped three generations of swap routers. Each builds on the last, adding protocol support and improving gas efficiency and approval UX. This page compares all three to help you choose the right one.
+Uniswap has shipped three generations of swap routers. Each builds on the last, adding protocol support and improving gas efficiency and approval UX.
 
 ## At a Glance
 
@@ -23,7 +23,7 @@ The original V3 swap router. It exposes a clean Solidity interface (`ISwapRouter
 
 **Strengths:**
 - Simplest to understand and integrate
-- Battle-tested since V3 launch (May 2021)
+- Live and unchanged since the V3 launch in May 2021
 - Extensive documentation and examples
 
 **Limitations:**

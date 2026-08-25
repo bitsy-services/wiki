@@ -7,9 +7,9 @@ A **Programmable Transaction Block** (PTB) is a single Sui transaction built as 
 
 ## No Glue Contract Required
 
-The closest analogue on [Ethereum](/wiki/economics/finance/defi/ethereum/) is the "multicall" or router pattern: to batch N actions atomically, you must deploy a smart contract that performs them in its own function body, because the [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) gives the client no way to chain arbitrary calls within one transaction. That deployed contract is on-chain glue you have to write, audit, and maintain.
+The closest analogue on [Ethereum](/wiki/economics/finance/defi/ethereum/) is the "multicall" or router pattern: to batch N actions atomically, you must deploy a smart contract that performs them in its own function body, because the [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) gives the client no way to chain arbitrary calls within one transaction. That deployed contract is on-chain glue that has to be written, audited, and maintained.
 
-Sui inverts this. The PTB *is* the composition layer, assembled client-side and submitted as data. You can compose calls across protocols you do not control and have never deployed code against, with no intermediary contract. This is why PTBs are central to how [dApps](/wiki/economics/finance/defi/dapp) and DeFi aggregators are built on Sui — the composability lives in the transaction, not in a bespoke contract.
+Sui inverts this. The PTB *is* the composition layer, assembled client-side and submitted as data, so calls can be chained across protocols the caller does not control and has never deployed code against, with no intermediary contract in between. This is why PTBs are central to how [dApps](/wiki/economics/finance/defi/dapp) and DeFi aggregators are built on Sui — the composability lives in the transaction, not in a bespoke contract.
 
 ## Anatomy
 
@@ -48,7 +48,7 @@ Note that `tx.gas` references the gas coin directly — `splitCoins` peels a new
 
 > An earlier SDK, `@mysten/sui.js`, exposed this through a `TransactionBlock` class. That package is deprecated; current code uses `@mysten/sui` with `Transaction`. The on-chain concept is identical — only the client class was renamed.
 
-## Why It Matters
+## What it buys
 
 - **Composability without on-chain glue.** Chain actions across unrelated protocols with no router contract to deploy or trust.
 - **Atomicity.** Partial execution is impossible, so multi-step DeFi flows (split → swap → stake → transfer) cannot leave funds stranded mid-sequence.

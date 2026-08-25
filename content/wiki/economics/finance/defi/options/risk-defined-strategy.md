@@ -5,7 +5,7 @@ weight: 59
 
 A risk-defined strategy is any position where the maximum possible loss is known before the trade is entered. The trader accepts a capped upside in exchange for a hard floor on downside. In traditional finance this usually means option spreads; in DeFi it extends to collateralized vault positions, bounded [liquidity-pool](/wiki/economics/finance/defi/liquidity-pool) ranges, and on-chain binary payoffs enforced by [smart contracts](/wiki/economics/finance/defi/smart-contract).
 
-## Why It Matters
+## What a loss cap buys
 
 Undefined-risk positions -- selling a naked [call](/wiki/economics/finance/defi/options/call-option), providing unbounded liquidity, writing uncollateralized contracts -- can produce losses that exceed the original capital. Risk-defined strategies cap that exposure, which makes them:
 

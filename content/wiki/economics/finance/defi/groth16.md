@@ -9,7 +9,7 @@ Groth16 is the most widely deployed zk-SNARK in production [blockchain](/wiki/ec
 
 ## Intuition
 
-Imagine you solved a Sudoku puzzle and want to prove it to someone without showing the solution. A zero-knowledge proof lets you do exactly this -- the verifier becomes convinced the solution is valid but learns nothing about what the solution actually is.
+A solved Sudoku is the standard illustration: a zero-knowledge proof convinces the verifier that the grid is correctly filled while telling them nothing about which digits are where.
 
 Groth16 generalizes this: any computation that can be expressed as an arithmetic circuit (additions and multiplications over a finite field) can be proven and verified. The proof is tiny (three elliptic curve points, roughly 128 bytes) and verification is fast (a handful of pairing operations), no matter how large the circuit.
 
