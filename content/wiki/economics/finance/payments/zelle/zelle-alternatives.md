@@ -1,5 +1,5 @@
 ---
-title: "Zelle vs. the Alternatives"
+title: "Zelle Alternatives"
 weight: 40
 ---
 

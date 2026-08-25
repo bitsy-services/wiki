@@ -24,7 +24,7 @@ The strategic goal was never to make money on payments. It was to make sure that
 
 [Fraud and liability](/wiki/economics/finance/payments/zelle/fraud-and-liability) is the legal question. Irrevocability plus a directory keyed on identifiers that anyone can claim to control produces a specific crime, and US law has no settled answer to who pays for it.
 
-[Zelle vs. the alternatives](/wiki/economics/finance/payments/zelle/zelle-vs-alternatives) puts it next to Venmo and Cash App, next to [RTP and FedNow](/wiki/economics/finance/payments#the-rails), and next to the instant systems other countries built — Pix in Brazil, [the Unified Payments Interface](/wiki/economics/finance/payments/zelle/zelle-vs-alternatives#what-other-countries-built) in India — which arrived at different answers because a central bank, not a bank consortium, made the decisions.
+[Zelle alternatives](/wiki/economics/finance/payments/zelle/zelle-alternatives) puts it next to Venmo and Cash App, next to [RTP and FedNow](/wiki/economics/finance/payments#the-rails), and next to the instant systems other countries built — Pix in Brazil, [the Unified Payments Interface](/wiki/economics/finance/payments/zelle/zelle-alternatives#what-other-countries-built) in India — which arrived at different answers because a central bank, not a bank consortium, made the decisions.
 
 ## Why it appears in this wiki
 
