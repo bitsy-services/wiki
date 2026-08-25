@@ -3,7 +3,7 @@ title: "The Outlook Mail API"
 weight: 10
 ---
 
-Programmatic access to an Outlook mailbox — reading mail, sending mail, watching for new messages, managing the calendar — goes through **Microsoft Graph**, a single REST API over HTTPS that fronts all of Microsoft 365. A handful of older interfaces still exist for narrow jobs, but for anything new, Graph is the answer, and the rest of this section assumes it. This page maps the landscape: what Graph looks like, how you authenticate to it, the operations you will actually use, and where the legacy paths still make sense.
+Programmatic access to an Outlook mailbox — reading mail, sending mail, watching for new messages, managing the calendar — goes through **Microsoft Graph**, a single REST API over HTTPS that fronts all of Microsoft 365. A handful of older interfaces still exist for narrow jobs, but Graph is the only one that reaches every mailbox resource and the only one still gaining features, so the rest of this section assumes it.
 
 ## Microsoft Graph, in one endpoint
 
@@ -15,24 +15,24 @@ GET https://graph.microsoft.com/v1.0/users/{id}/mailFolders('inbox')/messages
 GET https://graph.microsoft.com/v1.0/users/{id}/events
 ```
 
-`{id}` is a user's object ID or their user principal name (usually their email address, like `alex@contoso.com`). When a real person is signed in and your code is acting *as them*, the shorthand `/me` stands in for `/users/{their-id}` — but a background service with no signed-in user must name the mailbox explicitly with `/users/{id}`. Which of those two worlds you are in is decided by how you authenticate, so that comes first.
+`{id}` is a user's object ID or their user principal name (usually their email address, like `alex@contoso.com`). When a real person is signed in and your code is acting *as them*, the shorthand `/me` stands in for `/users/{their-id}` — but a background service with no signed-in user must name the mailbox explicitly with `/users/{id}`. Which of the two applies is decided by how the app authenticates.
 
-Responses are JSON shaped by the [OData](https://www.odata.org/) conventions Graph follows: `$select` to choose fields, `$filter` to narrow results, `$top` to page. `$select` matters more than it looks — a message carries a large `body`, and asking for only the fields you need keeps responses small and fast:
+Responses are JSON shaped by the [OData](https://www.odata.org/) conventions Graph follows: `$select` to choose fields, `$filter` to narrow results, `$top` to page. A message carries its entire `body`, so a listing without `$select` transfers every message in full just to decide which one is worth reading:
 
 ```http
 GET /v1.0/users/alex@contoso.com/messages?$select=subject,from,receivedDateTime&$top=25
 ```
 
-Microsoft publishes **SDKs** (C#, Python, JavaScript/TypeScript, Java, Go, PHP) that wrap these calls in typed methods, plus a browser-based [Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer) for trying requests against a sandbox tenant. The SDKs are thin over the REST surface above; understanding the raw calls is what lets you read any of them.
+Microsoft publishes **SDKs** (C#, Python, JavaScript/TypeScript, Java, Go, PHP) that wrap these calls in typed methods, plus a browser-based [Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer) for trying requests against a sandbox tenant. The SDKs are thin over the REST surface above, so the raw calls are what any of them reduce to.
 
 ## Authentication: Entra ID and OAuth 2.0
 
 Graph does not have its own logins. It trusts **Microsoft Entra ID** (the identity service formerly called Azure Active Directory), and access is granted through [OAuth 2.0](https://oauth.net/2/): your code obtains a short-lived **access token** from Entra ID and sends it on every request as `Authorization: Bearer <token>`.
 
-Before any of that, the application must be **registered** in Entra ID, which yields a client ID (and, for confidential apps, a client secret or certificate). Registration is also where you declare which **permissions** the app needs — and there are two fundamentally different kinds:
+Before any of that, the application must be **registered** in Entra ID, which yields a client ID (and, for confidential apps, a client secret or certificate). Registration is also where the app declares which **permissions** it needs, in one of two kinds:
 
 - **Delegated permissions** — the app acts *on behalf of a signed-in user* and can only touch what that user can. A user signs in interactively and consents. Use this for apps a person drives (a desktop tool, a web app with a login).
-- **Application permissions** — the app acts *as itself*, with no user present, using the [OAuth client-credentials flow](https://oauth.net/2/grant-types/client-credentials/). A tenant administrator consents once. Use this for daemons, cron jobs, and webhook processors — anything that runs unattended. By default an app permission grants access to *every* mailbox in the tenant, which is a security problem worth containing (see [least privilege](/wiki/microsoft/outlook/content-based-auto-reply#scope-the-app-to-the-mailboxes-it-needs) in the walkthrough).
+- **Application permissions** — the app acts *as itself*, with no user present, using the [OAuth client-credentials flow](https://oauth.net/2/grant-types/client-credentials/). A tenant administrator consents once. Use this for daemons, cron jobs, and webhook processors — anything that runs unattended. By default an app permission grants access to *every* mailbox in the tenant, so a leaked client secret reads the whole organization's mail (see [least privilege](/wiki/microsoft/outlook/content-based-auto-reply#scope-the-app-to-the-mailboxes-it-needs) in the walkthrough).
 
 Either way, the specific rights are named **scopes**. The ones this section uses:
 
@@ -45,11 +45,11 @@ Either way, the specific rights are named **scopes**. The ones this section uses
 
 Delegated scopes take a "least of the two" rule — the effective access is the intersection of what the app was granted and what the user themselves can do.
 
-Unattended apps name their permissions differently. The client-credentials flow does not request these scopes one at a time; it asks for the single resource scope `https://graph.microsoft.com/.default`, which means "every application permission an administrator has already consented to for this app." You still choose the specific rights — `Mail.Read`, `Mail.Send` — when you register the app and get them consented; `.default` is simply how the token request refers to that whole pre-approved set at once. That is why the [walkthrough](/wiki/microsoft/outlook/content-based-auto-reply) requests `.default` rather than the named scopes above.
+Unattended apps name the same rights differently. The client-credentials flow does not request these scopes one at a time; it asks for the single resource scope `https://graph.microsoft.com/.default`, which means "every application permission an administrator has already consented to for this app." The specific rights — `Mail.Read`, `Mail.Send` — are still chosen at registration and consented there; `.default` is how the token request names that whole pre-approved set at once, and why the [walkthrough](/wiki/microsoft/outlook/content-based-auto-reply) requests it rather than the named scopes above.
 
-## The operations you will actually use
+## The six calls mail automation needs
 
-Mail automation comes down to a small set of calls. Everything in the [auto-reply walkthrough](/wiki/microsoft/outlook/content-based-auto-reply) is built from these:
+Everything in the [auto-reply walkthrough](/wiki/microsoft/outlook/content-based-auto-reply) is built from these:
 
 | Goal | Request |
 |------|---------|
@@ -60,7 +60,7 @@ Mail automation comes down to a small set of calls. Everything in the [auto-repl
 | Draft a reply (send later) | `POST /users/{id}/messages/{messageId}/createReply` |
 | Watch for changes | `POST /subscriptions` |
 
-`reply` composes *and sends* in one call, quoting the original beneath your text. `createReply` instead returns a draft you can edit and send separately — useful when the reply body is assembled in stages. Both save you from having to thread the original message's subject, recipients, and quoted history by hand.
+`reply` composes *and sends* in one call, quoting the original beneath the new text. `createReply` instead returns a draft to edit and send separately — useful when the reply body is assembled in stages. Both fill in the original message's subject, recipients, and quoted history.
 
 ## Reacting to new mail: notifications vs. polling
 

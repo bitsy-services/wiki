@@ -3,9 +3,9 @@ title: "Content-Based Auto-Reply"
 weight: 20
 ---
 
-A common request: when an email arrives, read it, and send back a reply whose wording depends on *what the message says* — route a refund request one way, a password problem another, and leave anything unrecognized for a human. This is more than a vacation responder, which answers everything identically. It is a small event-driven program on top of [Microsoft Graph](/wiki/microsoft/outlook/api): wait to be told a message arrived, fetch it, decide from its content, and reply. This page builds that program end to end and then covers the ways it bites you in production.
+A content-based auto-reply reads each incoming email and sends back a reply whose wording depends on *what the message says* — routing a refund request one way, a password problem another, and leaving anything unrecognized for a human. Where a vacation responder answers everything identically, this is a small event-driven program on top of [Microsoft Graph](/wiki/microsoft/outlook/api): wait to be told a message arrived, fetch it, decide from its content, and reply.
 
-The examples are JavaScript running on [Cloudflare Workers](https://developers.cloudflare.com/workers/). Graph pushes notifications over HTTPS, so this program is fundamentally a public web endpoint that must be up whenever mail might arrive — which is exactly what a Worker is, without a server to keep alive. The platform also supplies the three other pieces the job needs: [Cron Triggers](https://developers.cloudflare.com/workers/configuration/cron-triggers/) to renew the subscription, [Workers KV](https://developers.cloudflare.com/kv/) for the small amount of state, and [Queues](https://developers.cloudflare.com/queues/) to move the slow work off the webhook. There is no SDK to install: token acquisition and every Graph call are plain `fetch`.
+The examples are JavaScript running on [Cloudflare Workers](https://developers.cloudflare.com/workers/). Graph pushes notifications over HTTPS, so this program is a public web endpoint that must be up whenever mail might arrive — which is what a Worker is, without a server to keep alive. The platform also supplies the three other pieces the job needs: [Cron Triggers](https://developers.cloudflare.com/workers/configuration/cron-triggers/) to renew the subscription, [Workers KV](https://developers.cloudflare.com/kv/) for the small amount of state, and [Queues](https://developers.cloudflare.com/queues/) to move the slow work off the webhook. There is no SDK to install: token acquisition and every Graph call are plain `fetch`.
 
 Because no human is signed in, the app authenticates with **application permissions** via the client-credentials flow described on the [API page](/wiki/microsoft/outlook/api#authentication-entra-id-and-oauth-20). Two are enough: `Mail.Read` to subscribe and read, and `Mail.Send` to reply. The `reply` action sends rather than edits, so it needs no write access to the mailbox — do not reach for `Mail.ReadWrite` out of habit.
 
@@ -29,7 +29,7 @@ decide from content  ──►  reply?  ──no──►  leave for a human
 POST /messages/{id}/reply   (Graph composes and sends)
 ```
 
-The one non-obvious step is the first: Graph does not stream you mail. You register interest, and it calls *you* when something changes. So the program is not a loop that polls for work — it is an HTTPS endpoint that sits there, costing nothing, until Graph knocks.
+Graph does not stream mail. The program registers interest and Graph calls *it* when something changes, so this is not a loop polling for work — it is an HTTPS endpoint that sits idle, costing nothing, until Graph knocks.
 
 ## Configuration and bindings
 
@@ -125,7 +125,7 @@ async function graph(env, method, path, body) {
 
 A **subscription** tells Graph "POST to my URL whenever a message is *created* in this mailbox's inbox." The `clientState` is the secret you chose; Graph echoes it back in every notification so you can confirm the call really came from your subscription and not a stranger who found your URL.
 
-Subscriptions to messages expire in under three days, so this is not a one-time setup step — something has to keep recreating it, forever. A Worker has no startup hook to hang that on, which turns out to be a feature: a [Cron Trigger](https://developers.cloudflare.com/workers/configuration/cron-triggers/) invokes the `scheduled` handler on a schedule, and one function can both create the subscription the first time and renew it every time after.
+Subscriptions to messages expire in under three days, so this is not a one-time setup step — something has to keep recreating it, forever. A Worker has no startup hook to hang that on; a [Cron Trigger](https://developers.cloudflare.com/workers/configuration/cron-triggers/) invokes the `scheduled` handler on a schedule instead, and one function can both create the subscription the first time and renew it every time after.
 
 ```js
 // Graph caps message subscriptions just under three days; two is a safe cushion.
@@ -183,9 +183,9 @@ if (validationToken !== null) {
 
 ## Step 2: Receive the notification
 
-A real notification is a JSON body with a `value` array — one entry per change. Two rules matter here.
+A real notification is a JSON body with a `value` array — one entry per change.
 
-First, **check `clientState`** and drop anything that doesn't match. Compare it with `crypto.subtle.timingSafeEqual` rather than `===`: a plain string comparison returns as soon as two bytes differ, and the time that takes leaks how much of the secret an attacker has guessed. Workers exposes the primitive, but it throws on mismatched lengths, so the usual wrapper compares a value against *itself* and negates the result rather than returning early:
+**Check `clientState`** and drop anything that doesn't match. Compare it with `crypto.subtle.timingSafeEqual` rather than `===`: a plain string comparison returns as soon as two bytes differ, and the time that takes leaks how much of the secret an attacker has guessed. Workers exposes the primitive, but it throws on mismatched lengths, so the usual wrapper compares a value against *itself* and negates the result rather than returning early:
 
 ```js
 const encoder = new TextEncoder();
@@ -200,7 +200,7 @@ function timingSafeEqual(a, b) {
 }
 ```
 
-Second, **answer fast**: return `202 Accepted` immediately and do the slow work (fetching, deciding, replying) after the response, because Graph times out and retries if you dawdle. `ctx.waitUntil` is the built-in way to do that — it keeps the invocation alive for work that outlives the response. Note that `ctx` is passed, not destructured; pulling `waitUntil` off it loses its binding and throws at runtime.
+**Answer fast**: return `202 Accepted` immediately and do the slow work (fetching, deciding, replying) after the response, because Graph retries any notification it does not see acknowledged within a few seconds. `ctx.waitUntil` is the built-in way to do that — it keeps the invocation alive for work that outlives the response. Note that `ctx` is passed, not destructured; pulling `waitUntil` off it loses its binding and throws at runtime.
 
 ```js
 // excerpt — the rest of fetch(), where Step 1 left off
@@ -216,7 +216,7 @@ return new Response(null, { status: 202 });
 
 `waitUntil` gets you a correct responder; it does not get you a durable one, because work dropped by an error or a 30-second overrun is simply gone. [Moving to a Queue](#move-the-work-onto-a-queue) below fixes that: one line here changes, and a `queue` handler joins the export.
 
-Notice what the notification does *not* contain: the message body. It carries an id and little else, so the content you need for the decision has to be fetched.
+The notification carries an id and little else — not the message body — so the content the decision runs on has to be fetched.
 
 ## Step 3: Read the message
 
@@ -233,7 +233,7 @@ function fetchMessage(env, messageId) {
 
 ## Step 4: Decide the reply from its content
 
-This is the part that makes the responder *content-based*. The starter version is a keyword matcher; returning `null` means "no confident match — don't reply," which is the safe default.
+The starter version is a keyword matcher; returning `null` means "no confident match — don't reply," which is the safe default.
 
 ```js
 function composeReply(message) {
@@ -328,13 +328,11 @@ npx wrangler dev --test-scheduled
 curl "http://localhost:8787/cdn-cgi/handler/scheduled"
 ```
 
-What is left is everything that turns a demo into something you can leave running.
-
 ## Getting it right in production
 
 ### Scope the app to the mailboxes it needs
 
-Do this before the app sees real mail. An application permission like `Mail.Read` grants access to **every mailbox in the tenant** by default, so a leaked `CLIENT_SECRET` reads the whole organization's email — the widest blast radius on this page, and the one hardening step that is not optional.
+Do this before the app sees real mail. An application permission like `Mail.Read` grants access to **every mailbox in the tenant** by default, so a leaked `CLIENT_SECRET` reads the whole organization's email — every inbox, not just the one this service watches.
 
 Exchange Online contains it with **RBAC (role-based access control) for Applications**: register a pointer to the app's service principal, define a scope naming the mailboxes it may touch, and assign a role across that scope.
 
@@ -351,13 +349,13 @@ New-ManagementRoleAssignment -App <service-principal-object-id> `
   -Role "Application Mail.Send" -CustomResourceScope "Autoresponder mailboxes"
 ```
 
-The step everyone skips is the last one, and skipping it makes the rest decorative: **RBAC grants are additive to the tenant-wide consent in Entra ID, not a replacement for it.** Leave `Mail.Read` consented in Entra and the app's effective access is the union of the two — unscoped. Remove the Entra consent, verify with `Test-ServicePrincipalAuthorization -Identity <app> -Resource <mailbox>`, and expect up to two hours for permission changes to clear the cache.
+**RBAC grants are additive to the tenant-wide consent in Entra ID, not a replacement for it.** Leave `Mail.Read` consented in Entra and the app's effective access is the union of the two — unscoped, exactly as it was before the scope was defined. Remove the Entra consent, verify with `Test-ServicePrincipalAuthorization -Identity <app> -Resource <mailbox>`, and expect up to two hours for permission changes to clear the cache.
 
 The older mechanism, `New-ApplicationAccessPolicy` with a mail-enabled security group, still works and still constrains Entra-granted permissions — which RBAC does not. But Microsoft states RBAC for Applications replaces it, so new work belongs above.
 
 ### Don't create a reply loop
 
-This is the failure that does real damage. If your responder answers a message that was *itself* automated — another auto-responder, a mailing list, a bounce — the two systems can volley forever, and you can flood a mailbox, get your domain throttled, or land on a blocklist. Guard on the way *in*, before you ever reply:
+A responder that answers a message which was *itself* automated — another auto-responder, a mailing list, a bounce — volleys with it at machine speed until something breaks: a flooded mailbox, a throttled domain, a listing on a blocklist. Guard on the way *in*, before you ever reply:
 
 ```js
 function isAutoOrSelf(env, message) {
@@ -385,7 +383,7 @@ Cron invocations are billed and logged separately from requests; **Cron Events**
 
 ### Move the work onto a Queue
 
-`ctx.waitUntil` runs the pipeline after the response, but nothing catches it if it fails — a transient Graph error means that email is silently never answered. [Queues](https://developers.cloudflare.com/queues/) give you retries, a delay knob, and a dead-letter queue for the ones that never succeed. Add both ends of the queue to the Wrangler config:
+`ctx.waitUntil` runs the pipeline after the response, but nothing catches it if it fails — a transient Graph error means that email is silently never answered. [Queues](https://developers.cloudflare.com/queues/) supply retries, a delay knob, and a dead-letter queue for the ones that never succeed. Add both ends of the queue to the Wrangler config:
 
 ```jsonc
   "queues": {
@@ -429,7 +427,7 @@ Acknowledge and retry per message rather than letting an exception escape the lo
 
 Graph aims for at-least-once delivery, not exactly-once: the same `created` event can arrive more than once, and a retry after a slow response will redeliver. Queues are at-least-once too, so adding one gives you a second source of duplicates rather than fewer. Without a guard, that means replying twice — which is what the `replied:` key in `handleMessage` is for.
 
-KV is the pragmatic store for that marker, but be clear about what it does and does not buy you. Writes are visible immediately in the location that made them and within about sixty seconds everywhere else, so KV reliably stops a *redelivery minutes later* and does not stop two copies of the same notification landing in two cities at once. If a double reply is genuinely unacceptable rather than merely embarrassing, move the marker to a [Durable Object](https://developers.cloudflare.com/durable-objects/) keyed by message id, or to a D1 row with a unique constraint — both give you a single serialization point that KV, by design, does not.
+KV is the pragmatic store for that marker. Writes are visible immediately in the location that made them and within about sixty seconds everywhere else, so KV reliably stops a *redelivery minutes later* and does not stop two copies of the same notification landing in two cities at once. If a double reply is genuinely unacceptable rather than merely embarrassing, move the marker to a [Durable Object](https://developers.cloudflare.com/durable-objects/) keyed by message id, or to a D1 row with a unique constraint — both give you a single serialization point that KV, by design, does not.
 
 ### Honor throttling
 

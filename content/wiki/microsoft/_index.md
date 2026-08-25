@@ -4,7 +4,7 @@ weight: 25
 bookCollapseSection: true
 ---
 
-Notes on programming against Microsoft's platforms and products. The first resident is [Outlook](/wiki/microsoft/outlook) — its mail API and the automation patterns built on top of it — and the section is scoped to grow into the wider Microsoft 365 and Graph ecosystem (Teams, Excel, Entra ID) as more pages arrive.
+Notes on programming against Microsoft's platforms and products. So far that is [Outlook](/wiki/microsoft/outlook) — its mail API and the automation patterns built on top of it — with the rest of the Microsoft 365 and Graph surface (Teams, Excel, Entra ID) still to come.
 
 ## Wiki Pages
 
