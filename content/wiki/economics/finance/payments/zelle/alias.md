@@ -19,7 +19,7 @@ Two of the three are identifiers you already own somewhere else and merely asser
 
 - **A US mobile number.** Landlines, international numbers, and 1-800 numbers are ineligible.
 - **An email address.** Any address you can receive a one-time code at.
-- **A Zelle tag.** A handle you choose — six to forty characters, letters, digits, and hyphens — introduced for small businesses in 2025 and extended to personal accounts. It exists inside Zelle and nowhere else, which is the entire point: a business can print it on a menu without publishing an owner's phone number.
+- **A [Zelle tag](/wiki/economics/finance/payments/zelle/tag).** A handle you choose — six to forty characters, letters, digits, and hyphens — introduced for small businesses in 2025 and, as of mid-2026, still available only to them. It exists inside Zelle and nowhere else, which is the entire point: a business can print it on a menu without publishing an owner's phone number.
 
 ## Claiming an alias
 
@@ -41,7 +41,7 @@ Either way, payments intended for the victim arrive in the attacker's account, a
 
 Note where the weakness actually lives. Zelle did not invent it; it inherited it, by choosing identifiers whose security is administered by a mobile carrier or a mail provider. The defenses are correspondingly upstream: a carrier port-out lock, an authenticator app or [hardware authenticator](/wiki/security/yubikey) in place of SMS codes wherever the bank permits it, and the discipline of de-enrolling an alias before giving up the number. Zelle's own contribution has been to shrink the attack surface — retiring the standalone app removed the easiest place to enroll a stolen alias, since every remaining enrollment path now runs through an institution that has done [know your customer](/wiki/economics/finance/regulation/know-your-customer) checks on the person claiming it.
 
-A tag has no upstream to compromise. Taking one over means compromising the bank login itself, which is a harder and much better-defended target. This is the strongest argument for tags, and it is rarely the one used to sell them.
+A tag has no upstream to compromise: taking one over means compromising the bank login itself, which is a harder and much better-defended target. [What that buys and what it costs the sender](/wiki/economics/finance/payments/zelle/tag#what-changes-when-the-network-owns-the-namespace) is the subject of its own page.
 
 ## Misdirection: the mundane failure
 
@@ -49,7 +49,7 @@ The dramatic failure gets attention; the common one is a typo.
 
 Because an alias is a short string chosen by humans, the adjacent strings are also valid aliases belonging to real people. Transpose two digits of a phone number and the directory will cheerfully resolve it, the payment will complete, and the money will be sitting in a stranger's account with [no recall path](/wiki/economics/finance/payments/zelle/how-it-works#push-not-pull). Bank interfaces mitigate this by displaying the registered first name and last initial of the resolved recipient before you confirm, which catches the case where you know the recipient's name and not the case where you were given the wrong number by a scammer.
 
-Tags do not fix this and may make it worse. A handle is chosen to be memorable, which means its near-misses are memorable too, and a squatter holding the hyphenated variant of a restaurant's tag is the Venmo impersonation problem arriving in a network with no reversal.
+Tags do not fix this and may make it worse. A handle is chosen to be memorable, which means its near-misses are memorable too, and [a squatter holding the hyphenated variant of a restaurant's tag](/wiki/economics/finance/payments/zelle/tag#impersonation-is-the-price-of-a-memorable-name) is the Venmo impersonation problem arriving in a network with no reversal.
 
 Compare the same failure elsewhere. An [Ethereum](/wiki/economics/finance/defi/ethereum) address carries a checksum in the capitalisation of its hex digits, so a typo usually fails closed rather than resolving to a stranger. A wire transfer resolves an account number that is checkable against a name. A phone number has neither property: no check digits, no independent name binding, and a dense space in which nearly every neighbouring value is live.
 
@@ -69,7 +69,7 @@ For anything built on Zelle, the alias is the interface, and it has properties w
 
 The mapping is **opaque**: you cannot query the directory yourself, discover which bank holds an alias, or verify a binding out of band. You learn the result only by sending. It is **mutable** without notice to counterparties — an address that worked last month may now point somewhere else, and nothing tells you. And it is **identity-adjacent but not identity**: the bank behind an alias has verified a real person, which is exactly what makes the alias valuable as an identity signal, but the directory exposes only a first name and last initial.
 
-[Interbox](/wiki/economics/finance/defi/interbox) leans on the first and third of these deliberately. It publishes aliases of the form `usdc.polygon@inter.box`, so the *sender's* choice of destination address encodes the intended asset and network, and the bank's verification of the sender is what stands in for a repeated identity check. The mutability is handled the only way it can be: by treating each received payment as the authoritative event and confirming out of band before anything irreversible happens on the other side.
+[Interbox](/wiki/economics/finance/defi/interbox) is built on the third of these. It receives on a single alias, `usd@inter.box`, and [carries the routing in the payment memo](/wiki/economics/finance/defi/interbox#how-it-works) rather than in the address, so the directory holds one binding no matter how many assets and networks the service supports. What the alias contributes is the bank's verification of the *sender*, which is what stands in for a repeated identity check. Opacity and mutability are handled the only way they can be: by treating each received payment as the authoritative event and confirming out of band before anything irreversible happens on the other side.
 
 ## External links
 

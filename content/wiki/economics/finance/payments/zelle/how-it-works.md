@@ -9,7 +9,7 @@ Almost every surprising property of the system — the speed, the irrevocability
 
 ## What actually happens when you press send
 
-You open your bank's app, choose Zelle, and enter a mobile number, email address, or tag — an [alias](/wiki/economics/finance/payments/zelle/alias) — plus an amount. What follows takes seconds and involves four parties.
+You open your bank's app, choose Zelle, and enter a mobile number, email address, or [tag](/wiki/economics/finance/payments/zelle/tag) — an [alias](/wiki/economics/finance/payments/zelle/alias) — plus an amount. What follows takes seconds and involves four parties.
 
 ```text
   Sender                 Sending bank         Zelle network        Receiving bank
