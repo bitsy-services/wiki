@@ -7,7 +7,7 @@ The causal mask is the rule that a word may look backward but never forward. Att
 
 ## Why looking ahead would be fatal
 
-The reason is training, and it is worth being precise about it, because the mask is often explained as though it were about generation. It isn't, quite. The mask bites whenever a single pass covers more than one new row — which is training, and also the **prefill** step that processes a prompt all at once. When the model is emitting tokens one at a time, each pass adds a single row, the future genuinely doesn't exist yet, and there is nothing to peek at.
+The reason is training, though the mask is usually explained as though it were about generation. The mask bites whenever a single pass covers more than one new row — which is training, and also the **prefill** step that processes a prompt all at once. When the model is emitting tokens one at a time, each pass adds a single row, the future genuinely doesn't exist yet, and there is nothing to peek at.
 
 Training is where it earns its keep. A single forward pass over a sequence makes a prediction at *every* row at once — feed in 1024 tokens and you get 1023 scored guesses out, one for each position that has a next token to be checked against. That is the arrangement that makes training on internet-scale text affordable in the first place, and it is [most of the reason the architecture won](/wiki/ai/llm/why-scale-worked).
 

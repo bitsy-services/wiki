@@ -3,9 +3,9 @@ title: "The Bend"
 weight: 30
 ---
 
-A bend is the smallest moving part in a [neural network](/wiki/ai/neural-network): a fixed scrap of arithmetic applied to each number on its own, wedged between the large multiplications that do the visible work. It learns nothing, holds no weights of its own, and is the same in every model that uses it. It is also the reason the rest of the machinery is worth building. Take the bends out and a network of any size — however many layers you paid for — is exactly equal to a single multiplication, and a single multiplication cannot express a rule that says *it depends*. Everything conditional a model does traces back to a bend.
+A bend is the smallest moving part in a [neural network](/wiki/ai/neural-network): a fixed scrap of arithmetic applied to each number on its own, wedged between the large multiplications that do the visible work. It learns nothing, holds no weights of its own, and is the same in every model that uses it. Take the bends out and a network of any size — however many layers you paid for — is exactly equal to a single multiplication, and a single multiplication cannot express a rule that says *it depends*. Everything conditional a model does traces back to a bend.
 
-These pages say **bend** where most of the literature says *activation function* or *nonlinearity*. The word is doing real work: what the operation is for is bending an otherwise straight pipeline, and the specific function chosen to do the bending — [GELU, SwiGLU, or something else](/wiki/ai/neural-network/activations) — is a separate and much less important question than whether a bend is there at all.
+These pages say **bend** where most of the literature says *activation function* or *nonlinearity*. The word names what the operation is for — bending an otherwise straight pipeline — and keeps that separate from which function does the bending. [GELU, SwiGLU, or something else](/wiki/ai/neural-network/activations) is a much smaller question than whether a bend is there at all.
 
 ## What a bend is
 
@@ -29,7 +29,7 @@ That second property is why a bend has no weights. There is nothing in it to lea
 
 The case for the bend is not that it helps. It is that without one, the surrounding parameters are refunded in full.
 
-Multiplying by a matrix `A` and then by a matrix `B` is the same as multiplying by a single matrix `C = A·B`. That is not an approximation or a numerical near-miss; it is what matrix multiplication *is*. You can compute `C` once, throw both originals away, and no input will ever tell the difference.
+Multiplying by a matrix `A` and then by a matrix `B` is the same as multiplying by a single matrix `C = A·B`. That is not an approximation or a numerical near-miss; it is what matrix multiplication *is*. `C` can be computed once and both originals discarded, and no input will ever tell the difference.
 
 Apply that to [the MLP](/wiki/ai/neural-network/multi-layer-perceptron), which is exactly two matrices with a gap between them:
 
@@ -48,17 +48,13 @@ The collapse doesn't stop at one stage, either. Chain twelve bend-free MLPs dire
 
 ## Folding the paper
 
-So a bend is necessary. What it actually buys is easier to see geometrically.
+Take a sheet of paper, fold it a few times, and make one straight cut through the folded stack. Unfold it. The cut was straight — scissors have no other option — but the shape in the paper has many corners, and with enough folds it can be made remarkably intricate.
 
-Take a sheet of paper, fold it a few times, and make one straight cut through the folded stack. Unfold it. The cut you made was straight — you had no other option, the scissors don't curve — but the shape in the paper has many corners, and with enough folds it can be made remarkably intricate.
+A matrix can only cut straight. The bend is the fold. Each bend creases the space the input lives in, and the next matrix draws its straight cut through the creased version; unfolded, that cut is a boundary with corners in it. Stack a dozen layers and the paper has been folded a dozen times before the last cut, so a model's behaviour can turn sharply on distinctions no single weighted sum could draw.
 
-That is the whole trick. A matrix can only cut straight. The bend is the fold. Each bend creases the space the input lives in, and the next matrix draws its straight cut through the creased version; unfolded, that cut is a boundary with corners in it. Stack a dozen layers and you have folded the paper a dozen times before the last cut — which is why a model's behaviour can turn sharply on distinctions no single weighted sum could draw.
-
-This has a formal version. A network with even one bend and enough units can approximate any continuous function to any accuracy you like — the universal approximation theorem, proved in the late 1980s. It is reassuring and almost useless in practice: it says nothing about how many units, and the answer is often absurd. What made the result matter is the empirical discovery that stacking *more folds* is drastically more efficient than making one stage wider, which is the whole reason [a transformer](/wiki/ai/llm) buys its depth by repeating blocks rather than by inflating the bulge inside one.
+This has a formal version. A network with even one bend and enough units can approximate any continuous function to any accuracy you like — the universal approximation theorem, proved in the late 1980s. It is reassuring and almost useless in practice: it says nothing about how many units, and the answer is often absurd. What made the result matter is the empirical discovery that stacking *more folds* is drastically more efficient than making one stage wider; [a transformer](/wiki/ai/llm) accordingly buys its depth by repeating blocks rather than by inflating the bulge inside one.
 
 ## Where "it depends" comes from
-
-The other payoff is behavioural, and it is the one that explains what a model *does*.
 
 Without a bend, every output number is a fixed weighted sum of the inputs. The recipe never changes. Double an input and its contribution doubles, every time, regardless of context — there is no arrangement of weights that makes a unit pay attention to one feature only when some other feature is present, because that is not a thing a weighted sum can do.
 
@@ -68,7 +64,7 @@ This is what the MLP page means by three thousand soft if-then rules, and what m
 
 ## Nonlinearities that aren't bends
 
-A bend is nonlinear, but not everything nonlinear is a bend, and the distinction matters because only a bend leaves each number's fate independent of its neighbours'. Take [the transformer](/wiki/ai/llm) as the worked example: "where is this model's nonlinearity" has four answers there, and most accounts give one. Only the first is a bend in the sense defined above:
+A bend is nonlinear, but not everything nonlinear is a bend, and the distinction matters because only a bend leaves each number's fate independent of its neighbours'. Take [the transformer](/wiki/ai/llm) as the worked example: "where is this model's nonlinearity" has four answers there, and the activation function is only the first of them. Only that one is a bend in the sense defined above:
 
 | Where | The nonlinearity | Elementwise? | Count in [GPT-2 small](/wiki/ai/llm/gpt-2) |
 |---|---|---|---|
@@ -77,11 +73,11 @@ A bend is nonlinear, but not everything nonlinear is a bend, and the distinction
 | [Norms](/wiki/ai/neural-network/normalization) | dividing by a spread computed from the row | no — the divisor comes from all of it | 25 — two per block, plus a final one |
 | [Attention scores](/wiki/ai/llm/qkv-projections) | a query multiplied by a key | no — two numbers in, one out | 12 — one per block |
 
-That third column is the distinction worth holding on to. A bend is nonlinear *and* elementwise. The other three are nonlinear precisely because they are not — a softmax weight depends on every score in the row, a norm's divisor on every number in it. They stop the collapse too. They just aren't bends, and these pages reserve the word.
+A bend is nonlinear *and* elementwise. The other three are nonlinear precisely because they are not — a softmax weight depends on every score in the row, a norm's divisor on every number in it. They stop the collapse too. They just aren't bends, and these pages reserve the word.
 
-The last row is the sneaky one. The Q, K and V projections are each strictly affine, with no activation function anywhere near them, and yet the score is a query dotted with a key — two quantities both computed from the input, multiplied together. A product of two things that each vary with the input is not linear in that input, so attention would be nonlinear even if you deleted its softmax.
+The last row has no activation function in it anywhere. The Q, K and V projections are each strictly affine, and yet the score is a query dotted with a key — two quantities both computed from the input, multiplied together. A product of two things that each vary with the input is not linear in that input, so attention would be nonlinear with its softmax deleted.
 
-The inventory carries one honest correction to the collapse argument above. Because those other three exist, a real transformer stripped of its GELUs would *not* fold down to a single matrix: attention would survive, and the norms sitting between every MLP and the next would stop even the MLPs folding into each other. But each MLP still collapses internally, from 4.7M parameters to 590K — and the MLPs are two-thirds of every block, which is the part worth caring about.
+The inventory carries one honest correction to the collapse argument above. Because those other three exist, a real transformer stripped of its GELUs would *not* fold down to a single matrix: attention would survive, and the norms sitting between every MLP and the next would stop even the MLPs folding into each other. But each MLP still collapses internally, from 4.7M parameters to 590K, and the MLPs are two-thirds of every block's parameters.
 
 ## What makes a bend usable
 
@@ -123,7 +119,7 @@ for block in model.transformer.h:
 
 Nothing else changed. Every weight is the trained one, all 124M of them still present and still being multiplied in exactly the same order. The claim to break: the loss climbs past the **just-under-11** that [an untrained GPT-2 with random weights](/wiki/ai/neural-network) scores. Not merely "worse" — *worse than never having been trained*, because the ablated model is not ignorant but confidently miscalibrated, and the [loss](/wiki/ai/neural-network/the-loss-function) punishes confident wrongness harder than it punishes having no opinion. Generate from it and you get noise.
 
-The interesting part is what you deleted to achieve that: a function with no parameters, which in the 12 MLPs of a trained GPT-2 was doing nothing more than turning negative numbers down.
+What was deleted to achieve that is a function with no parameters, which in the 12 MLPs of a trained GPT-2 was doing nothing more than turning negative numbers down.
 
 ## Depends on / leads to
 

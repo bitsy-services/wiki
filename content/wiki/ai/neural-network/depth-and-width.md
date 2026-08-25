@@ -21,7 +21,7 @@ One part of the budget breaks the rule, and it matters at small scale. The table
 
 ## What depth buys: composition
 
-A layer can only see what the layer before it produced. That is the entire source of depth's value, and it is worth stating as a constraint rather than a feature: whatever a network does in one forward pass, it does in exactly *d* steps, and there is no loop to go around again. Depth is the number of times the network is allowed to work on its own output.
+A layer can only see what the layer before it produced. That is the entire source of depth's value, and it arrives as a constraint: whatever a network does in one forward pass, it does in exactly *d* steps, and there is no loop to go around again. Depth is the number of times the network is allowed to work on its own output.
 
 [The MLP](/wiki/ai/neural-network/multi-layer-perceptron#the-useful-reading-detect-then-write) gives the concrete version. One layer's units detect [features](/wiki/ai/neural-network/glossary) of the input and write features back out. The next layer's units detect features of *those* — combinations, contradictions, refinements of what the first layer concluded. Adding width gives you more detectors looking at the same thing. Only depth gives you detectors that can be about what the earlier detectors found.
 
@@ -37,7 +37,7 @@ Width is how many numbers are in play at one stage — the working set the netwo
 
 ## Where the two meet the hardware
 
-Here the symmetry breaks completely, and this is the consideration that decides real designs.
+Here the symmetry breaks, and it is the break that decides real designs.
 
 **Width is parallel. Depth is serial.** Layer *k*+1 cannot start until layer *k* has finished, and [no quantity of hardware shortens a chain](/wiki/ai/llm/why-scale-worked#recurrence-turns-a-document-into-a-queue) — the same argument that killed recurrent models applies inside a single network's stack. Everything inside one layer, by contrast, happens at once.
 
@@ -54,7 +54,7 @@ Here the symmetry breaks completely, and this is the consideration that decides 
   27 ×  512    █ █ █ █ █ █ █ █ █ ⋯              27 steps, strictly in order
 ```
 
-Those three hold the same number of weights. Count the cells and the picture will tell you otherwise — it makes the deep one look biggest — because width is squared in the budget and the drawing only gets to show it once. That gap between what the picture suggests and what the arithmetic says is most of why the trade is counterintuitive.
+Those three hold the same number of weights. Counting the cells says otherwise — the drawing makes the deep one look biggest — because width is squared in the budget and a picture only gets to show it once.
 
 Four consequences follow from the serial/parallel split:
 
@@ -72,11 +72,11 @@ Training memory is the one place they tie. The [activations](/wiki/ai/neural-net
 
 For most of the field's history, depth was capped not by cost or by usefulness but by *trainability*. Past a couple of dozen layers, deeper networks came out worse — [worse on the training set](/wiki/ai/neural-network/skip-connections#why-deep-stacks-refused-to-train), which is the one thing extra capacity is supposed to guarantee against. The 56-layer model losing to the 20-layer model was an optimization failure, not a capacity failure.
 
-[Skip connections](/wiki/ai/neural-network/skip-connections) and [normalization](/wiki/ai/neural-network/normalization) moved that ceiling from around twenty layers to several hundred, and moved it far enough that it stopped being the binding constraint. This is worth knowing because the older account is still widely taught, and it will send you looking for the wrong evidence. In a modern normalized stack with skips, a hundred layers trains perfectly stably. Depth is now limited by latency and by diminishing returns — not by whether the thing converges.
+[Skip connections](/wiki/ai/neural-network/skip-connections) and [normalization](/wiki/ai/neural-network/normalization) moved that ceiling from around twenty layers to several hundred, and moved it far enough that it stopped being the binding constraint. The older account is still widely taught, and it no longer describes anything: in a modern normalized stack with skips, a hundred layers trains perfectly stably. Depth is now limited by latency and by diminishing returns — not by whether the thing converges.
 
 ## Why the split barely matters, until it does
 
-The measurements that produced the [scaling laws](/wiki/ai/llm/why-scale-worked#what-that-bought) also settled this question, with an answer that reliably disappoints. Hold the parameter count fixed and vary the split between depth and width, and the loss moves by a couple of percent across a wide range of shapes — while changing the parameter count by the same factor moves it a great deal more. Shape is a second-order term. The budget is the first-order one.
+The measurements that produced the [scaling laws](/wiki/ai/llm/why-scale-worked#what-that-bought) also settled this question. Hold the parameter count fixed and vary the split between depth and width, and the loss moves by a couple of percent across a wide range of shapes — while changing the parameter count by the same factor moves it a great deal more. Shape is a second-order term. The budget is the first-order one.
 
 The practical reading is: don't agonize. Pick a conventional shape and spend your attention on how many parameters and how much data you can afford, which is where the loss actually lives.
 

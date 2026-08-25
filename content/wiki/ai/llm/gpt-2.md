@@ -3,7 +3,7 @@ title: "GPT-2"
 weight: 30
 ---
 
-GPT-2 — Generative Pre-trained Transformer 2 — is the language model this section takes apart. OpenAI built it to test one idea — that a program trained only to guess the next piece of text, given enough ordinary writing to practise on, would pick up skills nobody set out to teach it — and it worked well enough to point the whole field in the direction it has been going ever since. It is also, by current standards, small and completely open: the weights are published, it runs on a laptop, and it is built the same way as the models people pay for today. Pivotal and openable at once is a rare combination, and it is why every page here uses GPT-2 as its worked example.
+GPT-2 — Generative Pre-trained Transformer 2 — is the language model this section takes apart. OpenAI built it to test one idea — that a program trained only to guess the next piece of text, given enough ordinary writing to practise on, would pick up skills nobody set out to teach it — and it worked well enough to point the whole field in the direction it has been going ever since. It is also, by current standards, small and completely open: the weights are published, it runs on a laptop, and it is built the same way as the models people pay for today. That openness is why every page here uses it as the worked example.
 
 ## Why the worked example is a model from 2019
 
@@ -19,7 +19,7 @@ The obvious objection is that 2019 is a long time ago. But the spine hasn't chan
 
 Its predecessor established a two-step recipe: train on a pile of text, then [fine-tune](/wiki/ai/llm/fine-tuning) the result on the actual task you cared about. GPT-2's claim was the sharper one — that the second step was optional.
 
-The paper is called *Language Models are Unsupervised Multitask Learners*, and the title is the whole argument. Text scraped from the open web already contains translations, questions with answers, articles with summaries. A model getting genuinely good at predicting that text has no way to avoid learning to translate, answer, and summarize along the way, because those skills are what the next token depends on. The tasks don't need teaching separately. They're already in the data, and prediction drags them out.
+The paper is called *Language Models are Unsupervised Multitask Learners*, and the title states the claim. Text scraped from the open web already contains translations, questions with answers, articles with summaries. A model getting genuinely good at predicting that text has no way to avoid learning to translate, answer, and summarize along the way, because those skills are what the next token depends on. The tasks don't need teaching separately. They're already in the data, and prediction drags them out.
 
 The evidence was **zero-shot** performance — the model doing a task with no training examples for it whatsoever, prompted and nothing more. GPT-2 XL, the largest of the four sizes below, zero-shot beat the state of the art on seven of the eight language-modelling benchmarks it was measured on, against models trained on those datasets specifically. (The eighth, which it lost badly, was the One Billion Word Benchmark.) It was worse than a specialist at things like summarization, but the point was that it could do them at all, having been shown no examples.
 
@@ -44,7 +44,7 @@ What it did do was set a template. Deciding what to publish and when, on capabil
 
 All four share a tokenizer, a 50,257-entry vocabulary, a 1024-token context, a training set, and a recipe. Only [depth and width](/wiki/ai/neural-network/depth-and-width) move, which is what makes them a scaling experiment rather than four unrelated models.
 
-One detail rewards a second look at that table: divide `d_model` by the head count and every row gives 64. A [head](/wiki/ai/llm/glossary) is 64 numbers wide in the smallest model and 64 in the largest. Extra width was spent on *more* heads, never wider ones — the head is treated as a fixed unit and the model buys more of them, which is worth holding onto when you read [multi-head attention](/wiki/ai/llm/multi-head-attention).
+Divide `d_model` by the head count and every row of that table gives 64. A [head](/wiki/ai/llm/glossary) is 64 numbers wide in the smallest model and 64 in the largest. Extra width was spent on *more* heads, never wider ones — the head is treated as a fixed unit and the model buys more of them, which is the premise [multi-head attention](/wiki/ai/llm/multi-head-attention) builds on.
 
 Unqualified "GPT-2" on these pages means **GPT-2 small**, the 124M model.
 
@@ -84,7 +84,7 @@ And here is the same model as a parts list, each part linked to the page that te
 
 It was trained on **WebText**: about 40 GB of text from 8 million documents, gathered by following every outbound link from Reddit that had at least three karma — a cheap proxy for "a human thought this was worth sharing" — with Wikipedia deliberately excluded so it couldn't contaminate the benchmarks.
 
-For the finished small model the paper reports a WikiText-2 perplexity of 29.41. Measure it yourself on a few hundred tokens of WikiText and you'll get a [loss](/wiki/ai/neural-network/the-loss-function) near 3.28 — a perplexity of about 26 — which is the figure the rest of these pages quote. The two aren't in conflict: the paper evaluates the full test set through its own detokenizers, and a short sample is an easier run. It's the same model, measured two ways, and it's worth knowing which kind of number you're holding.
+For the finished small model the paper reports a WikiText-2 perplexity of 29.41. Measure it yourself on a few hundred tokens of WikiText and you'll get a [loss](/wiki/ai/neural-network/the-loss-function) near 3.28 — a perplexity of about 26 — which is the figure the rest of these pages quote. The two aren't in conflict: the paper evaluates the full test set through its own detokenizers, and a short sample is an easier run. Same model, two measurements.
 
 ## Where GPT-2 misleads
 
@@ -101,7 +101,7 @@ A reference model quietly teaches its own quirks as though they were laws. Sever
 | Dense: every parameter runs for every token | Often [mixture of experts](/wiki/ai/llm/mixture-of-experts) — each token routed through a fraction |
 | Tied embedding and unembedding | Often untied at scale, though small models still tie |
 
-The payoff is what the table *doesn't* contain. Not one of those substitutions changes the shape of the thing: rows still run rightward through a stack of blocks, attention is still the only place rows see each other, the MLP still works one row at a time, everything still adds into [the residual stream](/wiki/ai/llm/residual-stream) rather than overwriting it. They are swaps within a fixed frame. That is exactly why the frame is the part worth learning — and why the pages here name GPT-2 explicitly whenever a claim is one of these swappable choices, rather than letting it pass as the way things are done.
+Not one of those substitutions changes the shape of the thing: rows still run rightward through a stack of blocks, attention is still the only place rows see each other, the MLP still works one row at a time, everything still adds into [the residual stream](/wiki/ai/llm/residual-stream) rather than overwriting it. They are swaps within a fixed frame. The pages here name GPT-2 explicitly whenever a claim is one of these swappable choices, rather than letting it pass as the way things are done.
 
 ## Check yourself
 

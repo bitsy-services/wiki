@@ -13,7 +13,7 @@ Do that naively for every token and you rebuild the entire prefix each time — 
 
 ## Why it's safe to keep them
 
-The permission comes from [the causal mask](/wiki/ai/llm/causal-mask), and it's worth being clear that this is a *correctness* argument rather than a heuristic.
+The permission comes from [the causal mask](/wiki/ai/llm/causal-mask), and it is a *correctness* argument rather than a heuristic.
 
 A row can only depend on itself and the rows above it. So once a row has been computed it is final — appending tokens below it cannot change it, because those tokens are not inputs to it. Its key and its value are constants for the remainder of the sequence. Keeping them isn't an approximation of recomputing them; it's the same numbers, retrieved instead of rebuilt.
 

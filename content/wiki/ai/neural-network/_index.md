@@ -8,23 +8,21 @@ A neural network is a function that was *fitted* rather than written. Someone ch
 
 This section is about that kind of object: what it is made of, why each part is there, and how the fitting works. It is deliberately architecture-neutral — the parts on these pages are the parts every network is built from, whatever the network was built to do. [Large language models](/wiki/ai/llm) are one arrangement of them, and the one this wiki takes apart in detail; that section assumes what this one teaches.
 
-Understanding what kind of object is being arranged comes first, because it explains the two facts about these models that surprise people most: that nobody wrote the rules they follow, and that nobody can look up where any of it is stored.
-
 ## Why not just write the program?
 
-Take a job worth doing: given some text, say what comes next. Now try to write that as instructions.
+Take a job worth doing: given some text, say what comes next. Writing that down as instructions runs aground almost immediately.
 
-You could start on grammar, and rules for grammar do exist — enough of them to fill a career, with an exception behind every one. But grammar only narrows the field to the sentences that are *legal*. The question is which of them a person would actually have written, in a document about anything at all, given everything above it. There is no rule for that. Not a hard one, not a long one — nothing you could state, because the thing you would be trying to state is most of what a literate adult knows.
+Grammar is where the attempt starts, and rules for grammar do exist — enough of them to fill a career, with an exception behind every one. But grammar only narrows the field to the sentences that are *legal*. The question is which of them a person would actually have written, in a document about anything at all, given everything above it. There is no rule for that. Not a hard one, not a long one — nothing statable at all, because what would have to be stated is most of what a literate adult knows.
 
-So you give up on stating the rule and specify a *shape* instead: a formula with a great many blanks in it, flexible enough that some filling-in of the blanks would reproduce almost any rule, including one nobody can articulate. Then you let the examples choose the filling.
+So the rule goes unstated and a *shape* is specified instead: a formula with a great many blanks in it, flexible enough that some filling-in of the blanks would reproduce almost any rule, including one nobody can articulate. The examples then choose the filling.
 
-You have done this before on a smaller scale. Fitting a straight line to a scatter plot is the same move: you don't derive the relationship between the two axes, you assume the shape `y = ax + b` and let the points pick `a` and `b`. A neural network changes two things about that. The shape can bend, so it is not restricted to relationships that happen to be straight. And instead of two blanks it has a hundred million.
+Fitting a straight line to a scatter plot is the same move at a smaller scale: the relationship between the two axes is never derived, the shape `y = ax + b` is assumed, and the points pick `a` and `b`. A neural network changes two things about that. The shape can bend, so it is not restricted to relationships that happen to be straight. And instead of two blanks it has a hundred million.
 
-Nothing in that argument is about text. Swap the examples for labelled photographs, board positions, or protein sequences and the reasoning is unchanged — which is why the same machinery keeps turning up in fields that have nothing to do with each other.
+Nothing in that argument is about text. Swap the examples for labelled photographs, board positions, or protein sequences and the reasoning is unchanged, so the same machinery keeps turning up in fields that have nothing to do with each other.
 
 ## Multiply, bend, repeat
 
-The shape itself is monotonous, which is the surprising part. One **layer** does two things:
+The shape itself is monotonous. One **layer** does two things:
 
 ```text
    numbers in  ──▶  multiply by a table of weights  ──▶  bend each result  ──▶  numbers out
@@ -32,9 +30,9 @@ The shape itself is monotonous, which is the surprising part. One **layer** does
 
 The multiply is a matrix multiplication: every output number is a weighted sum of every input number, with the weights being the blanks that training fills in. The [bend](/wiki/ai/neural-network/bend) is a fixed, simple, nonlinear function applied to each number on its own — nothing is learned in it and it has no weights of its own.
 
-Then you do it again on the result, and again. That repetition is what *deep* learning means: not a more sophisticated layer, just more layers. How many there are is the network's **depth**; how many numbers each one carries is its **width**. [How much of each to buy](/wiki/ai/neural-network/depth-and-width) is the one decision that has to be made before any training starts, and cannot be revisited after.
+Then the same two operations run again on the result, and again. That repetition is what *deep* learning means: not a more sophisticated layer, just more layers. How many there are is the network's **depth**; how many numbers each one carries is its **width**. [How much of each to buy](/wiki/ai/neural-network/depth-and-width) is the one decision that has to be made before any training starts, and cannot be revisited after.
 
-The bend looks like the trivial part and is load-bearing. Two matrix multiplications back to back are equivalent to a single matrix multiplication, so a stack built without bends collapses to one layer no matter how many you paid for — [that arithmetic in full](/wiki/ai/neural-network/bend#why-straight-lines-are-not-enough) is a page of its own. Bends are the only reason depth buys anything.
+The bend looks like the trivial part and is load-bearing. Two matrix multiplications back to back are equivalent to a single matrix multiplication, so a stack built without bends collapses to one layer however many were paid for — [that arithmetic in full](/wiki/ai/neural-network/bend#why-straight-lines-are-not-enough) is a page of its own. Bends are the only reason depth buys anything.
 
 A plain chain of layers, with nothing else going on, is a [multi-layer perceptron](/wiki/ai/neural-network/multi-layer-perceptron) — an **MLP** — the simplest network there is, and old enough that the name predates the field's current vocabulary. It is not a historical curiosity: it is still the component most architectures are mostly made of, and where most of their weights sit.
 
@@ -42,11 +40,11 @@ What distinguishes one architecture from another is what it adds around those pl
 
 ## Where "neuron" comes from, and why it misleads
 
-The name is a 1940s analogy that outlived its usefulness. McCulloch and Pitts modelled a brain cell in 1943 as something that sums its inputs and fires if the total clears a threshold; Rosenblatt built the perceptron on that idea in 1958 — first as a simulation on an IBM 704, then two years later as a room-sized machine with the connections strung physically between its units — and the press coverage was about as measured as you would expect. Each unit in the model was a "neuron," each connection a "synapse," and the vocabulary stuck long after anyone was claiming the resemblance was more than superficial.
+The name is a 1940s analogy that outlived its usefulness. McCulloch and Pitts modelled a brain cell in 1943 as something that sums its inputs and fires if the total clears a threshold; Rosenblatt built the perceptron on that idea in 1958 — first as a simulation on an IBM 704, then two years later as a room-sized machine with the connections strung physically between its units — and the *New York Times* reported it as the embryo of a computer expected to "walk, talk, see, write, reproduce itself and be conscious of its existence." Each unit in the model was a "neuron," each connection a "synapse," and the vocabulary stuck long after anyone was claiming the resemblance was more than superficial.
 
-It is worth being clear about how superficial. A unit here is a weighted sum and a bend. It does not spike, it has no timing, its connections are entries in an array rather than anything laid out anywhere, and the procedure that sets its weights — [work out which way every weight should move, then move them all a little](/wiki/ai/neural-network/backprop-one-weight) — is not something a brain is believed to do. The field kept the word, not the claim.
+The resemblance is thin. A unit here is a weighted sum and a bend. It does not spike, it has no timing, its connections are entries in an array rather than anything laid out anywhere, and the procedure that sets its weights — [work out which way every weight should move, then move them all a little](/wiki/ai/neural-network/backprop-one-weight) — is not something a brain is believed to do. The field kept the word, not the claim.
 
-The practical damage is that "neuron" invites you to expect one unit to *mean* something: this one detects rivers, that one fires on Python. Sometimes something close to that is true, and often it is badly false — a single unit fires on an unrelated-looking grab bag, and the thing you were looking for is spread across many units at once. That is [superposition](/wiki/ai/neural-network/superposition), and it is the main obstacle to reading a network rather than merely running one.
+The practical damage is that "neuron" invites the expectation that one unit *means* something: this one detects rivers, that one fires on Python. Sometimes something close to that is true, and often it is badly false — a single unit fires on an unrelated-looking grab bag, and the thing you were looking for is spread across many units at once. That is [superposition](/wiki/ai/neural-network/superposition), and it is the main obstacle to reading a network rather than merely running one.
 
 ## How the weights get their values
 
@@ -62,9 +60,9 @@ Two of the parts in this section exist purely to keep that loop working once the
 
 ## What you give up
 
-You get a function nobody could have written down. What you give up is the ability to read it.
+The result is a function nobody could have written down, and no way to read it back.
 
-A conventional program can be examined: the rule for a behaviour is on some line, and you can go and look at that line. A network has no line. The rule is distributed across millions of weights that each participate in countless other rules, and the only fully honest description of what the model does is the weights themselves — which is to say, no description at all. This is why *interpretability* is a research field rather than a debugging technique, and why pages in this wiki keep saying things like "as far as anyone has been able to determine."
+A conventional program can be examined: the rule for a behaviour is on some line, and that line can be opened. A network has no line. The rule is distributed across millions of weights that each participate in countless other rules, and the only fully honest description of what the model does is the weights themselves — which is to say, no description at all. This is why *interpretability* is a research field rather than a debugging technique, and why pages in this wiki keep saying things like "as far as anyone has been able to determine."
 
 It also relocates where the value is. The arrangement is small, public, and unremarkable — [nanoGPT](/wiki/ai/llm/running-the-checks) is a complete implementation of a well-known one in roughly three hundred readable lines, and everyone in the field has read it. What is worth anything is the numbers that went into the blanks, along with the data and the compute it took to find them.
 

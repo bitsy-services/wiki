@@ -3,15 +3,15 @@ title: "Skip Connections"
 weight: 60
 ---
 
-A skip connection is the decision to *add* a layer's output to its input rather than replace it. That sounds like a wiring detail and is closer to a load-bearing wall. It is what makes a deep stack trainable at all, and it is the reason a layer can leave alone the parts of its input it has nothing to say about — instead of having to rebuild everything worth keeping from whatever its predecessor handed over.
+A skip connection is the decision to *add* a layer's output to its input rather than replace it. It is what makes a deep stack trainable at all, and the reason a layer can leave alone the parts of its input it has nothing to say about — instead of having to rebuild everything worth keeping from whatever its predecessor handed over.
 
 ## Why deep stacks refused to train
 
-Skip connections were invented for image classifiers, and the problem they solved is one every deep stack has. For a while, deeper networks were simply worse — and not in the way anyone expected.
+Skip connections were invented for image classifiers, and the problem they solved is one every deep stack has. For a while, deeper networks were simply worse.
 
 The obvious guess is overfitting: more capacity, better memorization, worse generalization. That is not what was happening. Deeper networks did worse **on the training set** — the one thing extra capacity is supposed to guarantee you can fit. In the 2015 result that made this famous, a 56-layer image classifier was beaten by an otherwise identical 20-layer one on data both were staring directly at. The problem was optimization, not capacity: the deeper model contained a perfectly good shallow model as a special case and could not find it.
 
-Normalization was already available and did not fix it. Those networks used [BatchNorm](/wiki/ai/neural-network/normalization#what-layernorm-does) throughout — published earlier the same year and the standard tool of the day — and still degraded. Keeping the numbers well-scaled turns out to be a genuinely separate problem from getting gradient signal down a long chain, and solving the first leaves the second untouched. That distinction is the one to carry into the rest of this page.
+Normalization was already available and did not fix it. Those networks used [BatchNorm](/wiki/ai/neural-network/normalization#what-layernorm-does) throughout — published earlier the same year and the standard tool of the day — and still degraded. Keeping the numbers well-scaled turns out to be a separate problem from getting gradient signal down a long chain, and solving the first leaves the second untouched.
 
 The diagnosis was that every layer had to actively reproduce whatever it wanted to preserve. If layer 30 receives something useful and its job is to pass it along mostly intact, it must learn a near-identity map — and learning to do nothing, exactly, is a surprisingly hard target to hit with a matrix.
 
@@ -26,7 +26,7 @@ The diagnosis was that every layer had to actively reproduce whatever it wanted 
 
 Do that at every layer and what travels through the network is a running total of every contribution made so far. In a transformer that total has its own name and its own page: [the residual stream](/wiki/ai/llm/residual-stream).
 
-It does two jobs, and they are worth keeping apart because people tend to know about the second and not the first.
+It does two jobs. The second is the one usually named; the first is the one that answers the 56-layer result above.
 
 **It makes "do nothing" the default.** A layer whose output is all zeros is now exactly the identity, for free, with no weights required to achieve it. So a new layer starts out harmless and learns a *correction* to the running total rather than having to earn back what its predecessors built. Learning to add nothing is easy; learning to copy perfectly is not.
 
@@ -34,11 +34,11 @@ It does two jobs, and they are worth keeping apart because people tend to know a
 
 ## What actually happens if you remove them
 
-A modern pre-norm model has both mechanisms, so the failure is gentler than the textbook version leads you to expect — and it's worth knowing that, because the textbook version will send you looking for the wrong evidence.
+A modern pre-norm model has both mechanisms, so removing one produces a gentler failure than the textbook account predicts.
 
 Strip the skips out of a [normalized](/wiki/ai/neural-network/normalization) 12-block model and the gradients don't vanish. Nothing dramatic happens at all. It still trains, perfectly stably, to a clearly worse loss, and then stops improving. The damage shows up as a ceiling, not a crash.
 
-That's the honest payoff. Skip connections aren't what keeps the arithmetic from blowing up — normalization handles that. They're what makes depth *pay*, by letting each layer contribute an increment instead of re-justifying everything worth keeping.
+Skip connections aren't what keeps the arithmetic from blowing up — normalization handles that. They're what makes depth *pay*, by letting each layer contribute an increment instead of re-justifying everything worth keeping.
 
 ## Check yourself
 

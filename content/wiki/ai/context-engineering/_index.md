@@ -92,7 +92,7 @@ Ordered worst-first — the early items cause wrong actions; the later ones only
 
 ## Worked example
 
-Every technique above is abstract until it touches a real harness. [Claude Code](/wiki/ai/context-engineering/claude-code) applies all of them to one concrete task — producing a page for this wiki — and that task is the running example the rest of the [AI section](/wiki/ai) reuses. The page you are reading now was made by the workflow that page describes, which makes it the most direct way to see the budget, curation, compaction, sub-agent isolation, and pitfalls of this page operating on something you can inspect.
+[Claude Code](/wiki/ai/context-engineering/claude-code) applies every technique above to one concrete task — producing a page for this wiki — and that task is the running example the rest of the [AI section](/wiki/ai) reuses. The page you are reading now was produced by the workflow it describes, so the budget, curation, compaction, sub-agent isolation, and pitfalls above are all visible in an artifact that is checked into this repository.
 
 ## Related
 

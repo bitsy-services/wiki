@@ -5,7 +5,7 @@ weight: 70
 
 The loss function is the single number that trains the entire network. Once the model has produced an answer, the loss asks one question: how far was that from the answer that was correct? A confident right answer scores well, a confident wrong answer scores terribly, and everything the model ever learns is a consequence of being pushed, over and over, to make that number smaller. Nothing else is supplied — no rules, no facts, no advice about how to improve.
 
-It is worth being precise about how much rests on this. The architecture decides what the network *can* express; the loss decides what it *will* express. Everything a trained model does is the cheapest way it found to make one number small.
+The architecture decides what the network *can* express; the loss decides what it *will* express. Everything a trained model does is the cheapest way it found to make one number small.
 
 ## Where the right answer comes from
 
@@ -23,7 +23,7 @@ When the answer is a choice among a fixed set of options, the standard loss is *
 loss = −(1/n) Σ log p(correct option)
 ```
 
-Take the probability the model assigned to the option that turned out to be right, take its logarithm, negate it, and average over every example. That's it.
+Take the probability the model assigned to the option that turned out to be right, take its logarithm, negate it, and average over every example.
 
 Each piece is doing something specific. The **log** is there because probabilities multiply across independent predictions and logs turn that into addition — so the loss over a batch is a sum rather than a product that would underflow to zero almost immediately. The **negation** makes lower mean better, since the log of a probability is always negative. The **average** makes batches of different sizes comparable.
 
@@ -35,11 +35,11 @@ Cross-entropy numbers are meaningless without knowing how many options there wer
 
 [GPT-2 small](/wiki/ai/llm/gpt-2) is a convenient illustration, choosing among a [vocabulary](/wiki/ai/llm/glossary) of 50,257. Uniform guessing scores `ln(50257) = 10.82`. The trained model measures 3.28 on WikiText-2. Exponentiate the loss and you get [**perplexity**](/wiki/ai/llm/perplexity) — roughly, how many options the model is effectively choosing between. Uniform is 50,257; GPT-2 small is 26.
 
-The interesting thing about that scale is how compressed the useful part of it is. Getting from "knows nothing" to GPT-2 covers most of the distance from 10.8 down to 3.3, and every advance since has been fought over the remainder. Small absolute movements in loss are large movements in capability, which is worth remembering before dismissing a tenth of a nat.
+The useful part of that scale is compressed. Getting from "knows nothing" to GPT-2 covers most of the distance from 10.8 down to 3.3, and every advance since has been fought over the remainder. Because the scale is logarithmic, a tenth of a nat is about an 11% change in perplexity — small absolute movements in loss are not small movements in capability.
 
 ## It rewards calibration, not just correctness
 
-Cross-entropy does not ask whether the top-ranked option was right. It asks what probability you assigned, and the difference matters enormously.
+Cross-entropy does not ask whether the top-ranked option was right. It asks what probability was assigned to it.
 
 Putting 0.99 on the right option beats putting 0.6 on it. But putting 0.99 on the *wrong* one costs at least 4.6, where an honest 0.6 on the right one costs 0.5 — confident-and-wrong is punished about nine times harder than hedging, and worse still if the leftover probability was spread thin rather than concentrated on the runner-up.
 
@@ -61,7 +61,7 @@ The general shape holds either way. A loss is a statement of what "wrong" means,
 
 ## The loss is not the goal
 
-Worth stating plainly, because it is the source of most surprises in practice: the loss is a *proxy*. Nobody wants a small cross-entropy. They want a model that answers questions well, and cross-entropy is a differentiable stand-in chosen partly because it works and partly because the thing anyone actually cares about usually isn't differentiable at all.
+The loss is a *proxy*. Nobody wants a small cross-entropy. They want a model that answers questions well, and cross-entropy is a differentiable stand-in chosen partly because it works and partly because the thing anyone actually cares about usually isn't differentiable at all.
 
 Where proxy and goal diverge, the network follows the proxy — it has no access to anything else. Most of the surprising behaviour of trained models is this: a faithful optimization of exactly what was written down, which turned out not to be what was meant.
 

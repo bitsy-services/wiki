@@ -3,7 +3,7 @@ title: "Speculative Decoding"
 weight: 340
 ---
 
-Speculative decoding makes a large model produce text faster by having a small model guess ahead. The small one writes the next stretch of text — cheaply, and usually correctly, because most words in most sentences are not hard to predict. The large one then checks all of those guesses at once, for barely more than the cost of extending the text by a word itself. Whatever survives the check is kept, and the rest is thrown away. The remarkable part is that none of this is a quality trade: the text that comes out is drawn from exactly the distribution the large model would have produced unaided, and the only thing that changed is how long it took.
+Speculative decoding makes a large model produce text faster by having a small model guess ahead. The small one writes the next stretch of text — cheaply, and usually correctly, because most words in most sentences are not hard to predict. The large one then checks all of those guesses at once, for barely more than the cost of extending the text by a word itself. Whatever survives the check is kept, and the rest is thrown away. None of this is a quality trade: the text that comes out is drawn from exactly the distribution the large model would have produced unaided, and the only thing that changed is how long it took.
 
 ## The asymmetry it exploits
 
@@ -23,7 +23,7 @@ Note the floor that gives you: even if every single draft token is rejected, tha
 
 ## Why the output is identical, not merely similar
 
-This is the part that makes it an algorithm rather than a heuristic, and it's worth seeing, because "a small model helps a big one" sounds exactly like something that ought to cost quality.
+"A small model helps a big one" sounds like something that ought to cost quality. It does not, and the argument is four lines of arithmetic.
 
 Write `q` for the draft model's distribution over the vocabulary at some position, and `p` for the target's at that same position. The draft has drawn a specific token `x` from `q`. The test on it is:
 
@@ -42,7 +42,7 @@ So there is no quality knob here and no tuning trade-off to get wrong. A bad dra
 
 It wins for the reason [decode is bandwidth-bound](/wiki/ai/llm/training-vs-inference-parallelism): at batch size 1, generating one token and scoring four cost the target model nearly the same, because both are bounded by reading the weights out of memory rather than by arithmetic. The verification pass consumes compute that was sitting idle.
 
-That's the honest framing of the payoff. Speculative decoding doesn't reduce the work; it relocates it into capacity that was being wasted. 2–3× is typical. The ceiling is how often the draft agrees with the target, minus what running the draft costs — which is why the draft has to be genuinely small *and* genuinely similar, and why the technique works best on exactly the predictable text it feels like it should be unnecessary for.
+Speculative decoding doesn't reduce the work; it relocates it into capacity that was being wasted. 2–3× is typical. The ceiling is how often the draft agrees with the target, minus what running the draft costs — which is why the draft has to be genuinely small *and* genuinely similar, and why the technique works best on exactly the predictable text it feels like it should be unnecessary for.
 
 ## Check yourself
 

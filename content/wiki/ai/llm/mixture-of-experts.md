@@ -19,7 +19,7 @@ Replace the single MLP in a block with N of them — the **experts** — plus a 
 
 Think of a hospital with twelve doctors on the payroll. However deep that bench is, any given patient sees one of them, so an appointment costs what an appointment costs — the hospital's capacity and your visit's cost have been decoupled. Staffing the building, on the other hand, costs all twelve salaries whether or not today's patients happen to need all twelve, which is the half of this analogy that turns out to matter most.
 
-Don't push it as far as the word *specialist*, though. The routing is much stranger than a triage desk, as the next section explains.
+The word *specialist* is where the analogy stops.
 
 ## The trade: parameters for FLOPs
 
@@ -31,7 +31,7 @@ Mixtral is the standard worked example: 46.7B parameters in total, 12.9B **activ
 
 **Routing is per row, not per sequence.** The same sentence sends different tokens to different experts, and the choice shifts when the context around a token changes. There is no "this is a physics question, use the physics expert" — the granularity is far finer and far less interpretable than the name suggests. Experts do not, on inspection, correspond to subjects.
 
-**"Active parameters" is a compute number, not a memory number.** Every expert must sit resident in memory whether or not this particular token touches it, because the next token might. So an MoE is cheap to *run* and expensive to *host* — and that is the whole trade restated. You have not made the model smaller. You have made it faster while keeping it exactly as large, and moved the binding constraint from arithmetic to how much memory your hardware has.
+**"Active parameters" is a compute number, not a memory number.** Every expert must sit resident in memory whether or not this particular token touches it, because the next token might. So an MoE is cheap to *run* and expensive to *host*, which restates the trade. You have not made the model smaller. You have made it faster while keeping it exactly as large, and moved the binding constraint from arithmetic to how much memory your hardware has.
 
 ## The failure mode: load collapse
 

@@ -15,7 +15,7 @@ The hardware sees enormous matrix multiplies. It is **compute-bound**: the arith
 
 Token 501 depends on token 500, and token 500 has to be sampled before it exists. There is no way around that — it's what generating text *means*. Generation is strictly serial: one row, one forward pass, repeat.
 
-So far this sounds merely slower. The genuinely surprising part is what it's slow *at*.
+So far this sounds merely slower.
 
 ## Why decode is slow at something other than arithmetic
 

@@ -3,11 +3,11 @@ title: "Claude Code"
 weight: 10
 ---
 
-[Context engineering](/wiki/ai/context-engineering) is a discipline; Claude Code is a harness that implements it. Reading the harness back-to-front is the fastest way to make the discipline concrete, so this page works one real task end to end: **asking Claude Code to write a page for this wiki**. Every principle from the parent page is shown operating on artifacts you can open in this repository, and this same task is the running example reused across the rest of the [AI section](/wiki/ai) — when another page needs "a concrete agentic workload," it means this one.
+[Context engineering](/wiki/ai/context-engineering) is a discipline; Claude Code is a harness that implements it. This page works one real task end to end — **asking Claude Code to write a page for this wiki** — with every principle from the parent page operating on artifacts checked into this repository. The same task is the running example reused across the rest of the [AI section](/wiki/ai): when another page needs "a concrete agentic workload," it means this one.
 
 ## The model is the small part
 
-A source-level analysis of Claude Code (≈512K lines, ~1,900 files) found that only **1.6% of the codebase is AI decision logic; the other 98.4% is deterministic infrastructure** — permission gates, the context-management pipeline, tool routing, session persistence, and recovery. The agent loop itself is a plain reason–act–observe `while` loop. Almost everything that determines whether the wiki page comes out well is *plumbing around the model*, and most of that plumbing is the context engineering this section is about. The practical reading: you do not improve results by prompting harder, you improve them by configuring the harness so the right tokens are present and the wrong ones never enter.
+A source-level analysis of Claude Code (≈512K lines, ~1,900 files) found that only **1.6% of the codebase is AI decision logic; the other 98.4% is deterministic infrastructure** — permission gates, the context-management pipeline, tool routing, session persistence, and recovery. The agent loop itself is a plain reason–act–observe `while` loop. Almost everything that determines whether the wiki page comes out well is *plumbing around the model*, and most of that plumbing is the context engineering this section is about. The lever that moves is therefore configuration — which tokens are present on a turn and which never enter — rather than a more forceful rewording of the request.
 
 ## The task, step by step
 
@@ -19,35 +19,33 @@ Type *"write a wiki page on X"* as the first message and a specific chain fires,
 4. **Write to disk early.** The draft becomes a file as soon as it exists, not a long message held in conversation — because the conversation is the volatile part (see compaction below).
 5. **Verify against the environment.** `hugo` builds the site. A bad shortcode or malformed frontmatter fails the build; that failure is ground truth, the way a failing test is in [agentic workflows](/wiki/ai/agentic-workflows#verification-loops).
 
-The rest of this page is what makes each step reliable.
-
 ## Durable instructions: CLAUDE.md and rules
 
 The highest-leverage context is the [right-altitude instruction](/wiki/ai/context-engineering#right-altitude-instructions) — small, and applied on every turn. Claude Code loads it from a four-level cascade, managed → user → project (`CLAUDE.md`) → local, and delivers it as *user* context rather than a hard system prompt: compliance is probabilistic, which is why emphatic phrasing ("IMPORTANT", "YOU MUST") measurably raises adherence instead of being redundant.
 
-This repository is a live specimen. `CLAUDE.md` carries build commands and structure; `.claude/rules/wiki-content.md` says *"Do not add an `# H1` — Hugo renders the frontmatter title as h1."* That rule is at the right altitude: specific enough to change the output (this page starts at `##` because of it), general enough to apply to every page. The discipline is the pruning test from Anthropic's guide — for each line ask *"would removing this cause a mistake?"* — because a bloated `CLAUDE.md` does not fail loudly; it dilutes attention until the agent quietly ignores the rule you cared about. An over-stuffed instruction file is worse than a short one.
+This repository is a live specimen. `CLAUDE.md` carries build commands and structure; `.claude/rules/wiki-content.md` says *"Do not add an `# H1` — Hugo renders the frontmatter title as h1."* That rule is at the right altitude: specific enough to change the output (this page starts at `##` because of it), general enough to apply to every page. Anthropic's guide supplies the pruning test — for each line, *"would removing this cause a mistake?"* — and a `CLAUDE.md` that fails it does not fail loudly. It dilutes attention across more lines until the agent silently drops the one rule that was doing work.
 
 ## Pick the cheapest mechanism that works
 
-`CLAUDE.md` is loaded *every* session; that is its power and its cost. Knowledge needed only sometimes — how to write a Solidity example, say — belongs in a [skill](/wiki/ai/context-engineering#just-in-time-retrieval) that loads on demand, not in the always-on file. The extension mechanisms stratify by exactly this context cost:
+`CLAUDE.md` is loaded *every* session, so each line in it is paid for on every turn of every session, whether or not that session touches what it covers. Knowledge needed only sometimes — how to write a Solidity example, say — belongs in a [skill](/wiki/ai/context-engineering#just-in-time-retrieval) that loads on demand, not in the always-on file. The extension mechanisms stratify by exactly this context cost:
 
 - **Hooks** — zero context cost; deterministic scripts the harness runs, not text the model reads. Use them for anything that must happen every time without exception (a lint-on-save, a block on writing outside `content/`).
 - **Skills** — low cost; a folder of instructions loaded only when relevant. A "draft a wiki page" skill lives here.
 - **Plugins / [MCP](/wiki/ai/mcp)** — medium-to-high cost; whole tool schemas present every turn whether called or not.
 
-The rule that follows: encode a constraint as a hook before a rule, and a rule before a tool, because that order is also cheapest-context-first.
+Encoding a constraint as a hook before a rule, and a rule before a tool, walks that list from zero cost upward — the same order as strongest-enforcement-first, since a hook cannot be talked out of running.
 
 ## Subagents keep the drafting window clean
 
-The single strongest lever is [sub-agent isolation](/wiki/ai/context-engineering#sub-agent-context-isolation). "Read every existing AI page and all the rules files and extract the house style" is a wide read that would pour a dozen file bodies into the window the draft has to be written in. Delegated to a subagent, that fan-out happens in a separate context and only a synthesized summary returns — Anthropic reports such returns landing around **1,000–2,000 tokens** versus the tens of thousands the raw reads would cost. The parent keeps the conclusion, not the dump, and starts drafting with a clean budget. The [agentic-workflows](/wiki/ai/agentic-workflows#sub-agent-delegation) rule applies: delegate breadth (a style sweep), keep depth (the actual drafting, which needs the accumulated decisions) in the main agent.
+"Read every existing AI page and all the rules files and extract the house style" is a wide read that would pour a dozen file bodies into the window the draft has to be written in. Delegated to a subagent ([sub-agent isolation](/wiki/ai/context-engineering#sub-agent-context-isolation)), that fan-out happens in a separate context and only a synthesized summary returns — Anthropic reports such returns landing around **1,000–2,000 tokens** versus the tens of thousands the raw reads would cost. The parent keeps the conclusion, not the dump, and starts drafting with a clean budget. The [agentic-workflows](/wiki/ai/agentic-workflows#sub-agent-delegation) rule applies: delegate breadth (a style sweep), keep depth (the actual drafting, which needs the accumulated decisions) in the main agent.
 
 ## Memory is structured note-taking with a garbage collector
 
-Anthropic's context-engineering guidance names *structured note-taking* — an external memory file the agent maintains across sessions — as a core long-horizon technique. This repo implements it and goes further: `.claude/memory/` holds a `MEMORY.md` index plus individual fact files, and `.claude/rules/self-improvement.md` runs them through a generational collector — raw friction observations (Gen 0) consolidate into patterns (Gen 1) and, once stable, are promoted to checked-in rules (Gen 2). The context-engineering point is the parent page's rule made operational: *facts that must survive go to a durable artifact, not a conversational aside* that [compaction](/wiki/ai/context-engineering#compaction-and-summarization) will silently discard. A decision about wiki conventions written into memory outlives the session; the same decision mentioned only in chat does not.
+Anthropic's context-engineering guidance names *structured note-taking* — an external memory file the agent maintains across sessions — as a core long-horizon technique. This repo implements it and goes further: `.claude/memory/` holds a `MEMORY.md` index plus individual fact files, and `.claude/rules/self-improvement.md` runs them through a generational collector — raw friction observations (Gen 0) consolidate into patterns (Gen 1) and, once stable, are promoted to checked-in rules (Gen 2). A decision about wiki conventions written into `.claude/memory/` outlives the session; the same decision mentioned only in chat is a conversational aside that [compaction](/wiki/ai/context-engineering#compaction-and-summarization) discards without saying so.
 
 ## Compaction will eat your draft
 
-Claude Code does not wait for the context limit and then truncate. It runs a graduated pipeline — budget reduction, snipping, microcompaction, context collapse, and finally auto-compaction — degrading lazily as the window fills. Every stage is lossy by design. The consequence for the wiki task is direct and is why step 4 above exists: a half-finished page that lives only as conversation can be summarized into "drafted a page about X" and its actual prose is gone. Mitigations, all instances of the parent page's rules:
+Claude Code does not wait for the context limit and then truncate. It runs a graduated pipeline — budget reduction, snipping, microcompaction, context collapse, and finally auto-compaction — degrading lazily as the window fills. Every stage is lossy by design. Step 4 above exists because of that: a half-finished page living only as conversation can be summarized down to "drafted a page about X", and its prose is then gone. Mitigations, all instances of the parent page's rules:
 
 - **Externalize the artifact.** Write the page to a file early; the file is outside the window and survives every compaction stage.
 - **Front-load conclusions.** State "the page uses sections A/B/C because the sibling pages do" explicitly, so the summarizer keeps a decision rather than reconstructing it.
@@ -55,7 +53,7 @@ Claude Code does not wait for the context limit and then truncate. It runs a gra
 
 ## Verify the build, not your memory of it
 
-Claude Code's own guidance calls a verification mechanism *the single highest-leverage thing you can configure*. For this wiki the mechanism is free: `hugo` either builds or it does not. Wire the check to the world. Two habits from [tool-result hygiene](/wiki/ai/context-engineering#tool-result-hygiene) sharpen this:
+Claude Code's own guidance calls a verification mechanism *the single highest-leverage thing you can configure*. For this wiki the mechanism costs nothing to build: `hugo` either compiles the site or it does not. Two habits from [tool-result hygiene](/wiki/ai/context-engineering#tool-result-hygiene) sharpen it:
 
 - **Don't re-read the file you just wrote to "check it."** The write either succeeded or errored; re-reading only duplicates the page in the window and teaches you nothing the build will not.
 - **Run the build instead.** It is the environmental ground truth; the agent's recollection of what it wrote is not.

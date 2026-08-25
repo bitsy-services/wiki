@@ -3,7 +3,7 @@ title: "Perplexity"
 weight: 235
 ---
 
-Perplexity is the standard single number for how good a language model is at its one core job: predicting the next token. It restates the model's average surprise as an effective number of choices — how many equally-likely options the model is, in effect, deciding between at each step. Fewer is better; a model that always knew exactly what came next would have nothing left to choose between. It's the figure papers quote to claim one model fits a body of text better than another, though the same model scores differently depending only on how that text was cut into tokens — a caveat that turns out to be most of the story of reading the number honestly.
+Perplexity is the standard single number for how good a language model is at its one core job: predicting the next token. It restates the model's average surprise as an effective number of choices — how many equally-likely options the model is, in effect, deciding between at each step. Fewer is better; a model that always knew exactly what came next would have nothing left to choose between. It's the figure papers quote to claim one model fits a body of text better than another, though the same model scores differently depending only on how that text was cut into tokens.
 
 ## The number behind the number
 
@@ -46,7 +46,7 @@ Because perplexity is a geometric mean, one token can dominate it. Assign a prob
 
 Perplexity is an average *per token*, and different tokenizers cut the same sentence into different numbers of tokens. A model with a larger or smarter vocabulary spends fewer, individually-easier predictions on the same text, and reports a lower perplexity that says nothing about whether it models the *language* better — only that it chopped the text into coarser pieces. Two perplexities are comparable only when they come from the same tokenizer on the same corpus. A perplexity quoted without both is a number you cannot use.
 
-The fix when you must cross tokenizers is to normalize away the token count entirely: measure **bits per byte** or **bits per character** — the model's total surprise in bits divided by the length of the raw text, not the token stream. That lets a byte-level model and a [BPE](/wiki/ai/llm/tokenization) model be compared on equal terms, because bytes are bytes whatever the vocabulary. It's why GPT-2's own paper reports its headline WikiText figure of 29.41 with detokenizers in the loop, and why a short strided sample gives the friendlier 26 the rest of these pages quote: same model, two measurement protocols, and knowing which one you're holding is the whole skill.
+The fix when you must cross tokenizers is to normalize away the token count entirely: measure **bits per byte** or **bits per character** — the model's total surprise in bits divided by the length of the raw text, not the token stream. That lets a byte-level model and a [BPE](/wiki/ai/llm/tokenization) model be compared on equal terms, because bytes are bytes whatever the vocabulary. It's why GPT-2's own paper reports its headline WikiText figure of 29.41 with detokenizers in the loop, and why a short strided sample gives the friendlier 26 the rest of these pages quote: same model, two measurement protocols.
 
 ## A number is only as good as its corpus
 

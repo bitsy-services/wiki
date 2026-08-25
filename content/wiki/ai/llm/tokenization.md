@@ -21,7 +21,7 @@ What's wanted is a fixed-size inventory that can nevertheless spell anything —
 
 Start from raw bytes. There are 256 of them, every possible input is made of them, and so the inventory can already spell anything before a single decision has been made. That is the escape hatch that makes the rest safe, and it never goes away. Then count every adjacent pair of tokens across a large body of text, take the pair that occurs most often, glue it into one new token, and add it to the inventory. Count again. Repeat.
 
-Early merges produce fragments like `th` and `in`. Later ones, built on top of the earlier, produce ` the` and ` because`. The table records not just what was merged but the order it was merged in, and that order is the whole rulebook.
+Early merges produce fragments like `th` and `in`. Later ones, built on top of the earlier, produce ` the` and ` because`. The table records not just what was merged but the order it was merged in, and that order is the rulebook.
 
 Think of a printer setting type. You begin with individual letters, notice you keep reaching for the same combinations, and cast a single slug for `the` to save yourself the trouble. Words you set constantly earn their own slug; words you set once get spelled out letter by letter. Either way the page gets printed — the only question is how many pieces of type it took.
 

@@ -3,7 +3,7 @@ title: "Using a Claude Code Plugin"
 weight: 10
 ---
 
-A Claude Code plugin is a directory that the harness can install, namespace, version, and reload as a unit. It is the packaged form of the same building blocks the harness already loads from `.claude/`: slash commands, [skills](/wiki/ai/context-engineering#just-in-time-retrieval), [subagents](/wiki/ai/agentic-workflows#sub-agent-delegation), [hooks](/wiki/ai/context-engineering/claude-code#pick-the-cheapest-mechanism-that-works), [MCP](/wiki/ai/mcp) servers, and a handful of less-common pieces (Language Server Protocol (LSP) servers, background monitors, on-`PATH` binaries, default settings). The difference is one of *distribution and lifecycle* rather than capability — anything a plugin does you could also do by hand in a project's `.claude/`. The reason to use a plugin is that you don't want to.
+A Claude Code plugin is a directory that the harness can install, namespace, version, and reload as a unit. It is the packaged form of the same building blocks the harness already loads from `.claude/`: slash commands, [skills](/wiki/ai/context-engineering#just-in-time-retrieval), [subagents](/wiki/ai/agentic-workflows#sub-agent-delegation), [hooks](/wiki/ai/context-engineering/claude-code#pick-the-cheapest-mechanism-that-works), [MCP](/wiki/ai/mcp) servers, and a handful of less-common pieces (Language Server Protocol (LSP) servers, background monitors, on-`PATH` binaries, default settings). The difference is one of *distribution and lifecycle* rather than capability: anything a plugin does can be done by hand in a project's `.claude/`, once per project, with no version to pin and no way to turn it off.
 
 This page is about consuming plugins others have packaged. [Authoring a plugin](/wiki/ai/plugins/authoring) covers the production side.
 
@@ -29,10 +29,10 @@ my-plugin/
 └── settings.json            # plugin-managed default settings
 ```
 
-Two specifics worth pinning down because they trip people up:
+Two specifics the layout does not make obvious:
 
 - **`commands/` is the older flat form; `skills/` is the new one.** Both work. New plugins should use `skills/` because it supports a `SKILL.md` body, [progressive disclosure](/wiki/ai/context-engineering#just-in-time-retrieval), and tool restrictions.
-- **Only `plugin.json` lives inside `.claude-plugin/`.** Putting `skills/` or `hooks/` inside that directory is the single most common authoring mistake; the harness will silently not find them.
+- **Only `plugin.json` lives inside `.claude-plugin/`.** The harness looks for the component directories beside that folder, not inside it, so a plugin with `skills/` nested within `.claude-plugin/` loads with no error and no skills.
 
 The manifest itself is small — name, description, version, optional author. The `name` is the namespace: a skill called `review` inside a plugin called `quality-tools` is invoked as `/quality-tools:review`. Namespacing is unconditional; it is what lets two plugins ship the same skill name without colliding.
 
@@ -45,7 +45,7 @@ Two installation routes, both via the `/plugin` command:
 
 Two marketplaces are present out of the box:
 
-- **`claude-plugins-official`** — Anthropic's curated set, available automatically. Inclusion is at Anthropic's discretion; the bar is real.
+- **`claude-plugins-official`** — Anthropic's curated set, available automatically. Inclusion is at Anthropic's discretion rather than by open submission.
 - **`claude-community`** — third-party submissions that pass an automated safety and review pipeline. Added with `/plugin marketplace add anthropics/claude-plugins-community`; installs are scoped with `@claude-community`.
 
 Beyond those, any git repository with a `.claude-plugin/marketplace.json` at its root is a valid marketplace; private repositories work the same way for team-internal distribution.
@@ -58,7 +58,7 @@ A plugin can be installed and not enabled; the manifest is on disk but the harne
 
 ## Context cost in practice
 
-The [parent page's ranking](/wiki/ai/plugins/#context-cost-is-the-central-tradeoff) of plugins as medium-to-high context cost is the right baseline; Claude Code's specifics shift the picture in both directions:
+The [parent page's ranking](/wiki/ai/plugins/#what-a-plugin-costs-per-turn) of plugins as medium-to-high context cost is the right baseline; Claude Code's specifics shift the picture in both directions:
 
 - **Skills are cheap until invoked.** A `SKILL.md` body does not enter the window; only its frontmatter `description` does, so the harness can route to it. A plugin that ships ten skills costs roughly ten short descriptions, not ten full bodies.
 - **Tool schemas can be heavy.** A bundled MCP server with twenty tools puts twenty tool schemas in the prompt every turn — the kind of thing that quietly inflates the [stable prefix](/wiki/ai/prompt-caching) until the [cache benefit](/wiki/ai/prompt-caching) is undone by sheer volume.
@@ -69,7 +69,7 @@ The composite rule: prefer plugins whose surface is skills and hooks over plugin
 
 ## Security: a plugin runs code on your machine
 
-The trust model is the only thing about plugins worth being unhappy about by default. A plugin can:
+An enabled plugin can:
 
 - Run shell commands on every matched tool call (hooks).
 - Start a long-running local process that sees your tool inputs and outputs (MCP servers).

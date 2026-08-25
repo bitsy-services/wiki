@@ -17,20 +17,20 @@ Adding instead of replacing changes what the default is. Write your contribution
 
 ## The whole of a block
 
-Given that, a [block](/wiki/ai/llm/glossary) is smaller than you'd think. It does this, and nothing else:
+Given that, a [block](/wiki/ai/llm/glossary) does this, and nothing else:
 
 ```text
 row = row + attention(norm(row))
 row = row + mlp(norm(row))
 ```
 
-Read it twice, because the shape of it is the point. [Attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/the-mlp) never see the stream directly — they read a [normalized](/wiki/ai/neural-network/normalization) *copy* of it, and their output is added back. The stream itself is never overwritten by anyone.
+[Attention](/wiki/ai/llm/attention) and [the MLP](/wiki/ai/llm/the-mlp) never see the stream directly — they read a [normalized](/wiki/ai/neural-network/normalization) *copy* of it, and their output is added back. The stream itself is never overwritten by anyone.
 
 So the row leaving the last block of [GPT-2 small](/wiki/ai/llm/gpt-2) is the [embedding](/wiki/ai/llm/embeddings) plus 24 contributions: 12 from attention, 12 from the MLP, each of them [`d_model`](/wiki/ai/llm/glossary) wide. (The MLP widens a row internally on its way through, but writes back at the same width it read.) That running sum is the residual stream.
 
 ## It's a bus, not a pipeline
 
-The consequence is worth stating on its own. Blocks do not hand each other outputs. They all read from, and write to, one shared line.
+Blocks do not hand each other outputs. They all read from, and write to, one shared line.
 
 Block 9's attention can pick up something block 2 wrote and block 5 never touched — it's still sitting in the sum, untouched, because nothing along the way had the power to remove it. Nothing is relayed hop by hop. A block is a device that reads the bus and adds to it, and the model is 12 of those in a row.
 
@@ -38,7 +38,7 @@ Block 9's attention can pick up something block 2 wrote and block 5 never touche
 
 Because the final row is a *sum*, you can ask what any one block contributed to any one prediction and get an actual number back. [Logits](/wiki/ai/llm/unembedding-and-logits) are a linear readout of the final row, and a linear readout of a sum is the sum of the readouts of its parts. That turns a chunk of attribution into arithmetic — which is why so much interpretability work starts here.
 
-Two caveats, both worth carrying.
+Two caveats.
 
 **The word *direct* is load-bearing.** **Direct logit attribution** splits one logit into one number per block, and those numbers are exact — for the direct path. But a block's write also changes what every later block *computes*: block 2 reshapes block 9's attention pattern, and none of that downstream influence appears in block 2's number. A block can matter enormously and still score near zero. What the arithmetic gives you is a component's direct contribution, not its total causal effect.
 
@@ -46,7 +46,7 @@ Two caveats, both worth carrying.
 
 ## The bandwidth never grows
 
-Here's the pressure that shapes everything else. `d_model` is the same at the right edge as at the left: the stream does not get wider to accommodate 24 writers. All of them compete for the same 768 directions, and everything the model knows has to fit.
+`d_model` is the same at the right edge as at the left: the stream does not get wider to accommodate 24 writers. All of them compete for the same 768 directions, and everything the model knows has to fit.
 
 It doesn't fit — not the way you'd hope. Models track far more features than they have dimensions, and the trick that lets them is [superposition](/wiki/ai/neural-network/superposition).
 
@@ -58,7 +58,7 @@ First, remove one contributor. Zero block 6's attention output with a [forward h
 
 Now sever the bus. Zero the *whole stream* entering block 6, and perplexity blows up by several orders of magnitude while the output collapses into repetition. That is a far bigger deletion, deliberately so — the embedding and everything the first six blocks wrote goes with it, thirteen of the twenty-four contributions rather than one.
 
-The pairing is the point. The first ablation is what losing a contributor costs on a bus: fifteen percent. The second is the failure a *relay* design risks every time a stage declines to pass something on — block 7 receiving nothing of what came before — and it's fatal. The architecture is the whole difference between those two numbers, and it's why the second can't happen by accident: no block has the power to zero the stream, because no block can do anything but add to it.
+The first ablation is what losing a contributor costs on a bus: fifteen percent. The second is the failure a *relay* design risks every time a stage declines to pass something on — block 7 receiving nothing of what came before — and it is fatal. Only the architecture separates those two numbers, and on a bus the second cannot happen by accident: no block has the power to zero the stream, because no block can do anything but add to it.
 
 ## Depends on / leads to
 

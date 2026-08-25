@@ -6,21 +6,21 @@ bookCollapseSection: true
 
 An AI plugin is a bundled extension to an [agentic harness](/wiki/ai/context-engineering/claude-code) — slash commands, [skills](/wiki/ai/context-engineering#just-in-time-retrieval), [subagents](/wiki/ai/agentic-workflows#sub-agent-delegation), hooks, [MCP](/wiki/ai/mcp) servers, sometimes a default-agent activation — shipped as a directory with a manifest, versioned, and installable from a marketplace. The unit of distribution is the plugin; the unit of execution is the harness that loads it. Without the harness, the plugin is inert files; without plugins, the harness only sees what you wrote into its always-on configuration.
 
-Plugins occupy a specific slot in the [stratified extension hierarchy](/wiki/ai/context-engineering/claude-code#pick-the-cheapest-mechanism-that-works): cheaper than baking a capability into every project, more expensive than a hook or rule because the plugin's tool surface generally has to be present each turn. Reaching for one well means understanding where it sits relative to the alternatives, what it costs in context, and what trust you are extending when you install it.
+Plugins occupy a specific slot in the [stratified extension hierarchy](/wiki/ai/context-engineering/claude-code#pick-the-cheapest-mechanism-that-works): cheaper than baking a capability into every project, more expensive than a hook or rule because the plugin's tool surface generally has to be present each turn.
 
 ## Why bundle, instead of a raw MCP server or hand-rolled config
 
-[MCP](/wiki/ai/mcp) standardizes how a model talks to an external tool server; a plugin standardizes how a *package* of extensions (one or more tool servers, plus the prompts, subagents, hooks, and skills that go around them) is named, versioned, installed, and reloaded. The difference matters in three concrete places:
+[MCP](/wiki/ai/mcp) standardizes how a model talks to an external tool server; a plugin standardizes how a *package* of extensions (one or more tool servers, plus the prompts, subagents, hooks, and skills that go around them) is named, versioned, installed, and reloaded. The difference shows up in three places:
 
 - **Lifecycle.** A plugin can be installed, enabled, disabled, updated, and uninstalled as one thing. A loose collection of MCP servers, rule files, and shell scripts has to be re-assembled by hand in every checkout.
 - **Distribution.** Plugins live in marketplaces — JSON catalogs in a git repository — and update by `git pull`. There is no equivalent for "the dozen tweaks in my `.claude/` directory."
 - **Namespacing and conflict.** Two plugins can both define a `review` skill because the harness namespaces them by plugin (`/plugin-a:review`, `/plugin-b:review`). Hand-rolled configuration in a single project has no such isolation.
 
-The mental model is the one used for system packages versus loose scripts in `~/bin`. Both work; the package gives you the lifecycle.
+The relationship is the one a system package has to a loose script in `~/bin`. Both run; only one can be upgraded, pinned, and removed as a unit.
 
 ## The landscape
 
-The term "AI plugin" is used loosely. The plugins this section is about are extensions to *agentic coding harnesses* — the long-running, tool-calling loops covered in [agentic workflows](/wiki/ai/agentic-workflows). The neighbouring uses of the term are worth disambiguating:
+The term "AI plugin" is used loosely. The plugins this section is about are extensions to *agentic coding harnesses* — the long-running, tool-calling loops covered in [agentic workflows](/wiki/ai/agentic-workflows). The neighbouring uses:
 
 - **Claude Code plugins.** Anthropic's harness, the case [the next page](/wiki/ai/plugins/claude-code) covers end to end. A first-party plugin system with an official curated marketplace and a community marketplace.
 - **MCP servers.** The substrate, not a plugin format. A plugin in any harness frequently bundles one or more MCP servers; outside a plugin, an MCP server is configured directly.
@@ -29,7 +29,7 @@ The term "AI plugin" is used loosely. The plugins this section is about are exte
 
 The rest of this section focuses on the Claude Code lineage because it is the most fully specified case and the one running in this repository, but the patterns — bundling, namespacing, marketplace distribution, trust boundaries — generalize across harnesses.
 
-## Context cost is the central tradeoff
+## What a plugin costs per turn
 
 A plugin's tools, skill descriptions, and agent definitions can land in the window every turn whether the model uses them or not. The [Claude Code page](/wiki/ai/context-engineering/claude-code#pick-the-cheapest-mechanism-that-works) ranks plugins and MCP as the *most* expensive extension mechanism by exactly this measure. Two refinements modern harnesses apply:
 
@@ -48,7 +48,7 @@ The defensible model:
 - **Read the manifest before enabling.** What hooks fire? What MCP servers start? What does `bin/` add to your `PATH`? These are short answers a manifest can give you; the alternative is finding out by surprise.
 - **Prefer first-party or curated marketplaces for anything that touches secrets or production.** Community marketplaces are useful for low-risk capabilities; an unaudited plugin from one is the wrong place to source the thing that gets your AWS keys.
 
-This is dual-use territory: the same mechanisms that make plugins powerful — running real commands, hosting real servers, modifying the agent's behavior — are what an unsafe plugin would exploit. The discipline is the one [agentic-engineering](/wiki/ai/agentic-engineering#guardrails-and-the-irreversible-action-problem) names for tools generally, applied to the install step.
+The mechanisms are dual-use: running real commands, hosting real servers, and modifying the agent's behavior are what a plugin is for and what an unsafe one exploits, and nothing in the manifest distinguishes the two. [Agentic engineering](/wiki/ai/agentic-engineering#guardrails-and-the-irreversible-action-problem) names the same trust model for tools generally; a plugin install applies it one layer earlier.
 
 ## Pitfalls, by severity
 

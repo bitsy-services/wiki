@@ -22,7 +22,7 @@ Take a query vector — 64 numbers, for [one head](/wiki/ai/llm/multi-head-atten
 
 For the token at position *m*, spin each pair by an angle proportional to *m*. Pair *i* turns by *m·θᵢ*, where θᵢ is a fixed frequency for that pair (why the frequencies differ comes below). A token at position 0 isn't rotated at all; a token at position 5 is spun five times as far as one at position 1. Do the identical thing to every key. Then score with the ordinary dot product — nothing else in attention changes.
 
-That's the whole mechanism: **position becomes an angle, and a token's vector is its content spun around by its place in line.**
+**Position becomes an angle, and a token's vector is its content spun around by its place in line.**
 
 ```text
 q at position m:   rotate each 2D pair by  m · θᵢ
@@ -32,7 +32,7 @@ score = (rotated q) · (rotated k)     ← ordinary dot product
 
 ## Why the score sees only the gap
 
-Here is the property that makes it pay off. Rotate one 2D vector by angle *a* and another by angle *b*, then dot them — for a fixed pair of vectors, the result depends only on *(a − b)*, the *difference* of the two angles. (Turning both vectors by the same extra amount doesn't change the angle between them, so it can't change their dot product.)
+Rotate one 2D vector by angle *a* and another by angle *b*, then dot them — for a fixed pair of vectors, the result depends only on *(a − b)*, the *difference* of the two angles. (Turning both vectors by the same extra amount doesn't change the angle between them, so it can't change their dot product.)
 
 Apply that to a query at position *m* and a key at position *n*. The query pair was spun by *m·θᵢ* and the key pair by *n·θᵢ*, so their contribution to the score depends on *(m − n)·θᵢ* — the offset *m − n*, and nothing about *m* or *n* on their own. Content still decides *what* a head looks for; position enters purely as *how far back* a match is.
 
@@ -52,11 +52,11 @@ Three things fall out, and each is a direct consequence of encoding position as 
 
 **It lives inside attention.** RoPE rotates q and k and nothing else — never the [values](/wiki/ai/llm/qkv-projections), never the [residual stream](/wiki/ai/llm/residual-stream). Position isn't stirred into the token once at the left edge; it's reapplied fresh inside every block, every time attention runs.
 
-**The window stretches afterward.** Here is where the headline finally lands: a model trained at 8k tokens routinely ships with a 128k-token window. That's possible because the rotation is *continuous* in position — position 8,000.5 is a perfectly good angle even if training never used it. Nudge the frequencies (raise the base, or interpolate positions so the trained range is stretched to cover a longer one), fine-tune briefly, and the model works well past the length it saw in training. NTK-aware (neural tangent kernel) scaling, position interpolation, and YaRN are all variations on that one move — and it's how long-context models got long.
+**The window stretches afterward.** A model trained at 8k tokens routinely ships with a 128k-token window. That's possible because the rotation is *continuous* in position — position 8,000.5 is a perfectly good angle even if training never used it. Nudge the frequencies (raise the base, or interpolate positions so the trained range is stretched to cover a longer one), fine-tune briefly, and the model works well past the length it saw in training. NTK-aware (neural tangent kernel) scaling, position interpolation, and YaRN are all variations on that one move — and it's how long-context models got long.
 
 ## Check yourself
 
-[Rotate](/wiki/ai/llm/running-the-checks) a random q/k pair at positions (3, 7) and take the dot product. Rotate the same vectors at (103, 107) — same offset, far-off positions — and take it again: they agree to floating-point noise. Try (3, 107) and it collapses. Ten lines of torch, no download, and you've watched absolute position drop out of the score — the whole mechanism in one experiment.
+[Rotate](/wiki/ai/llm/running-the-checks) a random q/k pair at positions (3, 7) and take the dot product. Rotate the same vectors at (103, 107) — same offset, far-off positions — and take it again: they agree to floating-point noise. Try (3, 107) and it collapses. Ten lines of torch, no download, and absolute position has dropped out of the score in front of you.
 
 ## Depends on / leads to
 

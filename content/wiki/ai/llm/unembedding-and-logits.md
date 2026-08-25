@@ -9,13 +9,13 @@ The unembedding is the model's last act: turning the vector it has spent the ent
 
 At the right edge of the model there is a row: `d_model` numbers, 768 of them in [GPT-2 small](/wiki/ai/llm/gpt-2). What's wanted is one number per [vocabulary](/wiki/ai/llm/glossary) entry, 50,257 of them. Something has to bridge those two shapes.
 
-It is worth pausing on how much simpler the answer is than the alternatives you might reasonably imagine. There is no search through candidate continuations. There is no stored table of "phrases that followed this context during training." There is no second network that scores proposals. There is one matrix multiply, and then the model is done.
+The answer is smaller than the alternatives it displaces. There is no search through candidate continuations. There is no stored table of "phrases that followed this context during training." There is no second network that scores proposals. There is one matrix multiply, and then the model is done.
 
 ## One dot product per vocabulary entry
 
 After the [final norm](/wiki/ai/neural-network/normalization), the row is dotted against one vector per vocabulary entry. The score for token *t* is `dot(row, W_U[t])`, which reads literally as: *how much does this row point in token t's direction?*
 
-That's the whole mechanism, and the geometric picture is the one to keep. The vocabulary is not a list of words the model chooses among — it's 50,257 fixed directions planted in the row's space. The model's answer is a single arrow. Scoring is measuring how far that arrow leans toward each direction, and the winner is whichever it leans toward most.
+That is the entire mechanism, and it is best read geometrically. The vocabulary is not a list of words the model chooses among — it's 50,257 fixed directions planted in the row's space. The model's answer is a single arrow. Scoring is measuring how far that arrow leans toward each direction, and the winner is whichever it leans toward most.
 
 Two things fall out of that immediately:
 
@@ -28,7 +28,7 @@ That second one is precisely why [the final norm](/wiki/ai/neural-network/normal
 
 [GPT-2](/wiki/ai/llm/gpt-2) **ties** the unembedding to [the embedding](/wiki/ai/llm/embeddings) table: `W_U` is `W_E` transposed, one set of about 38.6M numbers doing duty at both edges of the model rather than two.
 
-The consequence is a pleasing symmetry. The vector you look a token up in, on the way *in*, is the vector you are scored against for predicting it, on the way *out*. A token's row in that table is simultaneously "what this word means when you read it" and "what a context should look like for this word to be the answer" — one representation asked to serve both jobs. That saves a great deal of memory, mildly constrains what the model can express, and is standard practice. (It is a different thing from [sharing weights across positions](/wiki/ai/llm/weight-sharing), which every model does and which nobody counts as tying.)
+The vector a token is looked up by, on the way *in*, is the vector a row is scored against for predicting it, on the way *out*. A token's row in that table is simultaneously "what this word means when you read it" and "what a context should look like for this word to be the answer" — one representation asked to serve both jobs. That saves a great deal of memory, mildly constrains what the model can express, and is standard practice. (It is a different thing from [sharing weights across positions](/wiki/ai/llm/weight-sharing), which every model does and which nobody counts as tying.)
 
 ## Every row produces logits, not just the last one
 

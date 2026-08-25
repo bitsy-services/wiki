@@ -29,7 +29,7 @@ Recurrence moves it by **relay**. To get a fact from position 0 to position 999,
 
 What makes that operation parallel is where the keys come from. Everything a query reads inside block *k* was deposited in [the residual stream](/wiki/ai/llm/residual-stream) by block *k−1*; it is already sitting there before the block starts. No position in a block waits on any other position in the same block. And once every query and every key exists up front, scoring them is one multiplication rather than a thousand: stack the queries as the rows of one matrix, the keys as the columns of another, and a single matrix multiply drops out every query-against-key score in the sequence. So the block resolves all thousand positions at once, and the only thing left running in order is the blocks themselves — twelve in [GPT-2 small](/wiki/ai/llm/gpt-2), whatever number the architecture fixes, and the same number for a ten-token document as for a ten-thousand-token one.
 
-**That is the whole speedup** — of *training*, which is the half that eats the budget. [Generation gets none of it](/wiki/ai/llm/training-vs-inference-parallelism), because the next token cannot be attended to before it exists. Recurrence's serial depth is the length of the text. The transformer's serial depth is the block count, a constant. Feed it more text and the work gets *wider*, not *longer* — and width is the one direction hardware can be thrown at.
+**The speedup is entirely of *training***, which is the half that eats the budget. [Generation gets none of it](/wiki/ai/llm/training-vs-inference-parallelism), because the next token cannot be attended to before it exists. Recurrence's serial depth is the length of the text. The transformer's serial depth is the block count, a constant. Feed it more text and the work gets *wider*, not *longer* — and width is the one direction hardware can be thrown at.
 
 Note what this is not. The transformer didn't win by doing less arithmetic — attention adds work recurrence never had to do, growing with the *square* of the sequence length where recurrence's grows linearly, which is why [context length](/wiki/ai/llm/context-length) is expensive. The trade is arithmetic for the shape of it: more operations, arranged so they can all happen at once. On a GPU that is a very good trade, because a GPU's problem is never having too much work to do. It is being made to wait.
 
@@ -65,7 +65,7 @@ And because [the causal mask](/wiki/ai/llm/causal-mask) stops any row from seein
 
 ## What that bought
 
-The scoreboard is stark. The best recurrent language models of 2016 trained on a one-billion-word benchmark, and so did the best-known recurrent model of 2018. GPT-3, in 2020, trained on roughly three hundred billion tokens. Compute budgets grew enormously over the same window, so the architecture doesn't get sole credit — but that is the point rather than an objection to it. When the money arrived, only one of the two designs could absorb it.
+The best recurrent language models of 2016 trained on a one-billion-word benchmark, and so did the best-known recurrent model of 2018. GPT-3, in 2020, trained on roughly three hundred billion tokens. Compute budgets grew enormously over the same window, so the architecture doesn't get sole credit — but that is the point rather than an objection to it. When the money arrived, only one of the two designs could absorb it.
 
 Nothing guaranteed the results would be worth having. Cheap training is not good training, and the runs could have flattened out at a mediocre loss. Instead loss kept falling as compute, data, and parameters grew — smoothly, and predictably enough to forecast the loss of a model you have not trained from a curve fitted to smaller ones. These are the **scaling laws**: an empirical observation with no agreed explanation, and certainly none available in advance to justify the spending. Falling loss then cashed out as capability nobody targeted. Grammar, arithmetic, translation, something that behaves like reasoning — none were designed in. They appear to be what predicting text well enough *requires*.
 
@@ -85,7 +85,7 @@ Where they *are* worse is telling: verbatim recall, reaching back and retrieving
 
 If what drives all this is cheap parallel training over text that labels itself, it runs exactly as long as the text does. The internet is finite, the good parts more finite still, and the frontier is close enough to the bottom of that well that "add more data" has stopped being a plan. That single fact explains most of what the labs are visibly doing: synthetic data, hard curation over raw volume, and a centre of gravity shifting from pre-training toward [fine-tuning](/wiki/ai/llm/fine-tuning), [RLHF](/wiki/ai/llm/rlhf), and reinforcement learning against checkable outcomes — all of which manufacture training signal rather than find it lying around.
 
-That's the payoff of getting the insight right. "Attention was the breakthrough" predicts nothing. "Cheap supervision at a scale hardware can chew" predicted the data wall, and predicted it early.
+"Attention was the breakthrough" predicts nothing. "Cheap supervision at a scale hardware can chew" predicted the data wall, and predicted it early.
 
 ## Check yourself
 

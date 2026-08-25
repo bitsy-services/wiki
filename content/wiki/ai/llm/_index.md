@@ -6,7 +6,7 @@ bookCollapseSection: true
 
 A large language model is a program that, given some text, guesses what comes next. That is the entire job. It learns to do it by being shown an enormous quantity of writing with the next piece hidden, guessing, and being corrected — over and over, until the guesses are good. Everything a model appears to do beyond that — answer a question, write a function, hold a conversation, follow an instruction — is that same guess run in a loop, with each guess added to the text and fed back in as the basis for the next one.
 
-The interesting part is that this turns out to be enough. Nobody sat down and taught these models grammar, or geography, or how to close a bracket. Predicting text well enough, at a large enough scale, appears to require learning such things, so they get learned along the way. Competence is a side effect of the guessing game.
+Nobody sat down and taught these models grammar, or geography, or how to close a bracket. Predicting text well enough, at a large enough scale, appears to require learning such things, so they get learned along the way. Competence is a side effect of the guessing game.
 
 This section is about how that works. The rest of the [AI section](/wiki/ai) is about *using* a model; these pages are about what the thing is — what your text becomes when it goes in, what the model does to it, how a guess falls out the far end, how it was trained to guess well, and what all of it costs to run. Nearly every model in current use is built on one design, called the **transformer**, and that design is what these pages take apart. [GPT-2 small](/wiki/ai/llm/gpt-2) is the worked example throughout: old, small enough to poke at on a laptop, and structurally the same animal as the models people pay for.
 
@@ -32,7 +32,7 @@ Turning that into an assistant is a separate step. [Fine-tuning](/wiki/ai/llm/fi
 
 ## Why it costs what it costs
 
-Two separate things drive the bill, and it's worth keeping them apart, because each has its own countermeasures.
+Two separate things drive the bill, and each has its own countermeasures.
 
 The first is the length of the conversation. Attention makes every token look at every earlier token, so that work grows with the *square* of the [context length](/wiki/ai/llm/context-length) — double the context and you quadruple it. [The KV cache](/wiki/ai/llm/kv-cache) is the standard answer: it keeps what each token already worked out, so the model doesn't rebuild the entire prefix every time it emits one more word. The cost is memory that grows as the conversation does.
 
@@ -46,7 +46,7 @@ Start with [Conventions](/wiki/ai/llm/conventions) — it's short, and every dia
 
 Several pages these ones lean on live in [the neural network section](/wiki/ai/neural-network) rather than here, because they are not transformer-specific: [the MLP](/wiki/ai/neural-network/multi-layer-perceptron) in its general form, [the bend](/wiki/ai/neural-network/bend), [normalization](/wiki/ai/neural-network/normalization), [skip connections](/wiki/ai/neural-network/skip-connections), [the loss function](/wiki/ai/neural-network/the-loss-function), [backprop](/wiki/ai/neural-network/backprop-one-weight), and [superposition](/wiki/ai/neural-network/superposition). Read them when a page here sends you.
 
-Two pages elsewhere in the wiki are this material seen from the outside: [prompt caching](/wiki/ai/prompt-caching) is the KV cache as it appears on an invoice, and [context engineering](/wiki/ai/context-engineering) is what you do for a living because attention costs O(n²).
+Two pages elsewhere in the wiki are this material seen from the outside: [prompt caching](/wiki/ai/prompt-caching) is the KV cache as it appears on an invoice, and [context engineering](/wiki/ai/context-engineering) is the working discipline that the O(n²) cost of attention forces.
 
 ## Wiki Pages
 

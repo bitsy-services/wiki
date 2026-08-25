@@ -22,7 +22,7 @@ Every diagram and sentence here uses one layout, declared once so no page has to
 
 ## What the layout buys you
 
-[Attention](/wiki/ai/llm/attention) moves information *between rows* — a row reads the rows above it. The MLP moves it *within a row*, never looking at another. Here that's literally vertical versus horizontal: the cleanest one-sentence account of a block you'll get.
+[Attention](/wiki/ai/llm/attention) moves information *between rows* — a row reads the rows above it. The MLP moves it *within a row*, never looking at another. Here that is literally vertical versus horizontal, and those two movements are everything a block does.
 
 ## Most of the literature draws the transpose
 

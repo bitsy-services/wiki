@@ -3,7 +3,7 @@ title: "Authoring a Plugin"
 weight: 20
 ---
 
-The first plugin most people author is for themselves: a few slash commands they keep re-creating in every new project, a hook they want everywhere, a [subagent](/wiki/ai/agentic-workflows#sub-agent-delegation) that has earned a permanent slot. The instinct is to keep that in `.claude/` because there is only one user. That instinct is usually right for *project-scoped* knowledge and usually wrong for *capabilities that travel* — and the reason has nothing to do with sharing.
+The first plugin most people author is for themselves: a few slash commands they keep re-creating in every new project, a hook they want everywhere, a [subagent](/wiki/ai/agentic-workflows#sub-agent-delegation) that has earned a permanent slot. The instinct is to keep that in `.claude/` because there is only one user. That instinct is right for *project-scoped* knowledge and wrong for *capabilities that travel*, for reasons that have nothing to do with an audience: portability across repositories, a version to pin, and a reload loop.
 
 This page is about producing plugins, with particular attention to the solo case. [Using a plugin](/wiki/ai/plugins/claude-code) covers the consumption side and the anatomy in detail.
 
@@ -13,9 +13,9 @@ Bundling buys things that survive your decision not to publish:
 
 - **Cross-project portability without copy-paste.** A `.claude/` directory works in one repository. The same files as an installed plugin work in every repository you open. Without packaging, the third project you open is the project where you forgot to copy your skills over.
 - **A real version number.** When the plugin changes behavior, you can decide whether each project picks it up. Pinning a version is how you avoid "the agent started doing something different yesterday and I don't know why." A folder of files in `.claude/` has no such handle.
-- **Reloadable without restart.** `/reload-plugins` re-reads the surface in place. During iteration that turns a feedback loop measured in seconds into one measured in milliseconds — which is the difference between iterating and not bothering.
-- **A clean interface forces the right factoring.** Writing a `plugin.json` and a manifested `skills/` directory makes you decide *what* the plugin is, the same way turning a script into a library makes you decide what the library exports. The pressure to name and bound things is a feature, not overhead.
-- **Separation between project rules and reusable capability.** [Project rules](/wiki/ai/context-engineering/claude-code#durable-instructions-claudemd-and-rules) describe *this codebase* — its conventions, its build, its gotchas. A plugin describes *a capability* — a review workflow, a deploy helper, a research agent. Mixing them works at small scale and rots at large scale; the boundary is worth drawing early.
+- **Reloadable without restart.** `/reload-plugins` re-reads the surface in place, so an edit-and-try cycle costs one command instead of a restart that discards the session it was being tested in.
+- **A clean interface forces the right factoring.** Writing a `plugin.json` and a manifested `skills/` directory means deciding *what* the plugin is, the same way turning a script into a library means deciding what the library exports.
+- **Separation between project rules and reusable capability.** [Project rules](/wiki/ai/context-engineering/claude-code#durable-instructions-claudemd-and-rules) describe *this codebase* — its conventions, its build, its gotchas. A plugin describes *a capability* — a review workflow, a deploy helper, a research agent. Merged, the project rules load in repositories they are wrong about and the capability accumulates assumptions that pin it to one repository.
 
 None of this requires another user. It is the same argument for turning a useful Bash function into a stand-alone script: lifecycle, portability, and the discipline of naming the thing.
 
@@ -67,7 +67,7 @@ Load and try it without installing:
 claude --plugin-dir ./my-plugin
 ```
 
-Invoke with the namespaced form, `/my-plugin:hello`. Edit `SKILL.md`, run `/reload-plugins`, try again. That is the entire development loop.
+Invoke with the namespaced form, `/my-plugin:hello`. Edit `SKILL.md`, run `/reload-plugins`, try again — no reinstall and no restart between iterations.
 
 The components most commonly added on top, in roughly the order people reach for them:
 
@@ -92,7 +92,7 @@ That gives you, the only user, the same `update`/`pin`/`enable`/`disable` contro
 
 ## Versioning: explicit or per-commit
 
-The `version` field in `plugin.json` is optional, and the choice has real consequences:
+The `version` field in `plugin.json` is optional, and present or absent it changes when a consumer picks up a change:
 
 - **Set an explicit `version`** (e.g. `0.1.0`) and the harness only treats a release as new when the field changes. This is the right default once anything depends on the plugin's behavior — including your own muscle memory. Bumping the field is your decision to ship a change.
 - **Omit `version`** and a git-hosted plugin treats every commit as a new version. Useful for fast solo iteration where you want every push picked up automatically; dangerous on anything where surprise behavior changes are bad.
@@ -103,7 +103,7 @@ A working pattern for solo use: omit `version` on a personal scratch plugin whil
 
 The documented path from a project-local configuration to a plugin is mechanical: create `my-plugin/.claude-plugin/plugin.json`, copy `.claude/skills/` → `my-plugin/skills/`, copy `.claude/agents/` → `my-plugin/agents/`, lift any hooks from `.claude/settings.json` into `my-plugin/hooks/hooks.json` (the format is identical), and test with `--plugin-dir`. The plugin version takes precedence when loaded, so the original `.claude/` copies can be removed.
 
-This is the path that makes the "start in `.claude/`, promote when it stabilizes" advice cheap. The migration is rote because nothing about the components changes — only their packaging does.
+Nothing about the components changes in the move — only their packaging does — so "start in `.claude/`, promote when it stabilizes" costs a directory copy rather than a rewrite.
 
 ## Pitfalls, by severity
 

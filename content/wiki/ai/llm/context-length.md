@@ -3,7 +3,7 @@ title: "Context Length and the O(n²) Cost"
 weight: 290
 ---
 
-Context length is how much text a model can take into account at once, and it is the number that most directly limits what you can build with one. The reason it's limited, and the reason it's expensive, is that [attention](/wiki/ai/llm/attention) compares every word against every other word — so that part of the work grows not with the length of the text but with its *square*. This is the most-quoted cost fact about transformers and also the most frequently misapplied: at ordinary prompt lengths it is not, in fact, what you are paying for. The quadratic term does win eventually, and knowing roughly where "eventually" falls is the useful part.
+Context length is how much text a model can take into account at once, and it is the number that most directly limits what you can build with one. The reason it's limited, and the reason it's expensive, is that [attention](/wiki/ai/llm/attention) compares every word against every other word — so that part of the work grows not with the length of the text but with its *square*. This is the most-quoted cost fact about transformers and also the most frequently misapplied: at ordinary prompt lengths it is not, in fact, what you are paying for. The quadratic term does win eventually, and where it does is a number that can be worked out.
 
 ## What actually grows quadratically
 
@@ -13,7 +13,7 @@ Everything else is linear. The Q/K/V projections, the [MLP](/wiki/ai/llm/the-mlp
 
 ## So O(n²) is a crossover, not a flat tax
 
-Two costs growing at different rates means one of them dominates below some length and the other above it. Working out where they cross is more informative than the asymptotic notation ever is.
+Two costs growing at different rates means one of them dominates below some length and the other above it.
 
 Per block, the quadratic part costs roughly `4n²·d_model`. A good **kernel** — the hand-written GPU routine that does the attention arithmetic — skips the masked half and pays about half that. The linear part, projections plus MLP, costs roughly `24n·d_model²`. Set the two equal and the `n` you get is about `6·d_model`.
 

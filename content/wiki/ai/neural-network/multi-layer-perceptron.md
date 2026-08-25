@@ -5,13 +5,13 @@ weight: 20
 
 A multi-layer perceptron is the plainest network there is, and the oldest: multiply a list of numbers by a table of learned weights, [bend the result](/wiki/ai/neural-network/bend), multiply by a second table, and keep going for as many [layers](/wiki/ai/neural-network/glossary) as you chose. Everyone shortens it to **MLP**. It has no structure beyond that — no notion that its inputs might be pixels near each other or words in an order, no memory, no wiring that treats any input differently from any other.
 
-That plainness is why it is worth a page. Almost every architecture in use is an MLP with something bolted on to exploit whatever structure its inputs happen to have, and once you take the bolted-on part away, what remains is this — usually holding most of the weights and, as far as anyone has been able to determine, most of what the network knows.
+Almost every architecture in use is an MLP with something bolted on to exploit whatever structure its inputs happen to have, and with the bolted-on part removed, what remains is this — usually holding most of the weights and, as far as anyone has been able to determine, most of what the network knows.
 
 ## Every input to every output
 
 One layer connects everything to everything. If a layer takes 768 numbers and produces 3072, then each of those 3072 outputs is a weighted sum of all 768 inputs, and the layer holds 768 × 3072 weights to say how much each input contributes to each output.
 
-That is the sense in which the layer is *fully connected*, and it is worth noticing what it implies: the layer has no idea which input was which. Shuffle the 768 inputs, shuffle every layer's weights the same way, and the network computes exactly the same function. An MLP has no built-in opinion about the shape of its input at all — which is a weakness when the input has real structure worth exploiting, and the reason other architectures exist.
+That is the sense in which the layer is *fully connected*, and it implies the layer has no idea which input was which. Shuffle the 768 inputs, shuffle every layer's weights the same way, and the network computes exactly the same function. An MLP has no built-in opinion about the shape of its input at all — which is a weakness when the input has real structure worth exploiting, and the reason other architectures exist.
 
 ## Two matrices and a bend
 
@@ -30,7 +30,7 @@ Nothing about that stops at two. The *multi* in the name allows as many layers a
 
 ## The useful reading: detect, then write
 
-Two matrices with a bend is accurate and tells you nothing. The reading that does is to look at one of the 3072 **hidden units** on its own — one number in the widened middle.
+Two matrices with a bend is accurate and explains nothing. The reading that does starts from one of the 3072 **hidden units** on its own — one number in the widened middle.
 
 Its **input weights** define a direction in the input's space. The unit lights up when the input points that way, and the bend squashes everything else toward zero — so it behaves like a detector with a soft threshold rather than a proportional readout. Its **output weights** define a *different* direction entirely, which it writes into the layer's output, scaled by how hard it fired.
 

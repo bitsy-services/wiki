@@ -29,9 +29,9 @@ GELU(x) = x · Φ(x)
 
 So read GELU as a soft gate: **scale each number by how large it is relative to a bell curve.** A big positive input has `Φ` near 1 and passes nearly untouched. A big negative input has `Φ` near 0 and is suppressed nearly to nothing. In between, inputs are damped in proportion to how unremarkable they are.
 
-That's the difference in one line. ReLU is a switch — on or off, with a corner where it flips. GELU is a dimmer: same overall behaviour, no corner anywhere, and never a slope of exactly zero, so no unit can die the way a ReLU unit does.
+ReLU is a switch — on or off, with a corner where it flips. GELU is a dimmer: same overall behaviour, no corner anywhere, and never a slope of exactly zero, so no unit can die the way a ReLU unit does.
 
-Two things about the curve are worth seeing rather than taking on trust:
+Two things the numbers show:
 
 ```text
     x       ReLU(x)    GELU(x)
@@ -45,13 +45,13 @@ Two things about the curve are worth seeing rather than taking on trust:
    3.00      3.000      2.996
 ```
 
-First, negatives survive. GELU(−1) is −0.159, not 0 — small, but not nothing, and crucially not flat. Second, **GELU is not monotonic**, which surprises most people. Between −3 and −0.75 the curve goes *down*, bottoming at about −0.170, then turns and climbs back toward zero. A slightly-negative input produces a more negative output than a very-negative one. Nothing depends on this; it's just what `x · Φ(x)` does when `x` is negative and `Φ(x)` hasn't reached zero yet.
+First, negatives survive. GELU(−1) is −0.159, not 0 — small, but not nothing, and crucially not flat. Second, **GELU is not monotonic**. Between −3 and −0.75 the curve goes *down*, bottoming at about −0.170, then turns and climbs back toward zero. A slightly-negative input produces a more negative output than a very-negative one. Nothing depends on this; it's just what `x · Φ(x)` does when `x` is negative and `Φ(x)` hasn't reached zero yet.
 
-A GPT-2 wrinkle: computing `Φ` exactly needs the error function, `erf`, which was slow in 2019, so GPT-2 ships a `tanh`-based approximation instead. The two agree to about a thousandth. If you go looking, HuggingFace calls the approximation `gelu_new` — the name is the only confusing thing about it.
+A GPT-2 wrinkle: computing `Φ` exactly needs the error function, `erf`, which was slow in 2019, so GPT-2 ships a `tanh`-based approximation instead. The two agree to about a thousandth. HuggingFace calls the approximation `gelu_new` and the exact form `gelu`.
 
 ## SwiGLU: let the input pick the gate
 
-GELU's gate has a limitation that's easy to miss: how much of `x` passes depends only on `x`. Each number decides its own fate, using a fixed rule baked in before training. Nothing else in the vector gets a vote, and nothing about the gate is learned.
+How much of `x` passes through GELU depends only on `x`. Each number decides its own fate, using a fixed rule baked in before training: nothing else in the vector gets a vote, and nothing about the gate is learned.
 
 The gated linear unit (GLU) family asks the obvious next question — what if the gate were *computed* from the whole input, with weights the model trains? **SwiGLU** is that idea in its winning form. Project the input twice instead of once, into two separate 3072-wide vectors: call one the content and the other the gate. Bend the gate, multiply the two together element by element, project back down.
 
@@ -67,11 +67,11 @@ The bend on the gate branch is **Swish**, `x · σ(x)`, where `σ` is the sigmoi
 
 **The cost is a third matrix.** GELU's MLP needs two; SwiGLU's needs three. At the same 3072 width that's 1.5× the parameters, which would be cheating in a comparison. So SwiGLU models shrink the bulge to pay for the extra matrix — the convention is a middle width of 8/3× the input rather than 4×, and the arithmetic is exact: three matrices at 8/3 is 8·*width*², and two at 4 is also 8·*width*². Llama's oddly-specific hidden width is that fraction, rounded to a convenient multiple. Same budget, rearranged.
 
-**The payoff is measured, not explained.** For that identical budget, gated variants win a small but stubbornly consistent amount of loss, which is why they took over. Why they win, nobody really knows. Noam Shazeer's *GLU Variants Improve Transformer* (2020), the paper that introduced SwiGLU, closes with the most honest sentence in the literature: *"We offer no explanation as to why these architectures seem to work; we attribute their success, as all else, to divine benevolence."* It's a joke, and it's also the actual state of the art. This is an empirical result that stuck because it kept winning, and the bend that beat GELU did it without ever explaining itself.
+**The payoff is measured, not explained.** For that identical budget, gated variants win a small but stubbornly consistent amount of loss, which is why they took over. Why they win, nobody really knows. Noam Shazeer's *GLU Variants Improve Transformer* (2020), the paper that introduced SwiGLU, declines to offer one: *"We offer no explanation as to why these architectures seem to work; we attribute their success, as all else, to divine benevolence."* Six years and several model generations later, no better account has replaced it. The result stuck because it kept reproducing.
 
 ## Check yourself
 
-**Watch the collapse.** [Make two random matrices](/wiki/ai/llm/running-the-checks), `A` of 768 × 3072 and `B` of 3072 × 768 — the shape of GPT-2's MLP, 4.7M numbers between them. Build them in `float64`; the reason is worth a paragraph and it's below. Precompute `C = A @ B`, a single 768 × 768 matrix holding 590K. Now `torch.allclose(x @ A @ B, x @ C)` passes for every `x` you throw at it. Eight times the parameters, the same function, provable in six lines with no download. Then put a GELU between them and go looking for a `C` that reproduces it — there isn't one, and that failure is the activation earning its keep.
+**Watch the collapse.** [Make two random matrices](/wiki/ai/llm/running-the-checks), `A` of 768 × 3072 and `B` of 3072 × 768 — the shape of GPT-2's MLP, 4.7M numbers between them. Build them in `float64`. Precompute `C = A @ B`, a single 768 × 768 matrix holding 590K. Now `torch.allclose(x @ A @ B, x @ C)` passes for every `x` you throw at it. Eight times the parameters, the same function, provable in six lines with no download. Then put a GELU between them and go looking for a `C` that reproduces it — there isn't one, and that failure is the activation earning its keep.
 
 Now the `float64`. Run that same test in `float32`, the dtype you'd reach for by default, and `allclose` returns **False** — which looks like the page lying to you and isn't. The relative error is about 6e-7 across the board: ordinary roundoff from summing 3072 products, exactly the [float32 drift the causal mask page runs into](/wiki/ai/llm/causal-mask). It fails because `allclose`'s default tolerance is *relative*, so the handful of outputs that land near zero are asked to match to within about 1e-8 while carrying 1e-3 of accumulated float error. The maths is exact; `float32` just can't show it to you. Either use `float64` or loosen the tolerance to `rtol=1e-4, atol=1e-2` — and note which one of those two is the honest fix.
 

@@ -5,7 +5,7 @@ weight: 50
 
 Agentic engineering is the engineering discipline around systems where a model takes action: building, evaluating, deploying, and operating them. The other pages in this section name what happens inside a single turn or a single loop — [prompt engineering](/wiki/ai/prompt-engineering) wording instructions, [context engineering](/wiki/ai/context-engineering) curating what the model sees, [agentic workflows](/wiki/ai/agentic-workflows) shaping the loop. Agentic engineering is the lifecycle around them: the evals you write before launch, the traces you read after, the guardrails that keep the loop from cashing real money against a bad reasoning chain, the cost work that turns a working prototype into something a team can run on a budget.
 
-The shift in skill set is the headline. Building a non-agentic [LLM](/wiki/ai/llm) feature is mostly prompt iteration against a notebook. Building an agentic one is mostly *systems work* — distributed traces, error budgets, replay, evaluation harnesses, permission models — applied to a non-deterministic component with no native debugger. The model is the small part (1.6% of Claude Code's codebase per [the source-level analysis cited under the running example](/wiki/ai/context-engineering/claude-code#the-model-is-the-small-part)); the engineering around it is the rest.
+Building a non-agentic [LLM](/wiki/ai/llm) feature is mostly prompt iteration against a notebook. Building an agentic one is mostly *systems work* — distributed traces, error budgets, replay, evaluation harnesses, permission models — applied to a non-deterministic component with no native debugger. The model is the small part (1.6% of Claude Code's codebase per [the source-level analysis cited under the running example](/wiki/ai/context-engineering/claude-code#the-model-is-the-small-part)); the engineering around it is the rest.
 
 ## Where it sits relative to the rest
 
@@ -22,17 +22,17 @@ The pages on the first three are about getting one execution right. This page is
 
 Software has had this lifecycle for decades. The agentic version differs in three places:
 
-- **Build is mostly tools and context, not code.** The model is fixed; you ship by changing what it sees and what it can do. Most of "building an agent" is writing tool contracts, retrieval, system prompts, and rules — work that *looks like* configuration but determines behavior more than the surrounding code does.
+- **Build is mostly tools and context, not code.** The model is fixed; behavior changes by changing what it sees and what it can do. Most of "building an agent" is writing tool contracts, retrieval, system prompts, and rules — work that *looks like* configuration but determines behavior more than the surrounding code does.
 - **Evaluate is empirical, not unit-testable.** There is no oracle for "the agent did the right thing." Quality is measured against rubrics, golden tasks, and human review on a sample. Eval design is part of the agent, not an afterthought.
 - **Operate is where most failures live.** The agent that passed pre-launch evals will encounter inputs they did not cover, tools whose responses shifted, and prompts users phrase in ways no one anticipated. Observability and a fast rollback path matter more than they do for deterministic code.
 
-Skipping evaluation or observability does not break the prototype — that is the trap. The system runs, it returns plausible answers, and the failures are silent until a user notices. The discipline is to wire both in from the start, even thinly, because retrofitting them after a regression is far more expensive than building them in.
+Skipping evaluation or observability does not break the prototype: the system runs, it returns plausible answers, and the failures stay silent until a user notices. Both are cheaper to wire in thinly at the start than to retrofit around a regression, when the first job is reconstructing sessions that were never traced.
 
 ## Evaluation as a first-class artifact
 
-Treat the eval set the way you treat the tests: it ships with the system, it is reviewed, it grows with every interesting bug, and a change is judged against it before merge. Two practical points the [agentic-workflows page](/wiki/ai/agentic-workflows#verification-loops) only touches on:
+The eval set carries the same obligations as the test suite: it ships with the system, it is reviewed, it grows with every interesting bug, and a change is judged against it before merge. Two practical points the [agentic-workflows page](/wiki/ai/agentic-workflows#verification-loops) only touches on:
 
-- **Start with ~20 cases and human review of the edge.** A small set caught early is more valuable than a large one delayed. The first cases come from real or representative tasks, not invented ones, and human review catches the systemic biases that automated scoring misses.
+- **Start with ~20 cases and human review of the edge.** Twenty real cases running on day one catch regressions that a hundred-case set still in design catches none of. The first cases come from real or representative tasks, not invented ones, and human review catches the systemic biases that automated scoring misses.
 - **LLM-as-judge has known failure modes.** Models are reliable graders on narrow, well-specified rubrics (factual match, format conformance) and unreliable on diffuse ones (writing quality, "helpfulness"). Use them where their judgement is calibrated against humans, not as a generic stand-in for human review.
 
 The eval set is also the safest place to encode regressions. When the agent does the wrong thing in production, the fix is not just a code change; it is a new eval case that pins the corrected behavior down so a later change cannot un-fix it.
@@ -55,18 +55,18 @@ The [agentic-workflows page](/wiki/ai/agentic-workflows#pitfalls-by-severity) na
 - **Two-party for the highest-stakes actions.** Some calls — a production deploy, a transaction, a destructive change — require a human approval step the agent cannot bypass. The harness, not the model, owns that gate.
 - **Sandboxes for execution.** Code the agent runs goes to an isolated environment with no credentials and a tight egress policy by default. The cost is small; the alternative is a prompt-injection foothold straight into your infrastructure.
 
-Guardrails are the place where security engineering meets agentic engineering. Treat the agent's tool surface like an API exposed to the public internet, because functionally it is one — an attacker who can influence the model's input can influence the agent's actions.
+The agent's tool surface is an API exposed to the public internet, whatever the network diagram says: anyone who can influence the model's input — a web page it fetches, a file it reads, an issue comment it summarizes — can influence which of those tools it calls.
 
 ## Cost engineering at scale
 
 A working prototype hides the economics; production exposes them. The levers, roughly in order of yield:
 
-- **[Prompt caching](/wiki/ai/prompt-caching).** A stable prefix — system prompt, tool definitions, durable rules — at the front of the window is the single largest source of savings on a busy system. Worth the architectural discipline.
+- **[Prompt caching](/wiki/ai/prompt-caching).** A stable prefix — system prompt, tool definitions, durable rules — at the front of the window is re-read on every turn of every loop, and served from cache it bills at a fraction of the input rate. On a system whose traffic is long sessions over a fixed preamble, no other lever moves as many tokens.
 - **Right-sized models per step.** Route classification and small structured calls to a cheaper model; reserve the flagship for the steps that need it. Most pipelines have at least one step that is over-modeled.
 - **Bounded loops.** Iteration caps and budget caps are cost controls as much as safety controls. A loop with no ceiling is a billing incident waiting for the wrong input.
-- **Workflows over agents when possible.** The 4–15× token multiple noted under [agentic workflows](/wiki/ai/agentic-workflows#when-an-agent-earns-its-overhead) is the single biggest cost decision, and the one most often made wrong.
+- **Workflows over agents when possible.** The 4–15× token multiple noted under [agentic workflows](/wiki/ai/agentic-workflows#when-an-agent-earns-its-overhead) is the one decision on this list the others cannot compensate for: caching and routing trim a fraction off a bill a fixed pipeline would have avoided a multiple of.
 
-The discipline is to measure cost the way you measure latency — per request, per task, per tenant — and to track it as a first-class signal, not a monthly surprise on the invoice.
+Cost measured per request, per task, and per tenant behaves like latency — a number with a dashboard, a baseline, and an alert when it moves — rather than a monthly surprise on the invoice.
 
 ## The team shape
 

@@ -7,7 +7,7 @@ Weight sharing is the fact that the model uses the same numbers everywhere along
 
 ## What the alternative would actually look like
 
-The point is clearest if you take the other option seriously for a moment. Suppose there really were a "block 6 for position 300" — its own attention matrices, its own [MLP](/wiki/ai/llm/the-mlp), distinct from block 6's machinery at position 299.
+Take the other option seriously for a moment. Suppose there really were a "block 6 for position 300" — its own attention matrices, its own [MLP](/wiki/ai/llm/the-mlp), distinct from block 6's machinery at position 299.
 
 The parameter count is the least of the problems, though it is spectacular. The blocks hold about 85M of GPT-2 small's weights; multiply those by 1024 positions and you have a model of roughly 87 billion, no more capable than the 124M one it came from.
 
@@ -25,8 +25,6 @@ Sharing also multiplies the training signal. Gradients from every position in ev
 
 ## No weight inside a block knows how long the sequence is
 
-Here is the consequence people miss, and it's the one that matters downstream.
-
 Because the same matrices apply everywhere, none of them has a position axis at all. Doubling the context window costs compute and [KV cache](/wiki/ai/llm/kv-cache) memory — both of which grow with the sequence — but it does not add a single parameter to any attention or MLP matrix. The blocks are entirely blind to sequence length. Hand block 6 a row from position 5000 and it will process it perfectly happily, having no way to know that's unusual.
 
 ## The one exception, and it's the interesting one
@@ -35,7 +33,7 @@ Because the same matrices apply everywhere, none of them has a position axis at 
 
 Everything about GPT-2's context limit follows from that one table. Widen the context to 4096 and `wpe` grows by 2.4M parameters while every block stays byte-for-byte the size it was. And the 1024-token limit is *not* an architectural limit — the blocks would happily process row 5000, as above. There is simply no vector to tell row 5000 where it is.
 
-That's a useful thing to have straight, because it reframes what extending context means. It isn't a matter of making the model bigger. It's a matter of finding a way to say "you are at position 5000" that doesn't require having stored a vector for it in advance — which is exactly what [RoPE](/wiki/ai/llm/rope) does.
+Extending context is therefore not a matter of making the model bigger. It is a matter of finding a way to say "you are at position 5000" without having stored a vector for it in advance, which is what [RoPE](/wiki/ai/llm/rope) does.
 
 ## Check yourself
 

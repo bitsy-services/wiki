@@ -7,7 +7,7 @@ Every page in this section ends with a *Check yourself* — a short experiment t
 
 ## The three kinds of check
 
-The experiments differ in what they need in front of you, and it's worth knowing which kind you're looking at before you start:
+The experiments differ in what they need in front of you:
 
 - **Load and look.** Most of them. Download [GPT-2 small](/wiki/ai/llm/gpt-2), run one forward pass, and read the numbers that come back — no training, a second or two on a plain CPU. [Neural networks](/wiki/ai/neural-network), [perplexity](/wiki/ai/llm/perplexity), [the residual stream](/wiki/ai/llm/residual-stream), [attention](/wiki/ai/llm/attention), and [the unembedding](/wiki/ai/llm/unembedding-and-logits) all live here.
 - **Train a tiny model.** A handful — [skip connections](/wiki/ai/neural-network/skip-connections), [backprop through one weight](/wiki/ai/neural-network/backprop-one-weight), [mixture of experts](/wiki/ai/llm/mixture-of-experts), [grouped-query attention](/wiki/ai/llm/grouped-query-attention), [fine-tuning](/wiki/ai/llm/fine-tuning) — change the architecture and watch the loss move. Those use nanoGPT and take minutes, not seconds.

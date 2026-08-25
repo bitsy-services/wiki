@@ -3,19 +3,19 @@ title: "Embeddings"
 weight: 110
 ---
 
-An embedding is where a token stops being an arbitrary label and becomes a position in a space the model has opinions about. Every entry in the vocabulary owns its own list of numbers, learned during training, and embedding a token means fetching its list — pulling one row out of a table. Nothing is calculated. This is the model's first move, and it is the least clever thing it does all day.
+An embedding is where a token stops being an arbitrary label and becomes a position in a space the model has opinions about. Every entry in the vocabulary owns its own list of numbers, learned during training, and embedding a token means fetching its list — pulling one row out of a table. Nothing is calculated. This is the model's first move, and the only one that involves no arithmetic.
 
 ## Why a lookup, and not a calculation
 
 The obvious alternative is to *derive* the vector from the token's id. That fails at the first step, because the id carries no information about what the token **means**.
 
-It isn't quite meaningless. [Tokenization](/wiki/ai/llm/tokenization) builds the vocabulary by merging the most frequent pair first, so the ids come out roughly in frequency order: a low id is a common, short token, a high one is rarer and longer. But frequency rank is the whole of it. `" cat"` is 3797 because of where it landed in that queue years ago, and 3798 — the next merge the table happened to learn — is just the next-most-frequent pair, with nothing catlike about it. There is no function of "3797" that could tell you it's an animal, because nothing about catness was ever encoded into the number.
+It isn't quite meaningless. [Tokenization](/wiki/ai/llm/tokenization) builds the vocabulary by merging the most frequent pair first, so the ids come out roughly in frequency order: a low id is a common, short token, a high one is rarer and longer. But frequency rank is all the id records. `" cat"` is 3797 because of where it landed in that queue years ago, and 3798 — the next merge the table happened to learn — is just the next-most-frequent pair, with nothing catlike about it. There is no function of "3797" that could tell you it's an animal, because nothing about catness was ever encoded into the number.
 
 So every relationship *of meaning* between tokens has to be **stored** rather than derived. The model keeps one vector per vocabulary entry and looks the right one up. A table is the honest data structure for facts that have no pattern to exploit.
 
 ## What's in the row
 
-The table is called `W_E`, the embedding matrix: one row per vocabulary entry — 50,257 of them in [GPT-2](/wiki/ai/llm/gpt-2) — each as wide as [`d_model`](/wiki/ai/llm/glossary), the fixed width that every row in the model carries from here to the far end. Embedding token 3797 means taking row 3797. That's the whole operation.
+The table is called `W_E`, the embedding matrix: one row per vocabulary entry — 50,257 of them in [GPT-2](/wiki/ai/llm/gpt-2) — each as wide as [`d_model`](/wiki/ai/llm/glossary), the fixed width that every row in the model carries from here to the far end. Embedding token 3797 means taking row 3797.
 
 Nobody chooses the contents. They start as noise and get shaped by [training](/wiki/ai/neural-network/the-loss-function) exactly like every other weight in the model, which means the geometry is *earned*: tokens that behave alike drift into pointing alike, because the model kept being rewarded for treating them alike. What you get is the model's entire prior about a token — everything it believes about `" cat"` before it has seen a single neighbour.
 
@@ -23,7 +23,7 @@ One thing the lookup can't supply is position. Fetching a row by id can't know w
 
 ## The row knows nothing about the sentence
 
-This is the part worth carrying forward. **At this point, the row has no idea what sentence it's in.**
+**At this point, the row has no idea what sentence it's in.**
 
 "Bank" in a river sentence and "bank" in a money sentence enter the model as *bit-identical* rows. Not similar — the same numbers. The embedding is a context-free prior, and it is the same prior every time the token appears, in every sentence anyone has ever written.
 

@@ -17,7 +17,7 @@ The row arrives off [the residual stream](/wiki/ai/llm/residual-stream), gets [n
 
 Each of the three is produced by multiplying the row by its own learned matrix. Nothing is stored between runs and nothing is retrieved from anywhere — all three are worked out from the row on the spot, every time. They are three views of the same numbers, which is a big enough idea to get [its own page](/wiki/ai/llm/qkv-projections).
 
-Each view also *narrows*. A row is `d_model` wide — 768 numbers in [GPT-2 small](/wiki/ai/llm/gpt-2) — and a head's query, key, and value are 64. That width is the head's whole world, and it is why one head can only ever track one kind of relationship.
+Each view also *narrows*. A row is `d_model` wide — 768 numbers in [GPT-2 small](/wiki/ai/llm/gpt-2) — and a head's query, key, and value are 64. Sixty-four numbers is all a head ever works in, and it is why one head can only ever track one kind of relationship.
 
 ## Step 2: score the query against every key
 
@@ -73,7 +73,7 @@ That blend is still stuck in the head's narrow subspace, so a final learned matr
 
 The head is strictly vertical. It moves information between rows and never within one — that is the [MLP](/wiki/ai/llm/the-mlp)'s job, and the two never overlap.
 
-And a head is narrow on purpose. Sixty-four numbers is enough to chase one relationship: *the noun this adjective belongs to*, *the open bracket this close bracket matches*, *the token that followed the last time this one appeared*. It is nowhere near enough to chase all of them at once. That limitation is not a flaw to be engineered away; it's the reason a block runs [twelve heads side by side](/wiki/ai/llm/multi-head-attention), each free to specialize in something different.
+And a head is narrow on purpose. Sixty-four numbers is enough to chase one relationship: *the noun this adjective belongs to*, *the open bracket this close bracket matches*, *the token that followed the last time this one appeared*. It is nowhere near enough to chase all of them at once, and that is what a block runs [twelve heads side by side](/wiki/ai/llm/multi-head-attention) for, each free to specialize in something different.
 
 ## Check yourself
 

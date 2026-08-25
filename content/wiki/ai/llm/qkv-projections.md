@@ -15,7 +15,7 @@ k = norm(row) · W_K + b_K
 v = norm(row) · W_V + b_V
 ```
 
-Read the left column downward and the point is obvious: the same input, three times. `W_Q`, `W_K` and `W_V` are the learned matrices — the lenses themselves — and each `b` is a learned bias. Nothing else enters.
+Read the left column downward: the same input, three times. `W_Q`, `W_K` and `W_V` are the learned matrices — the lenses themselves — and each `b` is a learned bias. Nothing else enters.
 
 One detail that trips people reproducing this by hand: the input isn't the raw row off the [residual stream](/wiki/ai/llm/residual-stream). It's a [normalized](/wiki/ai/neural-network/normalization) copy.
 
@@ -25,13 +25,13 @@ One detail that trips people reproducing this by hand: the input isn't the raw r
 - **K — the key.** What this row advertises to anyone looking.
 - **V — the value.** What this row hands over when it gets picked.
 
-Each map also *narrows*. It takes the full [`d_model`](/wiki/ai/llm/glossary)-wide row — 768 numbers in [GPT-2 small](/wiki/ai/llm/gpt-2) — down to 64 for a single [head](/wiki/ai/llm/glossary). A head therefore works in a private, cramped subspace, with room to see only a thin slice of what the stream is carrying. That's not a limitation to apologize for; it's what makes [running twelve heads at once](/wiki/ai/llm/multi-head-attention) worth doing, since each gets its own slice.
+Each map also *narrows*. It takes the full [`d_model`](/wiki/ai/llm/glossary)-wide row — 768 numbers in [GPT-2 small](/wiki/ai/llm/gpt-2) — down to 64 for a single [head](/wiki/ai/llm/glossary). A head therefore works in a private, cramped subspace, with room to see only a thin slice of what the stream is carrying. The narrowness is what makes [running twelve heads at once](/wiki/ai/llm/multi-head-attention) worth doing: each gets a different slice.
 
 ## The split matters more than the names
 
-Here's the part to take away. **Q·K decides where attention goes. V decides what moves.** Two separate questions, answered by two separately learned sets of weights.
+**Q·K decides where attention goes. V decides what moves.** Two separate questions, answered by two separately learned sets of weights.
 
-That separation is the whole payoff. Because `W_V` is learned independently of `W_Q` and `W_K`, a head can attend to a row for one reason and haul something completely unrelated out of it. *Why I looked at you* and *what I took from you* are decoupled — which sounds like a technicality and is actually where a lot of the model's cleverness lives.
+Because `W_V` is learned independently of `W_Q` and `W_K`, a head can attend to a row for one reason and haul something completely unrelated out of it. *Why I looked at you* and *what I took from you* are decoupled.
 
 **Induction heads** are the standard demonstration, and they're worth following carefully, because the naive version of the story describes something the architecture can't do. A head reads its value from the row it attends to. It cannot attend to one row and take the value from the row below it — so "find the earlier A and copy what came *after* it" is not a thing a single head can express.
 
@@ -39,7 +39,7 @@ The real circuit takes two heads and a division of labour. An earlier **previous
 
 The induction head then exploits exactly the split this page is about. The current token A forms the query. The key at each row is built from the note — *who came before me* — so the match fires on the row whose predecessor was A, which is the row holding **B**. It attends there and copies that row's value, which is B. No rule was broken: it attended to B's row and read B's row.
 
-Look at what that row's two lenses are saying at the same instant. Its **key** advertises "A came before me." Its **value** offers "I am B." One row, two learned readings, two entirely unrelated facts — which is the whole thesis of this page, and it's what lets the model continue a pattern it has never seen before but watched happen four tokens ago. If one set of weights had to serve both roles, the circuit couldn't exist.
+Look at what that row's two lenses are saying at the same instant. Its **key** advertises "A came before me." Its **value** offers "I am B." One row, two learned readings, two entirely unrelated facts — and that is what lets the model continue a pattern it has never seen before but watched happen four tokens ago. If one set of weights had to serve both roles, the circuit couldn't exist.
 
 ## Scoring is not symmetric
 
@@ -49,9 +49,9 @@ The comparison runs through both lenses at once — the query lens on one side, 
 
 Set the biases aside for a moment, and this is where that pedantry pays: the score is then a **bilinear form** with matrix `W_Q W_Kᵀ` — an expression linear in each of its two inputs taken separately, `x_i (W_Q W_Kᵀ) x_jᵀ`. Nothing requires that matrix to be symmetric, and training had no reason to make it so. Put the biases back and it isn't bilinear at all any more, merely affine in each argument. The asymmetry is untouched either way.
 
-Being linear in each argument separately is not the same as being linear in the row, and that distinction matters more than it looks: `x` appears on both sides of the expression, so the score varies with the input *twice over*. It makes scoring [one of the transformer's nonlinearities](/wiki/ai/neural-network/bend#nonlinearities-that-arent-bends) — with no activation function anywhere within reach of it.
+Being linear in each argument separately is not the same as being linear in the row: `x` appears on both sides of the expression, so the score varies with the input *twice over*. It makes scoring [one of the transformer's nonlinearities](/wiki/ai/neural-network/bend#nonlinearities-that-arent-bends) — with no activation function anywhere within reach of it.
 
-Worth pausing on, because the word "attention" invites a picture of a mutual relationship. It isn't mutual. An adjective can attend hard to its noun while the noun scarcely registers the adjective.
+The word "attention" invites a picture of a mutual relationship. It isn't one: an adjective can attend hard to its noun while the noun scarcely registers the adjective.
 
 ## Check yourself
 

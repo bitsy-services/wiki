@@ -13,7 +13,7 @@ For [GPT-2 small](/wiki/ai/llm/gpt-2) that cost is a rounding error. Two tensors
 
 Now scale up. Llama 2 70B has 80 blocks and 64 heads per block, each head 128 numbers wide, so a single token costs `2 × 80 × 64 × 128` = 1.3M numbers — **2.5 MB per token**, against GPT-2's 36 KB. One 4,096-token conversation carries **about 10 GB** of cache. The weights are already about 140 GB in fp16 and spread across several cards; every concurrent conversation now demands another ten on top.
 
-That is the whole problem, and it's an economic one. Serving models is a batch business — you make money by running many conversations at once on hardware you've already paid for — and the cache is what caps how many fit. Halve it and you double the customers per card.
+The problem is an economic one. Serving models is a batch business — you make money by running many conversations at once on hardware you've already paid for — and the cache is what caps how many fit. Halve it and you double the customers per card.
 
 ## The only term you can touch
 
@@ -23,11 +23,11 @@ The size of the cache multiplies out as `2 × blocks × heads × head width`, pe
 
 ## Queries are the questions; keys and values are the index
 
-Here is the split that makes the whole thing work. In multi-head attention, each head has three projections of its own: a query, a key, and a value. The query is the question that head is asking. The key and value are the index it searches and the content it retrieves.
+In multi-head attention, each head has three projections of its own: a query, a key, and a value. The query is the question that head is asking. The key and value are the index it searches and the content it retrieves.
 
 Only the key and the value get cached. The query is computed fresh for the current row and thrown away.
 
-So the two are not symmetric at all, and it's worth asking whether they need to be treated as though they were. **Grouped-query attention keeps every head's query private and shares the keys and values within a group.** Sixty-four heads, eight groups: eight heads share each key/value pair, the cache shrinks eightfold, and the model still asks sixty-four distinct questions.
+The two are therefore not symmetric, and nothing requires them to be treated as though they were. **Grouped-query attention keeps every head's query private and shares the keys and values within a group.** Sixty-four heads, eight groups: eight heads share each key/value pair, the cache shrinks eightfold, and the model still asks sixty-four distinct questions.
 
 Three arrangements side by side — multi-head attention as GPT-2 does it, grouped-query in the middle, and at the far end **multi-query attention** (MQA), where all sixty-four heads share a single key and value between them:
 
@@ -57,7 +57,7 @@ The number of groups is a knob, and both ends of it already have names:
 - **Groups = 1.** Every head shares one key and value — multi-query attention, the right-hand column above, and the older of the two ideas by four years. The cache is as small as it goes, but quality drops and training gets unstable.
 - **Anything between.** That's GQA. Llama 2 70B and the Llama 3 models use eight.
 
-Why eight, specifically? Honestly, because eight tested well. The GQA paper measured speed against quality across group counts and picked eight as, in its words, "a favorable middle ground." There's no deeper principle, and it's worth resisting the temptation to invent one.
+Why eight, specifically? Honestly, because eight tested well. The GQA paper measured speed against quality across group counts and picked eight as, in its words, "a favorable middle ground." There is no deeper principle behind the number.
 
 The hardware does get a say, but not the one you'd expect: it doesn't justify eight groups so much as it kills the alternative. Llama 2's largest models are served on a node of eight accelerators using **tensor parallelism** — the heads of each block split across the devices so each holds a slice of the work. At eight groups, every device owns exactly one key/value head and needs nothing from its neighbours. Multi-query attention cannot beat that: with a single key/value head and eight devices there is nothing to split, so the head is duplicated onto every device and the cache ends up the same size grouped-query attention's would have been — while being worse at the job. At eight-way parallelism MQA's entire advantage evaporates, which is a large part of why the middle of the dial, and not the end of it, is what shipped.
 
@@ -77,7 +77,7 @@ Quality, a little. Eight groups sits close to full multi-head attention and comf
 
 **Then try to make it cheaper, and find out you can't just flip it.** Set `n_kv_head = 2` and the model won't even load. nanoGPT fuses the three projections into one matrix, `c_attn` of `[768, 2304]`, and with two key/value heads that becomes `768 + 2 × 2 × 64` = `[768, 1024]` — so `from_pretrained`'s shape assertion fires long before any token comes out. Notice what that means about the first experiment: `n_kv_head = n_head` is the *only* setting where the fused shape survives untouched, which is exactly why it was free.
 
-To get anywhere you have to do the conversion by hand — mean-pool each group's six key heads into one, the same for the values, and assemble the `[768, 1024]` weight yourself. That's uptraining's first step, performed on a model that then gets none of uptraining's retraining. Do it and the model runs, the cache drops sixfold, and the [loss](/wiki/ai/neural-network/the-loss-function) is clearly worse. Nothing is broken: those weights were trained as twelve independent key/value heads, and averaging six of them into one destroys information that no amount of shape-juggling restores. The gap you just measured is what that 5% of retraining compute is buying. Which is the real lesson — grouped-query attention is a decision made at *training* time that pays off at inference, not a switch you can throw on a finished model.
+To get anywhere you have to do the conversion by hand — mean-pool each group's six key heads into one, the same for the values, and assemble the `[768, 1024]` weight yourself. That's uptraining's first step, performed on a model that then gets none of uptraining's retraining. Do it and the model runs, the cache drops sixfold, and the [loss](/wiki/ai/neural-network/the-loss-function) is clearly worse. Nothing is broken: those weights were trained as twelve independent key/value heads, and averaging six of them into one destroys information that no amount of shape-juggling restores. The gap you just measured is what that 5% of retraining compute is buying. Grouped-query attention is a decision made at *training* time that pays off at inference, not a switch to throw on a finished model.
 
 ## Depends on / leads to
 

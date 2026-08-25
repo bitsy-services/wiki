@@ -34,7 +34,7 @@ Each of the 3072 hidden units [detects a direction and writes a different one](/
 
 Attention in a GPT-2 block is four 768×768 matrices, about 2.4M weights. The MLP is two 768×3072 matrices, about 4.7M. Two-thirds of every block — and, on the current evidence, most of what the model knows — sits in the bulge.
 
-This tends to surprise people who have spent all their attention on attention. It also explains why [mixture of experts](/wiki/ai/llm/mixture-of-experts) targets the MLP and leaves attention untouched: if you want to add parameters without adding cost per token, you go where the parameters already are.
+That is also why [mixture of experts](/wiki/ai/llm/mixture-of-experts) targets the MLP and leaves attention untouched: if you want to add parameters without adding cost per token, you go where the parameters already are.
 
 It is also the pressure behind [superposition](/wiki/ai/neural-network/superposition). Those 3072 detectors are built over a 768-wide row, which has room for at most 768 mutually perpendicular directions — so they overlap, and the model relies on almost none of them firing at once.
 

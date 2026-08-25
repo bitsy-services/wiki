@@ -17,11 +17,11 @@ So the scores are a function of *which* words are present, not of their arrangem
 
 It learns a vector per position — `wpe`, one row per slot in the window, [the only weight in the model with a position axis](/wiki/ai/llm/weight-sharing) — and *adds* it to the embedding before block 0 sees anything.
 
-Adding is worth a moment, because concatenating is the more obvious choice and it would cost you. Concatenation would widen the row, and every matrix downstream along with it. Addition keeps the row exactly `d_model` wide, so position costs nothing in width and adds no parameters anywhere but the table itself.
+Concatenating is the more obvious choice and it would cost more: concatenation widens the row, and every matrix downstream along with it. Addition keeps the row exactly `d_model` wide, so position costs nothing in width and adds no parameters anywhere but the table itself.
 
 But then why doesn't adding one vector to another simply corrupt the content? Because a 768-wide row has room for far more nearly-perpendicular directions than the model has distinct things to say in any one place. Position can settle into a subspace that content mostly avoids, and the projections downstream can learn to read one without picking up much of the other — the capacity argument [superposition](/wiki/ai/neural-network/superposition) makes in general.
 
-Position is an unusual case of it, though, and worth flagging as one. Superposition's bargain is that collisions are affordable *because* the colliding features are sparse: almost none of them are active on any given word, so they mostly don't collide at the same moment. Position is active on every row without exception. Whatever room it occupies, it occupies permanently, and whatever interference it causes is paid on every token rather than now and then. It's a standing tax, not an occasional collision.
+Superposition's bargain is that collisions are affordable *because* the colliding features are sparse: almost none of them are active on any given word, so they mostly don't collide at the same moment. Position is active on every row without exception. Whatever room it occupies, it occupies permanently, and whatever interference it causes is paid on every token rather than now and then. It's a standing tax, not an occasional collision.
 
 ## That's cheap, it works, and it has two defects
 
@@ -31,7 +31,7 @@ Position is an unusual case of it, though, and worth flagging as one. Superposit
 
 [RoPE](/wiki/ai/llm/rope) fixes both, by making the score between two tokens depend only on the distance between them — there is no table to run out of, and "three tokens back" becomes one fact rather than a thousand. The second defect is the one that motivated it.
 
-## One subtlety worth carrying forward
+## The mask leaks order on its own
 
 A model like GPT-2 trained with *no* positional encoding at all isn't actually position-blind. [The causal mask](/wiki/ai/llm/causal-mask) leaks order on its own — row 0 can see one row, row 5 can see six — and models trained that way do recover a usable sense of position from that alone.
 
@@ -39,7 +39,7 @@ Don't try to demonstrate this by zeroing GPT-2's `wpe`. It was trained *with* a 
 
 ## Check yourself
 
-Position enters GPT-2 in exactly one place, by addition. [Confirm it](/wiki/ai/llm/running-the-checks): `hidden_states[0][0, i]` equals `wte[token_i] + wpe[i]`, to `torch.allclose`. Then zero `wpe` and measure [perplexity](/wiki/ai/llm/perplexity) on WikiText — it explodes. That's the broken model warned about just above, and it's worth being clear about which claim it supports: it shows how heavily *this* model leans on its table, not that position is indispensable in general. One table, added once, and everything downstream built on top of it.
+Position enters GPT-2 in exactly one place, by addition. [Confirm it](/wiki/ai/llm/running-the-checks): `hidden_states[0][0, i]` equals `wte[token_i] + wpe[i]`, to `torch.allclose`. Then zero `wpe` and measure [perplexity](/wiki/ai/llm/perplexity) on WikiText — it explodes. That's the broken model warned about just above: it shows how heavily *this* model leans on its table, not that position is indispensable in general. One table, added once, and everything downstream built on top of it.
 
 ## Depends on / leads to
 

@@ -21,7 +21,7 @@ The words this section uses — and it uses only these. Third column: what the s
 
 ## Words this section uses carefully
 
-- **"Neuron"** — avoided in favour of *unit*. The word invites you to expect one unit to mean one thing, which [is often false](/wiki/ai/neural-network/superposition), and the brain analogy behind it [does not survive contact with the arithmetic](/wiki/ai/neural-network#where-neuron-comes-from-and-why-it-misleads).
+- **"Neuron"** — avoided in favour of *unit*. The word invites the expectation that one unit means one thing, which [is often false](/wiki/ai/neural-network/superposition), and the brain analogy behind it [does not survive contact with the arithmetic](/wiki/ai/neural-network#where-neuron-comes-from-and-why-it-misleads).
 - **"Layer"** — used freely here, where it is unambiguous. Inside a specific architecture it often isn't: the [LLM section](/wiki/ai/llm) [drops the word entirely](/wiki/ai/llm/glossary#words-this-subsection-avoids) because in a transformer it could mean a whole block or one piece of one.
 - **"Deep"** — a statement about how many layers there are, and nothing else. It does not mean sophisticated, and it does not mean large.
 

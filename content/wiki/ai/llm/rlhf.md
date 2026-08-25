@@ -25,7 +25,7 @@ Separately from PPO, and this is the part that matters here, the reward is docke
 
 ## The leash is the load-bearing part
 
-That KL penalty looks like a technical safeguard and is closer to the whole thing.
+That KL penalty reads as a technical safeguard and is what keeps the step from producing nonsense.
 
 The reward model is a proxy for human judgement, and every proxy can be gamed. Take the leash off and the policy will find text that scores enormously and reads like nothing any human has ever written — degenerate strings, obsequious padding, whatever quirk of the reward model happened to survive training. **Reward hacking is the default outcome, not an edge case.** The policy is doing its job perfectly; the job was just badly specified, and optimizing hard against an imperfect measure is exactly how you discover it was imperfect.
 
@@ -45,7 +45,7 @@ The evidence is unusually clean here. OpenAI published before-and-after plots in
 
 So the confident tone people associate with these assistants isn't a by-product of their being good at anything. It's a side effect of optimizing a proxy that could not distinguish being right from sounding right. Nobody set out to install it, and it cost accuracy of self-assessment all the same.
 
-That is the trade in one line: you paid for helpfulness in modelling accuracy, and for confidence in calibration.
+The trade: helpfulness paid for in modelling accuracy, confidence paid for in calibration.
 
 ## Check yourself
 

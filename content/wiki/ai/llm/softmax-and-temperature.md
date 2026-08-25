@@ -13,7 +13,7 @@ The obvious repair — shift everything up until nothing is negative, then divid
 
 Exponentiating first fixes both problems. It guarantees positivity for any input whatever, and — the part that matters — it converts *additive* differences in score into *multiplicative* ratios in probability. A fixed gap now always means the same likelihood ratio, wherever on the scale it sits. That is exactly the correspondence [the loss function](/wiki/ai/neural-network/the-loss-function) assumes when it grades the model in log space, so softmax isn't an arbitrary squashing choice; it's the inverse of how the model is scored.
 
-Writing `z` for the logits and `T` for the temperature knob promised above — the two together are the whole operation:
+Writing `z` for the logits and `T` for the temperature knob promised above, the operation is:
 
 ```text
 p_i = exp(z_i / T) / Σ_j exp(z_j / T)
@@ -25,7 +25,7 @@ Ignore `T` for a moment (it's 1 by default, and the next section is entirely abo
 
 Add a constant to every logit and nothing changes at all — the constant factors out of the numerator and the denominator alike and cancels.
 
-That has a practical reading worth internalizing: **a logit's absolute value tells you nothing.** A score of 14 is not "confident." Only the *gap* to the next logit carries information, which is why implementations routinely subtract the maximum logit before exponentiating (it prevents overflow and changes no output), and why comparing raw logit values between two different models is meaningless.
+**A logit's absolute value tells you nothing.** A score of 14 is not "confident." Only the *gap* to the next logit carries information, which is why implementations routinely subtract the maximum logit before exponentiating (it prevents overflow and changes no output), and why comparing raw logit values between two different models is meaningless.
 
 This sits alongside, not against, [the previous page's point](/wiki/ai/llm/unembedding-and-logits) that scaling the final row's magnitude makes the model look more confident. *Shifting* every logit by a constant changes nothing; *multiplying* them all by a constant stretches every gap and changes a great deal. Softmax is blind to the first and highly sensitive to the second.
 
@@ -43,11 +43,11 @@ Think of it as the contrast slider on a photograph. Turn contrast up and the bri
 
 It does not change the ranking. Dividing by a positive constant is a monotone transform, so the argmax at `T = 0.2` and at `T = 5` is the same token. Temperature changes how often you take the leader; it never changes who the leader is.
 
-This is the most commonly misunderstood thing about the knob, and it's worth stating as a diagnostic: if something you're doing changes *which* token wins, it is not temperature. A repetition penalty, a logit bias, a grammar constraint, a banned-token list — all of those edit the logits themselves, and all of them are doing something categorically different.
+That doubles as a diagnostic: if something changes *which* token wins, it is not temperature. A repetition penalty, a logit bias, a grammar constraint, a banned-token list — all of those edit the logits themselves, and all of them are doing something categorically different.
 
 `T = 0` is worth one note, because the formula divides by it. Nothing actually computes `exp(z/0)`; implementations special-case it to plain argmax, which is the limit the formula approaches anyway.
 
-The payoff is that temperature is the cheapest control surface in the whole stack. It's one division, applied at the last moment, changeable per request, and it moves the model between "reliable and boring" and "surprising and occasionally wrong" without touching a single weight. The other control is [deleting the tail outright](/wiki/ai/llm/sampling-strategies), which is the next page.
+Temperature is one division, applied at the last moment and changeable per request, that moves the model between "reliable and boring" and "surprising and occasionally wrong" without touching a single weight. The other control is [deleting the tail outright](/wiki/ai/llm/sampling-strategies), which is the next page.
 
 ## Check yourself
 

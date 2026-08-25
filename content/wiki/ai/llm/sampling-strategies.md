@@ -9,7 +9,7 @@ Sampling is how a model's opinion becomes a word. Everything before it produces 
 
 Take the most likely token every time. It's deterministic, it's reproducible, and it's called **greedy** decoding.
 
-It also degenerates, reliably and fast, into repeating itself — and the reason is worth understanding, because it isn't a bug in the model. The most likely continuation of a phrase the model has just written is often that same phrase again: text genuinely does repeat, and the model has correctly learned so. But once the repetition begins it is now *in the context*, which makes the next repetition more likely still. Greedy decoding has no mechanism for ever leaving that groove, because leaving requires taking a token that wasn't the top one, and it never does.
+It also degenerates, reliably and fast, into repeating itself, and not because of any defect in the model. The most likely continuation of a phrase the model has just written is often that same phrase again: text genuinely does repeat, and the model has correctly learned so. But once the repetition begins it is now *in the context*, which makes the next repetition more likely still. Greedy decoding has no mechanism for ever leaving that groove, because leaving requires taking a token that wasn't the top one, and it never does.
 
 What you get is fluent, grammatical, locally plausible text that locks into a loop within a paragraph.
 
@@ -31,7 +31,7 @@ Both failures come from the same place, so both are addressed the same way — c
 
 The difference is a shortlist drawn up by headcount versus one drawn up by merit. Top-k always interviews fifty candidates, whether or not fifty are any good. Top-p interviews however many it takes to cover the credible field — sometimes one, sometimes hundreds — and it's the only one of the two that can tell those situations apart.
 
-[Temperature](/wiki/ai/llm/softmax-and-temperature) composes with either, and it's useful to see that the two are attacking the same tail from opposite ends. Temperature *reweights* the tail, making it collectively less attractive without removing anything. Truncation *deletes* it, setting those probabilities to exactly zero. Turning temperature down and turning `top_p` down both make output safer and duller; they are not the same operation and they stack.
+[Temperature](/wiki/ai/llm/softmax-and-temperature) composes with either, and the two attack the same tail from opposite ends. Temperature *reweights* the tail, making it collectively less attractive without removing anything. Truncation *deletes* it, setting those probabilities to exactly zero. Turning temperature down and turning `top_p` down both make output safer and duller; they are not the same operation and they stack.
 
 ## What this buys, and what it costs you
 
