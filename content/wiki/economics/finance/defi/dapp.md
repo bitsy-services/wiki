@@ -41,7 +41,7 @@ No intermediary custodies the funds at any point.
 
 **Transparency.** Contract code and all transactions are publicly auditable. A pool's reserves, a protocol's fee parameters, and every trade that moved them can be read off the chain directly rather than taken from a disclosure the operator chose to publish.
 
-**Scalability.** Blockchains have limited throughput. On Ethereum mainnet, gas costs spike during congestion. Layer-2 rollups (Optimism, Arbitrum, Base) improve this by batching transactions off-chain and posting proofs on-chain.
+**Scalability.** Blockchains have limited throughput. On Ethereum mainnet, gas costs spike during congestion. Layer-2 rollups (Optimism, Arbitrum, Base) improve this by batching transactions off-chain and posting proofs on-chain, with the batched transaction data going into [blobs](/wiki/economics/finance/defi/ethereum/blobs).
 
 **User experience.** Users must manage wallets, approve token spending, pay gas fees, and understand transaction finality. Account abstraction and embedded wallets remove several of those steps, at the cost of reintroducing a party — a key-share custodian, a bundler, a paymaster — that can be compelled or can simply go down.
 

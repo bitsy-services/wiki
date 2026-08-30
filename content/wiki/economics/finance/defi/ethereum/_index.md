@@ -59,7 +59,7 @@ The scaling roadmap centers on Layer 2 (L2) solutions -- separate chains that pr
 
 L2s reduce fees by orders of magnitude while inheriting Ethereum's security guarantees. Most new DeFi deployment activity has shifted to L2s.
 
-A future upgrade called **danksharding** will further increase the data throughput available to rollups, aiming to make L2 transactions even cheaper.
+Rollups publish their transaction data in [blobs](/wiki/economics/finance/defi/ethereum/blobs) — a separate data lane, 128 KiB per blob, with its own fee market. It was added in March 2024 at 6 blobs a block and widened three times since, to 21. **Danksharding** is the end state of that line of work, at 128 blobs a slot.
 
 ## Ethereum vs. Bitcoin
 

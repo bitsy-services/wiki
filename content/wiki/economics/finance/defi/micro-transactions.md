@@ -26,7 +26,7 @@ The problem is not unique to Ethereum -- any chain with meaningful decentralizat
 
 ### Layer 2 Rollups
 
-Rollups (optimistic and zero-knowledge) batch many transactions into a single proof or data submission on the base layer. This amortizes the cost of L1 security across hundreds or thousands of individual transfers, reducing per-transaction fees to fractions of a cent. Rollups inherit the security guarantees of the underlying [blockchain](/wiki/economics/finance/defi/blockchain) while making micro-transactions economically viable.
+Rollups (optimistic and zero-knowledge) batch many transactions into a single proof or data submission on the base layer. This amortizes the cost of L1 security across hundreds or thousands of individual transfers, reducing per-transaction fees to fractions of a cent. Rollups inherit the security guarantees of the underlying [blockchain](/wiki/economics/finance/defi/blockchain) while making micro-transactions economically viable. Since the Dencun upgrade in March 2024 that data submission goes into [blobs](/wiki/economics/finance/defi/ethereum/blobs) rather than calldata, which is what took L2 fees down by 90-95%.
 
 ### State Channels
 

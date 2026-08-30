@@ -60,6 +60,8 @@ SEV	Secure Encrypted Virtualization
 CCA	Confidential Compute Architecture
 IPFS	InterPlanetary File System
 CID	content identifier
+KZG	Kate-Zaverucha-Goldberg
+BPO	blob-parameter-only
 
 # --- Payments --------------------------------------------------------------
 ACH	automated clearing house
@@ -166,6 +168,8 @@ BEAM	-
 BLS12	-
 BN254	-
 BNB	-
+BPO1	-
+BPO2	-
 BSC	-
 BTC	-
 CAD	-

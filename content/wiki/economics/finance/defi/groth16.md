@@ -65,7 +65,7 @@ Zcash was the first major deployment of Groth16. Shielded transactions prove tha
 
 ### zk-Rollups
 
-Several Ethereum L2 rollups use Groth16 (or plan to) for proving batch validity. The rollup operator executes thousands of transactions off-chain, generates a Groth16 proof that the state transition is correct, and posts only the proof on-chain. The L1 [smart contract](/wiki/economics/finance/defi/smart-contract) verifies the proof and accepts the new state root.
+Several Ethereum L2 rollups use Groth16 (or plan to) for proving batch validity. The rollup operator executes thousands of transactions off-chain, generates a Groth16 proof that the state transition is correct, and posts only the proof on-chain. The L1 [smart contract](/wiki/economics/finance/defi/smart-contract) verifies the proof and accepts the new state root. The proof establishes correctness, not availability — the transactions themselves are published separately, in [blobs](/wiki/economics/finance/defi/ethereum/blobs), so anyone can rebuild the state the proof attests to.
 
 ### Cross-chain bridges
 
