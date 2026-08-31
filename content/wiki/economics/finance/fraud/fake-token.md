@@ -35,7 +35,7 @@ contract Impostor {
 }
 ```
 
-Wallets and explorers paper over this with curated allowlists: a token list mapping a chain identifier and address to a display name and logo, a "verified" badge on an explorer page, a search index that ranks the real asset first. Those lists are maintained by companies — wallet vendors, explorer operators, data aggregators — and reflect their submission processes and staffing rather than any on-chain fact. The trust is real and it is entirely off-chain, which matters in the two places the curation has not reached: a chain or an interface that has no list, and an asset new enough that the list has not been updated. An explorer's "verified contract" label is a narrower claim still: it says the published source compiles to the deployed bytecode, not that the deployer is who they say they are.
+Wallets and explorers paper over this with curated allowlists: a [token list](/wiki/economics/finance/defi/token-registration/token-lists) mapping a chain identifier and address to a display name and logo, a "verified" badge on an explorer page, a search index that ranks the real asset first. Those lists are maintained by companies — wallet vendors, explorer operators, data aggregators — and reflect their submission processes and staffing rather than any on-chain fact. The trust is real and it is entirely off-chain, which matters in the two places the curation has not reached: a chain or an interface that has no list, and an asset new enough that the list has not been updated. An explorer's "verified contract" label is a narrower claim still: it says the published source compiles to the deployed bytecode, not that the deployer is who they say they are.
 
 ## Where fakes get placed
 
@@ -43,7 +43,7 @@ Wallets and explorers paper over this with curated allowlists: a token list mapp
 
 **Search inside wallets and aggregators.** A user typing a symbol into a swap interface gets a list of matches, and on a chain with weak curation the order of that list is the only thing distinguishing the real asset from six copies.
 
-**Submissions to explorers and token lists.** Logos, social links, and project descriptions attached to a contract are supplied by whoever submits them and are generally reviewed at submission speed rather than audited.
+**Submissions to explorers and token lists.** Logos, social links, and project descriptions attached to a contract are supplied by [whoever submits them](/wiki/economics/finance/defi/token-registration) and are generally reviewed at submission speed rather than audited.
 
 **"New listing" announcements.** The window between a genuine project announcing a token and the token existing is when imitations are most valuable, because there is no canonical address to compare against yet and buyers are primed to act quickly. This is the same tempo trick that makes a [giveaway scam](/wiki/economics/finance/fraud/giveaway-scam) work.
 

@@ -84,6 +84,10 @@ EIP-2612 extends ERC-20 with a `permit` function that allows approvals via off-c
 | ERC-777 | Backwards-compatible extension with hooks for send/receive. Never gained wide adoption due to reentrancy concerns. |
 | ERC-4626 | Tokenised vault standard — extends ERC-20 with deposit/withdraw/redeem for yield-bearing vaults. |
 
+## What the standard leaves out
+
+The interface carries `name`, `symbol` and `decimals` and nothing else about the token's identity. There is no icon, no website, no description, and no issuer field, so every logo a wallet or explorer displays comes from an off-chain database that somebody had to submit the token to. [Token registration](/wiki/economics/finance/defi/token-registration) covers where those databases are and what each one asks for. [ERC-1046](/wiki/economics/finance/defi/token-registration/on-chain-metadata) adds an optional `tokenURI` that puts the metadata document back on the contract, at the cost of near-zero adoption among the things that would read it.
+
 ## External links
 
 - [EIP-20 specification](https://eips.ethereum.org/EIPS/eip-20) — the canonical standard

@@ -140,6 +140,7 @@ OWASP	Open Worldwide Application Security Project
 ESAPI	Enterprise Security API
 XSW	XML signature wrapping
 CORBA	common object request broker architecture
+CORS	cross-origin resource sharing
 WSDL	web services description language
 IDL	interface definition language
 DCE	distributed computing environment
@@ -236,6 +237,7 @@ IP	-
 ISC	-
 ISO	-
 JIT	-
+JPG	-
 JSON	-
 JVM	-
 JWS	-
@@ -269,6 +271,7 @@ PHP	-
 PID	-
 PLONK	-
 PNC	-
+PNG	-
 POL	-
 POP	-
 POST	-

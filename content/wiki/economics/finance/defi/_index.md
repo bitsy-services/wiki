@@ -40,7 +40,7 @@ The revenue side is the [collateralization fee](/wiki/economics/finance/defi/col
 
 ## Tooling
 
-[Solidity patterns](/wiki/economics/finance/defi/solidity) covers the language and the Foundry toolchain used to build and deploy these contracts. [The Graph](/wiki/economics/finance/defi/the-graph) covers reading the results back out — indexing chain events into something you can query. [Groth16](/wiki/economics/finance/defi/groth16) is the zero-knowledge proof system that shows up whenever a contract needs to verify a computation it cannot afford to re-run.
+[Solidity patterns](/wiki/economics/finance/defi/solidity) covers the language and the Foundry toolchain used to build and deploy these contracts. [The Graph](/wiki/economics/finance/defi/the-graph) covers reading the results back out — indexing chain events into something you can query. [Groth16](/wiki/economics/finance/defi/groth16) is the zero-knowledge proof system that shows up whenever a contract needs to verify a computation it cannot afford to re-run. [Token registration](/wiki/economics/finance/defi/token-registration) is the unglamorous other half of shipping a token: [ERC-20](/wiki/economics/finance/defi/ethereum/erc-20) has no icon field, so the logo beside a balance comes from six or seven separate submissions to companies that do not share data.
 
 ## Law and adjacent uses
 

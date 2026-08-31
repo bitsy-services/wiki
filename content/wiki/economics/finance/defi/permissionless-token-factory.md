@@ -33,6 +33,10 @@ The prototype mints **clones** keyed by some identity (e.g. an original asset + 
 - **Name/symbol collisions are inherent.** Permissionless means anyone can issue a confusingly similar name. Idempotent `make()` deduplicates an exact key; it does nothing about lookalikes. Identity must be established by address, never by displayed name.
 - **Immutable means immutable.** A factory deployed with a bug ships that bug forever. There is no admin to call.
 
+## What the factory cannot deploy
+
+A clone comes out of the factory with a name, a symbol and a decimals count, and with no icon anywhere. Nothing about deploying through a factory registers the token with a wallet, an explorer or an aggregator, and the fact that the deployment asked nobody's permission is exactly why no registrar knows it exists. [Token registration](/wiki/economics/finance/defi/token-registration) is the manual campaign that follows, and it is the one part of a permissionless launch that is not permissionless.
+
 ## Prior art
 
 - **Uniswap factory** — the original permissionless pool factory; one `createPair`/`createPool` call, no gate.
