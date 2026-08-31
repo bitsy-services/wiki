@@ -65,9 +65,11 @@ No US rule allocates loss to the receiving institution. That, more than the Regu
 
 For anyone integrating Zelle — including [Interbox](/wiki/economics/finance/defi/interbox), which treats an inbound Zelle payment as the trigger for an irreversible action on the other side — two things follow.
 
-An inbound Zelle payment is, as a matter of network mechanics, final. There is no clawback the sender's bank can compel. That is what makes it usable as a settlement trigger, and it is the same property that makes the network attractive to fraudsters, so the two cannot be separated: any flow that converts a Zelle credit into something non-refundable is, by construction, a good cash-out for someone else's scam. The controls have to sit in the flow itself — an out-of-band confirmation with the sender before anything irreversible happens, velocity limits, and the willingness to freeze and return on suspicion — because the rail supplies none.
+An inbound Zelle payment is, as a matter of network mechanics, final. There is no clawback the sender's bank can compel. That is what makes it usable as a settlement trigger, and it is the same property that makes the network attractive to fraudsters, so the two cannot be separated: any flow that converts a Zelle credit into something non-refundable is, by construction, a good [cash-out](/wiki/economics/finance/fraud/cashing-out) for someone else's scam. The controls have to sit in the flow itself — an out-of-band confirmation with the sender before anything irreversible happens, velocity limits, and the willingness to freeze and return on suspicion — because the rail supplies none.
 
 The identity signal is real but thin. A Zelle payment tells you a regulated US institution has performed [know your customer](/wiki/economics/finance/regulation/know-your-customer) checks on the sender, which is a stronger assertion than almost anything available on a [blockchain](/wiki/economics/finance/defi/blockchain). It does not tell you the sender understood what they were doing. A system that knows whose money was taken is not thereby a system that is hard to defraud.
+
+The [crypto fraud](/wiki/economics/finance/fraud) section covers the same structure with the bank removed from both ends: identical push-payment finality, no institution with a reimbursement obligation, and the loss allocated by default to whoever signed.
 
 ## External links
 

@@ -47,7 +47,7 @@ For Solidity-specific implementation details and patterns, see the [Solidity sec
 ## Risks
 
 - **Bugs and exploits** — immutability means a vulnerability in a deployed contract can be exploited until funds are drained or the contract is paused (if it has a pause mechanism). Audits and formal verification reduce but do not eliminate this risk.
-- **Governance attacks** — contracts controlled by a single admin key or a small multisig can be rug-pulled. Look for timelocks, decentralised governance, and key management practices.
+- **Governance attacks** — contracts controlled by a single admin key or a small multisig can be rug-pulled. Look for timelocks, decentralised governance, and key management practices. [Hidden admin controls](/wiki/economics/finance/fraud/hidden-admin-controls) covers which privileged functions to look for, and why an upgradeable proxy makes an audit of the implementation close to meaningless.
 - **Composability risk** — a contract that depends on another contract inherits its risks. A bug in a dependency can cascade.
 
 ## External links

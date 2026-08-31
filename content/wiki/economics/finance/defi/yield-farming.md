@@ -57,7 +57,7 @@ Farming rewards paid in a protocol's governance token are only valuable if the t
 
 ### Rug pulls
 
-In the worst case, the farming contract or token contract is malicious. The deployer drains deposited funds or mints unlimited tokens. This is most common with unaudited, anonymous projects offering implausibly high APYs.
+In the worst case, the farming contract or token contract is malicious. The deployer drains deposited funds or mints unlimited tokens. This is most common with unaudited, anonymous projects offering implausibly high APYs. [Rug pull](/wiki/economics/finance/fraud/rug-pull) covers the mechanics and [hidden admin controls](/wiki/economics/finance/fraud/hidden-admin-controls) the privileged functions that make it possible; a farm advertising a yield with no identifiable payer is a [Ponzi scheme](/wiki/economics/finance/fraud/ponzi-scheme) regardless of how the contract is written.
 
 ### Gas costs
 

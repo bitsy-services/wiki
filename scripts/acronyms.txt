@@ -202,6 +202,7 @@ DTD	-
 ECC	-
 EOF	-
 ERC20	-
+EOS	-
 ETH	-
 EWS	-
 FAQ	-
@@ -344,3 +345,56 @@ XL	-
 XML	-
 XRP	-
 YOU	-
+
+# --- Fraud -----------------------------------------------------------------
+APT	advanced persistent threat
+BEC	business email compromise
+CISA	Cybersecurity and Infrastructure Security Agency
+ETF	exchange-traded fund
+DOJ	Department of Justice
+DPRK	Democratic People's Republic of Korea
+FIDO	Fast Identity Online
+FTC	Federal Trade Commission
+HSI	Homeland Security Investigations
+HYIP	high-yield investment program
+IC3	Internet Crime Complaint Center
+ICO	initial coin offering
+IDO	initial DEX offering
+IEO	initial exchange offering
+IPO	initial public offering
+KYT	know your transaction
+MFA	multi-factor authentication
+MLM	multi-level marketing
+RAT	remote access trojan
+ROI	return on investment
+SAFT	simple agreement for future tokens
+SDNY	Southern District of New York
+SS7	Signaling System No. 7
+TOTP	time-based one-time password
+VPN	virtual private network
+
+# --- Exempt: fraud-adjacent proper nouns, tickers, product names -----------
+AT	-
+CFO	-
+CTO	-
+DYOR	-
+EU	-
+FTT	-
+FTX	-
+HTML	-
+IB	-
+IDE	-
+IT	-
+KK	-
+LUNA	-
+MEXC	-
+NPM	-
+PIN	-
+QR	-
+SBF	-
+TRM	-
+TRON	-
+FIDO2	-
+TRX	-
+U2F	-
+UST	-

@@ -51,7 +51,7 @@ Step 2 is the bottleneck. A scalar multiplication on secp256k1 is much more expe
 ### Use Cases
 
 - **Branding** — a recognisable prefix is more memorable than a random hash. Many [DAO](/wiki/economics/finance/defi/dao) treasuries, bridges, and OG project addresses are mined.
-- **Phishing resistance** — users learn to recognise the prefix of a legitimate address. (Weak; attackers can mine confusable addresses too.)
+- **Phishing resistance** — users learn to recognise the prefix of a legitimate address. (Weak; attackers can mine confusable addresses too, which is exactly what [address poisoning](/wiki/economics/finance/fraud/address-poisoning) does with the truncated form every interface displays.)
 - **Burn / sink addresses** — `0x000…dead`, `0x000…0000`, etc. These don't need mining since no one holds the key.
 
 EOA vanity addresses **do not save gas**. The address only appears on chain when the EOA sends a transaction; the cost there is dominated by signature verification, not by the address bytes.

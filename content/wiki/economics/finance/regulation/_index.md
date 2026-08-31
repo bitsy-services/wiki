@@ -26,6 +26,8 @@ Nothing here is legal advice. It is an attempt to explain a body of law well eno
 
 [DeFi and US regulatory restrictions](/wiki/economics/finance/defi/defi-us-regulatory-restrictions) covers the securities and derivatives side — the jurisdictional fight between the Securities and Exchange Commission (SEC) and the Commodity Futures Trading Commission (CFTC) — and stays in the [DeFi](/wiki/economics/finance/defi) section because it is about that subject specifically. [Interbox](/wiki/economics/finance/defi/interbox) is the worked example of designing around this material rather than merely complying with it.
 
+[Fraud](/wiki/economics/finance/fraud) is the other side of the same coin, and reading the two together is the point. Nearly every requirement here — [know your customer](/wiki/economics/finance/regulation/know-your-customer), the [Travel Rule](/wiki/economics/finance/regulation/travel-rule), suspicious activity reporting — exists to make the last stage of a fraud expensive, and [cashing out](/wiki/economics/finance/fraud/cashing-out) and [money mules](/wiki/economics/finance/fraud/money-mule) describe what the other side does about it.
+
 ## Wiki Pages
 
 {{< section >}}

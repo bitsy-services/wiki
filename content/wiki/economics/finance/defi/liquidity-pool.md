@@ -36,7 +36,7 @@ When the price ratio of the pooled tokens moves away from the ratio at deposit t
 
 ### Smart contract risk
 
-Pools are only as safe as their code. [Uniswap](/wiki/economics/finance/defi/uniswap) contracts have been extensively audited and have held billions without exploit, but forks and newer protocols carry higher risk. Rug pulls -- where a malicious token contract drains the pool -- are a real threat for pools involving unvetted tokens.
+Pools are only as safe as their code. [Uniswap](/wiki/economics/finance/defi/uniswap) contracts have been extensively audited and have held billions without exploit, but forks and newer protocols carry higher risk. [Rug pulls](/wiki/economics/finance/fraud/rug-pull) -- where the deployer withdraws the liquidity backing a token they sold -- are a real threat for pools involving unvetted tokens, as are [honeypot tokens](/wiki/economics/finance/fraud/honeypot-token) whose transfer path refuses to sell.
 
 ### Concentration risk
 

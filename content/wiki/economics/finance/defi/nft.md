@@ -94,7 +94,9 @@ Ordered worst-first.
   collection, present and future, until revoked. It is the ERC-721 analogue of
   an unlimited ERC-20 allowance, and it is what most phishing signatures are
   after: one signature, the whole collection. Most NFT theft runs through this
-  call rather than through a stolen key.
+  call rather than through a stolen key — see
+  [approval phishing](/wiki/economics/finance/fraud/approval-phishing) for what each
+  signature type actually authorises.
 - **`transferFrom` to a contract that cannot handle it.** ERC-721 has no plain
   `transfer`. Bare `transferFrom` to a contract with no ERC-721 receiver hook
   strands the token: the contract is now the owner, and unless it happens to
