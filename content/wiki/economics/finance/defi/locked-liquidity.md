@@ -37,6 +37,7 @@ A floor or peg backed by withdrawable liquidity is not a floor — it is a floor
 ## Caveats
 
 - **Locking is symmetric.** A position locked with bad parameters — wrong tick, wrong fee tier, wrong pair — is *also* permanent. Immutability removes the rug and the undo in one stroke, so every parameter is a one-shot decision taken before sealing.
+- **A lock nobody recognises does not count.** Scanners detect locks by matching the holding address against a per-chain allowlist of known lockers, so a custom timelock or an unlisted locker reads as *unlocked* rather than as unknown — see [liquidity and holders](/wiki/economics/finance/defi/token-false-alarms/liquidity-and-holders).
 - **"Locked" must mean the right thing.** A time-lock is not a no-path lock: one has a date on which the principal becomes withdrawable and the other has no such date, and systems describe both with the same word.
 - **Fees are not principal.** A retained fee claim is not authority over the backing. Conflating the two is the usual misreading.
 

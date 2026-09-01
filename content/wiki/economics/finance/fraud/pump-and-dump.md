@@ -75,6 +75,8 @@ Before buying into anything with a promotion attached, in descending order of wh
 5. **Treat reported volume as unverified.** Volume is the cheapest number to fabricate; see [wash trading](/wiki/economics/finance/fraud/wash-trading).
 6. **Look for the disclosure.** A promoter who was paid and says so is doing something legal.
 
+Every one of those checks is also what an automated scanner runs, at scale and without judgment, which is why a large share of the tokens they flag are simply launches that failed rather than launches that lied — see [how often this is wrong](/wiki/economics/finance/defi/token-false-alarms/how-often-this-is-wrong) for what the base rates in the Chainalysis figures do and do not support.
+
 ## Where the law lands
 
 Which statute applies depends on what the token is, which is the contested question. If it is a security, Section 10(b) of the Exchange Act and Rule 10b-5 reach the manipulation, Section 9(a)(2) reaches transactions effected to create actual or apparent active trading, and Section 17(b) reaches undisclosed paid promotion. If it is a commodity, Section 6(c)(1) of the Commodity Exchange Act and Commodity Futures Trading Commission (CFTC) Rule 180.1 reach manipulative and deceptive devices in the spot market, which is the provision the CFTC uses to reach spot crypto at all. If it is neither, what remains is wire fraud under 18 U.S.C. § 1343 — a scheme to defraud plus an interstate wire — which requires no view about the asset and is correspondingly the Department of Justice's preferred charge.

@@ -77,6 +77,8 @@ Consider putting the [ERC-1046](/wiki/economics/finance/defi/token-registration/
 
 Curated lists are also the entire defence against [fake tokens](/wiki/economics/finance/fraud/fake-token): a contract can claim any name and symbol it likes, so a logo beside a balance is a statement about who filled in a form, not about who deployed the contract. Getting your own token registered raises the cost of impersonating it — an impostor now has to clear the same queues — but it does not stop one from being deployed. Identity remains the address.
 
+The same companies run the scanners, and registration does not clear those either. [Token false alarms](/wiki/economics/finance/defi/token-false-alarms) covers the other direction: what happens when an honest contract is flagged rather than merely unlabelled, and which of the queues above will hear an appeal.
+
 ## Wiki Pages
 
 {{< section >}}

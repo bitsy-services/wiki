@@ -3,3 +3,4 @@
 - [Harness invariants](project-harness-invariants.md) — Hugo doesn't check internal links; rules scope with `paths:` not `globs:`; the theme renders no h1
 - [AI section worked example](project-ai-section-worked-example.md) — reuse the "Claude Code writes a wiki page" example across all ai pages; don't invent new ones
 - [A green check says nothing about content](patterns/project-green-check-says-nothing-about-content.md) — check.sh validates structure, not prose; when a content rule breaks twice, make it a check
+- [TaskOutput transcript flood](friction/global-taskoutput-transcript-flood.md) — don't poll TaskOutput on a subagent; wait for the notification

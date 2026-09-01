@@ -377,6 +377,26 @@ TOTP	time-based one-time password
 VPN	virtual private network
 
 # --- Exempt: fraud-adjacent proper nouns, tickers, product names -----------
+IEEE	-
+SHA	-
+TWT	-
+AAVE	-
+AMPL	-
+BONK	-
+CRV	-
+JTO	-
+JUP	-
+LDO	-
+LDY	-
+LIQ	-
+LMTS	-
+MOR	-
+PAXG	-
+PEPE	-
+PYTH	-
+RENDER	-
+STA	-
+ZIL	-
 AT	-
 CFO	-
 CTO	-

@@ -109,7 +109,7 @@ Simulation is also gameable directly. A token can allowlist the addresses public
 - **Read the transfer path.** Every mechanism here lives in `_update` or `_transfer`. Follow each branch to the end and note every value in those branches that an external function can set.
 - **List the owner-settable functions and their bounds.** A fee setter with no maximum, a cap setter, and a policy or router address setter are each sufficient on their own, whatever their current values.
 - **Check for a proxy.** An implementation address at the standard proxy storage slot means the source read today is not a commitment about tomorrow.
-- **Treat scanners as a filter rather than a verdict.** Public honeypot simulators catch the static cases cheaply and in bulk, and they are simulating exactly the state that an owner transaction changes.
+- **Treat scanners as a filter rather than a verdict.** Public honeypot simulators catch the static cases cheaply and in bulk, and they are simulating exactly the state that an owner transaction changes. They also fire on honest contracts often enough that the failure has its own literature — [token false alarms](/wiki/economics/finance/defi/token-false-alarms).
 
 ## Where the law lands
 
