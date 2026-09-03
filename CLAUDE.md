@@ -4,12 +4,14 @@
 
 This is the Bitsy Services Wiki, a Hugo static site using the Hugo Book theme. It is deployed to Cloudflare Pages at wiki.bitsy.services.
 
+It is a public, general-purpose technical wiki rather than an internal one. Any technical subject is in scope; which subjects get written follows the work at bitsy.services. `.claude/rules/wiki-scope.md` is the authority, and the consequence for writing is that every page is read cold by someone arriving from a search engine.
+
 ## Structure
 
 - `content/wiki/` — wiki pages (Markdown with YAML frontmatter)
 - `hugo.toml` — site configuration
 - `themes/hugo-book` — theme (git submodule, do not edit)
-- `static/` — static assets (images, files); the icon set is generated, see below
+- `static/` — static assets (images, files); the icon set is generated, see below. `static/ads.txt` carries the Google AdSense publisher ID and must keep serving from the site root
 - `layouts/` — template overrides; a file here shadows the theme's file of the same name
 - `scripts/` — the checks; `scripts/acronyms.txt` is the acronym registry they enforce
 - `backlog/` — harness improvement items, consumed one per session

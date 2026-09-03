@@ -1,8 +1,13 @@
 # Bitsy Services Wiki
 
-Internal wiki built with [Hugo](https://gohugo.io/) and the
-[Hugo Book](https://github.com/alex-shpak/hugo-book) theme, deployed to
+A public, general-purpose technical wiki built with [Hugo](https://gohugo.io/)
+and the [Hugo Book](https://github.com/alex-shpak/hugo-book) theme, deployed to
 Cloudflare Pages at [wiki.bitsy.services](https://wiki.bitsy.services/).
+
+Any technical subject is in scope, written one mechanism to a page. Which
+subjects get written follows the work at bitsy.services — so far decentralised
+finance, language model internals, cryptography, financial regulation, and
+developer tooling.
 
 ## Local development
 
