@@ -1,0 +1,10 @@
+{{/*
+  Override of the theme's favicon partial, which emits a single <link> pointing
+  at `favicon.png`. The mark is vector art (scripts/gen-icons.py), so hand
+  modern browsers the SVG and keep the .ico only as a fallback for the ones
+  that still cannot read it. `alternate icon` is what stops Chrome and Safari
+  from preferring the .ico over the sharper SVG.
+*/}}
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="alternate icon" href="{{ "favicon.ico" | relURL }}" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">

@@ -8,6 +8,11 @@ theme = 'hugo-book'
 ignoreFiles = ['CLAUDE\.md$']
 
 [params]
+  # Default Open Graph / Twitter card image, used by Hugo's embedded
+  # opengraph.html, twitter_cards.html and schema.html for any page that does
+  # not set its own `images` in frontmatter.
+  images = ['og-image.png']
+
   BookToC = true
   BookSection = 'wiki'
   BookSearch = true

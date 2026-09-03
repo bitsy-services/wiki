@@ -1,0 +1,6 @@
+{{/*
+  The theme calls Hugo's embedded opengraph.html and schema.html but not
+  twitter_cards.html, so X/Twitter falls back to a small summary card with no
+  image. It reads the same `params.images` as the Open Graph tags.
+*/}}
+{{ partial "twitter_cards.html" . }}
