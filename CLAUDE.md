@@ -16,17 +16,20 @@ This is the Bitsy Services Wiki, a Hugo static site using the Hugo Book theme. I
 
 ## Site Icons
 
-`favicon.svg`, `favicon.ico`, `apple-touch-icon.png` and `og-image.png` in
-`static/` are **generated** — do not hand-edit them. They all come from one
-parametric description of the hexagonal web mark in `scripts/gen-icons.py`
-(`GEOM` holds the stroke width and the three radii). Change the mark there and
-re-run `python3 scripts/gen-icons.py`, so the vector and raster copies cannot
-drift apart.
+`static/favicon.png` is the **source of truth** for the site mark — a supplied
+1600x1600 image, not generated art. `favicon.ico` and `apple-touch-icon.png`
+beside it are pure resamplings of it produced by `scripts/gen-icons.py`, which
+only resizes and never draws. To change the mark, replace `favicon.png` and
+re-run `python3 scripts/gen-icons.py`. `static/og-image.png` is a byte-for-byte
+copy of the same file, kept separate so the social card can be changed without
+touching the favicon.
 
 The `<link>` tags live in `layouts/_partials/docs/html-head-favicon.html`, which
-overrides the theme's single-`favicon.png` partial. The default Open Graph and
-Twitter card image is `params.images` in `hugo.toml`; Hugo's embedded
-`opengraph.html` and `schema.html` read it automatically, and
+overrides the theme's single-`favicon.png` partial. `assets/manifest.json`
+overrides the theme's, whose icon entry pointed at a `favicon.svg` this site
+does not have. The default Open Graph and Twitter card image is
+`params.images` in `hugo.toml`; Hugo's embedded `opengraph.html` and
+`schema.html` read it automatically, and
 `layouts/_partials/docs/inject/head.html` adds `twitter_cards.html`, which the
 theme does not call on its own. A page can override it with `images` in its own
 frontmatter.

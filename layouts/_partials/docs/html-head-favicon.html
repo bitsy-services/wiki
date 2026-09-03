@@ -1,10 +1,10 @@
 {{/*
-  Override of the theme's favicon partial, which emits a single <link> pointing
-  at `favicon.png`. The mark is vector art (scripts/gen-icons.py), so hand
-  modern browsers the SVG and keep the .ico only as a fallback for the ones
-  that still cannot read it. `alternate icon` is what stops Chrome and Safari
-  from preferring the .ico over the sharper SVG.
+  Override of the theme's favicon partial, which emits a single <link> to
+  `favicon.png` and no apple-touch-icon. `sizes` on the .ico is what makes
+  Chrome and Safari prefer a purpose-made 32px member over rescaling the
+  1600px PNG themselves. All three files come from static/favicon.png; see
+  scripts/gen-icons.py.
 */}}
-<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
-<link rel="alternate icon" href="{{ "favicon.ico" | relURL }}" sizes="16x16 32x32 48x48">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="16x16 32x32 48x48">
+<link rel="icon" href="{{ "favicon.png" | relURL }}" type="image/png" sizes="1600x1600">
 <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
