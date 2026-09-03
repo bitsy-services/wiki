@@ -149,6 +149,16 @@ RBAC	role-based access control
 A2A	agent to agent
 PRNG	pseudo-random number generator
 
+# --- Web and static site generation ---------------------------------------
+SSG	static site generator
+SRI	subresource integrity
+CSS	-
+SCSS	-
+TOML	-
+YAML	-
+RSS	-
+MDN	-
+
 # --- Exempt: general knowledge, proper nouns, tickers, product names -------
 AI	-
 ALAP	-
