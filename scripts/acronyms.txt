@@ -60,6 +60,13 @@ SEV	Secure Encrypted Virtualization
 CCA	Confidential Compute Architecture
 IPFS	InterPlanetary File System
 CID	content identifier
+IPNS	InterPlanetary Name System
+IPNI	InterPlanetary Network Indexer
+IPIP	IPFS Improvement Proposal
+CAR	content addressable archive
+MFS	mutable file system
+PDP	proof of data possession
+FIL	-
 KZG	Kate-Zaverucha-Goldberg
 BPO	blob-parameter-only
 
@@ -128,6 +135,9 @@ C14N	canonicalization
 CQRS	command query responsibility segregation
 CRUD	create read update delete
 DAG	directed acyclic graph
+DHT	distributed hash table
+CRDT	conflict-free replicated data type
+HAMT	hash array mapped trie
 DDD	domain-driven design
 NFKC	normalization form
 ODMG	Object Data Management Group
@@ -322,6 +332,7 @@ TD	-
 TEST	-
 TLD	-
 TTL	-
+TXT	-
 TWIN	-
 UI	-
 UK	-

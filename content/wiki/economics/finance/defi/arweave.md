@@ -3,7 +3,7 @@ title: "Arweave"
 weight: 50
 ---
 
-Arweave is a decentralized storage network built around a single unusual promise: pay once, store forever. Where most storage -- cloud buckets, [IPFS](/wiki/cs/ipfs) pins, traditional hosting -- charges recurring rent and deletes the data the moment payment stops, Arweave takes an upfront fee and commits to retaining it in perpetuity. The collection of data stored this way, served over HTTP through gateways, is marketed as the **permaweb**: a permanent, immutable layer of the web.
+Arweave is a decentralized storage network built around a single unusual promise: pay once, store forever. Where most storage -- cloud buckets, [IPFS](/wiki/cs/ipfs) [pins](/wiki/cs/ipfs/pinning), traditional hosting -- charges recurring rent and deletes the data the moment payment stops, Arweave takes an upfront fee and commits to retaining it in perpetuity. The collection of data stored this way, served over HTTP through gateways, is marketed as the **permaweb**: a permanent, immutable layer of the web.
 
 That promise is backed by an economic mechanism rather than a legal guarantee, and the mechanism is a bet on the price of storing a byte continuing to fall.
 
@@ -56,7 +56,7 @@ These are frequently confused because all three are "decentralized storage," but
 |---|---|---|---|
 | **Arweave** | Pay once, stored permanently | Upfront, into an endowment | Economic bet on permanence |
 | **[IPFS](https://ipfs.tech)** | Data persists only while *pinned* by some node | Free protocol; you pay whoever pins | None -- unpinned data is garbage-collected |
-| **[Filecoin](https://filecoin.io)** | Storage *deals* for a fixed term | Recurring, per deal | Cryptographic proofs for the deal's duration |
+| **[Filecoin](/wiki/economics/finance/defi/filecoin)** | Storage *deals* for a fixed term | Recurring, per deal | Cryptographic proofs for the deal's duration |
 
 IPFS is purely an addressing and transfer protocol with no built-in incentive to keep data alive; Filecoin adds a market for time-bounded storage deals that must be renewed. Arweave is the only one of the three whose core value proposition is *indefinite* retention without renewal. The trade-off is that Arweave's permanence is an economic projection, while a Filecoin deal's term is contractually and cryptographically bounded.
 

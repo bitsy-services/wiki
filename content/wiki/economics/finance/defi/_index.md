@@ -16,7 +16,7 @@ Several properties of that substrate matter enough to have their own pages: a [f
 
 ## Chains and platforms
 
-[Ethereum](/wiki/economics/finance/defi/ethereum) is the reference implementation of a programmable chain and the platform most of this section assumes. The others here were each chosen for a specific property: [Sui](/wiki/economics/finance/defi/sui) for object-centric throughput, [IOTA](/wiki/economics/finance/defi/iota) for feeless machine-to-machine transfer, [Sapphire](/wiki/economics/finance/defi/sapphire) for a confidential [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) where state and calldata are encrypted, and [Arweave](/wiki/economics/finance/defi/arweave) for pay-once permanent storage.
+[Ethereum](/wiki/economics/finance/defi/ethereum) is the reference implementation of a programmable chain and the platform most of this section assumes. The others here were each chosen for a specific property: [Sui](/wiki/economics/finance/defi/sui) for object-centric throughput, [IOTA](/wiki/economics/finance/defi/iota) for feeless machine-to-machine transfer, [Sapphire](/wiki/economics/finance/defi/sapphire) for a confidential [EVM](/wiki/economics/finance/defi/ethereum#the-ethereum-virtual-machine-evm) where state and calldata are encrypted, and [Arweave](/wiki/economics/finance/defi/arweave) for pay-once permanent storage. [Filecoin](/wiki/economics/finance/defi/filecoin) is the other answer to the same question, pricing storage as a dated contract with recurring proofs rather than as an endowment.
 
 ## Trading and market making
 

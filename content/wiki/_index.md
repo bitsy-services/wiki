@@ -12,7 +12,7 @@ Eight sections so far, ordered here as they appear in the sidebar:
 - [AI](/wiki/ai) — two halves. Getting useful work out of coding agents ([context engineering](/wiki/ai/context-engineering), [agentic workflows](/wiki/ai/agentic-workflows), [prompt caching](/wiki/ai/prompt-caching)), and taking the models apart ([neural networks](/wiki/ai/neural-network), [large language models](/wiki/ai/llm)).
 - [Security](/wiki/security) — the operational side: handling keys, secrets, and credentials on a developer machine.
 - [Social](/wiki/social) — building and moderating communities on social platforms.
-- [Computer Science](/wiki/cs) — the durable ideas underneath the rest: [entity addressing](/wiki/cs/entity-addressing), [DAGs](/wiki/cs/dag), [zero-knowledge proofs](/wiki/cs/zero-knowledge-proofs), and a recurring interest in canonicalization bugs.
+- [Computer Science](/wiki/cs) — the durable ideas underneath the rest: [entity addressing](/wiki/cs/entity-addressing), [DAGs](/wiki/cs/dag), [content addressing and what it costs to keep the bytes alive](/wiki/cs/ipfs), [zero-knowledge proofs](/wiki/cs/zero-knowledge-proofs), and a recurring interest in canonicalization bugs.
 - [Git](/wiki/git) — an opinionated workflow rather than a command reference: small complete commits, linear history.
 - [Hugo](/wiki/hugo) — the static site generator this wiki is built with. Where URLs come from, which of the files in `layouts/` renders a given page, the [asset pipeline](/wiki/hugo/hugo-pipes), and the [internal-link checking Hugo does not do](/wiki/hugo/internal-links).
 - [Microsoft](/wiki/microsoft) — programming against Microsoft's platforms, starting with [Outlook](/wiki/microsoft/outlook).

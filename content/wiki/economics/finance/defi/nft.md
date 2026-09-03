@@ -53,7 +53,7 @@ on a server someone stops paying for, the token survives and its contents do
 not. Pointing at [IPFS](/wiki/cs/ipfs) or
 [Arweave](/wiki/economics/finance/defi/arweave) makes the reference
 content-addressed, so the metadata cannot be silently swapped — though with IPFS
-it still has to be pinned by somebody to remain retrievable. Arweave's
+it still has to be [pinned](/wiki/cs/ipfs/pinning) by somebody to remain retrievable. Arweave's
 pay-once-store-forever model puts an endowment behind retention instead, which
 is a stronger *commitment* than pinning but still an economic bet rather than a
 guarantee — see the

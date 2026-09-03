@@ -89,8 +89,8 @@ A list that fails validation is not partially loaded; the interface refuses it w
 Three options, in ascending order of durability:
 
 - **An HTTPS URL.** Simplest, and it needs a permissive cross-origin resource sharing (CORS) header — the fetch is made by a browser from someone else's origin, so without `access-control-allow-origin` the list silently fails to load. This is the single most common reason a self-hosted list "doesn't work."
-- **[IPFS](/wiki/cs/ipfs), pinned.** Content-addressed, so the hash changes on every publish and consumers pinned to the old hash keep the old list.
-- **An Ethereum Name Service (ENS) name with a `contenthash` record pointing at the IPFS hash.** The specification's preferred form: the name is stable, the content underneath it is not, and updating the list is a transaction rather than a server deploy.
+- **[IPFS](/wiki/cs/ipfs), [pinned](/wiki/cs/ipfs/pinning).** Content-addressed, so the hash changes on every publish and consumers pinned to the old hash keep the old list.
+- **An Ethereum Name Service (ENS) name with a [`contenthash` record](/wiki/cs/ipfs/ipns-and-dnslink#contenthash-on-a-name-service) pointing at the IPFS hash.** The specification's preferred form: the name is stable, the content underneath it is not, and updating the list is a transaction rather than a server deploy.
 
 Uniswap's interface accepts all three under *Manage → Lists*: a URL, an ENS name, or a raw IPFS hash.
 
