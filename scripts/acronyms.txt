@@ -67,6 +67,7 @@ CAR	content addressable archive
 MFS	mutable file system
 PDP	proof of data possession
 FIL	-
+UCAN	user controlled authorization network
 KZG	Kate-Zaverucha-Goldberg
 BPO	blob-parameter-only
 

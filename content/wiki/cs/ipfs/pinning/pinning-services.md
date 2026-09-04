@@ -92,7 +92,7 @@ anything stops using that hostname.
 
 - **The service ends the product.** Free and subsidised IPFS offerings have been
   withdrawn repeatedly, generally with a migration window of weeks; the
-  [record is in choosing a service](/wiki/cs/ipfs/pinning/choosing-a-service#the-graveyard).
+  [record is under providers](/wiki/cs/ipfs/pinning/providers#the-graveyard).
   Unpinned data after a shutdown is gone unless somebody else has a copy.
 - **Billing lapses.** Retention ends with the subscription, typically after a
   grace period, and the deletion is not reversible by paying afterwards.
@@ -108,8 +108,8 @@ anything stops using that hostname.
 Everything on that list is survivable by holding a second copy somewhere else,
 which is why the useful question about a pinning service is not what it promises
 but how cheaply one can leave.
-[Choosing a service](/wiki/cs/ipfs/pinning/choosing-a-service) is mostly that
-question.
+[Providers](/wiki/cs/ipfs/pinning/providers) works through the current field on
+that basis, one page each.
 
 ## External links
 

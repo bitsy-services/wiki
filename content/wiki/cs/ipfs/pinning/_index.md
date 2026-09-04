@@ -78,9 +78,10 @@ one that was never pinned at all.
 Which leaves the question the rest of this section is about: whose node. A
 [pinning service](/wiki/cs/ipfs/pinning/pinning-services) sells the answer, a
 standard [HTTP API](/wiki/cs/ipfs/pinning/pinning-service-api) makes the choice
-of service reversible, and
-[IPFS Cluster](/wiki/cs/ipfs/pinning/ipfs-cluster) is the same job done on
-machines you own.
+of service reversible, the
+[providers](/wiki/cs/ipfs/pinning/providers) differ mostly in how expensive
+leaving them is, and [IPFS Cluster](/wiki/cs/ipfs/pinning/ipfs-cluster) is the
+same job done on machines under the operator's own control.
 
 ## External links
 

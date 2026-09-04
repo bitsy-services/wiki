@@ -101,7 +101,7 @@ change is precisely what makes it a reliable portability layer: a pinset moves
 between two providers, or from a provider to your own cluster, by re-running the
 same requests against a different endpoint. Whether a service implements it is
 the single most useful thing to check before
-[choosing one](/wiki/cs/ipfs/pinning/choosing-a-service), because it decides how
+[choosing one](/wiki/cs/ipfs/pinning/providers), because it decides how
 expensive leaving will be.
 
 ## External links
