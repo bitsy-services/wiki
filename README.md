@@ -1,4 +1,4 @@
-# Bitsy Services Wiki
+# wiki.bitsy.services
 
 A public, general-purpose technical wiki built with [Hugo](https://gohugo.io/)
 and the [Hugo Book](https://github.com/alex-shpak/hugo-book) theme, deployed to
@@ -72,3 +72,10 @@ Cloudflare Pages:
 a file under `layouts/` with the same name and it shadows the theme's version.
 That is how `layouts/single.html` and `layouts/list.html` render the page title
 as an `<h1>`, which the theme itself does not do.
+
+`layouts/home.html` does the same job for the home page, with one difference:
+its `<h1>` is `.Site.Title`. The site is named once, as `title` in `hugo.toml`,
+and everything else — the h1, the sidebar brand, the `<title>` tag, the Open
+Graph tags, `assets/manifest.json` — derives from it. `content/_index.md`
+therefore carries no `title` of its own, and `scripts/check.sh` fails if it
+grows one.

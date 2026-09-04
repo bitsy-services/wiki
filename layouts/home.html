@@ -1,0 +1,13 @@
+{{/*
+  The home page, split out from layouts/list.html so its <h1> can come from the
+  site title in hugo.toml. content/_index.md deliberately sets no `title`: the
+  site is named in exactly one place, and Hugo leaves a titleless home page's
+  `.Title` empty rather than falling back to `.Site.Title`.
+  scripts/check-content.py enforces that content/_index.md sets no title.
+*/}}
+{{ define "main" }}
+  <article class="markdown book-article">
+    <h1>{{ .Site.Title }}</h1>
+    {{- .Content -}}
+  </article>
+{{ end }}

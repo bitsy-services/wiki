@@ -7,7 +7,8 @@ Checks, in order of severity:
   anchor    internal link points at a heading that does not exist
   h1        body contains an `# H1` (Hugo Book renders frontmatter title as h1)
   fence     fenced code block has no language for syntax highlighting
-  frontmatter  missing title, or non-integer weight
+  frontmatter  missing title, or non-integer weight; or a `title` on the home
+            page, which takes its name from hugo.toml
   acronym   an acronym is unregistered, or used on a page that never expands
             or links it (registry: scripts/acronyms.txt)
 
@@ -26,6 +27,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
+HOME = CONTENT / "_index.md"
 
 FENCE_RE = re.compile(r"^(\s*)(`{3,}|~{3,})(.*)$")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
@@ -205,7 +207,15 @@ def main(argv):
         fm, clean, fences = parsed[f]
 
         fm_text = "\n".join(fm)
-        if not re.search(r"^title:", fm_text, re.M):
+        has_title = bool(re.search(r"^title:", fm_text, re.M))
+        if f == HOME:
+            # The site is named once, in hugo.toml. layouts/home.html renders
+            # `.Site.Title` as the home page h1, so a `title` here would be a
+            # second copy free to drift from the first.
+            if has_title:
+                err("frontmatter", f, 1,
+                    "home page sets `title` — the site name belongs only in hugo.toml")
+        elif not has_title:
             err("frontmatter", f, 1, "missing `title` in frontmatter")
         wm = re.search(r"^weight:\s*(.+)$", fm_text, re.M)
         if wm and not re.fullmatch(r"-?\d+", wm.group(1).strip()):

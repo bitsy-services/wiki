@@ -1,6 +1,6 @@
 baseURL = 'https://wiki.bitsy.services/'
 locale = 'en-us'
-title = 'Bitsy Services Wiki'
+title = 'Bitsy Wiki'
 theme = 'hugo-book'
 
 # Agent-instruction files (directory-scoped CLAUDE.md) live alongside content

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is the Bitsy Services Wiki, a Hugo static site using the Hugo Book theme. It is deployed to Cloudflare Pages at wiki.bitsy.services.
+This is the wiki published at wiki.bitsy.services, a Hugo static site using the Hugo Book theme, deployed to Cloudflare Pages. The site's name lives in exactly one place — `title` in `hugo.toml` — and every rendered copy derives from it; see Site Name below.
 
 It is a public, general-purpose technical wiki rather than an internal one. Any technical subject is in scope; which subjects get written follows the work at bitsy.services. `.claude/rules/wiki-scope.md` is the authority, and the consequence for writing is that every page is read cold by someone arriving from a search engine.
 
@@ -15,6 +15,17 @@ It is a public, general-purpose technical wiki rather than an internal one. Any 
 - `layouts/` — template overrides; a file here shadows the theme's file of the same name
 - `scripts/` — the checks; `scripts/acronyms.txt` is the acronym registry they enforce
 - `backlog/` — harness improvement items, consumed one per session
+
+## Site Name
+
+`title` in `hugo.toml` is the only place the site is named. The h1 on the home
+page, the sidebar brand, the `<title>` tag, the Open Graph and Twitter tags and
+`assets/manifest.json` all read `.Site.Title`. `content/_index.md` sets no
+`title` of its own — Hugo leaves a titleless home page's `.Title` empty rather
+than falling back to the site title, so `layouts/home.html` renders
+`.Site.Title` as the h1 instead. `scripts/check-content.py` inverts its
+frontmatter rule for that one file: every other page must have a `title`, and
+the home page must not.
 
 ## Site Icons
 
@@ -63,7 +74,7 @@ produced it.
 - Pages go under `content/wiki/`. The `new-wiki-page` skill has the full procedure.
 - Use `weight` in frontmatter to control sidebar ordering
 - Use `bookCollapseSection: true` for section pages (`_index.md`)
-- Start the body at `##`. `layouts/single.html` renders the frontmatter `title` as the page h1; the theme itself renders no title heading at all.
+- Start the body at `##`. `layouts/single.html` renders the frontmatter `title` as the page h1 (`layouts/list.html` for sections, `layouts/home.html` for the home page); the theme itself renders no title heading at all.
 - Code blocks must specify a language (`text` for formulas and ASCII diagrams)
 - Directory-scoped agent instructions can live in a `CLAUDE.md` inside a `content/wiki/<section>/` folder; `ignoreFiles = ['CLAUDE\.md$']` in `hugo.toml` keeps Hugo from rendering them as pages
 

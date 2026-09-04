@@ -1,5 +1,4 @@
 ---
-title: "Bitsy Services Wiki"
 type: docs
 ---
 
