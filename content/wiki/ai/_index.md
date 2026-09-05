@@ -11,6 +11,7 @@ The section shares one running example: **using [Claude Code](/wiki/ai/context-e
 - [Context engineering](/wiki/ai/context-engineering) — managing what the model sees: the context budget, curation, compaction, sub-agent isolation, and the pitfalls that cause wrong actions.
   - [Claude Code](/wiki/ai/context-engineering/claude-code) — those techniques applied end-to-end in a real harness; the section's worked example.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording the instructions the model receives.
+- [LLM overused words](/wiki/ai/overused-words) — the *delve*/*tapestry* vocabulary, why preference training installs it, and what actually removes it.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — the token economics behind latency and spend.
 - [Agentic workflows](/wiki/ai/agentic-workflows) — planning, tool use, delegation, and verification loops.
 - [Agentic engineering](/wiki/ai/agentic-engineering) — the lifecycle around the loop: evaluation, observability, guardrails, and cost engineering.
