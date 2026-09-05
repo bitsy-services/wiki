@@ -1,6 +1,7 @@
 ---
 title: "Hugo Pipes"
 weight: 60
+aliases: ["/wiki/hugo/hugo-pipes/"]
 ---
 
 Hugo Pipes is the asset pipeline: files under `assets/` are fetched as resource objects, passed through transformations, and published under a name the pipeline chooses. Nothing here is a separate build step or a watch process. It is a chain of template functions evaluated while the page that references the asset is rendered.
@@ -24,11 +25,11 @@ The Sass was transpiled, the result minified, and the published filename given a
 
 A filename containing a hash of the contents cannot go stale. Change one declaration in the Sass and the published name changes, so the browser requests a URL it has never seen and the old cached copy is irrelevant rather than wrong. That in turn makes an aggressive cache policy safe: a fingerprinted asset can be served with a year-long `max-age`, because a new version arrives under a new name rather than by expiry.
 
-The HTML that references it must not be cached that way. It is the only file whose URL is stable, so it is the only file that has to be re-fetched for a [deploy](/wiki/hugo/deploying) to take effect.
+The HTML that references it must not be cached that way. It is the only file whose URL is stable, so it is the only file that has to be re-fetched for a [deploy](/wiki/web/hugo/deploying) to take effect.
 
 ## `assets/` and `static/`
 
-Both of [the two directories](/wiki/hugo#the-directory-contract) end up serving files, and they are not interchangeable.
+Both of [the two directories](/wiki/web/hugo#the-directory-contract) end up serving files, and they are not interchangeable.
 
 | | `static/` | `assets/` |
 | --- | --- | --- |

@@ -17,7 +17,7 @@ Type *"write a wiki page on X"* as the first message and a specific chain fires,
 2. **Explore before drafting.** The agent reads two or three sibling pages and the rules files to learn the house format. This is [just-in-time retrieval](/wiki/ai/context-engineering#just-in-time-retrieval): the repository is external memory, and only the pages relevant to *this* page are pulled in, not a dump of `content/`.
 3. **Plan, then write.** A short plan (sections, path, frontmatter) precedes the draft. Separating exploration from execution keeps the draft from solving the wrong problem and gives compaction something concrete to preserve.
 4. **Write to disk early.** The draft becomes a file as soon as it exists, not a long message held in conversation — because the conversation is the volatile part (see compaction below).
-5. **Verify against the environment.** [Hugo](/wiki/hugo) builds the site. A bad [shortcode](/wiki/hugo/shortcodes) or malformed frontmatter fails the build; that failure is ground truth, the way a failing test is in [agentic workflows](/wiki/ai/agentic-workflows#verification-loops). A [dead internal link](/wiki/hugo/internal-links) does not, which is why the gate is a script rather than the build alone.
+5. **Verify against the environment.** [Hugo](/wiki/web/hugo) builds the site. A bad [shortcode](/wiki/web/hugo/shortcodes) or malformed frontmatter fails the build; that failure is ground truth, the way a failing test is in [agentic workflows](/wiki/ai/agentic-workflows#verification-loops). A [dead internal link](/wiki/web/hugo/internal-links) does not, which is why the gate is a script rather than the build alone.
 
 ## Durable instructions: CLAUDE.md and rules
 

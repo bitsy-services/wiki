@@ -1,6 +1,7 @@
 ---
 title: "Render Hooks"
 weight: 50
+aliases: ["/wiki/hugo/render-hooks/"]
 ---
 
 A render hook is a template that replaces Goldmark's output for one kind of Markdown construct, everywhere it appears. Write `layouts/_markup/render-image.html` and every image on the site — in every page, from every author, past and future — renders through it. The content files do not change and do not learn anything about the site's HTML.
@@ -69,13 +70,13 @@ Hugo carries built-in link and image hooks that resolve relative destinations ag
 
 The default reads as "off" on an ordinary single-language site, which surprises people who expect `beta.md` links to resolve out of the box. A theme with its own `render-link.html` makes the setting moot in any case: `fallback` yields to the theme, and hugo-book ships one.
 
-What the embedded hook does not do is complain. A destination it cannot resolve — `nope.md`, or an absolute `/docs/guide/nope` — is written into the HTML unchanged, the build exits zero, and nothing is logged. Resolution and validation are separate problems, and Hugo only solves the first; [internal links](/wiki/hugo/internal-links) is the second.
+What the embedded hook does not do is complain. A destination it cannot resolve — `nope.md`, or an absolute `/docs/guide/nope` — is written into the HTML unchanged, the build exits zero, and nothing is logged. Resolution and validation are separate problems, and Hugo only solves the first; [internal links](/wiki/web/hugo/internal-links) is the second.
 
 ## Reach and limits
 
-A render hook fires on Markdown, so anything not parsed as Markdown escapes it. Inline HTML in a content file is passed through by Goldmark untouched — an `<img>` tag written by hand gets no `loading="lazy"` from the hook above. Output from an angle-bracket [shortcode](/wiki/hugo/shortcodes) also escapes, because that output is inserted after Markdown rendering; the percent form's output goes back through the parser and does hit the hooks.
+A render hook fires on Markdown, so anything not parsed as Markdown escapes it. Inline HTML in a content file is passed through by Goldmark untouched — an `<img>` tag written by hand gets no `loading="lazy"` from the hook above. Output from an angle-bracket [shortcode](/wiki/web/hugo/shortcodes) also escapes, because that output is inserted after Markdown rendering; the percent form's output goes back through the parser and does hit the hooks.
 
-Heading anchors come from Goldmark rather than from a hook. `markup.goldmark.parser.autoHeadingID` generates them and `autoIDType` selects the algorithm — the [rules and their consequences for links](/wiki/hugo/internal-links#the-other-route-check-the-output) are on the internal links page. A `render-heading.html` hook receives the result in `.Anchor` and can print it, wrap it, or hang a permalink off it, but does not decide it.
+Heading anchors come from Goldmark rather than from a hook. `markup.goldmark.parser.autoHeadingID` generates them and `autoIDType` selects the algorithm — the [rules and their consequences for links](/wiki/web/hugo/internal-links#the-other-route-check-the-output) are on the internal links page. A `render-heading.html` hook receives the result in `.Anchor` and can print it, wrap it, or hang a permalink off it, but does not decide it.
 
 ## External references
 

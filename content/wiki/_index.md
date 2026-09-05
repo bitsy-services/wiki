@@ -14,7 +14,7 @@ Eight sections so far, ordered here as they appear in the sidebar:
 - [Social](/wiki/social) — building and moderating communities on social platforms.
 - [Computer Science](/wiki/cs) — the durable ideas underneath the rest: [entity addressing](/wiki/cs/entity-addressing), [DAGs](/wiki/cs/dag), [content addressing and what it costs to keep the bytes alive](/wiki/cs/ipfs), [zero-knowledge proofs](/wiki/cs/zero-knowledge-proofs), and a recurring interest in canonicalization bugs.
 - [Git](/wiki/git) — an opinionated workflow rather than a command reference: small complete commits, linear history.
-- [Hugo](/wiki/hugo) — the static site generator this wiki is built with. Where URLs come from, which of the files in `layouts/` renders a given page, the [asset pipeline](/wiki/hugo/hugo-pipes), and the [internal-link checking Hugo does not do](/wiki/hugo/internal-links).
+- [Web](/wiki/web) — publishing and serving documents: how a site gets built, and how it reaches a browser. So far that is [Hugo](/wiki/web/hugo), the static site generator this wiki runs on — where URLs come from, which of the files in `layouts/` renders a given page, the [asset pipeline](/wiki/web/hugo/hugo-pipes), and the [internal-link checking Hugo does not do](/wiki/web/hugo/internal-links).
 - [Microsoft](/wiki/microsoft) — programming against Microsoft's platforms, starting with [Outlook](/wiki/microsoft/outlook).
 
 Pages link to each other heavily on purpose. Following the links tends to be a better way through the material than reading a section top to bottom. A subject that fits none of the eight gets a ninth.

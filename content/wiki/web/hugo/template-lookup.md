@@ -1,6 +1,7 @@
 ---
 title: "Template Lookup"
 weight: 20
+aliases: ["/wiki/hugo/template-lookup/"]
 ---
 
 Every page Hugo renders is matched against an ordered list of candidate template paths, and the first one that exists wins. The list is generated from the page itself — its kind, its type, its section, its output format, its language, and any `layout` in its front matter — so nothing declares which template a page uses. The page's attributes and the set of files on disk decide it between them.
@@ -31,13 +32,13 @@ layouts/page.html               page kind
 layouts/single.html             default
 ```
 
-[Front matter](/wiki/hugo/content-organization#front-matter) widens the list at the top. `layout: wide` inserts `layouts/docs/wide.html` and `layouts/wide.html` ahead of everything above; `type: manual` substitutes `manual` for `docs`, and both cascade, so one block on a section index can redirect every page under it to a different template. Output formats and languages add their own candidates, which is how one page renders to HTML and JSON from two different files.
+[Front matter](/wiki/web/hugo/content-organization#front-matter) widens the list at the top. `layout: wide` inserts `layouts/docs/wide.html` and `layouts/wide.html` ahead of everything above; `type: manual` substitutes `manual` for `docs`, and both cascade, so one block on a section index can redirect every page under it to a different template. Output formats and languages add their own candidates, which is how one page renders to HTML and JSON from two different files.
 
 ## The theme is interleaved, not underneath
 
 The mental model that breaks builds is layering: project templates on top, theme templates beneath, project always wins. Hugo does not work that way. It builds one candidate list and checks the project and every theme at each position, so **a theme's more specific template beats the project's less specific one**.
 
-Give a theme `layouts/docs/single.html` and a project `layouts/single.html`, and pages in the `docs` section render through the theme's file. Adding `layouts/docs/single.html` to the project — matching the theme's path exactly — takes it back. The rule for [overriding a theme template](/wiki/hugo/themes-and-modules#overriding-means-matching-a-path) is therefore mechanical: find the theme file, and put your file at the identical path under your own `layouts/`. This wiki overrides `layouts/_partials/docs/html-head-favicon.html` by copying that path verbatim out of the theme.
+Give a theme `layouts/docs/single.html` and a project `layouts/single.html`, and pages in the `docs` section render through the theme's file. Adding `layouts/docs/single.html` to the project — matching the theme's path exactly — takes it back. The rule for [overriding a theme template](/wiki/web/hugo/themes-and-modules#overriding-means-matching-a-path) is therefore mechanical: find the theme file, and put your file at the identical path under your own `layouts/`. This wiki overrides `layouts/_partials/docs/html-head-favicon.html` by copying that path verbatim out of the theme.
 
 The corollary is that a theme can quietly capture pages you thought you controlled. A theme shipping `layouts/posts/single.html` owns everything in a `posts` section no matter what sits at your project root.
 

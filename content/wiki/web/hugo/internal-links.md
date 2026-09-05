@@ -1,6 +1,7 @@
 ---
 title: "Internal Links"
 weight: 70
+aliases: ["/wiki/hugo/internal-links/"]
 ---
 
 Hugo does not validate internal links. A Markdown link to a page that does not exist is copied into the HTML exactly as written, the build succeeds, and the exit status is zero:
@@ -13,7 +14,7 @@ Hugo does not validate internal links. A Markdown link to a page that does not e
 <a href="/docs/guide/nope">dead</a>
 ```
 
-No warning is logged. Forcing on the [embedded link render hook](/wiki/hugo/render-hooks) does not change the outcome — it resolves destinations it recognizes and passes the rest through untouched, so `[q](nope.md)` also ships as `href="nope.md"`. Resolution and validation are different jobs, and Hugo only does the first.
+No warning is logged. Forcing on the [embedded link render hook](/wiki/web/hugo/render-hooks) does not change the outcome — it resolves destinations it recognizes and passes the rest through untouched, so `[q](nope.md)` also ships as `href="nope.md"`. Resolution and validation are different jobs, and Hugo only does the first.
 
 The practical consequence is that renaming a page is the most dangerous edit in a Hugo site. Every inbound link becomes a 404 that no build will mention, and the first report comes from a reader or from a crawler weeks later.
 

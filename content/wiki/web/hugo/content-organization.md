@@ -1,6 +1,7 @@
 ---
 title: "Content Organization"
 weight: 10
+aliases: ["/wiki/hugo/content-organization/"]
 ---
 
 The `content/` directory is the site map. Hugo derives every URL from the file path: `content/docs/guide/alpha.md` is served at `/docs/guide/alpha/`, with the `content/` prefix and the `.md` suffix dropped and a directory containing `index.html` written for it. There is no routing table and no place to declare a URL other than the file's own location, which is what makes renaming a page a link-breaking operation rather than a configuration change.
@@ -9,7 +10,7 @@ The `content/` directory is the site map. Hugo derives every URL from the file p
 
 A directory under `content/` can hold an `_index.md` or an `index.md`.
 
-`_index.md` makes the directory a **branch bundle** — a section. The page renders through `list.html` — which file that resolves to is [template lookup](/wiki/hugo/template-lookup) — and its `.Pages` collection contains the pages beneath it. `content/docs/_index.md` is served at `/docs/`, and every page under `content/docs/` belongs to it.
+`_index.md` makes the directory a **branch bundle** — a section. The page renders through `list.html` — which file that resolves to is [template lookup](/wiki/web/hugo/template-lookup) — and its `.Pages` collection contains the pages beneath it. `content/docs/_index.md` is served at `/docs/`, and every page under `content/docs/` belongs to it.
 
 `index.md` makes the directory a **leaf bundle** — one page that owns the files sitting beside it. `content/docs/bundle/index.md` is served at `/docs/bundle/`, and a sibling `data.txt` becomes a page resource, available to templates as `.Resources` and copied to `/docs/bundle/data.txt` on build. A leaf bundle has no children; any Markdown file inside it is a resource of the page, not a page of its own.
 
@@ -53,9 +54,9 @@ type: "docs"                      # overrides the type used in template lookup
 
 `weight` sorts ascending, and pages without a weight sort *after* every page that has one — a section holding `10`, `20`, and one unweighted page lists them in that order. This is why the convention here is to number in tens: inserting a page between two others is a one-line edit rather than a renumbering pass.
 
-`layout` and `type` are the two keys that change which template renders the page rather than what the page contains; [template lookup](/wiki/hugo/template-lookup#the-order) is where they take effect.
+`layout` and `type` are the two keys that change which template renders the page rather than what the page contains; [template lookup](/wiki/web/hugo/template-lookup#the-order) is where they take effect.
 
-`aliases` is the repair for a rename. Hugo generates a small redirecting HTML page at each old URL, which recovers inbound links from outside the site. It does nothing for links *inside* the site, which still point at a path that now only redirects — [internal links](/wiki/hugo/internal-links) is where that gets checked.
+`aliases` is the repair for a rename. Hugo generates a small redirecting HTML page at each old URL, which recovers inbound links from outside the site. It does nothing for links *inside* the site, which still point at a path that now only redirects — [internal links](/wiki/web/hugo/internal-links) is where that gets checked.
 
 ## Cascade
 

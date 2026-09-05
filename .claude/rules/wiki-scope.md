@@ -10,7 +10,10 @@ follows the work at bitsy.services, but that is a statement about supply, not
 about eligibility.
 
 - No topic is disqualified for being unrelated to Bitsy. A subject with no
-  existing home gets a new section, not a justification.
+  existing home gets a new section, not a justification. That is a statement
+  about eligibility only: `wiki-taxonomy.md` decides what the section is called
+  and at which level it sits, and a new *top-level* section is a shape change
+  worth confirming before it lands.
 - Bitsy-specific pages are written the same way as everything else: explain the
   mechanism, not the company. A reader who has never heard of Bitsy should still
   get something out of the page.

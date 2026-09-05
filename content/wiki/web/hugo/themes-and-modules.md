@@ -1,6 +1,7 @@
 ---
 title: "Themes and Modules"
 weight: 30
+aliases: ["/wiki/hugo/themes-and-modules/"]
 ---
 
 A Hugo theme is a project directory with the same shape as yours — `layouts/`, `assets/`, `static/`, `i18n/`, `data/`, `archetypes/`, and often `content/` — mounted underneath your own. Hugo merges the two trees into one filesystem before the build starts, so from a template's point of view there is a single `layouts/` and a single `assets/`. Every question about "how do I change this theme" reduces to a question about that merge.
@@ -9,7 +10,7 @@ A Hugo theme is a project directory with the same shape as yours — `layouts/`,
 theme = 'hugo-book'
 ```
 
-The value can be a list, in which case earlier entries take priority over later ones. A project file beats a theme file at the *same* path; it does not beat a theme file at a more specific one, which is the distinction [template lookup](/wiki/hugo/template-lookup#the-theme-is-interleaved-not-underneath) turns on.
+The value can be a list, in which case earlier entries take priority over later ones. A project file beats a theme file at the *same* path; it does not beat a theme file at a more specific one, which is the distinction [template lookup](/wiki/web/hugo/template-lookup#the-theme-is-interleaved-not-underneath) turns on.
 
 ## Overriding means matching a path
 
@@ -19,7 +20,7 @@ This wiki overrides five files. `layouts/single.html` and `layouts/list.html` re
 
 The fifth, `layouts/_partials/docs/inject/head.html`, costs nothing to write. hugo-book ships nine empty partials under `inject/`, called from the places a site is most likely to want to add something, and overriding an empty file loses nothing. A theme that provides those hooks converts an override from a fork of somebody's template into an addition; a theme that does not leaves copy-and-modify as the only route.
 
-Matching the path exactly is a stricter requirement than it sounds, because [template lookup](/wiki/hugo/template-lookup) interleaves project and theme candidates by specificity. A project file at a *less* specific path than the theme's does not override it; it is simply never reached.
+Matching the path exactly is a stricter requirement than it sounds, because [template lookup](/wiki/web/hugo/template-lookup) interleaves project and theme candidates by specificity. A project file at a *less* specific path than the theme's does not override it; it is simply never reached.
 
 ## Vendoring: submodule or module
 

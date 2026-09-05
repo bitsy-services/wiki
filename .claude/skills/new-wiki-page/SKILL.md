@@ -11,15 +11,21 @@ A procedure, not a set of facts. The always-on rules in `.claude/rules/` tell yo
 
 ## 1. Place it
 
-Pages live under `content/wiki/<section>/`. Existing sections: `ai`, `cs`,
-`economics` (with `economics/finance/defi` beneath it), `git`, `microsoft`,
-`security`, `social`. Sections nest, so place a page at the depth its topic
-actually sits. Use an existing section unless the topic genuinely doesn't fit
-one.
+**`.claude/rules/wiki-taxonomy.md` is the authority.** Read it before choosing a
+path: it carries the section map, the rules for what may sit at the top level,
+and the procedure for the case where nothing fits. Do not infer placement from
+the existing tree — `git/` and `microsoft/` sit at a grain the rules no longer
+allow, and reading them as precedent is what put the Hugo section at
+`/wiki/hugo` instead of `/wiki/web/hugo`.
+
+State the path and the reason before drafting. A wrong placement is a sentence
+to correct now and a `git mv` plus a link rewrite plus an alias on every file
+later.
 
 - A single page is `content/wiki/<section>/<slug>.md`.
 - A topic that needs several pages is a folder with an `_index.md` carrying
-  `bookCollapseSection: true`, plus one file per child page.
+  `bookCollapseSection: true`, plus one file per child page. Three pages is the
+  threshold for making that folder; one page does not get one.
 - The URL is the path minus `content/` and minus the `.md`, so
   `content/wiki/economics/finance/defi/amm.md` serves at
   `/wiki/economics/finance/defi/amm`. Choose the slug with the URL in mind —

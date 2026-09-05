@@ -1,6 +1,7 @@
 ---
 title: "Building and Deploying"
 weight: 80
+aliases: ["/wiki/hugo/deploying/"]
 ---
 
 `hugo` writes the finished site into `public/` and stops. There is no deploy step in Hugo, and no server component to install: the artefact is a directory of files, and every host that can serve a directory of files can serve it. Deployment is therefore a copy, and the hosting bill is bandwidth.
@@ -43,7 +44,7 @@ Templates read the same value through `hugo.Environment` and `hugo.IsProduction`
 
 ## Pinning the binary
 
-Hugo is a single binary with no lockfile, so nothing in a checkout says which version it was written against. The template system was reorganized in v0.146 and the `gist` and `twitter` [shortcodes](/wiki/hugo/shortcodes) were removed in v0.156, so a version gap shows up as a build that fails on the deploy machine and not on the author's.
+Hugo is a single binary with no lockfile, so nothing in a checkout says which version it was written against. The template system was reorganized in v0.146 and the `gist` and `twitter` [shortcodes](/wiki/web/hugo/shortcodes) were removed in v0.156, so a version gap shows up as a build that fails on the deploy machine and not on the author's.
 
 The `hugo-bin` npm package downloads a Hugo into `node_modules`, and `npx hugo` runs that one rather than whatever is on the path:
 
@@ -84,9 +85,9 @@ Three details generalize to any static host.
 
 **The 404 page.** Hugo generates `public/404.html` from `layouts/404.html`, and a host that answers misses with its own generic page never shows it. On Cloudflare's static assets the key is `not_found_handling: "404-page"`; other hosts have an equivalent, and some read `404.html` by convention. The snippet above does not set it, which is what an unnoticed default looks like: the file is built on every deploy and served to nobody.
 
-**Cache headers, split two ways.** [Fingerprinted assets](/wiki/hugo/hugo-pipes#fingerprinting-and-cache-policy) take a long `max-age`; the HTML that names them must not. One policy for both is either a stale site or a slow one.
+**Cache headers, split two ways.** [Fingerprinted assets](/wiki/web/hugo/hugo-pipes#fingerprinting-and-cache-policy) take a long `max-age`; the HTML that names them must not. One policy for both is either a stale site or a slow one.
 
-**Build on the host or build locally.** A host that runs `hugo` itself needs the theme's git submodule (`--recurse-submodules`, or an explicit `git submodule update --init`) and a pinned Hugo version, and gives you deploys triggered by a push. Building locally and uploading `public/` needs neither, and makes the deploy exactly as reproducible as the machine that ran it. Either way, run the site's gate first: `scripts/check.sh` here, which builds the site and then checks every [internal link](/wiki/hugo/internal-links), because a push that deploys is a push that publishes the 404s with it.
+**Build on the host or build locally.** A host that runs `hugo` itself needs the theme's git submodule (`--recurse-submodules`, or an explicit `git submodule update --init`) and a pinned Hugo version, and gives you deploys triggered by a push. Building locally and uploading `public/` needs neither, and makes the deploy exactly as reproducible as the machine that ran it. Either way, run the site's gate first: `scripts/check.sh` here, which builds the site and then checks every [internal link](/wiki/web/hugo/internal-links), because a push that deploys is a push that publishes the 404s with it.
 
 ## External references
 

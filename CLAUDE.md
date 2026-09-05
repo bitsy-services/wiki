@@ -4,7 +4,7 @@
 
 This is the wiki published at wiki.bitsy.services, a Hugo static site using the Hugo Book theme, deployed to Cloudflare Pages. The site's name lives in exactly one place — `title` in `hugo.toml` — and every rendered copy derives from it; see Site Name below.
 
-It is a public, general-purpose technical wiki rather than an internal one. Any technical subject is in scope; which subjects get written follows the work at bitsy.services. `.claude/rules/wiki-scope.md` is the authority, and the consequence for writing is that every page is read cold by someone arriving from a search engine.
+It is a public, general-purpose technical wiki rather than an internal one. Any technical subject is in scope; which subjects get written follows the work at bitsy.services. `.claude/rules/wiki-scope.md` is the authority on what belongs, `.claude/rules/wiki-taxonomy.md` on where it goes, and the consequence for writing is that every page is read cold by someone arriving from a search engine.
 
 ## Structure
 
@@ -71,7 +71,7 @@ produced it.
 
 ## Content Conventions
 
-- Pages go under `content/wiki/`. The `new-wiki-page` skill has the full procedure.
+- Pages go under `content/wiki/`. The `new-wiki-page` skill has the full procedure, and `.claude/rules/wiki-taxonomy.md` decides the path — including when a subject warrants a new section, which is a decision to raise before drafting rather than land in a diff.
 - Use `weight` in frontmatter to control sidebar ordering
 - Use `bookCollapseSection: true` for section pages (`_index.md`)
 - Start the body at `##`. `layouts/single.html` renders the frontmatter `title` as the page h1 (`layouts/list.html` for sections, `layouts/home.html` for the home page); the theme itself renders no title heading at all.
