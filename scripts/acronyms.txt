@@ -129,6 +129,8 @@ PPL	perplexity
 PPO	proximal policy optimization
 RLHF	reinforcement learning from human feedback
 SDPA	scaled dot-product attention
+AV	authorship verification
+TTR	type-token ratio
 LSP	Language Server Protocol
 
 # --- Computer science ------------------------------------------------------
@@ -228,6 +230,7 @@ DNS	-
 DSL	-
 DTD	-
 ECC	-
+ELVIS	-
 EOF	-
 ERC20	-
 EOS	-
@@ -333,6 +336,7 @@ SQL	-
 SSE	-
 SSN	-
 STARK	-
+STYLL	-
 SUI	-
 SVG	-
 TD	-
@@ -376,6 +380,15 @@ XL	-
 XML	-
 XRP	-
 YOU	-
+
+# --- Copyright and publicity rights ---------------------------------------
+# NO and FAKES are exempt only so the statute name "NO FAKES Act" reads
+# normally. They are not general exemptions for those tokens.
+NO	-
+FAKES	-
+CDPA	Copyright, Designs and Patents Act
+CJEU	Court of Justice of the European Union
+DSM	Digital Single Market
 
 # --- Fraud -----------------------------------------------------------------
 APT	advanced persistent threat

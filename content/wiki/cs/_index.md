@@ -16,6 +16,8 @@ Cryptographic *theory* lives here; the operational business of handling keys and
 
 [IPFS](/wiki/cs/ipfs) is what content addressing looks like when it is the whole design: name data by the hash of its contents rather than by where it sits, and a [Merkle DAG](/wiki/cs/dag) follows necessarily. It sits here rather than under DeFi because the durable idea is the addressing scheme, not the storage market built on it -- though most of the pages that link here are on the DeFi side, and [Arweave](/wiki/economics/finance/defi/arweave) is its natural sibling. The section covers the addressing scheme itself ([CIDs](/wiki/cs/ipfs/cid), [UnixFS](/wiki/cs/ipfs/unixfs), [routing](/wiki/cs/ipfs/content-routing)) and then the retention layer that had to be bolted on top of it, because a hash names bytes without obliging anyone to keep them: [pinning](/wiki/cs/ipfs/pinning) and the [services](/wiki/cs/ipfs/pinning/pinning-services) that sell it.
 
+[Stylometry](/wiki/cs/stylometry) attributes a text to an author by counting the words nobody chooses on purpose. Mosteller and Wallace settled the disputed Federalist Papers on function-word rates in 1963, and the same measurements are what a language model's [pastiche](/wiki/ai/pastiche) fails to reproduce sixty years later.
+
 [Homoiconicity](/wiki/cs/homoiconicity) is the property of a language whose programs are written in its own data structures -- code and data sharing one form, so the language can rewrite itself with ordinary tools.
 
 ## Cryptography

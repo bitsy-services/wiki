@@ -42,6 +42,7 @@ Model collapse is a separate risk pointing the same way: Shumailov et al. showed
 - [RLHF](/wiki/ai/llm/rlhf) — the preference-training step this vocabulary is a side effect of, and the calibration cost it charges alongside.
 - [Sampling strategies](/wiki/ai/llm/sampling-strategies) — temperature, top-k and top-p, the knobs Verbalized Sampling sits on top of.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — where a voice prompt or a banned-word list actually gets written.
+- [Pastiche](/wiki/ai/pastiche) — the attempt to override this register with a named author's, and [reversion to house style](/wiki/ai/pastiche/reversion-to-house-style), which is this register winning.
 
 ## Further reading
 

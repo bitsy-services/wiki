@@ -7,6 +7,8 @@ Prompt engineering is the craft of wording an instruction to a language model so
 
 Some of the output is not the prompt's to fix: the vocabulary an aligned model reaches for by default is a property of its training, and [LLM overused words](/wiki/ai/overused-words) covers what a banned-word list buys and where it stops working.
 
+Wording an instruction to produce a *voice* is its own problem with its own measurements: [pastiche](/wiki/ai/pastiche) covers what a style prompt can and cannot reach, and [rules versus examples](/wiki/ai/pastiche/rules-versus-examples) compares showing the model prose against describing it.
+
 For a concrete instance — how the rules and the page request are worded for an agent that then acts on them — see the section's running example, [Claude Code: writing a page for this wiki](/wiki/ai/context-engineering/claude-code).
 
 *This page is a stub. In the meantime:*
