@@ -170,6 +170,12 @@ YAML	-
 RSS	-
 MDN	-
 
+# --- Email -----------------------------------------------------------------
+MIME	Multipurpose Internet Mail Extensions
+MAPI	Messaging Application Programming Interface
+DKIM	DomainKeys Identified Mail
+MHT	MIME HTML
+
 # --- Exempt: general knowledge, proper nouns, tickers, product names -------
 AI	-
 ALAP	-

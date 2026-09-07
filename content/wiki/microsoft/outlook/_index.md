@@ -6,7 +6,7 @@ bookCollapseSection: true
 
 Outlook is Microsoft's email, calendar, and contacts client — and, for the purposes of these pages, the front end to a **mailbox** hosted in Microsoft 365. Automating Outlook almost never means automating the app sitting on someone's desktop; it means talking to the mailbox behind it over a web API. Every copy of Outlook — the Windows program, the website, the phone app — is another view of that same server-side data, so a program that reads and sends mail works no matter which Outlook the human happens to be looking at, or whether one is open at all.
 
-This section covers that programmatic access: the [API surface](/wiki/microsoft/outlook/api) Microsoft exposes for a mailbox, and worked patterns built on top of it — beginning with [replying to incoming mail based on what it says](/wiki/microsoft/outlook/content-based-auto-reply).
+This section covers that programmatic access: the [API surface](/wiki/microsoft/outlook/api) Microsoft exposes for a mailbox, and worked patterns built on top of it — beginning with [replying to incoming mail based on what it says](/wiki/microsoft/outlook/content-based-auto-reply). One page is about the desktop client itself: [where a message's headers, body HTML and raw source can be found](/wiki/microsoft/outlook/raw-message-source), and why classic Outlook has no single view-source command.
 
 ## "Outlook" names several different things
 

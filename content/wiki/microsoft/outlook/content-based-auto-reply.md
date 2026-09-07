@@ -373,7 +373,7 @@ function isAutoOrSelf(env, message) {
 }
 ```
 
-Skip your own outgoing mail, skip anything already marked automated, and — belt and braces — never reply twice to the same thread. Being a well-behaved responder also means marking your *own* replies as automated so the system on the other end stands down; you can add a custom `x-` header for that purpose to the reply's `internetMessageHeaders`.
+Skip your own outgoing mail, skip anything already marked automated, and — belt and braces — never reply twice to the same thread. Being a well-behaved responder also means marking your *own* replies as automated so the system on the other end stands down; you can add a custom `x-` header for that purpose to the reply's `internetMessageHeaders`. To see what the recipient's copy actually carries, the header block is [readable from Outlook's Properties dialog](/wiki/microsoft/outlook/raw-message-source#the-headers-the-properties-dialog).
 
 ### Never let the subscription lapse
 
