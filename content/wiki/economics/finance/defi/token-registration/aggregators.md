@@ -3,7 +3,7 @@ title: "Data Aggregators"
 weight: 50
 ---
 
-CoinGecko and CoinMarketCap are two websites, and registering with them is worth more than the traffic they send, because they are the upstream source for a long tail of software that never asks you for anything. MetaMask's token service, most portfolio trackers, tax tools, and the acceptance criteria of at least one major wallet registry all resolve token metadata through aggregator data. A logo submitted once here surfaces in a dozen places that have no submission form of their own.
+CoinGecko and CoinMarketCap are two websites, and registering with them is worth more than the traffic they send, because they are the upstream source for a long tail of software that never asks you for anything. MetaMask's token service, [Uniswap's interface](/wiki/economics/finance/defi/token-registration/uniswap), most portfolio trackers, tax tools, and the acceptance criteria of at least one major wallet registry all resolve token metadata through aggregator data — Uniswap Labs says so outright: "Uniswap Labs sources token information and token logos from CoinGecko." A logo submitted once here surfaces in a dozen places that have no submission form of their own.
 
 The price of that leverage is that both require the token to be trading first.
 
@@ -11,18 +11,22 @@ The price of that leverage is that both require the token to be trading first.
 
 CoinGecko will not list an asset that is not already trading on a venue it tracks. For a new token that means a pool on a tracked [decentralized exchange](/wiki/economics/finance/defi/dex) with enough [liquidity](/wiki/economics/finance/defi/liquidity-pool) and volume to look like a market rather than a placeholder. Seeding a pool with a few hundred dollars and applying the same day produces a rejection.
 
-This is the dependency that sets the calendar for the whole registration effort: pool first, aggregators second, wallet registries third, and the aggregator review alone runs two to six weeks.
+This is the dependency that sets the calendar for the whole registration effort: pool first, aggregators second, wallet registries third. CoinGecko commits to reviewing a regular submission within five days, but that clock starts at a submission it will accept, and the pool has to look like a market before it will.
 
 ## CoinGecko
 
 Submission is through the listing request form, and the specifics that get applications sent back are unglamorous:
 
-- **Logo:** PNG at 200 × 200.
+- **Logo:** 200 × 200, PNG, JPG or WebP, transparent background preferred. It is uploaded in the form's *Attachments* section rather than linked.
 - **Contract address** for every chain, each one checksummed and matching a verified contract.
 - **Supply:** total and circulating, with the vesting or lock schedule that accounts for the difference. An unexplained gap between the two is the most common reason for a follow-up email.
 - **Description**, website, whitepaper, and social accounts with actual activity.
 
 CoinGecko runs several distinct forms — new coin, information update, chain listing, exchange listing — and a submission on the wrong one is not rerouted. Their support directory lists them; pick from it rather than guessing.
+
+Every listing and update request also needs a **public verification post**, and omitting it is one of the stated reasons requests are rejected. The sequence is fixed: post from a social account linked on the project's own website announcing the submission, submit the form with that post's URL in the *Public Verification Link* field, then reply to your own post with the request identifier the confirmation email returns (`CL12345` for a listing, `CU12345` for an update). The third step is what ties the form to control of the account.
+
+Review speed is a paid choice. A **Regular Pass** is reviewed within five days; a **Fast Pass** costs $200 per request and guarantees review within 24 hours. Neither buys a listing — only a decision.
 
 ## CoinMarketCap
 
@@ -34,7 +38,7 @@ CoinMarketCap carries a second-order consequence. Trust Wallet's asset criteria 
 
 These behave differently and are frequently misunderstood. Neither is a listing venue: both index pools automatically, so a pair appears within minutes of the pool being created, with no application and no fee. What they sell is the *profile* — the logo, description, website, and social links attached to that pair.
 
-Dexscreener's Enhanced Token Info is a paid product on their marketplace, displayed at $299 as of August 2026, and it is one of the very few routes that will attach a logo to a token deployed the same week. DEXTools sells an equivalent update. Both are worth the money only in the specific case where a launch has real trading volume and the free registrars are still weeks out; neither confers anything the free routes will not eventually confer.
+Dexscreener's Enhanced Token Info is a paid product on their marketplace, displayed at $299 as of September 2026 — reduced from $499 — and processed within minutes to 12 hours. It is one of the very few routes that will attach a logo to a token deployed the same week. DEXTools sells an equivalent update. Both are worth the money only in the specific case where a launch has real trading volume and the free registrars are still in review; neither confers anything the free routes will not eventually confer.
 
 The blank grey circle on a Dexscreener pair is therefore not a signal about the token — it is a signal that nobody has paid $299 yet, and treating it as due diligence is a mistake in both directions.
 
@@ -46,10 +50,10 @@ DefiLlama tracks protocol total value locked (TVL) rather than tokens, and its r
 
 | Registrar | Cost | Prerequisite | Typical wait |
 | --- | --- | --- | --- |
-| CoinGecko | free | trading on a tracked venue | 2–6 weeks |
+| CoinGecko | free, or $200 Fast Pass | trading on a tracked venue | 5 days stated, 24 hours with Fast Pass |
 | CoinMarketCap | free | trading, complete submission | weeks |
 | Dexscreener pair | free | a pool exists | minutes |
-| Dexscreener profile | $299 | a pool exists | days |
+| Dexscreener profile | $299 | a pool exists | minutes to 12 hours |
 | DefiLlama | free | a protocol with deposits | days to weeks, review-dependent |
 
 Submit to the free ones the day the pool has real depth, and treat the wait as the reason to have done the [self-service routes](/wiki/economics/finance/defi/token-registration/on-chain-metadata) first.

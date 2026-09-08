@@ -76,6 +76,8 @@ These contracts support the routers above. You don't swap through them directly,
 
 [Swap routers](/wiki/economics/finance/defi/uniswap/swap-routers) compares the three generations of router and helps you pick one; [ISwapRouter](/wiki/economics/finance/defi/uniswap/iswap-router) is the V3 interface in detail. [Ticks](/wiki/economics/finance/defi/uniswap/ticks) explains the integer price grid that concentrated liquidity is defined against, and [single-tick liquidity](/wiki/economics/finance/defi/uniswap/single-tick-liquidity) is the narrowest case the protocol allows -- a position one tick wide, which stops behaving like a curve and starts behaving like a fixed-price order. [Fee distribution](/wiki/economics/finance/defi/uniswap/fee-distribution) covers how earnings reach a liquidity provider without any code path ever iterating over LPs: a pull-based accumulator that keeps both swaps and claims O(1), and that positions have to be *poked* to realise.
 
+Getting a token to display correctly *in* the interface is a separate business from the protocol, and lives under token registration: [registering on Uniswap](/wiki/economics/finance/defi/token-registration/uniswap) covers where app.uniswap.org gets a token's logo, and why an unlisted token meets a warning screen.
+
 ## Wiki Pages
 
 {{< section >}}

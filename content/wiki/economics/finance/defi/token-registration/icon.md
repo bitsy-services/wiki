@@ -48,7 +48,7 @@ npx svgo --multipass logo-flat.svg -o logo.svg
 | `trustwallet/assets` | PNG, named `logo.png` | 256 × 256 | 100 kB |
 | Etherscan family | SVG **or** PNG | 32 × 32 SVG, 64 × 64 PNG | — |
 | Blockscout | image at a public URL | 48 × 48 | — |
-| CoinGecko | PNG | 200 × 200 | — |
+| CoinGecko | PNG, JPG or WebP | 200 × 200 | — |
 | CoinMarketCap | PNG | 200 × 200 | — |
 | Token list `logoURI` | PNG or SVG at a URL | 256 × 256 conventional | — |
 | [`wallet_watchAsset`](/wiki/economics/finance/defi/token-registration/on-chain-metadata#pushing-the-icon-at-the-wallet) image | PNG, JPG, SVG, or data URI | ≤ 512 × 512 | 256 kB |
@@ -121,4 +121,4 @@ cast to-check-sum-address 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
 # 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984
 ```
 
-And every form asks for a link rather than an upload, so the files need a permanent home before you start submitting. A path on your own domain works and can be repointed later; [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/finance/defi/arweave) works and cannot. Whichever you choose, the URL is going to be copied into half a dozen third-party databases that will never re-fetch it, so treat it as immutable from the first submission onward.
+The registrars split on how they take the file. CoinGecko and CoinMarketCap upload it from your machine, and `trustwallet/assets` takes it as a committed file; Etherscan, Blockscout and the token list `logoURI` all want a URL. Assume the link route: the files need a permanent home before you start submitting. A path on your own domain works and can be repointed later; [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/finance/defi/arweave) works and cannot. Whichever you choose, the URL is going to be copied into half a dozen third-party databases that will never re-fetch it, so treat it as immutable from the first submission onward.

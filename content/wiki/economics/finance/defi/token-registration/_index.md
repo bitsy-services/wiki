@@ -12,7 +12,8 @@ So "registering a token" is not one action. It is six or seven submissions to or
 
 | Surface | Where its icon comes from |
 | --- | --- |
-| Uniswap and most swap interfaces | a [token list](/wiki/economics/finance/defi/token-registration/token-lists) the user has enabled |
+| [Uniswap](/wiki/economics/finance/defi/token-registration/uniswap) | its own backend, which copies CoinGecko |
+| Other swap interfaces | a [token list](/wiki/economics/finance/defi/token-registration/token-lists) the user has enabled |
 | MetaMask token detail and search | MetaMask's token service, sourced from the [data aggregators](/wiki/economics/finance/defi/token-registration/aggregators) |
 | MetaMask after [`wallet_watchAsset`](/wiki/economics/finance/defi/token-registration/on-chain-metadata#pushing-the-icon-at-the-wallet) | the image URL your dapp passed in the prompt |
 | Etherscan token page | the [explorer's](/wiki/economics/finance/defi/token-registration/block-explorers) own submission form |
@@ -65,10 +66,10 @@ Every form below asks for the same nine things in a slightly different shape. Wr
 ## Order of operations
 
 1. Deploy, then **verify the source** on the block explorer for every chain you deployed to. Nothing else proceeds until this is done.
-2. Render the icon assets and publish them at a stable URL — your own domain, [IPFS](/wiki/cs/ipfs), or [Arweave](/wiki/economics/finance/defi/arweave). Every later form asks for a link, not an upload.
+2. Render the icon assets and publish them at a stable URL — your own domain, [IPFS](/wiki/cs/ipfs), or [Arweave](/wiki/economics/finance/defi/arweave). Most later forms ask for a link; CoinGecko and CoinMarketCap take an upload instead, and `trustwallet/assets` takes a committed file.
 3. Publish a [token list](/wiki/economics/finance/defi/token-registration/token-lists) at a URL you control, and wire `wallet_watchAsset` — the wallet method that prompts a user to add a token — into your own interface. Both work immediately.
 4. Submit the [explorer token update](/wiki/economics/finance/defi/token-registration/block-explorers). Free, and once per chain.
-5. Seed the pool, then submit to [CoinGecko and CoinMarketCap](/wiki/economics/finance/defi/token-registration/aggregators). Expect two to six weeks.
+5. Seed the pool, then submit to [CoinGecko and CoinMarketCap](/wiki/economics/finance/defi/token-registration/aggregators). CoinGecko reviews within five days, or 24 hours for $200.
 6. Once the holder and transaction counts qualify, submit to the [wallet registries](/wiki/economics/finance/defi/token-registration/wallet-registries).
 
 Consider putting the [ERC-1046](/wiki/economics/finance/defi/token-registration/on-chain-metadata) `tokenURI` on the contract at step 1. It is one immutable string, it costs deployment gas and nothing else, and it is the only metadata that no company can revoke or lose.

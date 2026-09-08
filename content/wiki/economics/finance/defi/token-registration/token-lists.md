@@ -92,10 +92,10 @@ Three options, in ascending order of durability:
 - **[IPFS](/wiki/cs/ipfs), [pinned](/wiki/cs/ipfs/pinning).** Content-addressed, so the hash changes on every publish and consumers pinned to the old hash keep the old list.
 - **An Ethereum Name Service (ENS) name with a [`contenthash` record](/wiki/cs/ipfs/ipns-and-dnslink#contenthash-on-a-name-service) pointing at the IPFS hash.** The specification's preferred form: the name is stable, the content underneath it is not, and updating the list is a transaction rather than a server deploy.
 
-Uniswap's interface accepts all three under *Manage → Lists*: a URL, an ENS name, or a raw IPFS hash.
+Uniswap's own interface used to accept all three under *Manage → Lists* and now accepts none of them: it moved token resolution to a backend service that copies CoinGecko, which is covered in [registering on Uniswap](/wiki/economics/finance/defi/token-registration/uniswap). The format outlived that decision, and a list you publish is still the only registration route where nobody reviews you.
 
 ## Your list is not the default list
 
-Publishing a list makes the token available to anyone who imports it. It does not put the token in front of anyone who does not. The list shipped enabled in the Uniswap interface is a separate, curated repository with its own criteria, and there is no submission path from one to the other.
+Publishing a list makes the token available to anyone who imports it. It does not put the token in front of anyone who does not. Uniswap's default list is a separate, curated repository — `Uniswap/default-token-list` — and its one documented way in, filing an issue, has 1,291 open requests against 220 closed, the oldest of them filed in November 2019. Recent additions come from inside Uniswap Labs rather than from that queue.
 
 That is a smaller limitation than it sounds. The list URL is a link you can put in a Discord pin, a docs page, or the swap button on your own site, and users who arrive by that link see the correct name and icon before they have transacted. Combined with [`wallet_watchAsset`](/wiki/economics/finance/defi/token-registration/on-chain-metadata#pushing-the-icon-at-the-wallet), it covers the audience that matters on launch day, which is people who already came to you — and it covers them without approval from anyone.
