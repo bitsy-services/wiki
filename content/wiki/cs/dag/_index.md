@@ -6,7 +6,7 @@ bookCollapseSection: true
 
 A **directed acyclic graph** (DAG) is a [directed graph](https://en.wikipedia.org/wiki/Directed_graph) with no directed cycles: following edges in their direction from any node, no path returns to that node. That single constraint guarantees a consistent ordering of nodes and lets recursive definitions over the graph terminate.
 
-DAGs generalise both **sequences** (a chain is a DAG where every node has at most one predecessor and one successor) and **trees** (a tree is a DAG where every node has at most one parent). A DAG relaxes the tree's single-parent rule: a node may be reachable along several distinct paths, as long as none of those paths loops back.
+DAGs generalise both **sequences** (a chain is a DAG where every node has at most one predecessor and one successor) and **trees** (a tree is a DAG where every node has at most one parent). A DAG relaxes the tree's single-parent rule: a node may be reachable along several distinct paths, as long as none of those paths loops back. Dropping that rule is what a *polyhierarchy* is -- a thesaurus or category system in which a node may have more than one parent -- and it is the first of the [escapes from the tree](/wiki/cs/citation-order/escapes-from-the-tree) that a fixed [citation order](/wiki/cs/citation-order) leaves open.
 
 ## Formal Definition
 

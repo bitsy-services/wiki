@@ -4,7 +4,7 @@ weight: 10
 aliases: ["/wiki/hugo/content-organization/"]
 ---
 
-The `content/` directory is the site map. Hugo derives every URL from the file path: `content/docs/guide/alpha.md` is served at `/docs/guide/alpha/`, with the `content/` prefix and the `.md` suffix dropped and a directory containing `index.html` written for it. There is no routing table and no place to declare a URL other than the file's own location, which is what makes renaming a page a link-breaking operation rather than a configuration change.
+The `content/` directory is the site map. Hugo derives every URL from the file path: `content/docs/guide/alpha.md` is served at `/docs/guide/alpha/`, with the `content/` prefix and the `.md` suffix dropped and a directory containing `index.html` written for it. There is no routing table and no place to declare a URL other than the file's own location, which is what makes renaming a page a link-breaking operation rather than a configuration change. It also means every page has exactly one path, and the order of the directories in that path is a [citation order](/wiki/cs/citation-order): whichever facet of a subject comes first in the tree is the one readers can browse by, and the rest they have to search for.
 
 ## One character separates two kinds of page
 

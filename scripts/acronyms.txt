@@ -462,3 +462,29 @@ FIDO2	-
 TRX	-
 U2F	-
 UST	-
+
+# --- Classification and information architecture ------------------------
+DDC	Dewey Decimal Classification
+LCSH	Library of Congress Subject Headings
+FHS	Filesystem Hierarchy Standard
+CRG	Classification Research Group
+PMEST	Personality, Matter, Energy, Space, Time
+NISO	National Information Standards Organization
+SKOS	Simple Knowledge Organization System
+FAST	Faceted Application of Subject Terminology
+PRECIS	Preserved Context Index System
+ISKO	International Society for Knowledge Organization
+OCLC	Online Computer Library Center
+BSD	Berkeley Software Distribution
+Z39	-
+ACM	-
+MIT	-
+CHI	-
+UNIX	-
+PDF	-
+XII	-
+VII	-
+JSTOR	-
+IS	-
+IA	information architecture
+LIS	library and information science

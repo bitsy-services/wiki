@@ -7,3 +7,4 @@
 - [Attached images live in the transcript](friction/global-attached-images-are-in-the-transcript.md) — recover supplied assets from the session .jsonl; never ship a redraw instead
 - [hugo --quiet hides errors](friction/project-hugo-quiet-hides-errors.md) — probe with plain `hugo` or check `$?`; a --quiet grep reports failures as passes
 - [Numbers beyond their sources](friction/global-numbers-beyond-their-sources.md) — verify every figure against a primary source or drop it; a partial retraction leaves the page self-contradictory
+- [Workflow transcripts survive a session limit](friction/global-workflow-transcripts-survive-a-session-limit.md) — when every workflow agent dies on the limit, salvage the fetched sources from agent-*.jsonl and the scratchpad instead of re-running
