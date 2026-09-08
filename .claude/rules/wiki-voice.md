@@ -1,95 +1,108 @@
----
-description: Prose voice for wiki pages — carry the facts, let them do the emphasizing
----
-
 # Wiki Voice
 
 The register is a knowledgeable colleague at a whiteboard: interested in the
 subject rather than in the reader's reaction to it, and content to let a good
-fact land on its own. A page earns the reader's attention by being dense with
-information, not by telling them that what is coming will be important.
+fact land on its own. A page earns attention by being dense with information,
+not by announcing that what is coming will be important.
 
-Applying this file to a page or section has a name here: **deadpanning** it.
-To deadpan a page is to state each good fact and let it land without telling
-the reader it was a good fact. "Deadpan `content/wiki/ai/llm/`" means run this
-pass over those pages. (Commit 5636b8f calls the same pass *de-cheesing*, which
-is the older name for it.)
+A pass over a page in this register is called **deadpanning** it. "Deadpan
+`content/wiki/ai/llm/`" means run this file over those pages.
 
-## Every sentence carries a fact
+## Three tests on the finished page
 
-Aim for prose where each sentence adds a fact, a number, a mechanism, a
-consequence, or a qualification. The check is deletion: cut a sentence, and if
-nothing was lost, its job was pacing — so fold it into the sentence it was
-introducing.
+These are checks on output. Apply them by reading the page back, not by writing
+toward them — the rules this file used to contain were drafting instructions,
+and following them produced worse pages than having no rule at all.
 
-- *Carried:* "Blocks do not hand each other outputs. They all read from, and write to, one shared line."
-- *Carried:* "A tick is a basis point, and doubling the price takes ≈ 6932 ticks."
+**1. After the first paragraph, can a reader say what the thing is?**
 
-Both of those lost an announcement sentence ("The consequence is worth stating
-on its own", "Two anchors worth internalizing") and kept everything factual.
+Name the object — the data structure, the mechanism, the part — not what it
+accomplishes. Two pages have failed this in opposite directions: one described
+behaviour for four paragraphs without ever saying what the thing *was*, the
+other named it in eight undefined terms. If answering needs a link, the
+paragraph has not done its job.
 
-## Put the payoff in the sentence that contains it
+**2. Does every sentence parse when read aloud?**
 
-State a conclusion where its content is, in the same breath. A conclusion
-announced in one sentence and delivered in the next reads as a drumroll, and the
-second copy of the point is usually the better one — keep that and drop the
-setup. When a page's structure already builds to something, the arrival is
-audible without a line saying so.
+*"The activation tensor that carries one token position from the embedding
+tables to the unembedding"* shipped, passed the gate, and survived a subagent
+review. It is not a sentence. Density is not a defence, and a green
+`scripts/check.sh` says nothing about this — it checks links, anchors, fences,
+frontmatter and acronyms, and cannot see prose.
 
-## Show significance as consequence
+**3. Is every term plain English, glossed in the same sentence, or in the
+glossary?**
 
-When something really is the crux, give the reader the fact that makes it the
-crux — the number, the failure it causes, the money it costs, the thing that
-becomes possible — and let them draw the appraisal.
+A link is not a gloss. The reader arrived from a search engine and will not open
+eight tabs to finish the first sentence. Link *and* gloss.
 
-- *Consequence:* "A push payment is complete the moment it is pushed, so there is no consumer-facing recall."
-- *Consequence:* "Zero the whole stream entering block 6 and perplexity blows up by several orders of magnitude."
+## Write to the reader's next question
 
-Superlatives are claims like any other, so support one in the same paragraph
-with a measurement or a comparison. One or two per page, well-earned, read as
-judgment; on every page they read as habit.
+Before drafting, list the questions a cold reader asks, in the order they arise,
+and check the page answers them in that order. For the residual stream they
+were: what is it made of, is it per token or shared, how many are there, what
+is the limit, what happens at the limit. That list is the page's spine and is
+worth more than any amount of guidance about phrasing.
 
 ## Open with the thing itself
 
 A lede's work is the definition and the mechanism: what it is, what it does,
-what it is made of. Give the first paragraph to that, and let the page's
-importance be evident from what the page then contains.
+what it is made of. Provenance, citations and scope caveats come later, at the
+claim they bear on — in the opening they answer a question the reader does not
+have yet.
 
-## Address the reader where there is something to do
+## Show significance as consequence
 
-Second-person imperatives belong in procedures and *Check yourself* sections,
-where the reader is genuinely running a command or reading a table. In
-explanation, the third person keeps the subject in the foreground: describe what
-the mechanism does rather than instructing the reader how to feel about it.
+When something is the crux, give the reader the fact that makes it the crux —
+the number, the failure it causes, the thing that becomes possible — and let
+them draw the appraisal.
+
+- *Consequence:* "A push payment is complete the moment it is pushed, so there
+  is no consumer-facing recall."
+- *Consequence:* "Feeding 1025 tokens raises `IndexError` in the position
+  lookup: the limit is a table with 1024 rows, not a degradation."
+
+Superlatives are claims like any other, so support one in the same paragraph
+with a measurement or a comparison.
+
+## Metaphor: prefer none
+
+If the reader has no way to picture the mechanism yet, one analogy — introduced
+once, mapped explicitly, then dropped for the literal terms. Never in the
+opening, and never as the page's organising idea. The reader should leave
+holding the machinery, not the metaphor.
+
+Anthropomorphism is the failure mode to watch. A component does not *want*,
+*decide*, *know* or *shrug*. *Read* and *write* are borrowed from the
+literature and are fine where the source uses them, but say what the arithmetic
+is before leaning on them.
 
 ## Name the view you are disagreeing with
 
-Positioning against other explanations is worth doing when the disagreement is
+Positioning against another explanation is worth doing when the disagreement is
 specific. Name the source, quote the claim, and say what it holds only for:
 *the Uniswap docs describe fee growth as accruing to the position, which is true
 once the position is touched and misleading before that.* That is checkable, and
 it teaches the reader something on the way past. A page can also simply make the
 correct claim well and let it stand alone.
 
-## Introduce an analogy once, then use the machinery
+## Address the reader where there is something to do
 
-An analogy earns its place when the reader has no way to picture the mechanism
-yet. Introduce it, make the mapping explicit, then return to the literal terms
-and stay there — the page is teaching the machinery, and the reader should leave
-holding that rather than the metaphor. One analogy per concept is plenty.
+Second-person imperatives belong in procedures and `Check` sections, where the
+reader is running a command or reading a table. In explanation, the third person
+keeps the subject in the foreground.
 
-## A quick pass before calling a page done
+## Two rules that used to be here
 
-Reread for sentences that only forecast, appraise, or congratulate, and see
-whether the fact underneath them can carry the paragraph alone. These phrasings
-are usually the seam where one crept in:
+Both produced the worst pages in the wiki, and both are gone:
 
-```text
-that is the whole …        worth internalizing/stating/carrying
-here's the …               the point is …
-read it twice              the most important thing to understand
-most accounts …            which is why …
-```
+- *"Motivate before mechanism — establish the gap the reader should feel, and
+  why the obvious approach falls short, before the mechanism arrives."* This
+  produced openings that spend four paragraphs on a strawman design.
+- *"The check is deletion: cut a sentence, and if nothing was lost, fold it into
+  the sentence it was introducing."* This produced compression past coherence.
 
-They are all legitimate English and each has a right home. They are worth a
-second look because in bulk they turn a reference into a performance.
+The general lesson is that a rule distilled from one correction gets applied
+with more force than the correction had. **If a rule in this file is making a
+page worse, say so at the time** rather than following it and reporting the
+result afterwards.

@@ -5,10 +5,16 @@ is, what each component does, and how training fills in the weights — to a
 reader who is a strong engineer with no ML background. They are the prerequisite
 for `content/wiki/ai/llm/`, which assumes them.
 
-Inherit the LLM section's standard (`../llm/CLAUDE.md`): summary-first opening
-paragraph, motivate before mechanism, no bare jargon, length follows the
-concept, one concept per page, end with a falsifiable check and a
-"Depends on / leads to" line consistent with the sidebar `weight`.
+Inherit from the LLM section's standard (`../llm/CLAUDE.md`): no bare jargon,
+cite the source, length follows the concept, one concept per page, and a
+falsifiable check that has been run. Apply the three output tests in
+`.claude/rules/wiki-voice.md` — above all, that a reader can say what the thing
+is after the first paragraph.
+
+These pages keep their own prose structure and their closing
+"Depends on / leads to" line, consistent with the sidebar `weight`. The eight
+fixed headings in `../llm/CLAUDE.md` are that section's format, not a wiki-wide
+one.
 
 Everything below is what differs.
 
