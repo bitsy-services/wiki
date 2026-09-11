@@ -29,7 +29,7 @@ Superposition's bargain is that collisions are affordable *because* the collidin
 
 **It's absolute.** The vector for position 300 bears no built-in relation to the vector for 301. Nothing in the scheme encodes that they're adjacent — the model has to learn that from data, and it has to learn it *again* for 301 and 302, and again for every other pair. So "three tokens back," which is one fact, is a different geometric fact at every position in the window, learned separately at each.
 
-[RoPE](/wiki/ai/llm/rope) fixes both, by making the score between two tokens depend only on the distance between them — there is no table to run out of, and "three tokens back" becomes one fact rather than a thousand. The second defect is the one that motivated it.
+[RoPE](/wiki/ai/llm/rope) fixes both, by making position enter the score between two tokens only as the distance between them — there is no table to run out of, and "three tokens back" becomes one fact rather than a thousand. The second defect is the one that motivated it.
 
 ## The mask leaks order on its own
 

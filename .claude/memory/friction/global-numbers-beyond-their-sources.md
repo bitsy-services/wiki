@@ -57,4 +57,23 @@ citation accuracy, so nothing in the drafting experience flags the difference.
   fix. When a claim is retracted, grep the page set for every place it is
   restated, including the parent index.
 
+**Recurrence, 2026-09-11 (`ai/llm/rope-relative-invariance`).** Same shape in a
+second session, caught across three `wiki-reviewer` rounds:
+
+- "Relative position encoding" asserted, from recall, to name only the older
+  additive schemes. Su et al. call RoPE one; their contrast is additive against
+  multiplicative (§3.2.2).
+- Press et al.'s "improves perplexity with up to k=200" rendered as "stopped
+  improving after that". Their appendix table shows it degrading: 20.07 at the
+  training length, 19.79 at +200, 25.99 at +1,000. "Up to" was read as a
+  plateau the source never described.
+- A true fact about bfloat16 (1,000,003 and 1,000,007 round to the same number)
+  offered as the mechanism, when the code rounds angles, not positions.
+- The supplied draft itself carried a sign-flipped complex form and "inherits
+  automatically" for linear attention, which the source qualifies heavily.
+
+What worked: downloading the LaTeX source and code into the scratchpad once,
+then pointing each reviewer round at it, turned citation checks from recall
+into grep.
+
 Related: [[project-harness-invariants]].

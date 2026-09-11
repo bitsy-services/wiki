@@ -11,7 +11,7 @@ The experiments differ in what they need in front of you:
 
 - **Load and look.** Most of them. Download [GPT-2 small](/wiki/ai/llm/gpt-2), run one forward pass, and read the numbers that come back — no training, a second or two on a plain CPU. [Neural networks](/wiki/ai/neural-network), [perplexity](/wiki/ai/llm/perplexity), [the residual stream](/wiki/ai/llm/residual-stream), [attention](/wiki/ai/llm/attention), and [the unembedding](/wiki/ai/llm/unembedding-and-logits) all live here.
 - **Train a tiny model.** A handful — [skip connections](/wiki/ai/neural-network/skip-connections), [backprop through one weight](/wiki/ai/neural-network/backprop-one-weight), [mixture of experts](/wiki/ai/llm/mixture-of-experts), [grouped-query attention](/wiki/ai/llm/grouped-query-attention), [fine-tuning](/wiki/ai/llm/fine-tuning) — change the architecture and watch the loss move. Those use nanoGPT and take minutes, not seconds.
-- **No model at all.** A few — [GELU and SwiGLU](/wiki/ai/neural-network/activations), [RoPE](/wiki/ai/llm/rope), [superposition](/wiki/ai/neural-network/superposition), [context length](/wiki/ai/llm/context-length), [tokenization](/wiki/ai/llm/tokenization) — are pure arithmetic on random tensors, or a tokenizer with no weights behind it. They download nothing.
+- **No model at all.** A few — [GELU and SwiGLU](/wiki/ai/neural-network/activations), [RoPE](/wiki/ai/llm/rope), [RoPE's relative invariance](/wiki/ai/llm/rope-relative-invariance), [superposition](/wiki/ai/neural-network/superposition), [context length](/wiki/ai/llm/context-length), [tokenization](/wiki/ai/llm/tokenization) — are pure arithmetic on random tensors, or a tokenizer with no weights behind it. They download nothing.
 
 Everything below is Python 3. The rest of this page sets up each of the three in turn.
 
@@ -108,7 +108,7 @@ Two files matter for the checks. `model.py` holds the architecture — this is w
 
 ## No model: just torch (or tiktoken)
 
-Some checks download nothing at all. The ones on [GELU](/wiki/ai/neural-network/activations), [RoPE](/wiki/ai/llm/rope), [superposition](/wiki/ai/neural-network/superposition), and [context length](/wiki/ai/llm/context-length) are arithmetic on random tensors — `pip install torch` and you have everything, no weights involved. Build a random matrix with `torch.randn(768, 3072)`, call `torch.nn.functional.gelu`, and you're running the experiment.
+Some checks download nothing at all. The ones on [GELU](/wiki/ai/neural-network/activations), [RoPE](/wiki/ai/llm/rope) and [its relative invariance](/wiki/ai/llm/rope-relative-invariance), [superposition](/wiki/ai/neural-network/superposition), and [context length](/wiki/ai/llm/context-length) are arithmetic on random tensors — `pip install torch` and you have everything, no weights involved. Build a random matrix with `torch.randn(768, 3072)`, call `torch.nn.functional.gelu`, and you're running the experiment.
 
 The [tokenization](/wiki/ai/llm/tokenization) check needs only the GPT-2 tokenizer, which ships without the model in a separate small package:
 

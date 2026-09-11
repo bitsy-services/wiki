@@ -1,5 +1,7 @@
 - [Permission and config hygiene](patterns/global-permission-and-config-hygiene.md) — explicit allow-lists, in source control, and never widen your own permissions without asking
 - [Unnecessary prompting](friction/global-unnecessary-prompting.md) — don't ask "want me to adjust?" when the task is already clear
+- [Name the blocker](friction/global-name-the-blocker.md) — when stopping, state the one thing needed in a line; defaults are announced, not asked
+- [Opening check out of context](friction/project-opening-check-out-of-context.md) — user won't review an opening in isolation; write the whole page, present it finished
 - [Harness invariants](project-harness-invariants.md) — Hugo doesn't check internal links; rules scope with `paths:` not `globs:`; the theme renders no h1
 - [AI section worked example](project-ai-section-worked-example.md) — reuse the "Claude Code writes a wiki page" example across all ai pages; don't invent new ones
 - [A green check says nothing about content](patterns/project-green-check-says-nothing-about-content.md) — check.sh validates structure, not prose; when a content rule breaks twice, make it a check

@@ -3,7 +3,7 @@ title: "RoPE"
 weight: 275
 ---
 
-[Attention scores a query against a key](/wiki/ai/llm/one-attention-head) with a dot product, and a dot product has no idea where either token sits in the sequence. Order has to be put in on purpose. Rotary position embedding (RoPE) puts it in as *rotation* — and does it so that the score between two tokens depends only on the distance between them.
+[Attention scores a query against a key](/wiki/ai/llm/one-attention-head) with a dot product, and a dot product has no idea where either token sits in the sequence. Order has to be put in on purpose. Rotary position embedding (RoPE) puts it in as *rotation* — and does it so that position enters the score between two tokens only as the distance between them.
 
 ## Position is invisible to a dot product
 
@@ -14,7 +14,7 @@ The obvious way to do that — the one [GPT-2](/wiki/ai/llm/gpt-2) uses — is t
 - **It's finite.** One learned vector per position means a fixed maximum length. There's no vector for slot 1025, so there's no slot 1025.
 - **It's absolute.** The vector for position 300 bears no built-in relation to the one for 301. "Three tokens back" is a different, separately-learned fact at every position in the sequence.
 
-What we'd really like is the opposite of both: a scheme with nothing to run out of, where the score between two tokens depends only on *how far apart they are* — the gap, not the absolute slots. RoPE is that scheme.
+What we'd really like is the opposite of both: a scheme with nothing to run out of, where position enters the score between two tokens only as *how far apart they are* — the gap, not the absolute slots. RoPE is that scheme.
 
 ## The idea: turn position into rotation
 
@@ -38,6 +38,8 @@ Apply that to a query at position *m* and a key at position *n*. The query pair 
 
 A concrete check, with a single pair. Pick any 2D *q* and *k*. Rotate them for positions (3, 7) and dot them — call the result *s*. Now rotate the same two vectors for positions (103, 107): the gap is still 4, and you get *s* back, to floating-point noise. Move to (3, 107) — gap 104 — and the score is completely different. Same distance, same score; different distance, different score. Absolute position has dropped out of the arithmetic.
 
+The identity behind this, what it does and does not guarantee, and where floating point breaks it are on [relative inner-product invariance](/wiki/ai/llm/rope-relative-invariance).
+
 ## Why a spectrum of frequencies
 
 Why give each pair its own θᵢ instead of turning them all at the same rate? Because a single rate wraps around. An angle lives on a circle: rotate far enough and *m·θ* comes back to where it started, so two very different distances would land on the same angle and become indistinguishable.
@@ -60,4 +62,4 @@ Three things fall out, and each is a direct consequence of encoding position as 
 
 ## Depends on / leads to
 
-Depends on [positional encoding](/wiki/ai/llm/positional-encoding). Leads to [context length and the O(n²) cost](/wiki/ai/llm/context-length).
+Depends on [positional encoding](/wiki/ai/llm/positional-encoding). Leads to [relative inner-product invariance](/wiki/ai/llm/rope-relative-invariance), then [context length and the O(n²) cost](/wiki/ai/llm/context-length).
