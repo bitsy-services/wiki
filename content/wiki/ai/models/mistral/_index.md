@@ -19,11 +19,16 @@ The company was founded in April 2023 by Arthur Mensch, Guillaume Lample and Tim
 The name reads like eight 7-billion-parameter models stapled together. It is not. Only the **feed-forward block** of each transformer layer is replicated eight times. The attention projections, the token embeddings, the output head and the normalisation parameters exist once and are shared by all eight experts:
 
 ```text
-total  = shared (attention + embeddings + norms) + 8 × feed-forward  = 46.7B
-active = shared (attention + embeddings + norms) + 2 × feed-forward  = 12.9B
+shared (attention + embeddings + norms)  ≈  1.6B
+one feed-forward expert                  ≈  5.6B
+
+total  = 1.6 + 8 × 5.6  =  46.7B
+active = 1.6 + 2 × 5.6  =  12.9B
 ```
 
-Eight independent 7B models would be 56 billion parameters. The roughly 9 billion difference is exactly the shared machinery that would have been duplicated. And per token the router selects 2 of the 8 experts, so the feed-forward cost is two experts' worth — but the shared attention and embedding parameters are paid once regardless, which is why the active figure is 12.9 billion rather than a clean 14.
+Eight standalone copies of Mistral 7B would be 8 × 7.24B, or **57.9 billion** — not the 56 billion the label suggests, since the model is 7.24B rather than a round 7B. The 11.2 billion gap down to 46.7B is seven redundant copies of that shared 1.6B block: sharing it once instead of eight times is exactly what the design buys.
+
+The active figure follows the same way. Per token the router selects 2 of the 8 experts, so two experts' worth of feed-forward is paid — but the shared attention and embeddings are paid once regardless of routing, which is why the answer is 12.9 billion rather than a clean 2 × 7.24.
 
 Both numbers are needed to reason about the model, and they answer different questions: 46.7 billion is what must sit in memory, 12.9 billion is what each token is multiplied by.
 
@@ -48,7 +53,7 @@ The standard criticism of Mistral is that it built its reputation on Apache 2.0 
 
 **What has happened since is a reversal.** Mistral Large 3, released December 2025, is Apache 2.0. Mistral Medium 3.5, the most expensive model in the lineup, publishes its weights under Modified MIT. The company's funding announcement is titled "Making sovereign, open-weight AI the technology frontier," and argues that open weights are what prevent customers being "locked into a single vendor's roadmap, pricing or availability."
 
-A page reporting only the old criticism would be wrong about the present; one reporting only the current openness would be wrong about how the company got here. Both halves are the story.
+Both halves are the story: a company that drew its early reputation from open releases, drifted away from them, and has since come back further than it started.
 
 ## The sovereignty argument
 

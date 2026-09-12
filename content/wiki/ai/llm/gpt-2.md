@@ -48,7 +48,7 @@ Divide `d_model` by the head count and every row of that table gives 64. A [head
 
 Unqualified "GPT-2" on these pages means **GPT-2 small**, the 124M model.
 
-Every figure in that Parameters column comes with a footnote, because the paper disagrees with all four: its table reports 117M, 345M, 762M, and 1542M. The counts above are the released checkpoints — what you get if you download the weights and add up the tensors, which the [check below](#check-yourself) does — and they're the ones to trust. The paper's numbers have never matched the published models, no correction was ever issued, and nothing interesting is hiding in the gap. Expect to meet both sets of figures in the wild.
+Every figure in that Parameters column comes with a footnote, because the paper disagrees with all four: its table reports 117M, 345M, 762M, and 1542M. The counts above are the released checkpoints — what you get if you download the weights and add up the tensors, which the [check below](#check-yourself) does — and they're the ones to trust. OpenAI did correct this, though only in the repository rather than in the paper: the `README` for `openai/gpt-2` states that “our original parameter counts were wrong due to an error (in our previous blog posts and paper)”, and the download script uses 124M, 355M, 774M and 1558M. The paper's 117M is GPT-1's count, carried across on its claim that the smallest model is equivalent to the original GPT — but this one has a 50,257-entry vocabulary against GPT-1's 40,478 and twice the context, so it is genuinely larger. Expect to meet both sets of figures in the wild. [OpenAI's disclosure history](/wiki/ai/models/openai) covers what stopped being published after GPT-3.
 
 ## GPT-2 small, assembled
 

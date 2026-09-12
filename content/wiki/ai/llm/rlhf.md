@@ -41,7 +41,7 @@ It teaches no new capabilities. RLHF reweights among behaviours the pre-trained 
 
 The subtler cost is **calibration** — whether a model's confidence in an answer actually predicts how often that answer is right. A base model's is rather good, because [cross-entropy paid it to be](/wiki/ai/neural-network/the-loss-function): hedging when genuinely unsure is the score-maximizing strategy. Preference training removes that incentive, plausibly because human raters prefer answers that sound certain.
 
-The evidence is unusually clean here. OpenAI published before-and-after plots in the GPT-4 technical report: the pre-trained model assigned probabilities to its chosen answers that lined up almost exactly with how often those answers were correct, and the same model after preference training was considerably more sure of itself than it had any business being. The report's own caption says the process "hurts the calibration quite a bit."
+The evidence is unusually clean here. [OpenAI](/wiki/ai/models/openai) published before-and-after plots in the GPT-4 technical report: the pre-trained model assigned probabilities to its chosen answers that lined up almost exactly with how often those answers were correct, and the same model after preference training was considerably more sure of itself than it had any business being. The report's own caption says the process "hurts the calibration quite a bit."
 
 So the confident tone people associate with these assistants isn't a by-product of their being good at anything. It's a side effect of optimizing a proxy that could not distinguish being right from sounding right. Nobody set out to install it, and it cost accuracy of self-assessment all the same.
 

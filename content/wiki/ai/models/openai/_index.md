@@ -4,13 +4,13 @@ weight: 10
 bookCollapseSection: true
 ---
 
-OpenAI trains the **GPT** family of large language models and serves them through an interface and through ChatGPT. Its early models are the reason this wiki can teach the architecture at all: GPT-1, GPT-2 and GPT-3 shipped with papers giving layer counts, hidden dimensions, training-token counts and parameter counts, and [GPT-2 small](/wiki/ai/llm/gpt-2) is still the worked example throughout the [large language models](/wiki/ai/llm) section because its weights are public and it runs on a laptop.
+OpenAI trains the **GPT** family of large language models and serves them through an API and through ChatGPT. Its early models are the reason this wiki can teach the architecture at all: GPT-1, GPT-2 and GPT-3 shipped with papers giving layer counts, hidden dimensions, training-token counts and parameter counts, and [GPT-2 small](/wiki/ai/llm/gpt-2) is still the worked example throughout the [large language models](/wiki/ai/llm) section because its weights are public and it runs on a laptop.
 
 That stopped at GPT-4, and OpenAI said so in writing rather than letting the silence be inferred. The GPT-4 technical report has a section headed *Scope and Limitations of this Technical Report*:
 
 > Given both the competitive landscape and the safety implications of large-scale models like GPT-4, this report contains no further details about the architecture (including model size), hardware, training compute, dataset construction, training method, or similar.
 
-Every flagship since has held that line. A search of the GPT-6 Astra system card — 118 pages — for *parameter count*, *number of parameters*, *training compute* and *architecture* returns nothing.
+Every flagship since has held that line. The GPT-6 Astra system card runs to 118 pages and states no parameter count, no training-compute figure and no description of the architecture.
 
 ## Reading the names
 
@@ -43,9 +43,9 @@ A caution for anyone citing GPT-2's sizes: **the paper's numbers are wrong and O
 
 ### gpt-oss, the exception
 
-In August 2025 OpenAI released two open-weight models under Apache 2.0 — `gpt-oss-120b` at 116.8 billion total parameters with 5.1 billion active, and `gpt-oss-20b` at 20.9 billion total with 3.6 billion active — with a model card describing the architecture completely. They are mixture-of-experts transformers with 128 and 32 experts respectively, top-4 routing, a 2880-wide residual stream, [grouped-query attention](/wiki/ai/llm/grouped-query-attention) with 8 key-value heads against 64 query heads, [rotary position embeddings](/wiki/ai/llm/rope), and alternating banded-window and dense attention. Quantising the expert weights to 4.25 bits per parameter is what lets the larger model fit on a single 80 GB accelerator.
+In August 2025 OpenAI released two open-weight models under Apache 2.0, with a model card describing the architecture completely — layer counts, expert counts, routing width, attention configuration and quantisation format. They are the only current view inside an OpenAI model, and they are covered on their own page: **[gpt-oss](/wiki/ai/models/openai/gpt-oss)**.
 
-They also ship the **full unsummarised chain of thought**, which is the opposite of the hosted policy described below. Neither is served through OpenAI's own interface.
+Neither is served through OpenAI's own API.
 
 ## Reasoning, and why the chain of thought is hidden
 
@@ -71,7 +71,7 @@ Elon Musk's suit seeking to unwind the restructuring was decided against him on 
 
 ## Two things about the interface that are not obvious
 
-**The million-token context has a pricing boundary inside it.** Prompts above 272,000 input tokens are billed at twice the input rate and 1.5 times the output rate *for the whole session*. That is why the current models advertise both a 1,050,000-token window and a lower "max input tokens" figure: the 272,000 line is a price change, not a capacity limit. [Context length](/wiki/ai/llm/context-length) covers why long contexts cost what they do.
+**The million-token context has a pricing boundary inside it.** Prompts above 272,000 input tokens are billed at twice the input rate and 1.5 times the output rate *for the whole session*. That is why a model can advertise both a million-token window and a lower "max input tokens" figure: the 272,000 line is a price change, not a capacity limit. [Context length](/wiki/ai/llm/context-length) covers why long contexts cost what they do.
 
 **Cache writes became billable at GPT-5.6.** Earlier models charged nothing to write a cache entry; from GPT-5.6 a write costs 1.25 times the uncached input rate. For an agent loop that rebuilds its prefix often, that changes the arithmetic in [prompt caching](/wiki/ai/prompt-caching).
 

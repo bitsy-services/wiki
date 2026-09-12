@@ -8,7 +8,7 @@ Google DeepMind trains two families of large language models: **Gemini**, the cl
 
 Google is the only builder in this section that trains on silicon it designed. Every Gemini model runs on **tensor processing units (TPUs)**, Google's own accelerator chips, rather than on the Nvidia parts the rest of the industry competes for. That vertical integration is the company's structural advantage and it is why TPU generations appear in the training disclosures below.
 
-It is also the lab whose research the rest of this section is built on. The [transformer](/wiki/ai/llm) was published by Google researchers in 2017; so were the [mixture-of-experts](/wiki/ai/llm/mixture-of-experts) layer that makes today's frontier models affordable, the Chinchilla scaling work that reset how training budgets are allocated, and word2vec, seq2seq and BERT before them.
+It is also the lab whose research the rest of this section is built on. Google researchers published the [transformer](/wiki/ai/llm) in 2017, and the [mixture-of-experts](/wiki/ai/llm/mixture-of-experts) layer that makes today's frontier models affordable in the same year. The Chinchilla scaling work that reset how training budgets are allocated followed in 2022. Earlier still came word2vec, seq2seq and BERT.
 
 ## The organisation
 
@@ -18,7 +18,7 @@ That pre-language-model history is not decoration. It is why the lab's output st
 
 ## What Google discloses
 
-More than OpenAI or Anthropic, and sharply less than it used to. The Gemini 1.0 and 1.5 releases came with real technical reports carrying architecture and infrastructure sections. The 3.x releases come with model cards that are safety documents with a short architecture paragraph attached.
+More than [OpenAI](/wiki/ai/models/openai) or [Anthropic](/wiki/ai/models/anthropic), and sharply less than it used to. The Gemini 1.0 and 1.5 releases came with real technical reports carrying architecture and infrastructure sections. The 3.x releases come with model cards that are safety documents with a short architecture paragraph attached.
 
 That paragraph is still the most any closed frontier lab says about its flagship's shape:
 
@@ -34,13 +34,10 @@ The more unusual disclosure is structural. Each Gemini model card names its pare
 Gemini 3 Pro  (November 2025)
 ├── Gemini 3.1 Pro
 └── Gemini 3 Flash
-    └── Gemini 3.5 Flash
-        └── Gemini 3.6 Flash
-            └── Gemini 3.7 Flash
-                └── Gemini 3.8 Flash
+    └── each later Flash, in a chain
 ```
 
-Every 2026 Gemini model declares itself a descendant of one November 2025 base model, and the Gemini 3 Pro card states that it, in turn, "is not a modification or a fine-tune of a prior model." Being able to draw the dependency graph of a frontier lineup from the vendor's own documents is rare enough to be worth noting.
+Every 2026 Gemini model declares itself a descendant of one November 2025 base model, and the Gemini 3 Pro card states that it, in turn, "is not a modification or a fine-tune of a prior model." Being able to draw the dependency graph of a frontier lineup from the vendor's own documents is rare enough to be worth noting — and it means a point release here is a descendant, not a retrain.
 
 ### Training data, enumerated
 
@@ -63,7 +60,7 @@ A refreshed model does not refresh evenly. That is almost certainly true of ever
 The 10-million-token figure attached to Gemini in popular accounts is real, and it is not a product limit. Separating the three numbers is the whole story:
 
 - **10M is a research result.** The Gemini 1.5 report found "continued improvement in next-token prediction and near-perfect retrieval (>99%) up to at least 10M tokens." It was never a shipped limit.
-- **1M is the shipped limit.** Every current Gemini 3.x model accepts 1,048,576 input tokens and emits at most 65,536. Gemini 1.5 Pro did once ship a 2M window; 1.5 is retired and the current documentation mentions neither 2M nor 10M.
+- **1M is the shipped limit**, an order of magnitude below the research figure; the `Status` section below has the exact numbers. Gemini 1.5 Pro did once ship a 2M window; 1.5 is retired and the current documentation mentions neither 2M nor 10M.
 - **The recall claim has quietly weakened.** Google's current wording is that the models "achieve high performance across various needle-in-a-haystack retrieval evals… up to 99% accuracy in many cases," but that performance "can vary to a wide degree" when searching for *multiple* pieces of information at once.
 
 The gap between finding one planted fact in a long document and finding several is the honest version of the long-context story, and it is a better guide to what a million-token window buys than the headline number. [Context length](/wiki/ai/llm/context-length) covers what that window costs to use.

@@ -141,6 +141,8 @@ VL	vision-language
 AIME	-
 MATH	-
 LN	layer normalisation
+RMB	renminbi
+CNBC	-
 TPU	tensor processing unit
 KL	Kullback-Leibler
 KV	key value

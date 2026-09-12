@@ -4,7 +4,7 @@ weight: 70
 bookCollapseSection: true
 ---
 
-Grok is the model family behind the company Elon Musk founded in 2023 to compete with OpenAI. Two things set it apart from everything else in this section. It is the only family whose main differentiator is a **data source** rather than an architecture — Grok has live access to posts on X, the platform its parent owns. And it is the only builder whose public positioning is about *refusing less*, which is why the criticism section below is longer than elsewhere and belongs on the page rather than off it.
+xAI is the laboratory Elon Musk founded in 2023 to compete with [OpenAI](/wiki/ai/models/openai), and **Grok** is the family of large language models it ships. Two things set it apart from everything else in this section. It is the only family whose main differentiator is a **data source** rather than an architecture — Grok has live access to posts on X, the platform its parent owns. And it is the only builder whose public positioning is about *refusing less*.
 
 **The company no longer exists under the name xAI.** SpaceX acquired it in February 2026, and the combined entity was rebranded **SpaceXAI** in July 2026. This is not merely reported: xAI's own Grok 4.6 announcement and model card both attribute the model to SpaceXAI. The `x.ai` domain and the Grok product name persist under the new corporate parent. Roughly half the co-founders left after the merger; the last of them departed in March 2026.
 
@@ -36,7 +36,7 @@ Grok-1 aside, very little. Later generations publish no parameter counts, no lay
 
 ## Real-time data, and what it actually is
 
-The differentiator is worth stating precisely because the documentation makes it easy to get wrong. xAI serves two documentation trees, and the older one describes only ordinary web search — which led at least one careful reader to conclude the X integration was unsubstantiated.
+The differentiator is worth stating precisely, because xAI serves two documentation trees and the older one describes only ordinary web search.
 
 The current documentation describes **X Search** as a distinct capability with four modes: keyword search, semantic search, search by user, and fetching a specific thread, with handle and date filters and understanding of images and video in posts. It is billed per call, separately from tokens.
 
@@ -44,17 +44,17 @@ No other builder in this section has this, and it is not something a competitor 
 
 ## Criticism
 
-Grok's incidents are documented, dated and attributable, and a page that omitted them would be a brochure rather than a reference.
+Four episodes are documented and dated.
 
 **July 2025.** Grok produced antisemitic output on X, including content praising Hitler, and referred to itself as "MechaHitler." xAI attributed the behaviour to a system-prompt change, removed the posts and revised the prompt.
 
-**May 2025.** Grok began inserting claims about "white genocide" in South Africa into unrelated replies. xAI said an unauthorised modification had been made to the system prompt, and subsequently began publishing its system prompts publicly — an unusual response, and a genuine transparency gain that came out of a failure.
+**May 2025.** Grok began inserting claims about "white genocide" in South Africa into unrelated replies. xAI attributed it to an unauthorised modification of the system prompt by an employee, said it had added review requirements so that prompts cannot be changed without one, and began publishing its system prompts publicly. That last is a genuine transparency gain, and it came out of a failure.
 
 **Grok Imagine.** The image and video generation line has drawn sustained criticism over sexualised depictions of real people generated without consent, and over the weakness of the safeguards against it.
 
 **Benchmark presentation.** xAI's comparative charts have been disputed, on the grounds that they compared its models under settings more favourable than those used for competitors' figures.
 
-The through-line is that a deliberately less-restricted model and a system prompt that can be changed without review are a combination with a track record. The pattern is worth understanding structurally rather than incident by incident: on every other builder in this section, behaviour of this kind would sit behind a classifier or a published policy document; here it sat behind an editable prompt.
+Two of the four were attributed by xAI to changes in the system prompt, one of them unauthorised. The company now publishes its system prompts.
 
 ## Status
 
@@ -71,3 +71,6 @@ The current generation is offered through xAI's own interface, through X, and �
 - xAI, [Grok 4.6](https://x.ai/news/grok-4-6) — attributed to SpaceXAI
 - xAI, [model documentation](https://docs.x.ai/docs/models) and [X Search](https://docs.x.ai/developers)
 - xAI, [system prompts](https://github.com/xai-org/grok-prompts) — published after the May 2025 incident
+- CNBC, [Musk's xAI says Grok's 'white genocide' posts resulted from change that violated 'core values'](https://www.cnbc.com/2025/05/15/musks-xai-grok-white-genocide-posts-violated-core-values.html) (15 May 2025)
+- TechCrunch, [xAI blames Grok's obsession with white genocide on an unauthorized modification](https://techcrunch.com/2025/05/15/xai-blames-groks-obsession-with-white-genocide-on-an-unauthorized-modification) (15 May 2025)
+- TechInformed, [xAI removes Grok's Hitler posts](https://techinformed.com/xai-removes-offensive-hitler-posts/) (July 2025)

@@ -4,9 +4,9 @@ weight: 50
 bookCollapseSection: true
 ---
 
-DeepSeek is a Chinese lab that publishes frontier-scale model weights — its current generation under the MIT licence — and describes their architecture in genuine technical papers. It is the most useful builder in this section for anyone trying to understand how a modern large language model is actually put together, because it is the only one operating at that scale that still publishes parameter counts, routing schemes, training objectives and numerical formats in enough detail to reimplement from.
+DeepSeek is a Chinese lab that publishes frontier-scale model weights — its current generation under the MIT licence — and describes their architecture in genuine technical papers. It is the most useful builder in this section for anyone trying to understand how a modern large language model is actually put together. [Meta](/wiki/ai/models/meta), [Alibaba](/wiki/ai/models/qwen) and [Mistral](/wiki/ai/models/mistral) also publish weights and parameter counts; DeepSeek additionally publishes the things almost nobody does — a per-stage training-cost table, the numerical format the arithmetic ran in, and the pipeline-parallelism scheme that kept the accelerators busy.
 
-Two of its results changed what the rest of the field does. **Multi-head latent attention** shrinks the [KV cache](/wiki/ai/llm/kv-cache) by roughly fifty times, which is the single biggest lever on what long-context serving costs. And **DeepSeek-R1** showed that reasoning behaviour can be trained by reinforcement learning alone, with no worked examples to imitate first.
+Two of its results changed what the rest of the field does. **Multi-head latent attention** shrinks the [KV cache](/wiki/ai/llm/kv-cache) — the per-token key and value vectors attention keeps in memory so it does not have to recompute them — by roughly fifty times, which is the single biggest lever on what long-context serving costs. And **DeepSeek-R1** showed that reasoning behaviour can be trained by reinforcement learning alone, with no worked examples to imitate first.
 
 ## The company
 
@@ -18,11 +18,11 @@ That matters because of the second constraint. United States export controls res
 
 The lineage is short and the numbering is honest:
 
-**The general line.** DeepSeek LLM (2024, dense, 7B and 67B) → V2 (May 2024, 236B total / 21B active) → V3 (December 2024, 671B total / 37B active) → V3.1 and V3.2 (2025) → **V4** (April 2026, Pro at 1.6T total / 49B active and Flash at 284B / 13B, with a million-token context) → V4.1-Flash (September 2026, 552B, natively multimodal).
+**The general line.** DeepSeek LLM (November 2023, dense, 7B and 67B) → V2 (May 2024, 236B total / 21B active — *total* being what must be held in memory and *active* the share each token is multiplied by) → V3 (December 2024, 671B total / 37B active) → V3.1 and V3.2 (2025) → **V4** (April 2026, Pro at 1.6T total / 49B active and Flash at 284B / 13B, with a million-token context) → V4.1-Flash (September 2026, 552B, natively multimodal).
 
-**The reasoning line, and how it ended.** DeepSeek-R1-Zero and DeepSeek-R1 arrived in January 2025, both built on DeepSeek-V3-Base. R1-0528 in May 2025 was the last model shipped under the R name. **There is no R2.** The line merged back into the general one: V3.1 introduced "a hybrid reasoning architecture: a single model supports both thinking mode and non-thinking mode," and by V4 reasoning is a per-request effort setting. This is the same consolidation OpenAI made when GPT-5 absorbed the `o`-series, arrived at independently and at about the same time.
+**The reasoning line, and how it ended.** DeepSeek-R1-Zero and DeepSeek-R1 arrived in January 2025, both built on DeepSeek-V3-Base. R1-0528 in May 2025 was the last model shipped under the R name. **There is no R2.** The line merged back into the general one: V3.1 introduced "a hybrid reasoning architecture: a single model supports both thinking mode and non-thinking mode," and by V4 reasoning is a per-request effort setting. This is the same consolidation [OpenAI](/wiki/ai/models/openai) made when GPT-5 absorbed the `o`-series, arrived at independently and at about the same time.
 
-**The distilled models** are the part most often misdescribed. DeepSeek published six dense models trained on R1's reasoning traces — but not on DeepSeek base models. Four are built on Qwen and two on Llama. That is worth knowing for the licence trap below, and it is also the best single piece of evidence for how much of the open-weight ecosystem rests on [Alibaba's Qwen](/wiki/ai/models/qwen).
+**The distilled models** are the part most often misdescribed. DeepSeek published six dense models trained on R1's reasoning traces — but not on DeepSeek base models. Four are built on [Qwen](/wiki/ai/models/qwen) and two on [Llama](/wiki/ai/models/meta). That is worth knowing for the licence trap below, and it is also the best single piece of evidence for how much of the open-weight ecosystem rests on [Alibaba's Qwen](/wiki/ai/models/qwen).
 
 ### The licence trap
 
@@ -44,11 +44,13 @@ The saving is the number to carry away. Per token per layer, V3 caches a 512-num
 
 The subtle part is positional information. [Rotary position embedding](/wiki/ai/llm/rope) rotates keys by an angle that depends on the token's position, and that rotation does not survive being pushed through the reconstruction. So the key is split in two: a compressed part rebuilt from the latent, and a small **decoupled** part that carries the rotation and is cached separately. The final key is the two concatenated. The 64 extra numbers above are that decoupled part.
 
-**Multi-head latent attention is no longer what DeepSeek ships.** V3.2 replaced it with a sparse-attention scheme, and V4 with a different hybrid again. It is described here because it is the version with a published paper, a clear mechanism and a measurable result — and because the idea that spread is the general one: compress the cache rather than share it.
+**Multi-head latent attention is no longer what DeepSeek ships.** V3.2 layered a sparse-selection scheme over it, choosing which earlier tokens to attend to rather than changing how they are cached, and V4 changed the attention design again. It is described here because it is the version with a published paper, a clear mechanism and a measurable result — and because the idea that spread is the general one: compress the cache rather than share it.
 
 ### Fine-grained experts, and a shared one
 
-V3's [mixture of experts](/wiki/ai/llm/mixture-of-experts) differs from the standard design in two ways. It uses many narrow experts rather than a few wide ones — 256 experts of intermediate dimension 2048, against a hidden dimension of 7168, with 8 activated per token. More, smaller experts means many more possible combinations for the same activated-parameter budget, so specialisation can be finer.
+A [mixture-of-experts](/wiki/ai/llm/mixture-of-experts) layer replaces the single feed-forward block of an ordinary transformer layer with many of them, called experts, and adds a small network called a router that sends each token through only a few. Most of the model's parameters therefore sit idle for any given token, which is what decouples the memory it occupies from the arithmetic it costs.
+
+V3's version differs from the standard design in two ways. It uses many narrow experts rather than a few wide ones — 256 experts of intermediate dimension 2048, against a hidden dimension of 7168, with 8 activated per token. More, smaller experts means many more possible combinations for the same activated-parameter budget, so specialisation can be finer.
 
 Alongside them sits **one shared expert** that every token passes through. It absorbs whatever is common to all tokens, so the 256 routed experts do not each have to relearn it.
 

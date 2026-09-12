@@ -4,9 +4,9 @@ weight: 40
 bookCollapseSection: true
 ---
 
-Meta published the **Llama** family, and in doing so created most of the open-weight ecosystem the rest of this section depends on. Llama 2's weights and commercial terms in 2023 made it possible for people outside a handful of labs to fine-tune, serve and study a capable model, and the papers that came with each generation are still the most detailed account any Western lab has published of how a frontier-scale model is trained.
+Meta published the **Llama** family, and in doing so created most of the open-weight ecosystem the rest of this section depends on — open-weight meaning the trained numbers are released as files anyone can download and run, rather than reachable only through the builder's own service. Llama 2's weights and commercial terms in 2023 made it possible for people outside a handful of labs to fine-tune, serve and study a capable model, and the papers that came with each generation are still the most detailed account any Western lab has published of how a frontier-scale model is trained.
 
-That is written in the past tense deliberately. **Meta's current frontier model is not a Llama and is not open-weight.** Muse Spark, announced on 8 April 2026 by Meta Superintelligence Labs, launched as a private preview behind a paid interface, with no parameter counts published for any model in the line. Llama 4, from April 2025, remains the newest open-weight generation, it shipped incomplete, and it has no research paper — the first generation without one.
+That is written in the past tense deliberately. **Since April 2026, Meta's frontier model has been neither a Llama nor open-weight.** Muse Spark, announced by Meta Superintelligence Labs, launched as a private preview behind a paid service, with no parameter counts published for any model in the line. Llama 4, from April 2025, is still the newest open-weight generation. It shipped incomplete, and it has no research paper — the first generation without one.
 
 ## The reversal
 
@@ -20,7 +20,7 @@ No announcement declared a change of strategy. The change is legible only from w
 
 ## Llama 4, and what did not ship
 
-Llama 4 arrived as three models, of which two exist:
+Llama 4 arrived as three models, of which two exist. The two parameter columns are the [mixture-of-experts](/wiki/ai/llm/mixture-of-experts) convention: *total* is what must be held in memory, *active* is the share each token is actually multiplied by.
 
 | Model | Active | Total | Experts | Status |
 | --- | --- | --- | --- | --- |
@@ -28,19 +28,19 @@ Llama 4 arrived as three models, of which two exist:
 | Maverick | 17B | 400B | 128 routed + 1 shared | Shipped |
 | Behemoth | 288B | ~2T | 16 | **Never released** |
 
-Behemoth was described at launch as "still training" and previewed rather than released. It is still absent from Meta's model repository, and Meta has issued no cancellation. This matters beyond the missing model: Scout and Maverick were both **codistilled from Behemoth**, so the generation that shipped is the shadow of a model the public never got.
+Behemoth was described at launch as "still training" and previewed rather than released. It is still absent from Meta's model repository, and Meta has issued no cancellation. This matters beyond the missing model: Scout and Maverick were both **codistilled from Behemoth** — trained on the larger model's outputs while it was still training, the technique [DeepSeek-R1](/wiki/ai/models/deepseek/r1#the-distilled-models) uses to put reasoning into small models. The generation that shipped is the shadow of a model the public never got.
 
 ### The 10-million-token context
 
 Scout is advertised with an "industry leading 10M" context window, which would be an order of magnitude beyond anything else in this section. The same Meta blog post also states that Scout's base model was "pre-trained and post-trained with a **256K** context length."
 
-Both numbers are Meta's. The 10M figure is not a measured or trained capability — it is a claim about how far the architecture extrapolates, **39 times beyond the longest sequence the model ever saw in training**. The mechanism behind the claim is `iRoPE`: most layers use [rotary position embedding](/wiki/ai/llm/rope) but attend only within 8,192-token chunks, while every fourth layer carries no positional embedding at all and attends across the whole context, with temperature scaling applied at inference to help length generalisation.
+Both numbers are Meta's. 256K is the trained length; 10M is an extrapolation beyond it, supported by synthetic retrieval evaluations rather than by training, and **39 times the longest sequence the model ever saw**. No serving stack at release came close to it. The mechanism behind the claim is `iRoPE`: most layers use [rotary position embedding](/wiki/ai/llm/rope) but attend only within 8,192-token chunks, while every fourth layer carries no positional embedding at all and attends across the whole context, with temperature scaling applied at inference to help length generalisation.
 
 Quoting either number alone misleads. The honest version is that 10M is an architectural claim and 256K is the trained length, and Meta printed both on the same page. [Context length](/wiki/ai/llm/context-length) covers why the distinction bites — a 10M-token [KV cache](/wiki/ai/llm/kv-cache) is not something ordinary hardware can hold regardless of what the model can represent.
 
 ### What the architecture actually changed
 
-Llama's contribution across generations was less about novelty than about showing, in public and in detail, which combination works. Llama 1 made three substitutions on the original transformer that are now near-universal: **RMSNorm** instead of layer normalisation, **SwiGLU** instead of a plain activation in [the MLP](/wiki/ai/llm/the-mlp), and **rotary position embedding** instead of learned position vectors. Llama 2 brought [grouped-query attention](/wiki/ai/llm/grouped-query-attention) to the larger sizes; Llama 3 used it everywhere and replaced the tokenizer.
+Llama's contribution across generations was less about novelty than about showing, in public and in detail, which combination works. Llama 1 made three substitutions on the original [transformer](/wiki/ai/llm) that are now near-universal: **RMSNorm** instead of layer normalisation, **SwiGLU** instead of a plain activation in [the MLP](/wiki/ai/llm/the-mlp), and **rotary position embedding** instead of learned position vectors. Llama 2 brought [grouped-query attention](/wiki/ai/llm/grouped-query-attention) to the larger sizes; Llama 3 used it everywhere and replaced the tokenizer.
 
 Llama 4 added the mixture of experts, and changed how vision enters the model: where Llama 3.2 attached images through a cross-attention adapter, Llama 4 uses **early fusion**, feeding text and image tokens into the same backbone together. Training data was "more than 30 trillion tokens" across 200 languages, and Meta published the compute: 7.38 million H100 GPU-hours across Scout and Maverick, with the associated emissions.
 
