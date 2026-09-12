@@ -22,3 +22,4 @@ The section shares one running example: **using [Claude Code](/wiki/ai/context-e
 - [MCP](/wiki/ai/mcp) — the open protocol underneath most plugin tool surfaces.
 - [Neural networks](/wiki/ai/neural-network) — the other direction, and the foundation of it: what a fitted model is made of, why each part is there, and how training fills in the blanks. Architecture-neutral.
 - [Large language models](/wiki/ai/llm) — those parts arranged into a transformer: what a model actually is, from a token going in to a guess coming out, plus how it was trained and what it costs to run.
+- [Model builders](/wiki/ai/models) — who actually trains these models: the eight labs at the frontier, how their families are named and tiered, and what each one does and does not disclose about how its models are built.

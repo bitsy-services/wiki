@@ -118,6 +118,30 @@ GELU	Gaussian error linear unit
 GLU	gated linear unit
 
 GQA	grouped-query attention
+ASL	AI Safety Level
+JAX	-
+CC0	-
+PBC	-
+AGI	artificial general intelligence
+BERT	-
+DQN	deep Q-network
+IMO	International Mathematical Olympiad
+OSI	Open Source Initiative
+LM	-
+MLX	-
+RL	reinforcement learning
+SFT	supervised fine-tuning
+GRPO	group relative policy optimization
+MLA	multi-head latent attention
+FP8	-
+MAU	monthly active user
+MHA	multi-head attention
+ASML	-
+VL	vision-language
+AIME	-
+MATH	-
+LN	layer normalisation
+TPU	tensor processing unit
 KL	Kullback-Leibler
 KV	key value
 LLM	large language model
