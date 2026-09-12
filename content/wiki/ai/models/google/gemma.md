@@ -1,6 +1,6 @@
 ---
 title: "Gemma"
-weight: 10
+weight: 20
 ---
 
 Gemma is [Google DeepMind](/wiki/ai/models/google)'s open-weight model line: the weights are published as files, and anyone can download them and run them on their own machines. It exists alongside Gemini, which is closed-weight and reachable only through Google's interfaces. The two share research but not checkpoints — Google describes Gemma as "built from the same technology that powers our Gemini models," not as a smaller Gemini.

@@ -1,6 +1,6 @@
 ---
 title: "gpt-oss"
-weight: 10
+weight: 20
 ---
 
 `gpt-oss` is a pair of open-weight models [OpenAI](/wiki/ai/models/openai) released in August 2025 under Apache 2.0 — `gpt-oss-120b` and `gpt-oss-20b`. They are the company's first open-weight language models since GPT-2 in 2019, and they come with a model card that describes the architecture completely: layer counts, expert counts, routing width, attention configuration, quantisation format.
