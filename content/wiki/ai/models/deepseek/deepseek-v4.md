@@ -3,7 +3,7 @@ title: "DeepSeek-V4"
 weight: 10
 ---
 
-DeepSeek-V4 is [DeepSeek](/wiki/ai/models/deepseek)'s current generation, announced 24 April 2026. It ships as two models — `deepseek-v4-pro` at 1.6 trillion total parameters with 49 billion active, and a Flash line an order of magnitude smaller — both with a million-token context, both under the MIT licence.
+DeepSeek-V4 is [DeepSeek](/wiki/ai/models/deepseek)'s current generation, announced 24 April 2026. It ships as two models — `deepseek-v4-pro` at 1.6 trillion total parameters with 49 billion active, and a Flash line several times smaller — both with a million-token context, both under the MIT licence.
 
 The generation matters for two reasons beyond its size. It is where DeepSeek **finished merging its reasoning line back into its general line**, so that thinking is a per-request setting rather than a separate model. And it is where the architecture that made the lab's name, multi-head latent attention, stopped being what it ships.
 

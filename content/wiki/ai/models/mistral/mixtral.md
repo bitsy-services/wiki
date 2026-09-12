@@ -12,11 +12,11 @@ It is on this wiki for a second reason, which is that **its name is wrong in an 
 A transformer layer has two parts: an [attention](/wiki/ai/llm/attention) block and a feed-forward block, [the MLP](/wiki/ai/llm/the-mlp). Mixtral replicates **only the feed-forward block** eight times. The attention projections, the token embeddings, the output head and the normalisation parameters exist once and are shared by all eight experts.
 
 ```text
-shared (attention + embeddings + norms)  ≈  1.6B
-one feed-forward expert                  ≈  5.6B
+shared (attention + embeddings + norms)  =  1.60B
+one feed-forward expert                  =  5.64B
 
-total  = 1.6 + 8 × 5.6  =  46.7B
-active = 1.6 + 2 × 5.6  =  12.9B
+total  = 1.60 + 8 × 5.64  =  46.7B
+active = 1.60 + 2 × 5.64  =  12.9B
 ```
 
 **Why not 56 billion.** Eight standalone copies of Mistral 7B would be 8 × 7.24B — the model is 7.24 billion parameters, not a round 7 — which is **57.9 billion**. The 11.2-billion gap down to 46.7 is seven redundant copies of that 1.6-billion shared block. Sharing it once instead of eight times is precisely what the design buys, and the name's arithmetic was never meant to be taken literally.

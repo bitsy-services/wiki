@@ -13,7 +13,7 @@ Each later card in the family defers upward to its parent, and the chain termina
 
 > Gemini 3 Pro is a sparse mixture-of-experts (MoE) transformer-based model with native multimodal support for text, vision, and audio inputs. Sparse MoE models activate a subset of model parameters per input token by learning to dynamically route tokens to a subset of parameters (experts); this allows them to decouple total model capacity from computation and serving cost per token.
 
-Two things follow, and a third does not.
+Two things follow from it. A third is conspicuous by its absence.
 
 **It is a sparse [mixture of experts](/wiki/ai/llm/mixture-of-experts).** Not every parameter participates in every token; a router picks a subset. This is why a model can be very large in memory and still cheap per token.
 

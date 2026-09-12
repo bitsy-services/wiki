@@ -24,7 +24,7 @@ This is the detail most often stated incorrectly:
 | Grok-2 | Released | **Grok 2 Community Licence** — a custom licence, *not* Apache 2.0 |
 | Grok-3 onward | Not released | — |
 
-**Grok-1 is the only genuinely open release.** In March 2024 xAI published a 314-billion-parameter [mixture-of-experts](/wiki/ai/llm/mixture-of-experts) model under Apache 2.0, complete with architecture. Two caveats matter for anyone thinking of using it: it is a **base checkpoint**, explicitly not fine-tuned for dialogue, and its context window is 8,192 [tokens](/wiki/ai/llm/tokenization) — not the 128,000 that Grok-1.5 shipped with twelve days later.
+**[Grok-1](/wiki/ai/models/xai/grok-1) is the only genuinely open release.** In March 2024 xAI published a 314-billion-parameter [mixture-of-experts](/wiki/ai/llm/mixture-of-experts) model under Apache 2.0, complete with architecture — and it is the last architecture xAI has disclosed. Two caveats catch people out: it is a **base checkpoint**, not fine-tuned for dialogue, and its context window is 8,192 [tokens](/wiki/ai/llm/tokenization), not the 128,000 that Grok-1.5 shipped with twelve days later.
 
 Grok-2's weights are public but under bespoke terms rather than Apache 2.0, and the card publishes no parameter count or expert configuration. It requires eight accelerators with more than 40 GB each, and the weights come to roughly 500 GB.
 
@@ -60,7 +60,7 @@ Two of the four were attributed by xAI to changes in the system prompt, one of t
 
 Checked 11 September 2026. xAI's [model documentation](https://docs.x.ai/docs/models) is the live source. Note that `docs.x.ai` serves two documentation trees and the older one answers confidently rather than erroring — check that a page is under the current tree before relying on it.
 
-**Grok 4.6**, released 12 August 2026, is the current generation. **Grok 4.5** (16 July 2026) and **Grok 4.3** sit behind it and remain available. A multi-agent "Heavy" tier exists, running several instances against a problem and combining the results.
+**[Grok 4.6](/wiki/ai/models/xai/grok-4-6)**, released 12 August 2026, is the current generation. **Grok 4.5** (16 July 2026) and **Grok 4.3** sit behind it and remain available. A multi-agent "Heavy" tier exists, running several instances against a problem and combining the results.
 
 The current generation is offered through xAI's own interface, through X, and — since SpaceXAI's acquisition of Anysphere in August 2026 — as a first-party surface in the Cursor editor. Image and video generation ship under the Grok Imagine brand.
 

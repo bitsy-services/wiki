@@ -20,7 +20,7 @@ The scheme has been rebuilt twice, which is why models three years apart look li
 
 **At GPT-5.6 the suffixes became named tiers.** OpenAI's framing: "the number identifies a model's generation, while Sol, Terra, and Luna identify durable capability tiers that can advance on their own cadence." Sol is frontier reasoning and long-horizon agentic work, Terra is balanced everyday work, Luna is lowest cost. The point of the change is that a tier can move independently of the generation number.
 
-**GPT-6 then shipped as a single model, `gpt-6-astra`**, with no Sol/Terra/Luna split. Astra is a model name rather than a tier. A *GPT-6 Pro* exists in ChatGPT but is a product surface powered by the same model, not a separate one.
+**GPT-6 then shipped as a single model, [`gpt-6-astra`](/wiki/ai/models/openai/gpt-6-astra)**, with no Sol/Terra/Luna split. Astra is a model name rather than a tier. A *GPT-6 Pro* exists in ChatGPT but is a product surface powered by the same model, not a separate one.
 
 Running alongside all of this until recently was the **`o`-series** — `o1`, `o3`, `o4-mini` — a separate line of reasoning models. **GPT-5 absorbed it.** OpenAI described GPT-5 as "a unified system with a smart and fast model that answers most questions, a deeper reasoning model for harder problems, and a real-time router" choosing between them, and said it planned "to integrate these capabilities into a single model." Since then, reasoning is a `reasoning.effort` setting on one model rather than a model of its own. The `o`-series is in wind-down with published shutdown dates.
 

@@ -25,7 +25,7 @@ The word *specialist* is where the analogy stops.
 
 Eight experts give a block eight times the MLP weights, but each row still runs through only one or two, so the floating point operations per token barely move.
 
-[Mixtral](/wiki/ai/models/mistral#why-8x7b-is-467-billion-parameters-not-56), from Mistral AI, is the standard worked example: 46.7B parameters in total, 12.9B **active** per token — that second figure being a top-2 number. Route to a single expert instead and only about 7B would be active, at half the MLP arithmetic. What you're buying is capacity, meaning more places to put what the model knows, without buying much latency.
+[Mixtral](/wiki/ai/models/mistral/mixtral), from Mistral AI, is the standard worked example: 46.7B parameters in total, 12.9B **active** per token — that second figure being a top-2 number. Route to a single expert instead and only about 7B would be active, at half the MLP arithmetic. What you're buying is capacity, meaning more places to put what the model knows, without buying much latency.
 
 ## Two things that routinely surprise people
 

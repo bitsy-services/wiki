@@ -26,9 +26,9 @@ That paragraph is still the most any closed frontier lab says about its flagship
 
 It is a **mechanism disclosure with no numbers** — no parameter count, no expert count, no routing width, no layer count. What it does establish is that Gemini is a sparse mixture of experts and that its multimodality is native, meaning the model was trained on text, images and audio together rather than having a vision encoder bolted to a text model afterwards.
 
-### One base model, eight descendants
+### One base model, and everything since
 
-The more unusual disclosure is structural. Each Gemini model card names its parent, and the chain converges:
+The more unusual disclosure is structural. Each Gemini model card names its parent, and the chain converges on [Gemini 3 Pro](/wiki/ai/models/google/gemini-3-pro), from November 2025:
 
 ```text
 Gemini 3 Pro  (November 2025)

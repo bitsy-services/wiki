@@ -30,7 +30,7 @@ That is a different shape of restriction from [Meta's](/wiki/ai/models/meta), wh
 
 Through Qwen3, the models were conventional transformers: [attention](/wiki/ai/llm/attention) block, [MLP](/wiki/ai/llm/the-mlp) block, repeat. From Qwen3.5 that stopped being true.
 
-`Qwen3.8-2.4T-A95B` interleaves two different sequence-mixing mechanisms. Its 92 layers repeat a four-block pattern — three blocks pairing **Gated DeltaNet**, a linear-attention variant whose cost grows with sequence length rather than with its square, with a [mixture-of-experts](/wiki/ai/llm/mixture-of-experts) layer, then one block pairing ordinary gated attention with a mixture-of-experts layer:
+[`Qwen3.8-2.4T-A95B`](/wiki/ai/models/qwen/qwen3-8) interleaves two different sequence-mixing mechanisms. Its 92 layers repeat a four-block pattern — three blocks pairing **Gated DeltaNet**, a linear-attention variant whose cost grows with sequence length rather than with its square, with a [mixture-of-experts](/wiki/ai/llm/mixture-of-experts) layer, then one block pairing ordinary gated attention with a mixture-of-experts layer:
 
 ```text
 3 × (Gated DeltaNet → MoE)

@@ -12,7 +12,7 @@ That is written in the past tense deliberately. **Since April 2026, Meta's front
 
 The sequence is worth setting out plainly, because Meta has not narrated it.
 
-**Llama 1** (February 2023) was research-only and leaked within a week. **Llama 2** (July 2023) shipped weights with commercial terms attached. **Llama 3** through **3.3** (2024) widened the sizes and added multimodal and on-device variants. **Llama 4** (April 2025) was the first built as a [mixture of experts](/wiki/ai/llm/mixture-of-experts).
+**Llama 1** (February 2023) was research-only and leaked within a week. **Llama 2** (July 2023) shipped weights with commercial terms attached. **[Llama 3](/wiki/ai/models/meta/llama-3)** through **3.3** (2024) widened the sizes and added multimodal and on-device variants. **[Llama 4](/wiki/ai/models/meta/llama-4)** (April 2025) was the first built as a [mixture of experts](/wiki/ai/llm/mixture-of-experts).
 
 Then the organisation changed. Meta invested in Scale AI and brought in its founder, Alexandr Wang, as **Chief AI Officer** in June 2025, leading a new **Meta Superintelligence Labs**. **Yann LeCun, who founded Facebook AI Research in 2013 and served as Chief AI Scientist for about twelve years, left in November 2025.** `llama.com` now redirects to `developer.meta.com/ai/`, where Llama 4 sits alongside the closed Muse lineup rather than on a property of its own.
 
@@ -34,7 +34,7 @@ Behemoth was described at launch as "still training" and previewed rather than r
 
 Scout is advertised with an "industry leading 10M" context window, which would be an order of magnitude beyond anything else in this section. The same Meta blog post also states that Scout's base model was "pre-trained and post-trained with a **256K** context length."
 
-Both numbers are Meta's. 256K is the trained length; 10M is an extrapolation beyond it, supported by synthetic retrieval evaluations rather than by training, and **39 times the longest sequence the model ever saw**. No serving stack at release came close to it. The mechanism behind the claim is `iRoPE`: most layers use [rotary position embedding](/wiki/ai/llm/rope) but attend only within 8,192-token chunks, while every fourth layer carries no positional embedding at all and attends across the whole context, with temperature scaling applied at inference to help length generalisation.
+Both numbers are Meta's. 256K is the trained length; 10M is an extrapolation beyond it, supported by synthetic retrieval evaluations rather than by training, and **39 times the longest sequence the model ever saw**. No serving stack at release came close to it. The mechanism behind the claim is `iRoPE`, an interleave of chunked and unchunked attention layers that [the Llama 4 page](/wiki/ai/models/meta/llama-4#irope-the-mechanism-behind-the-claim) sets out.
 
 Quoting either number alone misleads. The honest version is that 10M is an architectural claim and 256K is the trained length, and Meta printed both on the same page. [Context length](/wiki/ai/llm/context-length) covers why the distinction bites — a 10M-token [KV cache](/wiki/ai/llm/kv-cache) is not something ordinary hardware can hold regardless of what the model can represent.
 

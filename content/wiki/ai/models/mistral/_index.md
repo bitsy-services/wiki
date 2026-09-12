@@ -4,7 +4,7 @@ weight: 80
 bookCollapseSection: true
 ---
 
-Mistral AI is a Paris company that trains open-weight large language models, and it is the only European lab in this section. Its distinguishing fact today is one that would have surprised anyone tracking it two years ago: **its most capable model is Apache 2.0.** Mistral Large 3 — 675 billion total parameters, 41 billion active — sits in Mistral's documentation under *open weight models*, not under the premier tier.
+Mistral AI is a Paris company that trains open-weight large language models, and it is the only European lab in this section. Its distinguishing fact today is one that would have surprised anyone tracking it two years ago: **its most capable model is Apache 2.0.** [Mistral Large 3](/wiki/ai/models/mistral/mistral-large-3) — 675 billion total parameters, 41 billion active — sits in Mistral's documentation under *open weight models*, not under the premier tier.
 
 The company was founded in April 2023 by Arthur Mensch, Guillaume Lample and Timothée Lacroix. The provenance matters: Lample and Lacroix were authors on Meta's [LLaMA paper](/wiki/ai/models/meta) and Mensch on Google DeepMind's Chinchilla scaling paper, so the founders wrote two of the papers the rest of this section rests on before leaving to compete with their former employers.
 
@@ -12,25 +12,7 @@ The company was founded in April 2023 by Arthur Mensch, Guillaume Lample and Tim
 
 **Mistral 7B** (September 2023) was the model that made "small and good" a serious position. It combined [grouped-query attention](/wiki/ai/llm/grouped-query-attention) with sliding-window attention — each layer attending only to a fixed span of recent tokens rather than the whole sequence — and demonstrated that careful design beat raw parameter count at that scale. For a great many people it was the first capable model they ran on their own hardware.
 
-**Mixtral 8x7B** (December 2023) was the first widely-used open sparse [mixture of experts](/wiki/ai/llm/mixture-of-experts), and its name is the single most instructive piece of arithmetic in this section.
-
-### Why `8x7B` is 46.7 billion parameters, not 56
-
-The name reads like eight 7-billion-parameter models stapled together. It is not. Only the **feed-forward block** of each transformer layer is replicated eight times. The attention projections, the token embeddings, the output head and the normalisation parameters exist once and are shared by all eight experts:
-
-```text
-shared (attention + embeddings + norms)  ≈  1.6B
-one feed-forward expert                  ≈  5.6B
-
-total  = 1.6 + 8 × 5.6  =  46.7B
-active = 1.6 + 2 × 5.6  =  12.9B
-```
-
-Eight standalone copies of Mistral 7B would be 8 × 7.24B, or **57.9 billion** — not the 56 billion the label suggests, since the model is 7.24B rather than a round 7B. The 11.2 billion gap down to 46.7B is seven redundant copies of that shared 1.6B block: sharing it once instead of eight times is exactly what the design buys.
-
-The active figure follows the same way. Per token the router selects 2 of the 8 experts, so two experts' worth of feed-forward is paid — but the shared attention and embeddings are paid once regardless of routing, which is why the answer is 12.9 billion rather than a clean 2 × 7.24.
-
-Both numbers are needed to reason about the model, and they answer different questions: 46.7 billion is what must sit in memory, 12.9 billion is what each token is multiplied by.
+**[Mixtral 8x7B](/wiki/ai/models/mistral/mixtral)** (December 2023) was the first widely-used open sparse [mixture of experts](/wiki/ai/llm/mixture-of-experts), and its name is the single most instructive piece of arithmetic in this section. `8x7B` reads as eight 7-billion-parameter models stapled together — 56 billion — but the model holds 46.7 billion parameters and uses 12.9 billion per token, because only the feed-forward block is replicated and everything else is shared once. [Its own page](/wiki/ai/models/mistral/mixtral#the-arithmetic) works the numbers through.
 
 ## The licence split
 

@@ -9,7 +9,7 @@ Claude Opus 5 is the Opus-tier model of [Anthropic](/wiki/ai/models/anthropic)'s
 
 ## What "Opus tier" means
 
-The Claude family is four tiers deep and the ordering is the only thing the names convey. Opus sits third from the top: **Fable**, then **Opus**, then **Sonnet**, then **Haiku**. Within a generation, moving up a tier buys capability and costs latency and money.
+The Claude family is four tiers deep and the ordering is the only thing the names convey. Opus sits second from the top: **Fable**, then **Opus**, then **Sonnet**, then **Haiku**. Within a generation, moving up a tier buys capability and costs latency and money.
 
 Opus 5's specific position is that it is the tier Anthropic points at for agentic work — long-running loops that call tools, read files and act over many turns, rather than single question-and-answer exchanges. That is a claim about what the model was trained and tuned toward, not a statement about its architecture, and the honest way to read it is as the vendor's own recommendation.
 

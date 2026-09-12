@@ -12,7 +12,7 @@ It is the last Llama generation with a paper. [Llama 4](/wiki/ai/models/meta/lla
 The report is the reason this page exists. It states, for a frontier-scale model:
 
 - **The full architecture** — layer counts, model dimensions, head counts, [grouped-query attention](/wiki/ai/llm/grouped-query-attention) configuration, vocabulary size, [rotary position embedding](/wiki/ai/llm/rope) base frequency.
-- **The training-token count**: about 15 trillion tokens, an order of magnitude past what Chinchilla-optimal scaling would have prescribed for those sizes.
+- **The training-token count**: about 15 trillion tokens for every size, which at 8B is roughly ninety times what Chinchilla-optimal scaling would have prescribed, and at 405B is under twice.
 - **The compute**, in GPU-hours, per model.
 - **The hardware and what went wrong with it** — cluster composition, network topology, and a failure analysis covering how often training was interrupted and by what.
 - **The data pipeline**: deduplication, quality filtering, the classifiers used and the mixture proportions.

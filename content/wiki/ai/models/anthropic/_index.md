@@ -88,7 +88,7 @@ Checked 11 September 2026. Anthropic's [model overview](https://platform.claude.
 | --- | --- | --- | --- | --- |
 | Claude Fable 5.1 | `claude-fable-5-1` | 1 Sep 2026 | 1M | Fable |
 | Claude Mythos 5.1 | `claude-mythos-5-1` | 1 Sep 2026 | 1M | Fable, invite only |
-| Claude Opus 5 | `claude-opus-5` | 24 Jul 2026 | 1M | Opus |
+| [Claude Opus 5](/wiki/ai/models/anthropic/claude-opus-5) | `claude-opus-5` | 24 Jul 2026 | 1M | Opus |
 | Claude Sonnet 5 | `claude-sonnet-5` | 30 Jun 2026 | 1M | Sonnet |
 | Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | 15 Oct 2025 | 200K | Haiku |
 
