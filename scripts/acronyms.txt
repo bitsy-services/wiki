@@ -70,6 +70,11 @@ FIL	-
 UCAN	user controlled authorization network
 KZG	Kate-Zaverucha-Goldberg
 BPO	blob-parameter-only
+TGE	token generation event
+CAIP	Chain Agnostic Improvement Proposal
+CMC	CoinMarketCap
+CMCP	CMC Priority
+UCID	Unified Cryptoasset ID
 
 # --- Payments --------------------------------------------------------------
 ACH	automated clearing house
@@ -514,3 +519,22 @@ JSTOR	-
 IS	-
 IA	information architecture
 LIS	library and information science
+
+# --- Token registration: proper nouns, tickers, quoted emphasis ------------
+OP	-
+ZRO	-
+README	-
+JPEG	-
+OK	-
+NOT	-
+EXACT	-
+FREE	-
+USDG	-
+PRO	-
+AIXBT	-
+SHIB	-
+GIF	-
+DEXT	-
+ONLY	-
+ETA	-
+BEP20	-

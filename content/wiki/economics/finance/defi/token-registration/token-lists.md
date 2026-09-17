@@ -17,13 +17,13 @@ A token list is a JSON document that maps chain identifier and contract address 
   "tags": {
     "par": {
       "name": "Par token",
-      "description": "Redeemable one-for-one against its original asset"
+      "description": "Redeemable 1:1 against its original asset"
     }
   },
   "tokens": [
     {
       "chainId": 1,
-      "address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+      "address": "0xe1A00000000000000000000000000000000E1a00",
       "name": "Example Token",
       "symbol": "EXA",
       "decimals": 18,
@@ -36,12 +36,13 @@ A token list is a JSON document that maps chain identifier and contract address 
 
 `name`, `timestamp`, `version` and `tokens` are required at the top level; a token entry requires `chainId`, `address`, `decimals`, `name` and `symbol`. Everything else, `logoURI` included, is optional as far as the schema is concerned and mandatory as far as the reader is concerned.
 
-Four constraints reject more lists than anything else:
+The schema is stricter than the document looks in five places:
 
 - The list `name` is capped at 30 characters and matched against `^[\w ]+$`. Letters, digits, underscores and spaces only — an em dash, an ampersand or a hyphen in your project name fails validation.
+- A tag `description` is matched against `^[ \w\.,:]+$`, which adds period, comma and colon to that set but still allows no hyphen and no apostrophe. "Redeemable one-for-one" fails; "Redeemable 1:1" passes. The tag's own identifier is stricter again: `^[\w]+$`, ten characters at most.
 - `address` casing must stay stable between publishes. The schema itself accepts any casing, but consumers key tokens by the exact `chainId`+`address` string, so recasing an address reads as a removal plus an addition and forces a major version bump — a breaking-change warning shown to every user, for no change at all. Pick the [EIP](/wiki/economics/finance/defi/ethereum/eip)-55 checksummed form and never touch it again.
-- `timestamp` must be a date-time string, and it has to move forward on every publish.
-- Token `name` is capped at 60 characters and `symbol` at 20.
+- `timestamp` must be a full date-time with a zone; `2026-08-31` on its own fails. The schema describes it as the moment "this immutable version of the list was created", so each publish carries a new one.
+- Token `name` is capped at 60 characters and `symbol` at 20, and `symbol` may not contain whitespace.
 
 ## Versioning is a protocol, not a courtesy
 

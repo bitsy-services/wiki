@@ -3,57 +3,36 @@ title: "Data Aggregators"
 weight: 50
 ---
 
-CoinGecko and CoinMarketCap are two websites, and registering with them is worth more than the traffic they send, because they are the upstream source for a long tail of software that never asks you for anything. MetaMask's token service, [Uniswap's interface](/wiki/economics/finance/defi/token-registration/uniswap), most portfolio trackers, tax tools, and the acceptance criteria of at least one major wallet registry all resolve token metadata through aggregator data — Uniswap Labs says so outright: "Uniswap Labs sources token information and token logos from CoinGecko." A logo submitted once here surfaces in a dozen places that have no submission form of their own.
+Market-data sites come in two kinds, and registering with each kind means something different. **Aggregators** — CoinGecko and CoinMarketCap — hold one reviewed record per asset, with every chain's contract address in it, and a token team applies for that record. **Pool trackers** — GeckoTerminal, Dexscreener and DEXTools — index trading pairs on decentralized exchanges automatically, one page per chain, and what a token team buys is the profile attached to a page. DefiLlama is a third case: it lists protocols by the value they hold, not tokens.
 
-The price of that leverage is that both require the token to be trading first.
+| Site | Automatic | What the team submits | Cost | Shape |
+| --- | --- | --- | --- | --- |
+| [CoinGecko](/wiki/economics/finance/defi/token-registration/coingecko) | nothing | a listing request | free in up to 5 days; $1,000 for 24 hours | one record, all chains |
+| [CoinMarketCap](/wiki/economics/finance/defi/token-registration/coinmarketcap) | an unverified DexScan page — CoinMarketCap's automatic page — per pair | a listing request | free, "days to months/years"; USD 5,000 for about a business day | one record, all chains |
+| [GeckoTerminal](/wiki/economics/finance/defi/token-registration/geckoterminal) | a page per pool | token info, until CoinGecko lists the token | $199 per request | one per chain |
+| [Dexscreener](/wiki/economics/finance/defi/token-registration/dexscreener) | a page per pair, once it has a trade | Enhanced Token Info | $299 per order | one per chain |
+| [DEXTools](/wiki/economics/finance/defi/token-registration/dextools) | a page per pair | Token Info & Social Updates, unless CoinGecko already supplied it | $195 displayed | one per chain |
+| [DefiLlama](/wiki/economics/finance/defi/token-registration/defillama) | a price, if CoinGecko or a deep pool supplies one | a pull request for a protocol | no fee stated | one record, one token address |
+
+For a token deployed on six chains the difference in shape is the difference between one application and six orders.
 
 ## The trading prerequisite
 
-CoinGecko will not list an asset that is not already trading on a venue it tracks. For a new token that means a pool on a tracked [decentralized exchange](/wiki/economics/finance/defi/dex) with enough [liquidity](/wiki/economics/finance/defi/liquidity-pool) and volume to look like a market rather than a placeholder. Seeding a pool with a few hundred dollars and applying the same day produces a rejection.
+Every row starts with a market. CoinGecko requires a token to be "actively tradable on a cryptocurrency exchange tracked by CoinGecko", and CoinMarketCap's guideline for a tracked listing is active trading "on at least one (1) exchange (with material volume)". The pool trackers need a pool: Dexscreener lists a pair once it has "at least one transaction", and DEXTools once "your token is being traded". CoinGecko's own rejection guide says a token traded only on self-service venues may be turned down for "lack of liquidity", without publishing a number.
 
-This is the dependency that sets the calendar for the whole registration effort: pool first, aggregators second, wallet registries third. CoinGecko commits to reviewing a regular submission within five days, but that clock starts at a submission it will accept, and the pool has to look like a market before it will.
+That sets the calendar for the whole registration effort — pool first, aggregators second, wallet registries third — and it is why the [self-service routes](/wiki/economics/finance/defi/token-registration/on-chain-metadata) are worth doing before any of this.
 
-## CoinGecko
+## CoinGecko is upstream of most of the rest
 
-Submission is through the listing request form, and the specifics that get applications sent back are unglamorous:
+A CoinGecko record is read, without any further submission, by:
 
-- **Logo:** 200 × 200, PNG, JPG or WebP, transparent background preferred. It is uploaded in the form's *Attachments* section rather than linked.
-- **Contract address** for every chain, each one checksummed and matching a verified contract.
-- **Supply:** total and circulating, with the vesting or lock schedule that accounts for the difference. An unexplained gap between the two is the most common reason for a follow-up email.
-- **Description**, website, whitepaper, and social accounts with actual activity.
+- [Uniswap's interface](/wiki/economics/finance/defi/token-registration/uniswap), for the logo;
+- GeckoTerminal, which copies name, logo and links onto each chain in the record and then closes its own form;
+- DEXTools, which shows CoinGecko-sourced profiles on the chains in the record;
+- [Blockscout](/wiki/economics/finance/defi/token-registration/blockscout), which "displays what CoinGecko returns";
+- [MetaMask](/wiki/economics/finance/defi/token-registration/metamask), as one of the lists it counts before detecting a token;
+- DefiLlama, as the base of its prices.
 
-CoinGecko runs several distinct forms — new coin, information update, chain listing, exchange listing — and a submission on the wrong one is not rerouted. Their support directory lists them; pick from it rather than guessing.
+Two qualifications. The copying is per chain: UNI's CoinGecko record has no Base address, and both GeckoTerminal and DEXTools show UNI on Base with no profile, so a record that omits a chain leaves that chain blank on the trackers that copy it. And Dexscreener is the exception: its documentation says it looks for token information in lists "such as CoinGecko's", but UNI, listed on CoinGecko, had no Dexscreener profile when checked.
 
-Every listing and update request also needs a **public verification post**, and omitting it is one of the stated reasons requests are rejected. The sequence is fixed: post from a social account linked on the project's own website announcing the submission, submit the form with that post's URL in the *Public Verification Link* field, then reply to your own post with the request identifier the confirmation email returns (`CL12345` for a listing, `CU12345` for an update). The third step is what ties the form to control of the account.
-
-Review speed is a paid choice. A **Regular Pass** is reviewed within five days; a **Fast Pass** costs $200 per request and guarantees review within 24 hours. Neither buys a listing — only a decision.
-
-## CoinMarketCap
-
-Same shape, same 200 × 200 PNG, one form. Two of their stated rules are enforced rather than advisory: the form is the only channel, and reaching out by email or social media accelerates nothing. Priority also goes to complete submissions, so a form with three optional fields left blank sits behind the ones that are filled in.
-
-CoinMarketCap carries a second-order consequence. Trust Wallet's asset criteria require a CoinMarketCap listing outright, so this submission is a precondition for the [wallet registries](/wiki/economics/finance/defi/token-registration/wallet-registries) rather than an end in itself.
-
-## Dexscreener and DEXTools
-
-These behave differently and are frequently misunderstood. Neither is a listing venue: both index pools automatically, so a pair appears within minutes of the pool being created, with no application and no fee. What they sell is the *profile* — the logo, description, website, and social links attached to that pair.
-
-Dexscreener's Enhanced Token Info is a paid product on their marketplace, displayed at $299 as of September 2026 — reduced from $499 — and processed within minutes to 12 hours. It is one of the very few routes that will attach a logo to a token deployed the same week. DEXTools sells an equivalent update. Both are worth the money only in the specific case where a launch has real trading volume and the free registrars are still in review; neither confers anything the free routes will not eventually confer.
-
-The blank grey circle on a Dexscreener pair is therefore not a signal about the token — it is a signal that nobody has paid $299 yet, and treating it as due diligence is a mistake in both directions.
-
-## DefiLlama
-
-DefiLlama tracks protocol total value locked (TVL) rather than tokens, and its registration route is a pull request against the adapters repository rather than a form: a small JavaScript module that reports your protocol's locked balances, plus a metadata entry carrying the name, logo, chain list, and links. It is free, it is reviewed by maintainers on GitHub, and it is the right destination once there is a protocol holding deposits rather than only a token trading in a pool.
-
-## What to expect
-
-| Registrar | Cost | Prerequisite | Typical wait |
-| --- | --- | --- | --- |
-| CoinGecko | free, or $200 Fast Pass | trading on a tracked venue | 5 days stated, 24 hours with Fast Pass |
-| CoinMarketCap | free | trading, complete submission | weeks |
-| Dexscreener pair | free | a pool exists | minutes |
-| Dexscreener profile | $299 | a pool exists | minutes to 12 hours |
-| DefiLlama | free | a protocol with deposits | days to weeks, review-dependent |
-
-Submit to the free ones the day the pool has real depth, and treat the wait as the reason to have done the [self-service routes](/wiki/economics/finance/defi/token-registration/on-chain-metadata) first.
+So for a multi-chain token, the most valuable single submission is a CoinGecko listing with every chain in it, and the paid pool-tracker profiles are worth buying only for the weeks before that listing exists — or, for Dexscreener, for as long as the chart matters.

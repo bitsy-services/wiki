@@ -10,3 +10,4 @@
 - [hugo --quiet hides errors](friction/project-hugo-quiet-hides-errors.md) — probe with plain `hugo` or check `$?`; a --quiet grep reports failures as passes
 - [Numbers beyond their sources](friction/global-numbers-beyond-their-sources.md) — verify every figure against a primary source or drop it; a partial retraction leaves the page self-contradictory
 - [Workflow transcripts survive a session limit](friction/global-workflow-transcripts-survive-a-session-limit.md) — when every workflow agent dies on the limit, salvage the fetched sources from agent-*.jsonl and the scratchpad instead of re-running
+- [Forward links block the turn](friction/project-forward-links-block-the-turn.md) — run check.sh before pausing for background agents; write link targets first

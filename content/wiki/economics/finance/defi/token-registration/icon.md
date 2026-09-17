@@ -3,15 +3,15 @@ title: "Making the Icon"
 weight: 10
 ---
 
-A token icon is displayed at 20 to 24 pixels in a wallet balance row, which is the size at which it does its actual work. Everything else — the 256-pixel version in the repository, the 512-pixel version on the project page — is a downscale target. Design for the 20-pixel render, then produce the seven files the registrars ask for from one vector source.
+A token icon is displayed at 20 to 24 pixels in a wallet balance row, which is the size at which it does its actual work. Everything else — the 256-pixel version in the repository, the 512-pixel version on the project page — is a downscale target. Design for the 20-pixel render, then produce the eight files the registrars ask for from one vector source.
 
 ## Constraints that come from the render size
 
 - **One mark, no wordmark.** The symbol is already printed next to the icon in every interface that shows it. Lettering inside a 20-pixel square is four or five pixels tall and resolves to a smear.
-- **Stroke weight at or above 6% of the canvas.** A 256-pixel canvas wants strokes of 16 pixels or more; below that, the 20-pixel downscale drops them to under one pixel and the antialiaser turns them into grey haze.
+- **Stroke weight at or above 6% of the canvas.** A 256-pixel canvas wants strokes of 16 pixels or more, which land at about 1.25 pixels in a 20-pixel row; below about 13 pixels the downscale drops them under one pixel and the antialiaser turns them into grey haze.
 - **Two colors, high contrast.** Gradients average out at small sizes, so a gradient icon renders as its mean color and stops being distinguishable from every other icon whose mean is a similar blue.
 - **Give the mark its own disc.** Surfaces disagree about their background: Etherscan is light, most wallets default to dark, and a transparent icon that is pure black or pure white vanishes on one of them. A filled circle behind the mark makes the icon background-independent and also survives the circular cropping several wallets apply.
-- **Keep the mark inside 88% of the canvas.** Interfaces that crop to a circle cut the corners off a square icon.
+- **Keep the mark inside 80% of the canvas.** Interfaces that crop to a circle cut the corners off a square icon, and MetaMask's icon style guide asks for artwork "within 80% of the canvas". The background disc is not artwork in that sense; the mark on it is.
 
 ## The source file
 
@@ -45,18 +45,25 @@ npx svgo --multipass logo-flat.svg -o logo.svg
 
 | Target | Format | Dimensions | Ceiling |
 | --- | --- | --- | --- |
-| `trustwallet/assets` | PNG, named `logo.png` | 256 × 256 | 100 kB |
-| Etherscan family | SVG **or** PNG | 32 × 32 SVG, 64 × 64 PNG | — |
-| Blockscout | image at a public URL | 48 × 48 | — |
-| CoinGecko | PNG, JPG or WebP | 200 × 200 | — |
-| CoinMarketCap | PNG | 200 × 200 | — |
-| Token list `logoURI` | PNG or SVG at a URL | 256 × 256 conventional | — |
+| [Trust Wallet](/wiki/economics/finance/defi/token-registration/trust-wallet) | PNG, committed as `logo.png` | 256 × 256 recommended, 512 × 512 at most | 100 kB |
+| [Etherscan](/wiki/economics/finance/defi/token-registration/etherscan) family | SVG **or** PNG, as a download link | 32 × 32 SVG, 64 × 64 PNG | — |
+| [Blockscout](/wiki/economics/finance/defi/token-registration/blockscout) | SVG, or PNG, at a public URL | 48 × 48 PNG | — |
+| [CoinGecko](/wiki/economics/finance/defi/token-registration/coingecko) | PNG, JPG or WebP, uploaded | 200 × 200 | — |
+| [CoinMarketCap](/wiki/economics/finance/defi/token-registration/coinmarketcap) | PNG with transparency, at a URL | 200 × 200, square or rejected | — |
+| [GeckoTerminal](/wiki/economics/finance/defi/token-registration/geckoterminal) | PNG or JPG, uploaded | square, 30 px or more | 2 MB |
+| [Dexscreener](/wiki/economics/finance/defi/token-registration/dexscreener) | PNG, JPG, WebP or GIF, uploaded | square, 100 px wide or more | 4.5 MB |
+| [DEXTools](/wiki/economics/finance/defi/token-registration/dextools) | image, uploaded | 200 × 200 | 200 kB |
+| [DefiLlama](/wiki/economics/finance/defi/token-registration/defillama) | any, supplied with the pull request | square; 400 × 400 is the common size | — |
+| [MetaMask](/wiki/economics/finance/defi/token-registration/metamask) `contract-metadata` | SVG, PNG or JPG, committed | square | — |
+| Token list `logoURI` | SVG or PNG at a URL | 64 × 64 suggested by the schema | — |
 | [`wallet_watchAsset`](/wiki/economics/finance/defi/token-registration/on-chain-metadata#pushing-the-icon-at-the-wallet) image | PNG, JPG, SVG, or data URI | ≤ 512 × 512 | 256 kB |
+
+Four of them also want a wide header image: CoinGecko at 1360 × 430 or more, GeckoTerminal at 1280 × 430 or more, Dexscreener at 3:1 and 600 pixels wide or more, and DEXTools at exactly 600 × 200. A 1500 × 500 image at 3:1, under 2 MB, satisfies the first three, and DEXTools takes a 600 × 200 reduction of it.
 
 ## Rasterizing
 
 ```bash
-for px in 32 48 64 128 200 256 512; do
+for px in 32 48 64 128 200 256 400 512; do
   rsvg-convert -w "$px" -h "$px" logo.svg -o "logo-$px.png"
 done
 ```
@@ -121,4 +128,4 @@ cast to-check-sum-address 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
 # 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984
 ```
 
-The registrars split on how they take the file. CoinGecko and CoinMarketCap upload it from your machine, and `trustwallet/assets` takes it as a committed file; Etherscan, Blockscout and the token list `logoURI` all want a URL. Assume the link route: the files need a permanent home before you start submitting. A path on your own domain works and can be repointed later; [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/finance/defi/arweave) works and cannot. Whichever you choose, the URL is going to be copied into half a dozen third-party databases that will never re-fetch it, so treat it as immutable from the first submission onward.
+The registrars split on how they take the file. CoinGecko, GeckoTerminal, Dexscreener and DEXTools upload it from your machine, and Trust Wallet and MetaMask's repository take it as a committed file; Etherscan, Blockscout, CoinMarketCap and the token list `logoURI` all want a URL. Assume the link route: the files need a permanent home before you start submitting. A path on your own domain works and can be repointed later; [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/finance/defi/arweave) works and cannot. Whichever you choose, the URL is going to be copied into half a dozen third-party databases that will never re-fetch it, so treat it as immutable from the first submission onward.

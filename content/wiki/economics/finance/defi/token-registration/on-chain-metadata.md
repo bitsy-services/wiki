@@ -22,14 +22,15 @@ It resolves to a JSON document with an `interop` object saying which token inter
   "interop": { "erc1046": true },
   "name": "Example Token",
   "symbol": "EXA",
-  "decimals": 18,
   "description": "Collateral receipt issued by the Example vault.",
   "image": "ipfs://bafybeic4example.../banner-1080x566.png",
   "icons": ["ipfs://bafybeic4example.../logo-512.png"]
 }
 ```
 
-The two image fields are not interchangeable. `icons` is the square, transparent-background one — the [token logo](/wiki/economics/finance/defi/token-registration/icon). `image` is specified with an aspect ratio between 1.91:1 and 4:5 inclusive, so it is a header graphic, not a second copy of the icon. Both ask bitmaps to be 320 to 1080 pixels wide, which puts the 512-pixel render in `icons` and rules the 256-pixel one out of either.
+`interop` is the only required field. `decimals` is left out on purpose: the standard says that for an ERC-20 whose decimals are 18 it is "NOT RECOMMENDED to include the `decimals` field", and a value that is present must equal what `decimals()` returns, as must `name` and `symbol`.
+
+The image fields are not interchangeable. `icons` is the [token logo](/wiki/economics/finance/defi/token-registration/icon), and the standard's constraints on it are hard ones: each icon "MUST have a height equal to its width" and "use a transparent background". `image`, and its plural `images`, are specified with an aspect ratio between 1.91:1 and 4:5 inclusive, so they hold a header graphic, not a second copy of the icon. All three ask bitmaps to be 320 to 1080 pixels wide, which puts the 512-pixel render in `icons` and rules the 256-pixel one out of any of them.
 
 Implementing it costs one constant string. A `public constant` generates the getter, so there is no storage slot and no `SLOAD` on read:
 
@@ -44,11 +45,15 @@ contract ExampleToken is ERC20 {
     string public constant tokenURI =
         "ipfs://bafybeic4example.../metadata.json";
 
-    constructor() ERC20("Example Token", "EXA") {
-        _mint(msg.sender, 1_000_000e18);
+    /// @param initialHolder receives the whole supply. Passed in rather than
+    /// taken from msg.sender, which is the factory under a CREATE2 deployment.
+    constructor(address initialHolder) ERC20("Example Token", "EXA") {
+        _mint(initialHolder, 1_000_000e18);
     }
 }
 ```
+
+The supply goes to an address passed to the constructor, not to `msg.sender`. Deployed through the deterministic deployer — the usual way to get [one address on every chain](/wiki/economics/finance/defi/vanity-addresses#create2-salt-mining), and what Foundry uses for a `CREATE2` deployment by default — `msg.sender` inside the constructor is the deployer contract, which cannot move tokens, so a `_mint(msg.sender, …)` would lock the entire supply there. The holder is part of the creation code, so the same holder on every chain gives the same address on every chain.
 
 Point it at content-addressed storage — [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/finance/defi/arweave) — rather than a domain. A hardcoded constant on a [finalized contract](/wiki/economics/finance/defi/finalized-smart-contract) outlives the domain registration, and an unreachable metadata URL is worse than none, because it looks like abandonment. If the document may need to change, hold the string in storage behind an owner-gated setter and accept that you have added a privileged role someone now has to trust.
 
@@ -64,7 +69,7 @@ await window.ethereum.request({
   params: {
     type: 'ERC20',
     options: {
-      address: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+      address: '0xe1A00000000000000000000000000000000E1a00', // placeholder
       symbol: 'EXA',
       decimals: 18,
       image: 'https://example.org/assets/logo-256.png',
@@ -79,7 +84,7 @@ The finalized text of the EIP pared the ERC-20 options down to `address` and an 
 
 The `image` may be an `https:` URL or a `data:` URI, and MetaMask's guidance is no larger than 512 × 512 and 256 kB. A data URI removes the fetch, so the icon cannot fail to load because of a CDN outage or a cross-origin header; it also means changing the icon requires shipping new frontend code.
 
-MetaMask's own advice on this point is worth taking at face value: its `contract-metadata` repository, the old route for getting an icon into the wallet by pull request, is frozen, and its documentation directs new tokens to this method instead.
+MetaMask recommends this method to token developers. Its `contract-metadata` repository, the pull-request route for getting an icon into the wallet, calls itself "effectively frozen" and points here — though it still merges submissions slowly, as [registering on MetaMask](/wiki/economics/finance/defi/token-registration/metamask) describes. This call is the only MetaMask route that works on the day the token is deployed.
 
 ## Chains where the icon is simply on-chain
 

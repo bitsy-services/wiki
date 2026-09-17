@@ -3,7 +3,7 @@ title: "Registering on Uniswap"
 weight: 70
 ---
 
-There is no Uniswap form for a token image. The logo beside a token on app.uniswap.org, the interface to the [Uniswap protocol](/wiki/economics/finance/defi/uniswap), is a string called `project.logoUrl`. Uniswap's own backend hands it to the interface when the page loads, and it is copied from [CoinGecko](/wiki/economics/finance/defi/token-registration/aggregators). Uniswap Labs states the rule in as many words: "Uniswap Labs sources token information and token logos from CoinGecko." Change the logo on CoinGecko, wait about 48 hours, and it changes on Uniswap.
+There is no Uniswap form for a token image. The logo beside a token on app.uniswap.org, the interface to the [Uniswap protocol](/wiki/economics/finance/defi/uniswap), is a string called `project.logoUrl`. Uniswap's own backend hands it to the interface when the page loads, and it is copied from [CoinGecko](/wiki/economics/finance/defi/token-registration/coingecko). Uniswap Labs states the rule in as many words: "Uniswap Labs sources token information and token logos from CoinGecko." Change the logo on CoinGecko, wait about 48 hours, and it changes on Uniswap.
 
 That string is not read from the token's contract, and — though Uniswap wrote the [token list](/wiki/economics/finance/defi/token-registration/token-lists) specification — it is not read from a token list either. Of 159 top-volume tokens sampled across Ethereum, Base and Arbitrum on 8 September 2026, 152 carried a CoinGecko logo URL and 7 a GitHub one. None carried a Uniswap-hosted one.
 
@@ -37,29 +37,21 @@ A freshly deployed token sits in the first row before it has done anything at al
 
 ## GeckoTerminal does not count
 
-GeckoTerminal is CoinGecko's [decentralized exchange](/wiki/economics/finance/defi/dex) tracker. It indexes a new pool within minutes, it shows a chart immediately, and it accepts a logo and project details from the token team for free through *Update Token Info* on the pool page. None of that reaches Uniswap.
+[GeckoTerminal](/wiki/economics/finance/defi/token-registration/geckoterminal) is CoinGecko's [decentralized exchange](/wiki/economics/finance/defi/dex) tracker. It indexes a new pool within minutes, it shows a chart immediately, and it accepts a logo and project details from the token team through *Update Token Info* on the pool page, reviewed within a day for $199. None of that reaches Uniswap.
 
-Three tokens found trading on Base carrying a GeckoTerminal image and no CoinGecko listing each returned `logoUrl: null` from Uniswap's backend. The two products keep separate metadata, and GeckoTerminal's own documentation states the boundary from the other side: "If the token is listed on CoinGecko, the token's info cannot be updated from GeckoTerminal."
+Three tokens found trading on Base carrying a GeckoTerminal image and no CoinGecko listing each returned `logoUrl: null` from Uniswap's backend. The metadata flows one way between the two products: GeckoTerminal copies a CoinGecko listing's info, and GeckoTerminal's own documentation states the other side of it — "If the token is listed on CoinGecko, the token's info cannot be updated from GeckoTerminal." Nothing entered on GeckoTerminal travels up to CoinGecko, and Uniswap reads CoinGecko. GeckoTerminal's landing page does claim that verified info puts a project "in front of apps like Rainbow, Uniswap, and Crypto.com"; for Uniswap's interface, the three tokens above say otherwise.
 
-The practical consequence is that the free, same-day, self-serve route that looks like it should work is the one that does not. A GeckoTerminal profile is worth filling in for its own sake — it is what a trader sees on the chart — but it is not a step toward a Uniswap logo.
+The practical consequence is that the same-day route that looks like it should work is the one that does not. A GeckoTerminal profile is what a trader sees on the chart, which can be worth $199 while a CoinGecko listing is pending, but it is not a step toward a Uniswap logo.
 
-## Getting the image: the CoinGecko submission
+## Getting the image: the CoinGecko listing
 
-CoinGecko will not list an asset that is not already trading on a venue it tracks, so a pool with real [liquidity](/wiki/economics/finance/defi/liquidity-pool) comes first. The [data aggregators](/wiki/economics/finance/defi/token-registration/aggregators) page covers the listing itself; what follows is the part specific to getting a picture onto Uniswap.
+The image comes from a [CoinGecko listing](/wiki/economics/finance/defi/token-registration/coingecko), which has its own page: the form, the verification post, the costs, and the multi-chain record. CoinGecko will not list an asset that is not already trading on a venue it tracks, so a pool with real [liquidity](/wiki/economics/finance/defi/liquidity-pool) comes first. Three things from that page decide the Uniswap outcome:
 
-**The logo file.** CoinGecko wants 200 × 200, PNG, JPG or WebP, transparent background preferred. That is one of the sizes [the icon page](/wiki/economics/finance/defi/token-registration/icon) already tells you to render, and it goes in the *Attachments* section of the form rather than being fetched from a URL you host.
+- **The logo file** is a 200 × 200 PNG, JPG or WebP, transparent background preferred, uploaded in the form's *Attachments* section rather than fetched from a URL you host. It is one of the sizes [the icon page](/wiki/economics/finance/defi/token-registration/icon) renders.
+- **The verification post** — a public post from a social account the project's website links to, then a reply quoting the request identifier — is required on every listing and every update, and a missing one is a stated reason for rejection.
+- **Cost and wait.** A regular review is free and takes up to five days. Fast Pass guarantees a review within 24 hours for $1,000 on a new listing, or $200 on an update such as a new logo. Neither buys a listing, only a decision. Then add Uniswap's own 48 hours of propagation before the image appears on app.uniswap.org.
 
-**The verification post.** Every listing or update request needs a public post from a social account linked on the project's own website, and the sequence is three steps in a fixed order:
-
-1. Post publicly — on X, Facebook or Instagram — stating the intent to submit to CoinGecko, with the GeckoTerminal link for the token if it has one. Copy the post's URL.
-2. Submit the form on CoinGecko's partners platform, pasting that URL into the *Public Verification Link* field, or into *Additional Information* if the field is not shown. The confirmation email carries a request identifier of the form `CU12345` for an update or `CL12345` for a listing.
-3. Reply to your own post with that identifier.
-
-Step 3 is what ties the form submission to control of the social account, and skipping it is listed among the reasons update requests are rejected. The others are insufficient verification, incorrect information, submitting on the wrong form, and duplicate submissions — resubmitting because nothing has happened yet can itself be marked as spam.
-
-**Cost and wait.** A regular review takes up to five days; Fast Pass is $200 per request and guarantees a review within 24 hours. Neither buys a listing, only a decision. Then add Uniswap's own 48 hours of propagation before the image appears on app.uniswap.org.
-
-For a token already listed on CoinGecko, changing the logo is the same form under *Update Coin or Token Info* with only the *Attachments* section filled in, and the same verification post is still required.
+For a token already listed on CoinGecko, changing the logo is the *Update Coin or Token Info* form with only the *Attachments* section filled in, and the same verification post is still required.
 
 ## The warning is a curation state, not a security finding
 

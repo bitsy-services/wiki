@@ -14,7 +14,7 @@ Two distinct flavours of mining show up in practice. The math is the same in bot
 
 ## The Search Space
 
-An [Ethereum](ethereum) address is the lower 20 bytes of the Keccak-256 hash of either a public key (for an EOA) or the deployer / salt / init-code triple (for a [CREATE2](https://eips.ethereum.org/EIPS/eip-1014) contract). 20 bytes is 40 hex characters, drawn from `[0-9a-f]`.
+An [Ethereum](/wiki/economics/finance/defi/ethereum) address is the lower 20 bytes of the Keccak-256 hash of either a public key (for an EOA) or the deployer / salt / init-code triple (for a [CREATE2](https://eips.ethereum.org/EIPS/eip-1014) contract). 20 bytes is 40 hex characters, drawn from `[0-9a-f]`.
 
 Because Keccak-256 is indistinguishable from a random oracle for this purpose, matching an `N`-hex-character prefix is a Bernoulli trial with success probability `16⁻ᴺ`. The expected number of attempts to find one match is `16ᴺ`:
 
@@ -119,7 +119,7 @@ For shared-deployer scenarios, the standard pattern is to deploy via the [determ
 
 A salt is not a secret. It can be public, reused, and hard-coded; the safety of the deployed contract depends on the init code, not the salt. So unlike EOA mining there is no PRNG-quality concern — `rand()` is fine for salt search.
 
-The one operational hazard is **front-running the deployment**: anyone watching the mempool can see your salt, race ahead with their own `CREATE2(yourSalt, theirInitCode)`, and brick your address. The standard mitigation is to deploy via a factory that hashes `msg.sender` into the salt or restricts who can call it — this is what the [Arachnid deterministic deployer](https://github.com/Arachnid/deterministic-deployment-proxy) does, and it's why Foundry's CREATE2 deployments are safe by default. See [`foundry-broadcast`](solidity/foundry-broadcast) for a concrete walkthrough of the failure mode.
+The one operational hazard is **someone else sending the deployment**. The address commits to the init code, so nobody can put *different* code at your address by reusing your salt — but anyone who sees your salt and init code can deploy *your* contract there first. The [Arachnid deterministic deployer](https://github.com/Arachnid/deterministic-deployment-proxy) does nothing to prevent that: its runtime code takes the salt from the first 32 bytes of calldata and calls `create2` with the rest, and never reads `msg.sender`. Your own transaction then reverts because the address is occupied, and the contract that exists is yours only if nothing in its init code depended on who sent it. Inside a constructor run through this deployer, `msg.sender` is always the deployer contract itself, so a constructor that mints to, or grants ownership to, `msg.sender` hands them to a contract that can do nothing with them; pass the recipient as a constructor argument instead. The same property is what lets anyone repeat your deployment on a chain you have not reached yet. Where that matters, use a factory that hashes `msg.sender` into the salt or restricts who may call it, and see [`foundry-broadcast`](/wiki/economics/finance/defi/solidity/foundry-broadcast) for how an occupied address breaks a multi-transaction script.
 
 ## CPU vs. GPU
 

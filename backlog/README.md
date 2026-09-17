@@ -23,6 +23,7 @@ checked this repo against Anthropic's Claude Code best practices, Anthropic's
 | [001](001-deterministic-enforcement.md) | **P1** | Deterministic enforcement layer (hooks) | done (2026-07-12) |
 | [002](002-right-mechanism-refactor.md)  | P2 | Right-mechanism refactor (skills/agents) | done (2026-07-12) |
 | [003](003-exercise-friction-gc.md)      | P3 | Exercise or simplify the friction GC | done (2026-07-12) |
+| [004](004-check-relative-links.md)       | **P1** | Make the link check cover relative links | open |
 
 All three were closed in the 2026-07-12 harness session. The repo now has a
 deterministic gate (`scripts/check.sh`, run by a `Stop` hook and by CI), a
