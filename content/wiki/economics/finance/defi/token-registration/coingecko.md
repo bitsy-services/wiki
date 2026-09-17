@@ -17,9 +17,27 @@ The listing matters more than the traffic CoinGecko sends, because other softwar
 | [DEXTools](/wiki/economics/finance/defi/token-registration/dextools) | description, links and logo, on the chains in the record |
 | Trezor | "most of the info about networks and tokens", per its firmware documentation |
 
+## CoinGecko and GeckoTerminal
+
+[GeckoTerminal](/wiki/economics/finance/defi/token-registration/geckoterminal) is CoinGecko's own tracker for decentralized exchange pools. The two share a company, a help centre, a review team — GeckoTerminal's verified badge means the information "has been verified by the CoinGecko team" — and a submission site, where GeckoTerminal is the second tab of the same request-form menu. They hold different things, and a token gets into each differently:
+
+| | CoinGecko | GeckoTerminal |
+| --- | --- | --- |
+| What a page is | one reviewed record per asset, covering every chain | one page per token per chain, built from its pools |
+| How a token gets one | a listing request, reviewed by staff | trading in a pool on a supported exchange; nobody applies |
+| What the team submits | the listing itself | token info — logo, description, links — for one chain |
+| Cost of a review | free, or $1,000 for 24 hours | $199 per request |
+| Chain names | `ethereum`, `arbitrum-one`, `polygon-pos` | `eth`, `arbitrum`, `polygon_pos` |
+
+Information flows one way between them. Once a token is on CoinGecko, GeckoTerminal copies the record's name, logo, description and links onto its page for each chain whose address is in the record, and its own form closes to everything except the banner. Nothing entered on GeckoTerminal travels up to CoinGecko, so none of it reaches the software that reads CoinGecko — [Uniswap's interface](/wiki/economics/finance/defi/token-registration/uniswap#geckoterminal-does-not-count) included.
+
+The two are also cross-referenced. A CoinGecko verification post should include the token's GeckoTerminal link if it has one; CoinGecko's API returns a GeckoTerminal URL for each chain in a record; and GeckoTerminal's $199 Fast Pass comes with "a free CoinGecko listing evaluation", which is an assessment and not a listing.
+
+For a new token the order follows from that: a pool first, which puts the token on GeckoTerminal automatically; GeckoTerminal token info only if the chart page matters while the CoinGecko request is pending; then the CoinGecko listing with every chain in it, after which GeckoTerminal keeps itself up to date.
+
 ## Before the form
 
-- **A CoinGecko account.** The partner platform requires a login.
+- **A CoinGecko account.** Every request goes through CoinGecko's partner platform at `partner.coingecko.com`, which requires a login.
 - **Trading on a tracked exchange.** The listing guide says the token "must be actively tradable on a cryptocurrency exchange tracked by CoinGecko", and a request whose token shows no active trading "will automatically fail". For a new token that means a [decentralized exchange](/wiki/economics/finance/defi/dex) pool CoinGecko already indexes. The rejection guide adds that tokens "traded only on self-serviceable centralized/decentralized exchanges may be rejected due to security concerns and lack of liquidity", and that the evaluation weighs liquidity, team presence and maturity against "several other evaluation factors that are undisclosed". No numeric minimum is published.
 - **A website the project owns**, with information on purpose, team and social accounts. CoinGecko's methodology page states that sites on website builders such as Wix "will not be accepted". CoinGecko asks that the website and documentation carry the same details as the request, including the contract address.
 - **A working block explorer** and a clearly explained circulating supply — team, foundation, vesting and locked tokens.
@@ -28,7 +46,7 @@ The one exception to the trading rule is a **Preview Listing**, a separate listi
 
 ## The listing form
 
-On the partner platform, *Request Form → CoinGecko → New Coin/ Token Listing* opens a three-step wizard, *Basic Coin Information → Supply Information → Additional Information*, in sixteen numbered sections. The form sits behind a login and a bot challenge, so what follows comes from the screenshots in CoinGecko's own help articles, which show six of the sixteen sections. The rows without a section number are inferred from the update and migration forms, which share components, and their required flags were not visible — "not shown" below.
+The request-form menu at `https://partner.coingecko.com/request-form/new` lists every request type under a *CoinGecko* tab and a *GeckoTerminal* tab. *CoinGecko → New Coin/ Token Listing*, also reachable directly at `https://partner.coingecko.com/request-form/coins/new`, opens a three-step wizard, *Basic Coin Information → Supply Information → Additional Information*, in sixteen numbered sections. The form sits behind a login and a bot challenge, so what follows comes from the screenshots in CoinGecko's own help articles, which show six of the sixteen sections. The rows without a section number are inferred from the update and migration forms, which share components, and their required flags were not visible — "not shown" below.
 
 | Section | Field | Required | Schema key |
 | --- | --- | --- | --- |
@@ -79,7 +97,7 @@ Two ways to lose a request after submitting it: a reviewer's "Action Needed" que
 
 ## Updating a listing
 
-*Update Coin or Token Info* opens with a choice of update type: logo; name or symbol; website, community, whitepaper or GitHub URLs; description; new market; new contract address on a new chain; category tag; community takeover; contract migration or rebrand; other. The guide asks for only the sections the chosen update needs — for a logo, just the *Attachments* section — and every update needs the same verification post as a listing. Name and symbol changes have their own update type, but for a full rebrand the dropdown says to choose *Other Requests*, while a separate form handles contract migrations.
+*Update Coin or Token Info*, in the same menu, opens with a choice of update type: logo; name or symbol; website, community, whitepaper or GitHub URLs; description; new market; new contract address on a new chain; category tag; community takeover; contract migration or rebrand; other. The guide asks for only the sections the chosen update needs — for a logo, just the *Attachments* section — and every update needs the same verification post as a listing. Name and symbol changes have their own update type, but for a full rebrand the dropdown says to choose *Other Requests*, while a separate form handles contract migrations.
 
 [Registering on Uniswap](/wiki/economics/finance/defi/token-registration/uniswap) describes the one downstream effect most projects are after: Uniswap copies the new logo about 48 hours after CoinGecko publishes it.
 
@@ -145,3 +163,18 @@ An unlisted address returns HTTP 404 with `{"error":"coin not found"}`. Addresse
 - `image.large` is the logo Uniswap will copy. Fetch it and look at it on a dark background before assuming the transparency survived.
 
 To check many chains at once, `https://api.coingecko.com/api/v3/coins/list?include_platform=true` returns every coin with its `platforms` map, about 3.7 MB. Keyless requests are rate-limited per IP address.
+
+The status of a submitted request is at `https://partner.coingecko.com/request-form/submissions`, under *Request & Listing*.
+
+## External links
+
+- [CoinGecko request-form menu](https://partner.coingecko.com/request-form/new) — every request type, including *Update Coin or Token Info*
+- [New coin or token listing](https://partner.coingecko.com/request-form/coins/new) — the listing form itself
+- [Contract migration or rebrand](https://partner.coingecko.com/request-form/coins/contract-migration/new)
+- [Supply update](https://partner.coingecko.com/request-form/supply-update/new)
+- [Submitted requests](https://partner.coingecko.com/request-form/submissions) — status of your requests
+- [Support directory](https://support.coingecko.com/hc/en-us/articles/23960919544345-Support-Directory-CoinGecko-Request-Forms) — which form handles which request
+- [Verification guide](https://support.coingecko.com/hc/en-us/articles/23725417857817) — the public post and request-ID reply
+- [Fast Pass FAQ](https://support.coingecko.com/hc/en-us/articles/37297414892697-CoinGecko-Fast-Pass-Frequently-Asked-Questions) — prices and what a Fast Pass covers
+- [GeckoTerminal token info form](https://www.geckoterminal.com/request-form/update-token) — for a token not yet on CoinGecko
+

@@ -5,7 +5,7 @@ weight: 100
 
 GeckoTerminal is CoinGecko's tracker for decentralized exchange pools. It indexes pools on the exchanges it supports automatically and for free, so a token appears there — with a price chart and a trade history — once its first pool is on a supported exchange, and nobody has to apply. What a token team can submit is the *token info* attached to that token on one chain: logo, banner, description, website, social links and categories. As of September 2026 that submission costs $199 and is reviewed within 24 hours.
 
-Once a token is listed on [CoinGecko](/wiki/economics/finance/defi/token-registration/coingecko), GeckoTerminal stops taking token info for it and copies CoinGecko's instead. For most projects, then, GeckoTerminal's own form matters only in the gap between the first pool and the CoinGecko listing.
+Once a token is listed on [CoinGecko](/wiki/economics/finance/defi/token-registration/coingecko), GeckoTerminal stops taking token info for it and copies CoinGecko's instead. For most projects, then, GeckoTerminal's own form matters only in the gap between the first pool and the CoinGecko listing. [CoinGecko and GeckoTerminal](/wiki/economics/finance/defi/token-registration/coingecko#coingecko-and-geckoterminal) sets the two side by side.
 
 ## Listing is automatic
 
@@ -13,7 +13,7 @@ GeckoTerminal's help centre puts it plainly: "listing on GeckoTerminal is FREE",
 
 ## The Update Token Info form
 
-The *Update Token Info* button on a pool page leads to `geckoterminal.com/request-form/update-token`. The fields, from the form itself:
+The *Update Token Info* button on a pool page leads to `https://www.geckoterminal.com/request-form/update-token`. CoinGecko's request-form menu at `https://partner.coingecko.com/request-form/new` also carries a *GeckoTerminal* tab. The fields, from the form itself:
 
 | Field | Required | Rules | Schema key |
 | --- | --- | --- | --- |
