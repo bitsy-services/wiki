@@ -1,3 +1,11 @@
-# The DeFi section moved under economics/finance. Keep old inbound links alive.
-/wiki/defi /wiki/economics/finance/defi/ 301
-/wiki/defi/* /wiki/economics/finance/defi/:splat 301
+# Old section paths, kept alive so production URLs and search-engine results
+# keep resolving. First match wins, so the deepest rewrite is listed first.
+
+# The DeFi section moved under economics/finance, then flattened to economics.
+/wiki/defi /wiki/economics/defi/ 301
+/wiki/defi/* /wiki/economics/defi/:splat 301
+
+# finance/ was removed as a level; defi, payments, regulation and fraud moved
+# up to sit directly under economics.
+/wiki/economics/finance /wiki/economics/ 301
+/wiki/economics/finance/* /wiki/economics/:splat 301

@@ -19,7 +19,7 @@ Directly under `/wiki/`, in sidebar order:
 
 | Section | Holds |
 | --- | --- |
-| `economics` | how value is created, priced, and moved — finance, DeFi, regulation, fraud |
+| `economics` | how value is created, priced, and moved — DeFi, payments, regulation, fraud |
 | `ai` | getting work out of coding agents, and taking the models apart |
 | `security` | handling keys, secrets, and credentials on a developer machine |
 | `social` | building and moderating communities on social platforms |
@@ -54,8 +54,8 @@ has many — hosting, HTTP caching, DNS, browser APIs.
 be comparable in grain: all mechanisms, or all products, or all subdomains, not
 one of each. Mixed siblings usually mean the parent is really two parents.
 
-**Every segment must narrow the subject.** `economics/finance/defi/options/call-option`
-narrows five times and every word is doing work. A segment that only groups —
+**Every segment must narrow the subject.** `economics/defi/options/call-option`
+narrows four times and every word is doing work. A segment that only groups —
 `.../pages/`, `.../topics/`, `.../other/` — is a segment to delete.
 
 **Depth is a cost the reader pays**, in the breadcrumb and in every link that

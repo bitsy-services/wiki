@@ -26,24 +26,24 @@ After *n* rounds, a faker's probability of success is (1/2)^n. After 20 rounds, 
 
 ## Interactive vs. non-interactive
 
-The cave example is an **interactive** proof -- it requires real-time back-and-forth between prover and verifier. That rules out any verifier that is not a live counterparty: every [blockchain](/wiki/economics/finance/defi/blockchain) node would have to join the conversation in real time.
+The cave example is an **interactive** proof -- it requires real-time back-and-forth between prover and verifier. That rules out any verifier that is not a live counterparty: every [blockchain](/wiki/economics/defi/blockchain) node would have to join the conversation in real time.
 
 **Non-interactive zero-knowledge proofs (NIZKs)** remove the interaction requirement. The prover generates a single proof string that anyone can verify independently. The Fiat-Shamir heuristic is the standard technique for converting an interactive proof into a non-interactive one: the verifier's random challenges are replaced by hash function outputs derived from the prover's commitments.
 
 Most modern ZKP systems are non-interactive. They fall into two broad families:
 
-- **zk-SNARKs** (Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge) -- produce small, fast-to-verify proofs but typically require a trusted setup ceremony. A [Groth16](/wiki/economics/finance/defi/groth16) proof is three group elements regardless of how large the circuit is, which is what Zcash's Sapling circuit and the circom/snarkjs toolchain emit.
+- **zk-SNARKs** (Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge) -- produce small, fast-to-verify proofs but typically require a trusted setup ceremony. A [Groth16](/wiki/economics/defi/groth16) proof is three group elements regardless of how large the circuit is, which is what Zcash's Sapling circuit and the circom/snarkjs toolchain emit.
 - **zk-STARKs** (Scalable Transparent Arguments of Knowledge) -- avoid trusted setup by relying on hash functions rather than elliptic-curve pairings, at the cost of larger proof sizes.
 
 ## Applications
 
 ### Privacy-preserving transactions
 
-[Cryptocurrency](/wiki/economics/finance/defi/cryptocurrency) systems like Zcash use zk-SNARKs to prove that a transaction is valid (correct balances, authorized sender) without revealing the sender, receiver, or amount. The [blockchain](/wiki/economics/finance/defi/blockchain) records only the proof, not the transaction details.
+[Cryptocurrency](/wiki/economics/defi/cryptocurrency) systems like Zcash use zk-SNARKs to prove that a transaction is valid (correct balances, authorized sender) without revealing the sender, receiver, or amount. The [blockchain](/wiki/economics/defi/blockchain) records only the proof, not the transaction details.
 
 ### Rollups
 
-On [Ethereum](/wiki/economics/finance/defi/ethereum), ZK rollups batch hundreds or thousands of transactions off-chain, compute the resulting state, and post a single zero-knowledge proof to the main chain. The proof convinces the on-chain verifier that all batched transactions were executed correctly, without re-executing them. Verification costs the same whether the batch held ten transactions or ten thousand, so the per-transaction cost on the base layer falls with batch size while settlement still happens there.
+On [Ethereum](/wiki/economics/defi/ethereum), ZK rollups batch hundreds or thousands of transactions off-chain, compute the resulting state, and post a single zero-knowledge proof to the main chain. The proof convinces the on-chain verifier that all batched transactions were executed correctly, without re-executing them. Verification costs the same whether the batch held ten transactions or ten thousand, so the per-transaction cost on the base layer falls with batch size while settlement still happens there.
 
 ### Authentication
 
@@ -51,4 +51,4 @@ A prover can demonstrate knowledge of a password or private key without transmit
 
 ### Verifiable computation
 
-A weak client can outsource an expensive computation to an untrusted server and verify the result with a ZKP, spending far less effort on verification than the original computation required. This has applications in [oracle](/wiki/economics/finance/defi/oracle-node) networks, cloud computing, and auditable machine learning.
+A weak client can outsource an expensive computation to an untrusted server and verify the result with a ZKP, spending far less effort on verification than the original computation required. This has applications in [oracle](/wiki/economics/defi/oracle-node) networks, cloud computing, and auditable machine learning.

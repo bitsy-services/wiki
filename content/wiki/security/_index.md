@@ -4,7 +4,7 @@ weight: 18
 bookCollapseSection: true
 ---
 
-Practical, hands-on guides to handling secrets, keys, and credentials on developer machines -- the operational side of security, as distinct from the cryptographic theory covered under [Computer Science](/wiki/cs). The concern here is mundane and constant: private keys, API tokens, and `.env` files accumulate across a machine, and in a repository full of [smart contract](/wiki/economics/finance/defi/smart-contract) deploy scripts, a leaked key is not a recoverable mistake.
+Practical, hands-on guides to handling secrets, keys, and credentials on developer machines -- the operational side of security, as distinct from the cryptographic theory covered under [Computer Science](/wiki/cs). The concern here is mundane and constant: private keys, API tokens, and `.env` files accumulate across a machine, and in a repository full of [smart contract](/wiki/economics/defi/smart-contract) deploy scripts, a leaked key is not a recoverable mistake.
 
 The three pages describe one stack, and read best from the top down.
 

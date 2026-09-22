@@ -37,8 +37,8 @@ the other direction.
 
 Two things count against it. The pinning service is one component of a platform
 whose other products — bucket storage fronting
-[Arweave](/wiki/economics/finance/defi/arweave) and
-[Filecoin](/wiki/economics/finance/defi/filecoin), static hosting, gateway
+[Arweave](/wiki/economics/defi/arweave) and
+[Filecoin](/wiki/economics/defi/filecoin), static hosting, gateway
 endpoints — carry their own bespoke interfaces, so only 4EVER Pin itself is
 portable and it is easy to end up depending on the rest. And like every entry
 here that is not the company's whole business, the pinning service is a product

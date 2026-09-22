@@ -23,7 +23,7 @@ and the chunk hashes assembled into a tree whose root is the CID.
 [UnixFS](/wiki/cs/ipfs/unixfs) is the layout that does it. One hash then stands
 for an arbitrarily large object, and any part of it can be verified without
 fetching the whole. Git's object store and
-a [blockchain](/wiki/economics/finance/defi/blockchain) are the same idea with
+a [blockchain](/wiki/economics/defi/blockchain) are the same idea with
 different shapes, which is why the three keep turning up in the same
 conversations.
 
@@ -61,13 +61,13 @@ CID, not that anyone is still holding them.
 
 ## Neighbours in the same problem space
 
-[Arweave](/wiki/economics/finance/defi/arweave) attacks retention from the other
+[Arweave](/wiki/economics/defi/arweave) attacks retention from the other
 end: pay once, and an endowment is meant to fund storage indefinitely. That is a
 stronger commitment than pinning, but it is an economic forecast rather than a
 guarantee — the Arweave page is explicit that "permanent" rests on storage costs
-continuing to fall. [Filecoin](/wiki/economics/finance/defi/filecoin) keeps
+continuing to fall. [Filecoin](/wiki/economics/defi/filecoin) keeps
 IPFS's addressing and adds a market where storage is a dated contract backed by
-proofs. [Walrus](/wiki/economics/finance/defi/sui/walrus) erasure-codes blobs
+proofs. [Walrus](/wiki/economics/defi/sui/walrus) erasure-codes blobs
 across a staked node set and settles the bookkeeping on Sui.
 
 All four hash the same way. What separates them is who is on the hook for
@@ -75,15 +75,15 @@ retention, for how long, and whether anyone can check.
 
 ## Where it shows up here
 
-- [NFT](/wiki/economics/finance/defi/nft) metadata, where the `tokenURI` should
+- [NFT](/wiki/economics/defi/nft) metadata, where the `tokenURI` should
   be content-addressed so the issuer cannot swap the referenced asset after the
   sale.
-- [dApp](/wiki/economics/finance/defi/dapp) frontends, hosted so they cannot be
+- [dApp](/wiki/economics/defi/dapp) frontends, hosted so they cannot be
   taken down by pressuring one host.
-- [Token lists](/wiki/economics/finance/defi/token-registration/token-lists),
+- [Token lists](/wiki/economics/defi/token-registration/token-lists),
   published under an Ethereum Name Service (ENS) `contenthash` record so the
   name is stable and the list underneath it is not.
-- [ERC-8004](/wiki/economics/finance/defi/ethereum/erc-8004) agent registration
+- [ERC-8004](/wiki/economics/defi/ethereum/erc-8004) agent registration
   files.
 
 ## External links

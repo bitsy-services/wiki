@@ -1,0 +1,47 @@
+---
+title: "Locked Liquidity"
+weight: 87
+---
+
+Locked liquidity is an [AMM](/wiki/economics/defi/amm) position whose principal can never be withdrawn — not by its creator, not by anyone. It is the difference between "the team *promises* not to pull the pool" and "the pull function does not exist." A [liquidity floor](/wiki/economics/defi/liquidity-floor) or a peg is only as credible as the guarantee that the backing stays put; locked liquidity is that guarantee made structural.
+
+## Three ways to lock
+
+- **Time-lock.** A locker contract holds the position and releases it after a deadline. Common for launches; only as good as "until the timer ends," and the cliff is a known risk date.
+- **Burn.** Send the [LP](/wiki/economics/defi/liquidity-pool) token (or V2 LP shares) to a dead address. Irreversible, but crude — it also burns the ability to ever collect fees, and V3/V4 positions are [NFTs](/wiki/economics/defi/nft) carrying accrued fees, so burning throws those away too.
+- **No withdrawal path.** Own the position via a contract that simply never implements decrease-liquidity. Principal is unreachable because no code can reach it, and fees remain collectable. Nothing else on this list separates those two permanently: burning gives up the fees, and a time-lock reunites them at the cliff.
+
+## Fee-only ownership
+
+The refined pattern separates two rights that LP ownership normally bundles:
+
+- **Authority over principal** — move ticks, decrease liquidity, withdraw, pause. *Removed entirely.*
+- **The fee stream** — collect accrued swap fees. *Retained, and given to some party.*
+
+A position held by a clone that exposes only "harvest fees, then withdraw the harvested fees" gives its owner an income claim with zero authority over the locked capital, ticks, or pause. The principal is not owned by anyone in any meaningful sense; only its exhaust is. This is exactly the Fountain primitive both Bitsy fair-launch factories build on.
+
+## From promise to invariant
+
+A floor or peg backed by withdrawable liquidity is not a floor — it is a floor *until the backer changes their mind*. Locking converts a behavioral promise into an invariant:
+
+- A [liquidity floor](/wiki/economics/defi/liquidity-floor) cannot be relocated lower if the position cannot be moved.
+- [Full-reserve backing](/wiki/economics/defi/full-reserve-backing) cannot be quietly drained if there is no drain.
+- A [par token](/wiki/economics/defi/par-token)'s reserves are credible precisely because the position holding them has no decrease path.
+
+## Prior art
+
+- **LP lockers** — UNCX/Unicrypt, team.finance: third-party time-lock and lock services for launch liquidity.
+- **Burned LP launches** — the memecoin convention of sending LP to `0xdead` as a rug-proof signal.
+- **Protocol-owned liquidity (POL)** — protocols holding their own LP so it cannot be yanked by mercenary capital, though POL is usually still governance-movable.
+
+## Caveats
+
+- **Locking is symmetric.** A position locked with bad parameters — wrong tick, wrong fee tier, wrong pair — is *also* permanent. Immutability removes the rug and the undo in one stroke, so every parameter is a one-shot decision taken before sealing.
+- **A lock nobody recognises does not count.** Scanners detect locks by matching the holding address against a per-chain allowlist of known lockers, so a custom timelock or an unlisted locker reads as *unlocked* rather than as unknown — see [liquidity and holders](/wiki/economics/defi/token-false-alarms/liquidity-and-holders).
+- **"Locked" must mean the right thing.** A time-lock is not a no-path lock: one has a date on which the principal becomes withdrawable and the other has no such date, and systems describe both with the same word.
+- **Fees are not principal.** A retained fee claim is not authority over the backing. Conflating the two is the usual misreading.
+
+## External links
+
+- [Uniswap V4 — periphery & position management](https://github.com/Uniswap/v4-periphery)
+- [EIP-1167 — Minimal Proxy Contract](https://eips.ethereum.org/EIPS/eip-1167) — the clone pattern fee-only ownership is usually built on

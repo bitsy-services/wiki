@@ -42,7 +42,7 @@ depends on the account staying open.
 
 A custom domain softens this, since the domain can be repointed at a different
 gateway later while the paths stay valid. A `gateway.pinata.cloud` URL baked
-into [NFT](/wiki/economics/finance/defi/nft) metadata cannot be repointed by
+into [NFT](/wiki/economics/defi/nft) metadata cannot be repointed by
 anyone.
 
 ## What to check

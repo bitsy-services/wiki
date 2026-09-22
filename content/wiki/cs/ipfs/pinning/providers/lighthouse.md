@@ -5,8 +5,8 @@ weight: 40
 
 Lighthouse serves content over [IPFS](/wiki/cs/ipfs) and persists it to one of
 two networks behind the scenes —
-[Filecoin](/wiki/economics/finance/defi/filecoin) or
-[Walrus](/wiki/economics/finance/defi/sui/walrus) — with the choice made per
+[Filecoin](/wiki/economics/defi/filecoin) or
+[Walrus](/wiki/economics/defi/sui/walrus) — with the choice made per
 plan rather than per file. What distinguishes it from the rest of this section
 is not the storage but the access control layered on top.
 
@@ -15,7 +15,7 @@ is not the storage but the access control layered on top.
 Kavach is Lighthouse's threshold-encryption layer. A file is encrypted before
 upload, the key is split across nodes, and reassembly is conditioned on a rule
 evaluated at request time: holding a particular token or
-[NFT](/wiki/economics/finance/defi/nft), presenting a passkey, or satisfying an
+[NFT](/wiki/economics/defi/nft), presenting a passkey, or satisfying an
 arbitrary contract call.
 
 Every other provider here stores public bytes. Anything confidential has to be
@@ -30,7 +30,7 @@ over.
 Lighthouse was built around perpetual storage: one payment, no renewal, funded
 by a smart-contract endowment pool that took the buffer left over after the
 initial Filecoin deals and used it to pay for renewals — the
-[Arweave](/wiki/economics/finance/defi/arweave) proposition executed on
+[Arweave](/wiki/economics/defi/arweave) proposition executed on
 somebody else's storage market.
 
 That is not what it currently sells. The plans are monthly or annual

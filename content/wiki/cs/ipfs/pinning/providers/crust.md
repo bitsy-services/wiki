@@ -50,7 +50,7 @@ spending the network's native token, so a billing relationship is replaced by an
 exposure to a token price rather than removed.
 
 The assurance is a different risk rather than an absent one, and weaker than the
-[Filecoin](/wiki/economics/finance/defi/filecoin) equivalent in the sense that
+[Filecoin](/wiki/economics/defi/filecoin) equivalent in the sense that
 matters: Filecoin providers post recurring proofs against a deal and lose staked
 collateral for failing them, which gives an outside observer something to check.
 Crust's rests on the network's own accounting. For a

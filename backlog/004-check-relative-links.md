@@ -18,9 +18,9 @@ Hugo renders each page as a directory (`/wiki/.../ticks/`), so a relative target
 resolves against the page's own URL, not its parent folder. Some of the existing
 links therefore 404 in production without the gate noticing. Two examples:
 
-- `content/wiki/economics/finance/defi/uniswap/ticks.md` links `(fee-distribution)`,
-  which resolves to `/wiki/economics/finance/defi/uniswap/ticks/fee-distribution`.
-- `content/wiki/economics/finance/defi/vanity-addresses.md` linked
+- `content/wiki/economics/defi/uniswap/ticks.md` links `(fee-distribution)`,
+  which resolves to `/wiki/economics/defi/uniswap/ticks/fee-distribution`.
+- `content/wiki/economics/defi/vanity-addresses.md` linked
   `(solidity/foundry-broadcast)` and `(ethereum)` the same way; both were rewritten
   as absolute links in the 2026-09-16 token-registration session, which is how the
   gap was found (by the `wiki-reviewer` subagent, not the gate).

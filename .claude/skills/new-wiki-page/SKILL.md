@@ -27,8 +27,8 @@ later.
   `bookCollapseSection: true`, plus one file per child page. Three pages is the
   threshold for making that folder; one page does not get one.
 - The URL is the path minus `content/` and minus the `.md`, so
-  `content/wiki/economics/finance/defi/amm.md` serves at
-  `/wiki/economics/finance/defi/amm`. Choose the slug with the URL in mind —
+  `content/wiki/economics/defi/amm.md` serves at
+  `/wiki/economics/defi/amm`. Choose the slug with the URL in mind —
   other pages will link to it, and moving it later breaks every inbound link.
 
 Check first whether a stub already exists for the topic; expanding a stub beats
@@ -78,5 +78,5 @@ languages, and the frontmatter. It must be green. It is also wired to a Stop
 hook, so a red check will block the turn from ending anyway.
 
 Writing a page with Solidity examples? `.claude/rules/solidity-examples.md`
-loads automatically for `content/wiki/economics/finance/defi/**`, and its rules are not optional —
+loads automatically for `content/wiki/economics/defi/**`, and its rules are not optional —
 the code in this wiki gets copy-pasted.
