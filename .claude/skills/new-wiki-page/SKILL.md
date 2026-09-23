@@ -26,6 +26,9 @@ later.
 - A topic that needs several pages is a folder with an `_index.md` carrying
   `bookCollapseSection: true`, plus one file per child page. Three pages is the
   threshold for making that folder; one page does not get one.
+- About fifteen siblings is the threshold for subdividing a section. If the
+  section you are adding to is already there, say so before adding another —
+  the new page is the signal, and `wiki-taxonomy.md` has the procedure.
 - The URL is the path minus `content/` and minus the `.md`, so
   `content/wiki/economics/defi/amm.md` serves at
   `/wiki/economics/defi/amm`. Choose the slug with the URL in mind —
