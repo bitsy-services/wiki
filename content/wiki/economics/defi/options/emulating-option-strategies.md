@@ -3,16 +3,16 @@ title: Emulating Option Strategies in DeFi
 weight: 58
 ---
 
-Traditional option strategies -- [spreads](/wiki/economics/defi/options/option-spread), condors, butterflies -- can be approximated using DeFi primitives even on protocols that offer no native options order book. Concentrated [liquidity provider](/wiki/economics/defi/liquidity-pool) (LP) positions, [perpetual options](/wiki/economics/defi/options/perpetual-option), structured vaults, and on-chain binary payoffs can all replicate familiar payoff curves, with trade-offs in precision, cost, and path dependency.
+Traditional option strategies -- [spreads](/wiki/economics/defi/options/option-spread), condors, butterflies -- can be approximated using DeFi primitives even on protocols that offer no native options order book. Concentrated [liquidity provider](/wiki/economics/defi/markets/liquidity-pool) (LP) positions, [perpetual options](/wiki/economics/defi/options/perpetual-option), structured vaults, and on-chain binary payoffs can all replicate familiar payoff curves, with trade-offs in precision, cost, and path dependency.
 
 ## Concentrated LP Positions as Synthetic Options
 
-A concentrated LP position in a constant-product [AMM](/wiki/economics/defi/amm) (such as Uniswap v3) behaves like a short option. The LP collects fees (analogous to premium) in exchange for bearing directional risk if the price moves outside the range:
+A concentrated LP position in a constant-product [AMM](/wiki/economics/defi/markets/amm) (such as Uniswap v3) behaves like a short option. The LP collects fees (analogous to premium) in exchange for bearing directional risk if the price moves outside the range:
 
 - A **single-sided LP position above the current price** (providing only the quote token) resembles a **covered [call](/wiki/economics/defi/options/call-option)**: the LP profits from fees as long as the price stays below the upper bound, but surrenders upside if the price rises through the range.
 - A **single-sided LP position below the current price** (providing only the base token) resembles a **cash-secured [put](/wiki/economics/defi/options/put-option)**: the LP earns fees while the price stays above the lower bound, but absorbs downside if the price falls through.
 
-[Impermanent loss](/wiki/economics/defi/impermanent-loss) is the option-theoretic "assignment cost" -- the difference between holding the assets outright and holding the LP position. A narrow range amplifies both fee income and impermanent loss, just as selling a near-the-money option collects more premium but carries higher delta risk.
+[Impermanent loss](/wiki/economics/defi/markets/impermanent-loss) is the option-theoretic "assignment cost" -- the difference between holding the assets outright and holding the LP position. A narrow range amplifies both fee income and impermanent loss, just as selling a near-the-money option collects more premium but carries higher delta risk.
 
 ### Constructing Spreads from LP Ranges
 
@@ -47,4 +47,4 @@ Structured vaults automate these constructions. A vault might continuously sell 
 
 **Smart-contract risk** -- every leg of the strategy is a [smart-contract](/wiki/economics/defi/smart-contract) interaction. A bug in the AMM, vault, or perp protocol can cause losses beyond the strategy's intended risk profile.
 
-**Liquidity risk** -- exiting a concentrated LP position in a thin [pool](/wiki/economics/defi/liquidity-pool) may incur significant slippage, especially during volatile markets.
+**Liquidity risk** -- exiting a concentrated LP position in a thin [pool](/wiki/economics/defi/markets/liquidity-pool) may incur significant slippage, especially during volatile markets.

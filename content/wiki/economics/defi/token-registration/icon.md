@@ -121,11 +121,11 @@ magick logo-256.png \
 
 ## Naming and placement
 
-Registrars key on the [EIP](/wiki/economics/defi/ethereum/eip)-55 checksummed address, mixed case, rather than the lowercase form most tools print, and some of them compare it as a string:
+Registrars key on the [EIP](/wiki/economics/defi/chains/ethereum/eip)-55 checksummed address, mixed case, rather than the lowercase form most tools print, and some of them compare it as a string:
 
 ```bash
 cast to-check-sum-address 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
 # 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984
 ```
 
-The registrars split on how they take the file. CoinGecko, GeckoTerminal, Dexscreener and DEXTools upload it from your machine, and Trust Wallet and MetaMask's repository take it as a committed file; Etherscan, Blockscout, CoinMarketCap and the token list `logoURI` all want a URL. Assume the link route: the files need a permanent home before you start submitting. A path on your own domain works and can be repointed later; [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/defi/arweave) works and cannot. Whichever you choose, the URL is going to be copied into half a dozen third-party databases that will never re-fetch it, so treat it as immutable from the first submission onward.
+The registrars split on how they take the file. CoinGecko, GeckoTerminal, Dexscreener and DEXTools upload it from your machine, and Trust Wallet and MetaMask's repository take it as a committed file; Etherscan, Blockscout, CoinMarketCap and the token list `logoURI` all want a URL. Assume the link route: the files need a permanent home before you start submitting. A path on your own domain works and can be repointed later; [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/defi/chains/arweave) works and cannot. Whichever you choose, the URL is going to be copied into half a dozen third-party databases that will never re-fetch it, so treat it as immutable from the first submission onward.

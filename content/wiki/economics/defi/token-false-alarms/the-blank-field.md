@@ -40,7 +40,7 @@ The failure modes below are not about tokens at all. They are about a client lib
 
 **An unknown token also returns 200.** `{"code":1,"message":"OK","result":{}}` — a successful call with nothing in it. An unlisted token, a scanner outage and a chain the vendor does not cover are indistinguishable at the status line.
 
-**The result is keyed by the lowercased address.** Send a [checksummed](/wiki/economics/defi/ethereum/eip) address and the key comes back lowercase, so a lookup by the string you sent returns `undefined` — which naive code cannot tell from "no data".
+**The result is keyed by the lowercased address.** Send a [checksummed](/wiki/economics/defi/chains/ethereum/eip) address and the key comes back lowercase, so a lookup by the string you sent returns `undefined` — which naive code cannot tell from "no data".
 
 **Batches are silently truncated.** Three comma-separated addresses on the free tier returned `code 1 OK` with only the first one in the result. Two more come back missing, and missing reads as clean.
 

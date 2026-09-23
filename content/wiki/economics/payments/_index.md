@@ -6,7 +6,7 @@ bookCollapseSection: true
 
 Moving money between two people is not one problem but two, and most of what is confusing about payment systems comes from conflating them. The first is **messaging**: telling somebody that a transfer should happen, from whom, to whom, and for how much. The second is **settlement**: the moment the obligation between the two institutions is actually discharged and nobody can take it back. Systems that look identical to the person tapping *send* can differ completely in how they answer those two questions, and the difference is what determines whether a mistake can be undone.
 
-This section covers the rails that answer them in the United States, and in particular [Zelle](/wiki/economics/payments/zelle) — the bank-owned network that most Americans now touch weekly, and the one [Interbox](/wiki/economics/defi/interbox) is built on top of.
+This section covers the rails that answer them in the United States, and in particular [Zelle](/wiki/economics/payments/zelle) — the bank-owned network that most Americans now touch weekly, and the one [Interbox](/wiki/economics/defi/blockchain/interbox) is built on top of.
 
 ## The rails
 

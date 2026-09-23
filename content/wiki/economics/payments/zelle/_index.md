@@ -28,7 +28,7 @@ The strategic goal was never to make money on payments. It was to make sure that
 
 ## Why it appears in this wiki
 
-Zelle is also load-bearing infrastructure for [Interbox](/wiki/economics/defi/interbox): moving fiat from a US bank account to a self-custodied wallet on the strength of the [know your customer](/wiki/economics/regulation/know-your-customer) checks the bank already performed. Interbox works precisely because a Zelle transfer is an irrevocable, bank-authenticated credit push tied to an identity the bank has already verified — the payment itself is the trigger, and a code in its memo says where the money should end up. What Zelle guarantees, and what it does not, therefore bounds what anything built on it can promise.
+Zelle is also load-bearing infrastructure for [Interbox](/wiki/economics/defi/blockchain/interbox): moving fiat from a US bank account to a self-custodied wallet on the strength of the [know your customer](/wiki/economics/regulation/know-your-customer) checks the bank already performed. Interbox works precisely because a Zelle transfer is an irrevocable, bank-authenticated credit push tied to an identity the bank has already verified — the payment itself is the trigger, and a code in its memo says where the money should end up. What Zelle guarantees, and what it does not, therefore bounds what anything built on it can promise.
 
 ## External links
 

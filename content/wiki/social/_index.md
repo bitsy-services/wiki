@@ -1,6 +1,6 @@
 ---
 title: Social
-weight: 20
+weight: 19
 bookCollapseSection: true
 ---
 

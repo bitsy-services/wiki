@@ -3,7 +3,7 @@ title: "Registering on Uniswap"
 weight: 70
 ---
 
-There is no Uniswap form for a token image. The logo beside a token on app.uniswap.org, the interface to the [Uniswap protocol](/wiki/economics/defi/uniswap), is a string called `project.logoUrl`. Uniswap's own backend hands it to the interface when the page loads, and it is copied from [CoinGecko](/wiki/economics/defi/token-registration/coingecko). Uniswap Labs states the rule in as many words: "Uniswap Labs sources token information and token logos from CoinGecko." Change the logo on CoinGecko, wait about 48 hours, and it changes on Uniswap.
+There is no Uniswap form for a token image. The logo beside a token on app.uniswap.org, the interface to the [Uniswap protocol](/wiki/economics/defi/markets/uniswap), is a string called `project.logoUrl`. Uniswap's own backend hands it to the interface when the page loads, and it is copied from [CoinGecko](/wiki/economics/defi/token-registration/coingecko). Uniswap Labs states the rule in as many words: "Uniswap Labs sources token information and token logos from CoinGecko." Change the logo on CoinGecko, wait about 48 hours, and it changes on Uniswap.
 
 That string is not read from the token's contract, and — though Uniswap wrote the [token list](/wiki/economics/defi/token-registration/token-lists) specification — it is not read from a token list either. Of 159 top-volume tokens sampled across Ethereum, Base and Arbitrum on 8 September 2026, 152 carried a CoinGecko logo URL and 7 a GitHub one. None carried a Uniswap-hosted one.
 
@@ -37,7 +37,7 @@ A freshly deployed token sits in the first row before it has done anything at al
 
 ## GeckoTerminal does not count
 
-[GeckoTerminal](/wiki/economics/defi/token-registration/geckoterminal) is CoinGecko's [decentralized exchange](/wiki/economics/defi/dex) tracker. It indexes a new pool within minutes, it shows a chart immediately, and it accepts a logo and project details from the token team through *Update Token Info* on the pool page, reviewed within a day for $199. None of that reaches Uniswap.
+[GeckoTerminal](/wiki/economics/defi/token-registration/geckoterminal) is CoinGecko's [decentralized exchange](/wiki/economics/defi/markets/dex) tracker. It indexes a new pool within minutes, it shows a chart immediately, and it accepts a logo and project details from the token team through *Update Token Info* on the pool page, reviewed within a day for $199. None of that reaches Uniswap.
 
 Three tokens found trading on Base carrying a GeckoTerminal image and no CoinGecko listing each returned `logoUrl: null` from Uniswap's backend. The metadata flows one way between the two products: GeckoTerminal copies a CoinGecko listing's info, and GeckoTerminal's own documentation states the other side of it — "If the token is listed on CoinGecko, the token's info cannot be updated from GeckoTerminal." Nothing entered on GeckoTerminal travels up to CoinGecko, and Uniswap reads CoinGecko. GeckoTerminal's landing page does claim that verified info puts a project "in front of apps like Rainbow, Uniswap, and Crypto.com"; for Uniswap's interface, the three tokens above say otherwise.
 
@@ -45,7 +45,7 @@ The practical consequence is that the same-day route that looks like it should w
 
 ## Getting the image: the CoinGecko listing
 
-The image comes from a [CoinGecko listing](/wiki/economics/defi/token-registration/coingecko), which has its own page: the form, the verification post, the costs, and the multi-chain record. CoinGecko will not list an asset that is not already trading on a venue it tracks, so a pool with real [liquidity](/wiki/economics/defi/liquidity-pool) comes first. Three things from that page decide the Uniswap outcome:
+The image comes from a [CoinGecko listing](/wiki/economics/defi/token-registration/coingecko), which has its own page: the form, the verification post, the costs, and the multi-chain record. CoinGecko will not list an asset that is not already trading on a venue it tracks, so a pool with real [liquidity](/wiki/economics/defi/markets/liquidity-pool) comes first. Three things from that page decide the Uniswap outcome:
 
 - **The logo file** is a 200 × 200 PNG, JPG or WebP, transparent background preferred, uploaded in the form's *Attachments* section rather than fetched from a URL you host. It is one of the sizes [the icon page](/wiki/economics/defi/token-registration/icon) renders.
 - **The verification post** — a public post from a social account the project's website links to, then a reply quoting the request identifier — is required on every listing and every update, and a missing one is a stated reason for rejection.

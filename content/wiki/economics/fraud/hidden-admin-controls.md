@@ -5,7 +5,7 @@ weight: 28
 
 Hidden admin controls are privileged functions in a token contract that let one key holder take, freeze, or dilute balances belonging to other people. The category is awkward because almost every one of them is also a real feature of a real token. Tether's USDT and Circle's USDC both carry a blacklist and both have used it. The function tells you what is possible, not what is intended, and the same `mint` that backs a redeemable dollar backs an unlimited [rug pull](/wiki/economics/fraud/rug-pull). Automated scanners resolve that ambiguity by reporting the capability and letting the reader supply the intent, which is why an honest token with any of these functions gets flagged — see [token false alarms](/wiki/economics/defi/token-false-alarms).
 
-An [ERC-20](/wiki/economics/defi/ethereum/erc-20) contract is free to implement `transfer` however it likes; the standard constrains the interface and says nothing about what the body may refuse or reroute. Everything below is therefore standard-compliant. What separates a stablecoin from a [honeypot](/wiki/economics/fraud/honeypot-token) or a [fake token](/wiki/economics/fraud/fake-token) is who holds the key and what has to happen before it turns.
+An [ERC-20](/wiki/economics/defi/chains/ethereum/erc-20) contract is free to implement `transfer` however it likes; the standard constrains the interface and says nothing about what the body may refuse or reroute. Everything below is therefore standard-compliant. What separates a stablecoin from a [honeypot](/wiki/economics/fraud/honeypot-token) or a [fake token](/wiki/economics/fraud/fake-token) is who holds the key and what has to happen before it turns.
 
 ## The functions
 
@@ -39,7 +39,7 @@ fallback() external payable {
 
 `delegatecall` runs the implementation's code against the *proxy's* storage, so balances and allowances live at the proxy and survive a change of implementation. The implementation address is itself just a storage slot, conventionally a fixed pseudo-random one so it cannot collide with the token's own variables. Whoever can write that slot replaces every line of code the token runs, without moving a balance and without changing the address anyone has bookmarked or listed.
 
-A verified, audited implementation therefore certifies the code that was at that slot on the day it was read. The only configuration where the audited code is the code that will run is a [finalized smart contract](/wiki/economics/defi/finalized-smart-contract): no proxy, no admin functions, no self-destruct. Everything short of that is a statement about the current [contract](/wiki/economics/defi/smart-contract) and about the discipline of whoever can change it.
+A verified, audited implementation therefore certifies the code that was at that slot on the day it was read. The only configuration where the audited code is the code that will run is a [finalized smart contract](/wiki/economics/defi/smart-contract/finalized-smart-contract): no proxy, no admin functions, no self-destruct. Everything short of that is a statement about the current [contract](/wiki/economics/defi/smart-contract) and about the discipline of whoever can change it.
 
 ## The honest comparison
 

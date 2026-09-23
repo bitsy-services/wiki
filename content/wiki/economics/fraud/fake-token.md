@@ -3,7 +3,7 @@ title: "Fake Tokens and Spoofed Contracts"
 weight: 92
 ---
 
-A token contract can claim any name and symbol it likes. In [ERC-20](/wiki/economics/defi/ethereum/erc-20) those two fields are ordinary strings in contract storage, returned by ordinary view functions, with no registry behind them, no uniqueness constraint, and no authority that checks them against anything. Deploying a second contract that calls itself "USD Coin" with the symbol `USDC` costs a few dollars of gas and requires nobody's permission, and a [permissionless token factory](/wiki/economics/defi/permissionless-token-factory) will produce one from a web form.
+A token contract can claim any name and symbol it likes. In [ERC-20](/wiki/economics/defi/chains/ethereum/erc-20) those two fields are ordinary strings in contract storage, returned by ordinary view functions, with no registry behind them, no uniqueness constraint, and no authority that checks them against anything. Deploying a second contract that calls itself "USD Coin" with the symbol `USDC` costs a few dollars of gas and requires nobody's permission, and a [permissionless token factory](/wiki/economics/defi/par-token/permissionless-token-factory) will produce one from a web form.
 
 Impersonation at the asset level is not a bug in any particular wallet or exchange; it is what a namespace with no allocation authority produces by default, and every defence against it is a layer of curation bolted on afterwards by somebody other than the chain.
 
@@ -39,7 +39,7 @@ Wallets and explorers paper over this with curated allowlists: a [token list](/w
 
 ## Where fakes get placed
 
-**A pool for the fake pair.** Anyone can create a [liquidity pool](/wiki/economics/defi/liquidity-pool) for any two tokens on a [decentralized exchange](/wiki/economics/defi/dex); the router does not ask who deployed either side. The pool gives the imitation a price, a chart, and an entry in every aggregator that indexes pools rather than allowlists.
+**A pool for the fake pair.** Anyone can create a [liquidity pool](/wiki/economics/defi/markets/liquidity-pool) for any two tokens on a [decentralized exchange](/wiki/economics/defi/markets/dex); the router does not ask who deployed either side. The pool gives the imitation a price, a chart, and an entry in every aggregator that indexes pools rather than allowlists.
 
 **Search inside wallets and aggregators.** A user typing a symbol into a swap interface gets a list of matches, and on a chain with weak curation the order of that list is the only thing distinguishing the real asset from six copies.
 
@@ -59,7 +59,7 @@ Verification on an explorer establishes that source matches bytecode. It does no
 
 ## Spoofed collections
 
-The same imitation works on [NFTs](/wiki/economics/defi/nft), and more cheaply, because there is no liquidity to seed. A duplicate [ERC-721](/wiki/economics/defi/ethereum/erc-721) contract can point its metadata at the original's files, so the images, traits, and descriptions resolve identically and the marketplace listing is visually indistinguishable from the real collection. Only the contract address differs. OpenSea said in January 2022 that more than 80% of the items created with its free minting tool were plagiarized works, fake collections, or spam — a marketplace-scale measurement of what costless issuance produces.
+The same imitation works on [NFTs](/wiki/economics/defi/blockchain/nft), and more cheaply, because there is no liquidity to seed. A duplicate [ERC-721](/wiki/economics/defi/chains/ethereum/erc-721) contract can point its metadata at the original's files, so the images, traits, and descriptions resolve identically and the marketplace listing is visually indistinguishable from the real collection. Only the contract address differs. OpenSea said in January 2022 that more than 80% of the items created with its free minting tool were plagiarized works, fake collections, or spam — a marketplace-scale measurement of what costless issuance produces.
 
 ## Checking an address before you send funds
 

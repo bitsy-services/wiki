@@ -20,7 +20,7 @@ Opyn's **Squeeth** (squared ETH) is the most prominent DeFi implementation of a 
 - Funding is paid in-kind: the normalization factor increases over time, diluting the long position's claim. This is economically equivalent to a cash funding payment but avoids the need for periodic settlement transactions.
 - Short sellers mint Squeeth by depositing ETH collateral and face liquidation risk if their collateral ratio drops too low.
 
-Power perpetuals generalize the concept beyond simple call/put payoffs. The squared payoff approximates the exposure of a constantly-rolling at-the-money straddle, which is useful for hedging [volatility](/wiki/economics/defi/volatility) rather than directional price movement.
+Power perpetuals generalize the concept beyond simple call/put payoffs. The squared payoff approximates the exposure of a constantly-rolling at-the-money straddle, which is useful for hedging [volatility](/wiki/economics/defi/markets/volatility) rather than directional price movement.
 
 ## Perpetual Options vs. Perpetual Futures
 
@@ -33,7 +33,7 @@ This convexity is the same property that distinguishes standard options from for
 
 ## Risks
 
-- **Funding cost** -- holding a long perpetual option during low-[volatility](/wiki/economics/defi/volatility) periods can be expensive relative to realized gains. The position bleeds value through funding much as a standard option bleeds through theta.
+- **Funding cost** -- holding a long perpetual option during low-[volatility](/wiki/economics/defi/markets/volatility) periods can be expensive relative to realized gains. The position bleeds value through funding much as a standard option bleeds through theta.
 - **[Implied volatility](/wiki/economics/defi/options/implied-volatility) mispricing** -- funding rates embed an implied volatility estimate. If the market overestimates future volatility, long holders overpay; if it underestimates, short sellers are undercompensated.
 - **Smart contract risk** -- perpetual options in DeFi are governed by [smart contracts](/wiki/economics/defi/smart-contract) that manage collateral, funding, and liquidation. Bugs or oracle failures can lead to loss of funds.
 - **Liquidity** -- perpetual option markets are still relatively thin compared to perpetual futures. Wide spreads and low depth can make entry and exit costly.

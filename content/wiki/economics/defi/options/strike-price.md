@@ -22,7 +22,7 @@ ITM options carry intrinsic value and cost more. OTM options have no intrinsic v
 The strike price is a primary driver of an option's premium:
 
 - **Deep ITM** options behave almost like the underlying itself (delta near 1 for calls, -1 for puts) and are expensive.
-- **ATM** options have the highest time value and are most sensitive to [volatility](/wiki/economics/defi/volatility) changes (highest vega -- see [option greeks](/wiki/economics/defi/options/option-greeks)).
+- **ATM** options have the highest time value and are most sensitive to [volatility](/wiki/economics/defi/markets/volatility) changes (highest vega -- see [option greeks](/wiki/economics/defi/options/option-greeks)).
 - **Deep OTM** options are cheap but unlikely to expire profitably. They are essentially bets on large price moves.
 
 ## Choosing a strike
@@ -31,14 +31,14 @@ The right strike depends on the trader's outlook and risk tolerance:
 
 - **Directional conviction** -- strong conviction favours ITM or ATM strikes that have higher delta and move more with the underlying.
 - **Cost sensitivity** -- limited budgets favour OTM strikes, which are cheaper but require a larger move to profit.
-- **[Volatility](/wiki/economics/defi/volatility) environment** -- in high-vol markets, strikes further from spot become more viable because large moves are more probable.
+- **[Volatility](/wiki/economics/defi/markets/volatility) environment** -- in high-vol markets, strikes further from spot become more viable because large moves are more probable.
 - **Time to expiry** -- longer-dated options give the underlying more time to reach the strike, so traders can choose strikes further away without the same probability penalty.
 
 ## Strike selection in DeFi
 
 On-chain options protocols like Lyra, Hegic, and Opyn typically offer a predefined set of strikes rather than the continuous range available on traditional exchanges. The available strikes are often centred around the current spot price and spaced at regular intervals. Some protocols dynamically adjust available strikes as the spot price moves.
 
-Because [smart contracts](/wiki/economics/defi/smart-contract) on [Ethereum](/wiki/economics/defi/ethereum/) settle automatically, the strike price also determines the exact payout at expiry -- no manual exercise is required. If a call with a $2,000 strike expires when ETH is at $2,300, the contract pays out $300 per unit automatically.
+Because [smart contracts](/wiki/economics/defi/smart-contract) on [Ethereum](/wiki/economics/defi/chains/ethereum/) settle automatically, the strike price also determines the exact payout at expiry -- no manual exercise is required. If a call with a $2,000 strike expires when ETH is at $2,300, the contract pays out $300 per unit automatically.
 
 ## Spreads and strike selection
 

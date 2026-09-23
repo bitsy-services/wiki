@@ -9,7 +9,7 @@ Congress wrote a prohibition on it into Section 9(a)(2) of the Securities Exchan
 
 ## Pool depth sets the size of the exit
 
-The scheme requires a market too thin to absorb the organiser's exit at anything near the pumped price, and on a [decentralized exchange](/wiki/economics/defi/dex) that thinness is a number anyone can read: the reserves in the [liquidity pool](/wiki/economics/defi/liquidity-pool). Under the [constant product formula](/wiki/economics/defi/constant-product-formula), price is the ratio of the two reserves and their product is fixed, so buying with a sum equal to the whole quote-side reserve doubles that side, halves the token side, and quadruples the price.
+The scheme requires a market too thin to absorb the organiser's exit at anything near the pumped price, and on a [decentralized exchange](/wiki/economics/defi/markets/dex) that thinness is a number anyone can read: the reserves in the [liquidity pool](/wiki/economics/defi/markets/liquidity-pool). Under the [constant product formula](/wiki/economics/defi/markets/constant-product-formula), price is the ratio of the two reserves and their product is fixed, so buying with a sum equal to the whole quote-side reserve doubles that side, halves the token side, and quadruples the price.
 
 ```text
 Constant product pool, fees ignored.   x * y = k
@@ -46,7 +46,7 @@ Proceeds are bounded by the quote-side reserve, a small and knowable number, rat
 
 Telegram and Discord groups run the scheme as a recurring product on a published schedule. A coin is named at a fixed time, members buy on the announcement, and the price spikes and collapses within minutes. Jiahua Xu and Benjamin Livshits, at USENIX Security in 2019, collected hundreds of these events and found that the price typically peaks within seconds of the announcement and is back near its pre-announcement level within minutes — regularly enough that they built a model predicting which coin would be pumped next.
 
-The announcement is tiered: organisers hold before anything is said, paying members are told seconds to minutes before free members, and free members are told last. Each tier's exit is the tier below it, so the paying members lose about as reliably as the free ones and have been charged as participants anyway. On-chain the same tiering reappears as transaction ordering, where priority is bought through [maximal extractable value](/wiki/economics/defi/maximal-extractable-value) infrastructure instead of a subscription.
+The announcement is tiered: organisers hold before anything is said, paying members are told seconds to minutes before free members, and free members are told last. Each tier's exit is the tier below it, so the paying members lose about as reliably as the free ones and have been charged as participants anyway. On-chain the same tiering reappears as transaction ordering, where priority is bought through [maximal extractable value](/wiki/economics/defi/markets/maximal-extractable-value) infrastructure instead of a subscription.
 
 ## Paid promotion
 
@@ -81,7 +81,7 @@ Every one of those checks is also what an automated scanner runs, at scale and w
 
 Which statute applies depends on what the token is, which is the contested question. If it is a security, Section 10(b) of the Exchange Act and Rule 10b-5 reach the manipulation, Section 9(a)(2) reaches transactions effected to create actual or apparent active trading, and Section 17(b) reaches undisclosed paid promotion. If it is a commodity, Section 6(c)(1) of the Commodity Exchange Act and Commodity Futures Trading Commission (CFTC) Rule 180.1 reach manipulative and deceptive devices in the spot market, which is the provision the CFTC uses to reach spot crypto at all. If it is neither, what remains is wire fraud under 18 U.S.C. § 1343 — a scheme to defraud plus an interstate wire — which requires no view about the asset and is correspondingly the Department of Justice's preferred charge.
 
-The classification moves. In February 2025 the SEC's Division of Corporation Finance published a staff statement taking the position that meme coins are generally not securities under the federal securities laws. Staff statements bind no court, but if that reading holds it removes Section 17(b) and Rule 10b-5 from exactly the launches where sniping is most visible, leaving statutes that require proof of deception rather than proof of manipulation. The boundary between the two agencies is covered in [US regulatory restrictions on DeFi](/wiki/economics/defi/defi-us-regulatory-restrictions).
+The classification moves. In February 2025 the SEC's Division of Corporation Finance published a staff statement taking the position that meme coins are generally not securities under the federal securities laws. Staff statements bind no court, but if that reading holds it removes Section 17(b) and Rule 10b-5 from exactly the launches where sniping is most visible, leaving statutes that require proof of deception rather than proof of manipulation. The boundary between the two agencies is covered in [US regulatory restrictions on DeFi](/wiki/economics/regulation/defi-us-regulatory-restrictions).
 
 ## External links
 

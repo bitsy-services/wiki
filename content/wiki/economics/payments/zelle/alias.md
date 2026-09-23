@@ -47,7 +47,7 @@ Because an alias is a short string chosen by humans, the adjacent strings are al
 
 Tags do not fix this and may make it worse. A handle is chosen to be memorable, which means its near-misses are memorable too, and [a squatter holding the hyphenated variant of a restaurant's tag](/wiki/economics/payments/zelle/tag#impersonation-and-squatting) is the Venmo impersonation problem arriving in a network with no reversal.
 
-Compare the same failure elsewhere. An [Ethereum](/wiki/economics/defi/ethereum) address carries a checksum in the capitalisation of its hex digits, so a typo usually fails closed rather than resolving to a stranger. A wire transfer resolves an account number that is checkable against a name. A phone number has neither property: no check digits, no independent name binding, and a dense space in which nearly every neighbouring value is live.
+Compare the same failure elsewhere. An [Ethereum](/wiki/economics/defi/chains/ethereum) address carries a checksum in the capitalisation of its hex digits, so a typo usually fails closed rather than resolving to a stranger. A wire transfer resolves an account number that is checkable against a name. A phone number has neither property: no check digits, no independent name binding, and a dense space in which nearly every neighbouring value is live.
 
 ## The unenrolled recipient
 
@@ -63,7 +63,7 @@ The pending window is the only consumer-facing cancellation Zelle offers, so a s
 
 For anything built on Zelle, the alias is the interface. The mapping is **opaque**: you cannot query the directory yourself, discover which bank holds an alias, or verify a binding out of band. You learn the result only by sending. It is **mutable** without notice to counterparties — an address that worked last month may now point somewhere else, and nothing tells you. And it is **identity-adjacent but not identity**: the bank behind an alias has verified a real person, which is exactly what makes the alias valuable as an identity signal, but the directory exposes only a first name and last initial.
 
-[Interbox](/wiki/economics/defi/interbox) is built on the third of these. It receives on a single alias, `usd@inter.box`, and [carries the routing in the payment memo](/wiki/economics/defi/interbox#how-it-works) rather than in the address, so the directory holds one binding no matter how many assets and networks the service supports. What the alias contributes is the bank's verification of the *sender*, which is what stands in for a repeated identity check. Opacity and mutability are handled the only way they can be: by treating each received payment as the authoritative event and confirming out of band before anything irreversible happens on the other side.
+[Interbox](/wiki/economics/defi/blockchain/interbox) is built on the third of these. It receives on a single alias, `usd@inter.box`, and [carries the routing in the payment memo](/wiki/economics/defi/blockchain/interbox#how-it-works) rather than in the address, so the directory holds one binding no matter how many assets and networks the service supports. What the alias contributes is the bank's verification of the *sender*, which is what stands in for a repeated identity check. Opacity and mutability are handled the only way they can be: by treating each received payment as the authoritative event and confirming out of band before anything irreversible happens on the other side.
 
 ## External links
 

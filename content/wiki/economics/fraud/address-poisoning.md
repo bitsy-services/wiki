@@ -18,13 +18,13 @@ attacker's clone    0x7a1ce2740b8d19af3c5b6e01d2794ca3f88f91b3
 both display as     0x7a1c…91b3
 ```
 
-Those two addresses (illustrative, not real) differ in 30 of their 40 characters and are identical in every abbreviated view. Producing the clone is [vanity address](/wiki/economics/defi/vanity-addresses) mining with the pattern split across both ends: four leading and four trailing characters fix eight of the forty, an expected search of 16^8 ≈ 4.3 billion candidates. At the 10^8–10^9 keys per second that page gives for GPU mining of externally owned accounts, that is seconds to under a minute on one card. Six characters a side costs 16^4 ≈ 65,000 times more — weeks to months on the same card, hours on a rented cluster.
+Those two addresses (illustrative, not real) differ in 30 of their 40 characters and are identical in every abbreviated view. Producing the clone is [vanity address](/wiki/economics/defi/blockchain/vanity-addresses) mining with the pattern split across both ends: four leading and four trailing characters fix eight of the forty, an expected search of 16^8 ≈ 4.3 billion candidates. At the 10^8–10^9 keys per second that page gives for GPU mining of externally owned accounts, that is seconds to under a minute on one card. Six characters a side costs 16^4 ≈ 65,000 times more — weeks to months on the same card, hours on a rented cluster.
 
 ## Getting into the history
 
 The clone address has to appear in the victim's transaction list, and there are three cheap ways to put it there.
 
-**Zero-value token transfers.** The [ERC-20](/wiki/economics/defi/ethereum/erc-20) standard requires transfers of zero value to be treated as normal transfers and to emit the `Transfer` event, so a transfer of nothing is indistinguishable in the logs from a transfer of something. The attacker sends 0 tokens from the clone to the victim, and any wallet rendering token events shows an entry carrying an address the victim now half-recognises.
+**Zero-value token transfers.** The [ERC-20](/wiki/economics/defi/chains/ethereum/erc-20) standard requires transfers of zero value to be treated as normal transfers and to emit the `Transfer` event, so a transfer of nothing is indistinguishable in the logs from a transfer of something. The attacker sends 0 tokens from the clone to the victim, and any wallet rendering token events shows an entry carrying an address the victim now half-recognises.
 
 **`transferFrom` with zero value.** Standard implementations check the allowance without requiring it to be non-zero, so any address can emit `Transfer(victim → clone, 0)` without the victim's permission. The entry then reads as an outbound payment the victim appears to have made to the clone, which is a stronger lure than an inbound one: the address is not merely familiar, it looks previously used.
 

@@ -9,3 +9,20 @@
 # up to sit directly under economics.
 /wiki/economics/finance /wiki/economics/ 301
 /wiki/economics/finance/* /wiki/economics/:splat 301
+
+# DeFi was subdivided into ten sections. Moved pages carry Hugo aliases;
+# moved sections are covered here as subtrees.
+/wiki/economics/defi/ethereum /wiki/economics/defi/chains/ethereum/ 301
+/wiki/economics/defi/ethereum/* /wiki/economics/defi/chains/ethereum/:splat 301
+/wiki/economics/defi/sui /wiki/economics/defi/chains/sui/ 301
+/wiki/economics/defi/sui/* /wiki/economics/defi/chains/sui/:splat 301
+/wiki/economics/defi/iota /wiki/economics/defi/chains/iota/ 301
+/wiki/economics/defi/iota/* /wiki/economics/defi/chains/iota/:splat 301
+/wiki/economics/defi/uniswap /wiki/economics/defi/markets/uniswap/ 301
+/wiki/economics/defi/uniswap/* /wiki/economics/defi/markets/uniswap/:splat 301
+/wiki/economics/defi/chainlink /wiki/economics/defi/oracles/chainlink/ 301
+/wiki/economics/defi/chainlink/* /wiki/economics/defi/oracles/chainlink/:splat 301
+/wiki/economics/defi/solidity /wiki/economics/defi/development/solidity/ 301
+/wiki/economics/defi/solidity/* /wiki/economics/defi/development/solidity/:splat 301
+/wiki/economics/defi/the-graph /wiki/economics/defi/development/the-graph/ 301
+/wiki/economics/defi/the-graph/* /wiki/economics/defi/development/the-graph/:splat 301

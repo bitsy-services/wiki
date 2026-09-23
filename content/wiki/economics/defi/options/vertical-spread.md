@@ -103,6 +103,6 @@ The [option Greeks](/wiki/economics/defi/options/option-greeks) help calibrate s
 On-chain options protocols support vertical spread construction, but the experience differs from centralized exchanges:
 
 - **Collateral** -- protocols that recognize spreads as a single position can collateralize at max-loss rather than per-leg. This makes verticals capital-efficient. Protocols that don't recognize spreads effectively double the capital requirement.
-- **Execution** -- building a spread requires two transactions (or a multicall). On-chain, each leg hits the protocol's [AMM](/wiki/economics/defi/amm) or order book, so slippage on each leg compounds.
+- **Execution** -- building a spread requires two transactions (or a multicall). On-chain, each leg hits the protocol's [AMM](/wiki/economics/defi/markets/amm) or order book, so slippage on each leg compounds.
 - **Settlement** -- [smart contracts](/wiki/economics/defi/smart-contract) handle exercise automatically. European-style settlement (exercised only at expiry) is standard in DeFi, simplifying the spread's payout calculation.
-- **[Volatility](/wiki/economics/defi/volatility) surface** -- on-chain vol oracles or the protocol's own pricing model determine the premiums. These can diverge from centralized markets, creating arbitrage opportunities and pricing inefficiencies for spread traders.
+- **[Volatility](/wiki/economics/defi/markets/volatility) surface** -- on-chain vol oracles or the protocol's own pricing model determine the premiums. These can diverge from centralized markets, creating arbitrage opportunities and pricing inefficiencies for spread traders.

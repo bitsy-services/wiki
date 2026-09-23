@@ -3,7 +3,7 @@ title: "Registering on DEXTools"
 weight: 120
 ---
 
-DEXTools is a trading dashboard for [decentralized exchange (DEX)](/wiki/economics/defi/dex) pairs. It does not list tokens in any sense a team applies for — "DEXTools does not 'list' tokens! but instead pulls data directly from the blockchain in real time" — so a pair appears as soon as the token trades on a supported exchange. The token's profile beside the pair — logo, banner, a 140-character description, categories and social links — comes either from CoinGecko, for tokens listed there, or from a paid marketplace order called *Token Info & Social Updates*, displayed at $195.
+DEXTools is a trading dashboard for [decentralized exchange (DEX)](/wiki/economics/defi/markets/dex) pairs. It does not list tokens in any sense a team applies for — "DEXTools does not 'list' tokens! but instead pulls data directly from the blockchain in real time" — so a pair appears as soon as the token trades on a supported exchange. The token's profile beside the pair — logo, banner, a 140-character description, categories and social links — comes either from CoinGecko, for tokens listed there, or from a paid marketplace order called *Token Info & Social Updates*, displayed at $195.
 
 ## Where a profile comes from
 
@@ -31,7 +31,7 @@ The form, headed *Update your Token profile*, is the only channel DEXTools recog
 | Discord, Instagram, TikTok, YouTube, Facebook, Reddit, Medium, GitHub | no | each must match the project website | `links.*` |
 | Bitbucket | no | a repository link | `links.source_code` |
 | CoinGecko, CoinMarketCap | no | listing links | built from `coingecko_id`, `coinmarketcap_id` |
-| [non-fungible token (NFT)](/wiki/economics/defi/nft) collection | no | a collection link | `links.opensea` |
+| [non-fungible token (NFT)](/wiki/economics/defi/blockchain/nft) collection | no | a collection link | `links.opensea` |
 | External Audit | no | a report link | `audits` |
 | Logo | yes | 1:1, 200 × 200, 200 kB at most | `logo_png` at 200 × 200 |
 | Banner | marked required | 3:1, 600 × 200, 2,000 kB at most | `banner` at 600 × 200 |

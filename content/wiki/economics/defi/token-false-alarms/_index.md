@@ -1,6 +1,6 @@
 ---
 title: "Token False Alarms"
-weight: 75
+weight: 100
 bookCollapseSection: true
 ---
 
@@ -27,7 +27,7 @@ The last column is GoPlus's `trust_list`, its hand-curated allowlist of "famous 
 | LMTS | Limitless, on Base | *(none)* | absent |
 | MOR | Morpheus, on Arbitrum | *(none)* | absent |
 
-Six of the ten carry at least one risk flag and none of the ten carries a `trust_list` entry. The four that come back clean are conventional fixed-supply tokens with no administrative surface at all, which narrows the finding to something sharper than "honest tokens get flagged": an honest token gets flagged when its legitimate design includes an admin function, and the vault shares fail as a category. All four MetaMorpho vaults return the same pair of flags because they share one audited factory codebase — `is_mintable` because an [ERC-4626](/wiki/economics/defi/ethereum/erc-4626) vault mints shares on deposit, which is the entire product, and `slippage_modifiable` because the curator can set a fee.
+Six of the ten carry at least one risk flag and none of the ten carries a `trust_list` entry. The four that come back clean are conventional fixed-supply tokens with no administrative surface at all, which narrows the finding to something sharper than "honest tokens get flagged": an honest token gets flagged when its legitimate design includes an admin function, and the vault shares fail as a category. All four MetaMorpho vaults return the same pair of flags because they share one audited factory codebase — `is_mintable` because an [ERC-4626](/wiki/economics/defi/chains/ethereum/erc-4626) vault mints shares on deposit, which is the entire product, and `slippage_modifiable` because the curator can set a fee.
 
 The most severe string in the vendor's vocabulary landed on the Yearn vault. `honeypot_with_same_creator` is documented as "the number of honeypot tokens created by this creator", and GoPlus attributes creation to a Yearn deployer key rather than to the Balloon Vault Factory that Blockscout names, then convicts the vault by association with something else that key touched. The response names no honeypot, so the claim cannot be checked or rebutted from it.
 
@@ -76,7 +76,7 @@ How often any of this is wrong, and why the vendors publish detection counters b
 
 ## Scope
 
-Fungible tokens on [EVM](/wiki/economics/defi/ethereum#the-ethereum-virtual-machine-evm) chains, plus Solana where the tooling differs instructively. [NFT](/wiki/economics/defi/nft) spam classification is a separate machine with separate heuristics and is not covered.
+Fungible tokens on [EVM](/wiki/economics/defi/chains/ethereum#the-ethereum-virtual-machine-evm) chains, plus Solana where the tooling differs instructively. [NFT](/wiki/economics/defi/blockchain/nft) spam classification is a separate machine with separate heuristics and is not covered.
 
 Every live value on these pages carries the date it was read. Vendor field sets, thresholds, prices and product names in this area change faster than the documentation describing them, and several of the facts here already contradict the vendor's own docs — GoPlus publishes three mutually incompatible free-tier rate limits on three live pages, and `eth-phishing-detect`'s reference doc asserts a fuzzy-match tolerance of 2 while its config file says 1. Reproduce before relying.
 

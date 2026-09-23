@@ -44,7 +44,7 @@ Some strategies combine two vertical spreads into a single position:
 
 - **Iron condor** -- a bull put spread and a bear call spread. Four legs, all same expiration. Profits when the underlying stays within a range. Maximum loss is the wider of the two spreads' widths minus the total premium received.
 - **Iron butterfly** -- similar to an iron condor but the short put and short call share the same strike. Higher premium collected, narrower profit zone.
-- **Butterfly spread** -- three strikes, same option type. Buy the wings, sell the body (or vice versa). Profits from low [volatility](/wiki/economics/defi/volatility) when the underlying expires near the middle strike.
+- **Butterfly spread** -- three strikes, same option type. Buy the wings, sell the body (or vice versa). Profits from low [volatility](/wiki/economics/defi/markets/volatility) when the underlying expires near the middle strike.
 
 ## Spreads in DeFi
 

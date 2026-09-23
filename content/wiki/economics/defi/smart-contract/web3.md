@@ -1,0 +1,33 @@
+---
+title: "Web3"
+weight: 40
+aliases: ["/wiki/economics/defi/web3/"]
+---
+
+Web3 is a shorthand for the idea of rebuilding internet services on decentralized infrastructure -- primarily [blockchains](/wiki/economics/defi/blockchain) -- so that users own their data and assets rather than renting access from platform companies. The term was coined by Gavin Wood, co-creator of [Ethereum](/wiki/economics/defi/chains/ethereum/).
+
+The pitch: Web 1.0 was read-only (static pages). Web 2.0 was read-write (user-generated content on centralized platforms like Facebook and YouTube). Web3 aims to be read-write-own, where the protocols themselves are open and the value accrues to participants rather than platform operators.
+
+## What Web3 Changes
+
+**Ownership** -- [Cryptocurrency](/wiki/economics/defi/blockchain/cryptocurrency) and tokens give users portable, self-custodied assets. A user's wallet and on-chain history travel with them across applications, rather than being locked inside a single platform's database.
+
+**Governance** -- [DAOs](/wiki/economics/defi/smart-contract/dao) replace corporate boards with token-weighted voting. Protocol upgrades, treasury allocations, and policy changes can be decided by the community that uses the protocol.
+
+**Permissionless composition** -- [Smart contracts](/wiki/economics/defi/smart-contract) on public blockchains are open by default. Anyone can build on top of an existing protocol without asking permission, so an aggregator can route through [Uniswap](/wiki/economics/defi/markets/uniswap) without a partnership agreement, an API key, or Uniswap knowing it happened.
+
+**Identity** -- Systems like ENS (Ethereum Name Service) and on-chain attestations let users build portable, self-sovereign identity without relying on a centralized provider.
+
+## Criticism
+
+Web3 has drawn pointed criticism. Jack Dorsey argued that venture capital funding behind many Web3 projects recreates the same power dynamics it claims to replace: "You don't own web3. The VCs and their LPs do." (The LPs there are a venture fund's limited partners, not a pool's [liquidity providers](/wiki/economics/defi/markets/liquidity-pool).) Elon Musk called it "more marketing buzzword than reality."
+
+The practical criticism has weight too. On-chain transactions are slow and expensive compared to centralized alternatives. User experience remains poor -- key management, gas fees, and irreversible transactions create steep onboarding barriers. Many "decentralized" applications still depend on centralized frontends, RPC providers, or cloud hosting.
+
+The underlying technologies -- blockchains, smart contracts, token standards -- work whether or not the branding survives, and most of this wiki treats them separately from the label.
+
+## External Links
+
+- [Wikipedia: Web3](https://en.wikipedia.org/wiki/Web3)
+- [Ethereum.org: What is Web3?](https://ethereum.org/en/web3/)
+- [Moxie Marlinspike: My First Impressions of Web3](https://moxie.org/2022/01/07/web3-first-impressions.html) -- a widely cited technical critique

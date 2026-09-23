@@ -79,7 +79,7 @@ That makes this a low-cost, low-value route: worth the half hour if the files ar
 
 ## One address on every chain
 
-One file per chain folder, each with the same filename. Of Ethereum, Base, Arbitrum One, OP Mainnet, Polygon and BNB Smart Chain, only three can be submitted as the repository stands. The optional `address_eip1191` field holds the address in the chain-specific checksum format of [Ethereum Improvement Proposal (EIP)](/wiki/economics/defi/ethereum/eip) 1191, and the checker validates it against the folder's chain ID; for a same-address token it is, if set, the one field that differs between the files.
+One file per chain folder, each with the same filename. Of Ethereum, Base, Arbitrum One, OP Mainnet, Polygon and BNB Smart Chain, only three can be submitted as the repository stands. The optional `address_eip1191` field holds the address in the chain-specific checksum format of [Ethereum Improvement Proposal (EIP)](/wiki/economics/defi/chains/ethereum/eip) 1191, and the checker validates it against the folder's chain ID; for a same-address token it is, if set, the one field that differs between the files.
 
 ## Field map
 

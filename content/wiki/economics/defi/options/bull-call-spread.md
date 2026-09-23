@@ -42,8 +42,8 @@ Its bearish mirror is the [bear call spread](/wiki/economics/defi/options/bear-c
 
 1. **Time decay works against you** -- as a net debit position, theta erodes the spread's value if the underlying doesn't move.
 2. **Capped profit** -- a rally above the higher strike yields no additional gain.
-3. **[Greeks](/wiki/economics/defi/options/option-greeks) exposure** -- the position has positive delta (bullish), negative theta (time decay hurts), and positive vega (benefits from rising [volatility](/wiki/economics/defi/volatility)).
+3. **[Greeks](/wiki/economics/defi/options/option-greeks) exposure** -- the position has positive delta (bullish), negative theta (time decay hurts), and positive vega (benefits from rising [volatility](/wiki/economics/defi/markets/volatility)).
 
 ## DeFi Context
 
-Bull call spreads can be constructed on-chain through options protocols like Lyra, Hegic, or Opyn by combining two call positions at different strikes. They can also be approximated using concentrated [liquidity pool](/wiki/economics/defi/liquidity-pool) positions on [AMMs](/wiki/economics/defi/amm) -- see [emulating option strategies](/wiki/economics/defi/options/emulating-option-strategies) for details. The tokenized equivalent of a bullish spread is the [bull bet](/wiki/economics/defi/options/bull-bet).
+Bull call spreads can be constructed on-chain through options protocols like Lyra, Hegic, or Opyn by combining two call positions at different strikes. They can also be approximated using concentrated [liquidity pool](/wiki/economics/defi/markets/liquidity-pool) positions on [AMMs](/wiki/economics/defi/markets/amm) -- see [emulating option strategies](/wiki/economics/defi/options/emulating-option-strategies) for details. The tokenized equivalent of a bullish spread is the [bull bet](/wiki/economics/defi/options/bull-bet).

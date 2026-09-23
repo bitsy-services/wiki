@@ -3,13 +3,13 @@ title: "Rug Pull"
 weight: 20
 ---
 
-A rug pull is the removal, by the people who issued a token, of the value backing it. Nothing about the token breaks: balances stay where they are, transfers still succeed, and the explorer still reports the same total supply. What disappears is the other side of every trade — the [liquidity pool](/wiki/economics/defi/liquidity-pool) holders would have sold into — and with it any price at which they can leave.
+A rug pull is the removal, by the people who issued a token, of the value backing it. Nothing about the token breaks: balances stay where they are, transfers still succeed, and the explorer still reports the same total supply. What disappears is the other side of every trade — the [liquidity pool](/wiki/economics/defi/markets/liquidity-pool) holders would have sold into — and with it any price at which they can leave.
 
-The mechanism follows from how a [decentralized exchange](/wiki/economics/defi/dex) prices an asset rather than from a defect in any contract. A rug pull sits in the market-and-issuance group of [crypto fraud](/wiki/economics/fraud) beside the [honeypot token](/wiki/economics/fraud/honeypot-token), which blocks the exit inside the transfer function instead of draining the pool, and [hidden admin controls](/wiki/economics/fraud/hidden-admin-controls), the general case of both.
+The mechanism follows from how a [decentralized exchange](/wiki/economics/defi/markets/dex) prices an asset rather than from a defect in any contract. A rug pull sits in the market-and-issuance group of [crypto fraud](/wiki/economics/fraud) beside the [honeypot token](/wiki/economics/fraud/honeypot-token), which blocks the exit inside the transfer function instead of draining the pool, and [hidden admin controls](/wiki/economics/fraud/hidden-admin-controls), the general case of both.
 
 ## Why withdrawing the pool zeroes the exit
 
-A pair holding `x` tokens against `y` units of a quote asset prices trades with the [constant product formula](/wiki/economics/defi/constant-product-formula), `x * y = k`. Selling `dx` tokens into it returns:
+A pair holding `x` tokens against `y` units of a quote asset prices trades with the [constant product formula](/wiki/economics/defi/markets/constant-product-formula), `x * y = k`. Selling `dx` tokens into it returns:
 
 ```text
 dy = y * dx / (x + dx)      ->  y   as dx -> infinity
@@ -34,7 +34,7 @@ A proportional withdrawal leaves the quoted mid price exactly where it was, beca
 
 ## The taxonomy
 
-**Hard rug.** The deployer redeems the LP position in one transaction and keeps the quote reserve. Burning the LP token does the opposite: it strands both reserves in the pair permanently, and is the lock rather than the rug. Where the pool is a Uniswap v3 or v4 position rather than a v2 pair, the position is an [NFT](/wiki/economics/defi/nft) held by a position manager, so what matters is who owns that token rather than a balance.
+**Hard rug.** The deployer redeems the LP position in one transaction and keeps the quote reserve. Burning the LP token does the opposite: it strands both reserves in the pair permanently, and is the lock rather than the rug. Where the pool is a Uniswap v3 or v4 position rather than a v2 pair, the position is an [NFT](/wiki/economics/defi/blockchain/nft) held by a position manager, so what matters is who owns that token rather than a balance.
 
 **Sell-tax and blacklist rugs.** Rather than take the pool, the deployer changes the terms of leaving it: a transfer fee raised to 100%, a blacklist applied to holders, a global pause. The pool stays and withdrawals stop. These are owner-settable functions, covered on [hidden admin controls](/wiki/economics/fraud/hidden-admin-controls); built in from the first block instead, the same restriction is a honeypot.
 
@@ -42,7 +42,7 @@ A proportional withdrawal leaves the quoted mid price exactly where it was, beca
 
 ## What a liquidity lock guarantees
 
-[Locked liquidity](/wiki/economics/defi/locked-liquidity) puts the LP position where it cannot be pulled from: a locker contract with a release timestamp, a burn to a dead address, or a holder contract with no withdrawal path. Four standard defeats, in the order that costs holders the most:
+[Locked liquidity](/wiki/economics/defi/par-token/locked-liquidity) puts the LP position where it cannot be pulled from: a locker contract with a release timestamp, a burn to a dead address, or a holder contract with no withdrawal path. Four standard defeats, in the order that costs holders the most:
 
 - **Supply held outside the pool.** The lock is a statement about the pair, not about the token. A team wallet with 30–40% of supply takes the quote reserve out through the front door while every screenshot of the locker stays accurate.
 - **Partial locks.** "Liquidity locked" names an amount only if it names the fraction; locking 20% of the LP supply satisfies the phrase and leaves 80% withdrawable.

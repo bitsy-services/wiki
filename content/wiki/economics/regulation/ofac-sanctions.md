@@ -30,11 +30,11 @@ OFAC publishes crypto addresses as identifiers on SDN entries, which is what mak
 
 The crypto-specific question is whether a sanctions regime designed for people and companies can be applied to code that has neither.
 
-In August 2022 OFAC designated Tornado Cash, an [Ethereum](/wiki/economics/defi/ethereum) mixing protocol, adding its [smart contract](/wiki/economics/defi/smart-contract) addresses to the SDN List. This was the first designation aimed at autonomous, immutable software rather than at an entity. The effects reached well past the protocol itself. US persons were prohibited from interacting with the contracts, front-ends went dark, developers had GitHub accounts suspended, and — because the contracts accepted deposits from anyone — third parties could send funds to an American's address from the sanctioned protocol, creating an interaction the recipient had no way to refuse.
+In August 2022 OFAC designated Tornado Cash, an [Ethereum](/wiki/economics/defi/chains/ethereum) mixing protocol, adding its [smart contract](/wiki/economics/defi/smart-contract) addresses to the SDN List. This was the first designation aimed at autonomous, immutable software rather than at an entity. The effects reached well past the protocol itself. US persons were prohibited from interacting with the contracts, front-ends went dark, developers had GitHub accounts suspended, and — because the contracts accepted deposits from anyone — third parties could send funds to an American's address from the sanctioned protocol, creating an interaction the recipient had no way to refuse.
 
 In *Van Loon v. Department of the Treasury* (Fifth Circuit, November 2024), the court held that the immutable Tornado Cash smart contracts are not "property" within the meaning of the International Emergency Economic Powers Act, because nobody can own or control them — a contract that cannot be altered, deleted, or directed by any person cannot be blocked, since there is nothing to block. Treasury removed the designation in March 2025.
 
-The ruling is narrower than it is often reported to be. It does not hold that developers are beyond reach, that mixing is lawful, or that other authorities are unavailable — FinCEN's proposed special measures on mixing as a class, and criminal prosecutions under the unlicensed-money-transmission statute, both survive it untouched. What it establishes is a specific limit: the property-blocking mechanism requires an owner, and a [finalized smart contract](/wiki/economics/defi/finalized-smart-contract) does not have one.
+The ruling is narrower than it is often reported to be. It does not hold that developers are beyond reach, that mixing is lawful, or that other authorities are unavailable — FinCEN's proposed special measures on mixing as a class, and criminal prosecutions under the unlicensed-money-transmission statute, both survive it untouched. What it establishes is a specific limit: the property-blocking mechanism requires an owner, and a [finalized smart contract](/wiki/economics/defi/smart-contract/finalized-smart-contract) does not have one.
 
 Immutability functioned there as a legal fact rather than merely a technical one, and the enforcement response moved immediately to the parties who *can* be reached.
 
@@ -45,9 +45,9 @@ For anyone operating in this space:
 - Receiving funds from a sanctioned address can create a blocking obligation regardless of consent — an inbound transfer is not something you can decline, and the resulting property is frozen rather than returned.
 - Screening applies to **counterparty addresses**, not just customer names, and the SDN List changes without notice.
 - Voluntary self-disclosure of an apparent violation substantially reduces the penalty, and is the standard advice once one is discovered.
-- A [DEX](/wiki/economics/defi/dex) front-end that blocks sanctioned addresses is doing OFAC compliance, not AML compliance; these are different controls with different triggers.
+- A [DEX](/wiki/economics/defi/markets/dex) front-end that blocks sanctioned addresses is doing OFAC compliance, not AML compliance; these are different controls with different triggers.
 
-[DeFi and US regulatory restrictions](/wiki/economics/defi/defi-us-regulatory-restrictions) sets this alongside the Securities and Exchange Commission and Commodity Futures Trading Commission pieces of the picture.
+[DeFi and US regulatory restrictions](/wiki/economics/regulation/defi-us-regulatory-restrictions) sets this alongside the Securities and Exchange Commission and Commodity Futures Trading Commission pieces of the picture.
 
 ## External links
 

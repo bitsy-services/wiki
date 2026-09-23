@@ -63,7 +63,7 @@ No US rule allocates loss to the receiving institution. That, more than the Regu
 
 ## What this means if you are building on it
 
-For anyone integrating Zelle — including [Interbox](/wiki/economics/defi/interbox), which treats an inbound Zelle payment as the trigger for an irreversible action on the other side — two things follow.
+For anyone integrating Zelle — including [Interbox](/wiki/economics/defi/blockchain/interbox), which treats an inbound Zelle payment as the trigger for an irreversible action on the other side — two things follow.
 
 An inbound Zelle payment is, as a matter of network mechanics, final. There is no clawback the sender's bank can compel. That is what makes it usable as a settlement trigger, and it is the same property that makes the network attractive to fraudsters, so the two cannot be separated: any flow that converts a Zelle credit into something non-refundable is, by construction, a good [cash-out](/wiki/economics/fraud/cashing-out) for someone else's scam. The controls have to sit in the flow itself — an out-of-band confirmation with the sender before anything irreversible happens, velocity limits, and the willingness to freeze and return on suspicion — because the rail supplies none.
 

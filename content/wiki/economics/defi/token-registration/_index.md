@@ -1,10 +1,10 @@
 ---
 title: "Token Registration"
-weight: 70
+weight: 90
 bookCollapseSection: true
 ---
 
-[ERC-20](/wiki/economics/defi/ethereum/erc-20) specifies `name()`, `symbol()` and `decimals()`. It specifies no icon, no website, no description, and no way to record who deployed the contract. Every logo that has ever appeared beside a token balance came from an off-chain database keyed by chain identifier and contract address, maintained by a company with its own form, its own acceptance criteria, and its own queue.
+[ERC-20](/wiki/economics/defi/chains/ethereum/erc-20) specifies `name()`, `symbol()` and `decimals()`. It specifies no icon, no website, no description, and no way to record who deployed the contract. Every logo that has ever appeared beside a token balance came from an off-chain database keyed by chain identifier and contract address, maintained by a company with its own form, its own acceptance criteria, and its own queue.
 
 So "registering a token" is not one action. It is a dozen submissions to organizations that mostly do not share data — where they do, it flows one way, outward from the two big aggregators and a few wallet lists — and most of them want a live market before they will look at a token. One, Trust Wallet, refuses brand-new tokens outright. The work splits cleanly in two: the parts you can do yourself on the day you deploy, and the parts that require somebody else to approve you.
 
@@ -50,13 +50,13 @@ Three prerequisites unlock most of the rest, and they unlock in a fixed order.
                                                     asks nobody
 ```
 
-CoinGecko requires the asset to be trading on a venue it already tracks, which for a new token means a [decentralized exchange](/wiki/economics/defi/dex) pool with non-trivial [liquidity](/wiki/economics/defi/liquidity-pool). Trust Wallet requires a CoinMarketCap listing plus 10,000 holders. That chain — pool, then aggregator, then wallet registry — is why the wallet-registry route is realistically months away from a launch, and why the self-service routes are worth doing first rather than last.
+CoinGecko requires the asset to be trading on a venue it already tracks, which for a new token means a [decentralized exchange](/wiki/economics/defi/markets/dex) pool with non-trivial [liquidity](/wiki/economics/defi/markets/liquidity-pool). Trust Wallet requires a CoinMarketCap listing plus 10,000 holders. That chain — pool, then aggregator, then wallet registry — is why the wallet-registry route is realistically months away from a launch, and why the self-service routes are worth doing first rather than last.
 
 ## Assemble the packet once
 
 Every form below asks for the same nine things in a slightly different shape. Write them down before you open the first one, because several forms cannot be edited after submission. The [schema](#the-token-property-schema) that follows gives each of them a name a data file can use.
 
-- **Contract address**, in [EIP-55](https://eips.ethereum.org/EIPS/eip-55) checksummed form, and the chain identifier (1 for Ethereum mainnet, 8453 for Base, and so on). EIP-55 encodes a checksum in the *letter casing* of the hex digits, which is why a checksummed address looks like a random mix of cases and why several registrars treat a case-only difference as a different string. `cast to-check-sum-address`, from the [Foundry](/wiki/economics/defi/solidity/foundry) toolkit, produces it.
+- **Contract address**, in [EIP-55](https://eips.ethereum.org/EIPS/eip-55) checksummed form, and the chain identifier (1 for Ethereum mainnet, 8453 for Base, and so on). EIP-55 encodes a checksum in the *letter casing* of the hex digits, which is why a checksummed address looks like a random mix of cases and why several registrars treat a case-only difference as a different string. `cast to-check-sum-address`, from the [Foundry](/wiki/economics/defi/development/solidity/foundry) toolkit, produces it.
 - **Name, symbol, decimals**, exactly as the contract returns them. Several forms state a mismatch as a reason for rejection.
 - **Logo**, in the several sizes and formats the registrars demand — see [making the icon](/wiki/economics/defi/token-registration/icon).
 - **Description**, 2–4 sentences, written flat. Blockscout's form, and the companion sale form on Etherscan, ask for a neutral point of view with no unsubstantiated claims such as "first", "most" or "best".
@@ -64,7 +64,7 @@ Every form below asks for the same nine things in a slightly different shape. Wr
 - **Contact email at that domain.** Etherscan and Blockscout accept a free-mail address only if the website publishes it.
 - **Social links** — X, Discord, Telegram, GitHub — that exist and have posts.
 - **Supply figures**: total, circulating, and the vesting or lock schedule that explains the gap.
-- **Audit report** and, if applicable, the [liquidity lock](/wiki/economics/defi/locked-liquidity) transaction.
+- **Audit report** and, if applicable, the [liquidity lock](/wiki/economics/defi/par-token/locked-liquidity) transaction.
 
 ## The token property schema
 
@@ -196,7 +196,7 @@ Trust Wallet's `coinmarketcap_id` and `audits` are marked required because a Coi
 
 ### One address on every chain
 
-A token deployed through a deterministic factory — `CREATE2` from a fixed deployer, as [vanity addresses](/wiki/economics/defi/vanity-addresses#create2-salt-mining) describes — has the same `address` on every Ethereum Virtual Machine (EVM) chain. The schema takes advantage of that: `address` is a single string and `chain_ids` a list, with no per-chain address map to keep in sync. What does vary by chain is each registrar's name for the chain, and that belongs to the site, not the token. One table serves every token:
+A token deployed through a deterministic factory — `CREATE2` from a fixed deployer, as [vanity addresses](/wiki/economics/defi/blockchain/vanity-addresses#create2-salt-mining) describes — has the same `address` on every Ethereum Virtual Machine (EVM) chain. The schema takes advantage of that: `address` is a single string and `chain_ids` a list, with no per-chain address map to keep in sync. What does vary by chain is each registrar's name for the chain, and that belongs to the site, not the token. One table serves every token:
 
 | Chain ID | Chain | Etherscan family | Blockscout | CoinGecko | CoinMarketCap | GeckoTerminal | Dexscreener | DEXTools | DefiLlama | Trust Wallet | ethereum-lists |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -289,7 +289,7 @@ Every value is a placeholder, the address included: it is a made-up one with a v
 ## Order of operations
 
 1. Deploy, then **verify the source** on the block explorer for every chain you deployed to. Nothing else proceeds until this is done.
-2. Render the icon assets and publish them at a stable URL — your own domain, [IPFS](/wiki/cs/ipfs), or [Arweave](/wiki/economics/defi/arweave). Etherscan, Blockscout and CoinMarketCap ask for a link; CoinGecko and the pool trackers take an upload, and Trust Wallet takes a committed file.
+2. Render the icon assets and publish them at a stable URL — your own domain, [IPFS](/wiki/cs/ipfs), or [Arweave](/wiki/economics/defi/chains/arweave). Etherscan, Blockscout and CoinMarketCap ask for a link; CoinGecko and the pool trackers take an upload, and Trust Wallet takes a committed file.
 3. Publish a [token list](/wiki/economics/defi/token-registration/token-lists) at a URL you control, and wire `wallet_watchAsset` — the wallet method that prompts a user to add a token — into your own interface. Both work immediately.
 4. Submit the explorer token update on [Etherscan](/wiki/economics/defi/token-registration/etherscan). Free, and once per chain. [Blockscout](/wiki/economics/defi/token-registration/blockscout) takes the same kind of submission, but may be filled from CoinGecko after step 5; submit now if its page matters before then.
 5. Seed the pool — the [data aggregators](/wiki/economics/defi/token-registration/aggregators) all start from a market — then submit to [CoinGecko](/wiki/economics/defi/token-registration/coingecko) and [CoinMarketCap](/wiki/economics/defi/token-registration/coinmarketcap). CoinGecko reviews within five days for free, or within 24 hours for $1,000. A CoinGecko listing with every chain in it also fills in [GeckoTerminal](/wiki/economics/defi/token-registration/geckoterminal), [DEXTools](/wiki/economics/defi/token-registration/dextools) and Blockscout, and counts toward [MetaMask](/wiki/economics/defi/token-registration/metamask) detection. Blockscout's documentation says it shows what CoinGecko returns; check its project record after the listing before paying for a Blockscout review.

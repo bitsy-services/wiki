@@ -188,8 +188,11 @@ than moving a few pages at a time.
 4. **Keep the reading order.** Within each group the pages keep the relative
    order they had; the numbers change, the sequence does not. Number the groups
    in the order the section's index already presents them.
-5. **Redirect everything that moved**, as above, then rewrite the inbound links
-   and run `scripts/check.sh`.
+5. **Rewrite the inbound links first, then add the redirects**, as above, and
+   run `scripts/check.sh`. The order matters: a rewrite that runs after the
+   aliases are written rewrites the aliases too, and an alias pointing at the
+   page's own new URL generates nothing. Check the build output for the stub
+   at one old URL before calling the move done.
 
 ## Weights
 

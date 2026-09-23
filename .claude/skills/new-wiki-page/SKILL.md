@@ -30,8 +30,8 @@ later.
   section you are adding to is already there, say so before adding another —
   the new page is the signal, and `wiki-taxonomy.md` has the procedure.
 - The URL is the path minus `content/` and minus the `.md`, so
-  `content/wiki/economics/defi/amm.md` serves at
-  `/wiki/economics/defi/amm`. Choose the slug with the URL in mind —
+  `content/wiki/economics/defi/markets/amm.md` serves at
+  `/wiki/economics/defi/markets/amm`. Choose the slug with the URL in mind —
   other pages will link to it, and moving it later breaks every inbound link.
 
 Check first whether a stub already exists for the topic; expanding a stub beats

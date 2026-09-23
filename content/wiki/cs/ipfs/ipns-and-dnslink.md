@@ -70,14 +70,14 @@ registration lapsing.
 
 ## `contenthash` on a name service
 
-[EIP](/wiki/economics/defi/ethereum/eip)-1577 defines a `contenthash`
+[EIP](/wiki/economics/defi/chains/ethereum/eip)-1577 defines a `contenthash`
 record for the Ethereum Name Service (ENS), holding a binary-encoded
 `/ipfs/<cid>` path. Repointing is a transaction, the record is on-chain, and
 gateways that resolve ENS serve `example.eth` from whatever CID it currently
 holds. Uniswap's interface reads
 [token lists](/wiki/economics/defi/token-registration/token-lists) this
 way, which is the pattern in miniature: a stable name that a
-[DAO](/wiki/economics/defi/dao) or a multisig controls, pointing at
+[DAO](/wiki/economics/defi/smart-contract/dao) or a multisig controls, pointing at
 content that anyone can verify once they have the CID.
 
 ## Choosing

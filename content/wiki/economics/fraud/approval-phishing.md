@@ -9,7 +9,7 @@ Everything below is signature semantics: what each prompt authorises, what it co
 
 ## The allowance model
 
-A [smart contract](/wiki/economics/defi/smart-contract) cannot reach into an account and take tokens. The [ERC-20](/wiki/economics/defi/ethereum/erc-20) standard has no mechanism for it: `transfer` moves the caller's own balance, and `transferFrom` moves someone else's only up to an allowance that owner set with `approve(spender, amount)`. Every deposit, swap, and stake is two steps — the owner approves, the contract pulls.
+A [smart contract](/wiki/economics/defi/smart-contract) cannot reach into an account and take tokens. The [ERC-20](/wiki/economics/defi/chains/ethereum/erc-20) standard has no mechanism for it: `transfer` moves the caller's own balance, and `transferFrom` moves someone else's only up to an allowance that owner set with `approve(spender, amount)`. Every deposit, swap, and stake is two steps — the owner approves, the contract pulls.
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -33,7 +33,7 @@ Two transactions per trade is one gas fee more than users tolerate, so interface
 
 ## setApprovalForAll
 
-[ERC-721](/wiki/economics/defi/ethereum/erc-721) and [ERC-1155](/wiki/economics/defi/ethereum/erc-1155) have no amount to cap. One call to `setApprovalForAll(operator, true)` lets an operator move every token the owner holds in that collection, present and future. Marketplaces required it because a listing must stay fillable without another signature the moment a buyer appears, and because listing ten items should not cost ten approvals.
+[ERC-721](/wiki/economics/defi/chains/ethereum/erc-721) and [ERC-1155](/wiki/economics/defi/chains/ethereum/erc-1155) have no amount to cap. One call to `setApprovalForAll(operator, true)` lets an operator move every token the owner holds in that collection, present and future. Marketplaces required it because a listing must stay fillable without another signature the moment a buyer appears, and because listing ten items should not cost ten approvals.
 
 It is worse than an unlimited ERC-20 approval in one respect: that approval covers one fungible balance, this one covers items that are individually unique and individually priced, and revocation is all or nothing per collection.
 

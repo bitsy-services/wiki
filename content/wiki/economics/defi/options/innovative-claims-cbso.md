@@ -21,11 +21,11 @@ In traditional markets, entering a [vertical spread](/wiki/economics/defi/option
 
 ### Flexible Staking Currency
 
-CBSOs are not limited to stablecoins as collateral. Any [ERC-20](/wiki/economics/defi/ethereum/erc-20) token -- including volatile assets, governance tokens, or custom tokens -- can serve as the settlement currency. The system adjusts [oracle](/wiki/economics/defi/oracle-node) costs proportionally to the value and [volatility](/wiki/economics/defi/volatility) of the chosen currency.
+CBSOs are not limited to stablecoins as collateral. Any [ERC-20](/wiki/economics/defi/chains/ethereum/erc-20) token -- including volatile assets, governance tokens, or custom tokens -- can serve as the settlement currency. The system adjusts [oracle](/wiki/economics/defi/oracles/oracle-node) costs proportionally to the value and [volatility](/wiki/economics/defi/markets/volatility) of the chosen currency.
 
 ### Synthetic Exposure Without Ownership
 
-Holders gain exposure to an asset's price movement without ever owning or custodying the underlying asset. The payout is determined entirely by the [oracle](/wiki/economics/defi/oracle-node) price feed at expiry, settled in the staked currency. This enables options-like exposure to assets (equities, commodities, indices) that do not natively exist on-chain.
+Holders gain exposure to an asset's price movement without ever owning or custodying the underlying asset. The payout is determined entirely by the [oracle](/wiki/economics/defi/oracles/oracle-node) price feed at expiry, settled in the staked currency. This enables options-like exposure to assets (equities, commodities, indices) that do not natively exist on-chain.
 
 ### Strategy Composition via Bull and Bear Bets
 
@@ -39,7 +39,7 @@ CBSOs can be constructed against custom indices or baskets of assets, functionin
 
 ### Collateralization Fee with Prorated Refunds
 
-The [collateralization fee](/wiki/economics/defi/collateralization-fee) accrues based on the duration and amount of locked collateral. If a minter buys back and burns tokens before expiration, they receive a prorated refund. This incentivizes active position management and efficient capital use.
+The [collateralization fee](/wiki/economics/defi/options/collateralization-fee) accrues based on the duration and amount of locked collateral. If a minter buys back and burns tokens before expiration, they receive a prorated refund. This incentivizes active position management and efficient capital use.
 
 ### Automatic Refund for Unsold Options
 
@@ -47,7 +47,7 @@ If minted CBSOs are never sold before expiry, the minter receives their collater
 
 ### Decentralized Settlement via Oracles
 
-Settlement relies on price data from decentralized [oracle nodes](/wiki/economics/defi/oracle-node) rather than a centralized exchange or clearinghouse. The [finalized price](/wiki/economics/defi/finalized-smart-contract) is immutable once locked, ensuring all options at a given expiry settle against the same value.
+Settlement relies on price data from decentralized [oracle nodes](/wiki/economics/defi/oracles/oracle-node) rather than a centralized exchange or clearinghouse. The [finalized price](/wiki/economics/defi/smart-contract/finalized-smart-contract) is immutable once locked, ensuring all options at a given expiry settle against the same value.
 
 ### On-Chain Auditability
 

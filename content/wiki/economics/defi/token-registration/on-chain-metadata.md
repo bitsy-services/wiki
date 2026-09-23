@@ -7,7 +7,7 @@ Two mechanisms let a token carry its own icon without a company's approval: a me
 
 ## ERC-1046: a `tokenURI` on a fungible token
 
-[ERC](/wiki/economics/defi/ethereum/eip)-1046 is Final, and adds one function to [ERC-20](/wiki/economics/defi/ethereum/erc-20):
+[ERC](/wiki/economics/defi/chains/ethereum/eip)-1046 is Final, and adds one function to [ERC-20](/wiki/economics/defi/chains/ethereum/erc-20):
 
 ```solidity
 interface IERC1046 {
@@ -53,15 +53,15 @@ contract ExampleToken is ERC20 {
 }
 ```
 
-The supply goes to an address passed to the constructor, not to `msg.sender`. Deployed through the deterministic deployer — the usual way to get [one address on every chain](/wiki/economics/defi/vanity-addresses#create2-salt-mining), and what Foundry uses for a `CREATE2` deployment by default — `msg.sender` inside the constructor is the deployer contract, which cannot move tokens, so a `_mint(msg.sender, …)` would lock the entire supply there. The holder is part of the creation code, so the same holder on every chain gives the same address on every chain.
+The supply goes to an address passed to the constructor, not to `msg.sender`. Deployed through the deterministic deployer — the usual way to get [one address on every chain](/wiki/economics/defi/blockchain/vanity-addresses#create2-salt-mining), and what Foundry uses for a `CREATE2` deployment by default — `msg.sender` inside the constructor is the deployer contract, which cannot move tokens, so a `_mint(msg.sender, …)` would lock the entire supply there. The holder is part of the creation code, so the same holder on every chain gives the same address on every chain.
 
-Point it at content-addressed storage — [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/defi/arweave) — rather than a domain. A hardcoded constant on a [finalized contract](/wiki/economics/defi/finalized-smart-contract) outlives the domain registration, and an unreachable metadata URL is worse than none, because it looks like abandonment. If the document may need to change, hold the string in storage behind an owner-gated setter and accept that you have added a privileged role someone now has to trust.
+Point it at content-addressed storage — [IPFS](/wiki/cs/ipfs) or [Arweave](/wiki/economics/defi/chains/arweave) — rather than a domain. A hardcoded constant on a [finalized contract](/wiki/economics/defi/smart-contract/finalized-smart-contract) outlives the domain registration, and an unreachable metadata URL is worse than none, because it looks like abandonment. If the document may need to change, hold the string in storage behind an owner-gated setter and accept that you have added a privileged role someone now has to trust.
 
 Almost no wallet or explorer fetches `tokenURI` on an ERC-20 today, and the field will not put a logo in MetaMask on its own. What it buys is a permanent, self-hosted assertion of the token's own metadata that no registrar can revoke, get wrong, or lose in a migration — at a cost of about thirty thousand gas at deployment — 149 bytes of extra runtime code for the string above, at 200 gas a byte.
 
 ## Pushing the icon at the wallet
 
-[EIP](/wiki/economics/defi/ethereum/eip)-747 is also Final and defines a provider method that prompts the user to add a token. Your own interface calls it and the icon appears — no registry involved, no waiting.
+[EIP](/wiki/economics/defi/chains/ethereum/eip)-747 is also Final and defines a provider method that prompts the user to add a token. Your own interface calls it and the icon appears — no registry involved, no waiting.
 
 ```javascript
 await window.ethereum.request({
@@ -88,7 +88,7 @@ MetaMask recommends this method to token developers. Its `contract-metadata` rep
 
 ## Chains where the icon is simply on-chain
 
-Ethereum's omission is not universal. Sui's [coin standard](/wiki/economics/defi/sui) creates a `CoinMetadata` object alongside the `TreasuryCap` when a currency is created, and it has an `icon_url` field:
+Ethereum's omission is not universal. Sui's [coin standard](/wiki/economics/defi/chains/sui) creates a `CoinMetadata` object alongside the `TreasuryCap` when a currency is created, and it has an `icon_url` field:
 
 ```text
 coin::create_currency(witness, decimals, symbol, name, description, icon_url, ctx)
@@ -97,4 +97,4 @@ coin::create_currency(witness, decimals, symbol, name, description, icon_url, ct
 
 Whoever holds the `TreasuryCap` can update the metadata afterwards, or freeze the object to make it permanent. Wallets and explorers read the field directly, so a Sui coin has a working icon at creation with no submission anywhere. On Solana, the Metaplex token metadata account holds a `uri` pointing at a JSON document whose `image` field carries the logo, which puts the resolution one hop off-chain but still leaves it entirely under the issuer's control.
 
-The practical consequence for a multi-chain deployment: the [Ethereum](/wiki/economics/defi/ethereum/) side needs the whole registration campaign, and the Sui and Solana sides need one constructor argument.
+The practical consequence for a multi-chain deployment: the [Ethereum](/wiki/economics/defi/chains/ethereum/) side needs the whole registration campaign, and the Sui and Solana sides need one constructor argument.

@@ -89,7 +89,7 @@ The npm package `@metamask/contract-metadata` last shipped in April 2024 and is 
 
 ## `wallet_watchAsset`
 
-The route that needs no one's approval is your own interface calling `wallet_watchAsset`, the provider method defined by [Ethereum Improvement Proposal (EIP)](/wiki/economics/defi/ethereum/eip) 747, which prompts the user to add the token with the symbol, decimals and image your code supplies. [On-chain metadata](/wiki/economics/defi/token-registration/on-chain-metadata#pushing-the-icon-at-the-wallet) covers the call. MetaMask's documentation recommends detecting the user's current chain first, since a token added on the wrong network produces "unexpected results". It is the only one of the three routes that works on launch day.
+The route that needs no one's approval is your own interface calling `wallet_watchAsset`, the provider method defined by [Ethereum Improvement Proposal (EIP)](/wiki/economics/defi/chains/ethereum/eip) 747, which prompts the user to add the token with the symbol, decimals and image your code supplies. [On-chain metadata](/wiki/economics/defi/token-registration/on-chain-metadata#pushing-the-icon-at-the-wallet) covers the call. MetaMask's documentation recommends detecting the user's current chain first, since a token added on the wrong network produces "unexpected results". It is the only one of the three routes that works on launch day.
 
 ## One address on every chain
 

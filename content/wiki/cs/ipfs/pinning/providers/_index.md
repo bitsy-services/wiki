@@ -16,7 +16,7 @@ how much code has to change to end it.
 | Does it implement the [Pinning Service API](/wiki/cs/ipfs/pinning/pinning-service-api)? | If yes, migrating is re-running requests against a different endpoint. If no, the integration is bespoke and so is the exit. |
 | Does it announce to the routing layer, or only serve its own gateway? | Gateway-only retention makes the hostname load-bearing, and hostnames get retired. |
 | Can the blocks come back as a [content addressable archive (CAR)](/wiki/cs/ipfs/gateways#trustless-gateways)? | A bulk export is the difference between a migration and a re-upload from whatever originals survive. |
-| Is there a second tier behind the pin? | [Filecoin](/wiki/economics/defi/filecoin) deals or equivalent turn "we say it is there" into something a third party can check. |
+| Is there a second tier behind the pin? | [Filecoin](/wiki/economics/defi/chains/filecoin) deals or equivalent turn "we say it is there" into something a third party can check. |
 | How is bandwidth priced? | For read-heavy content the egress line dominates the storage line by an order of magnitude. |
 
 ## The current field

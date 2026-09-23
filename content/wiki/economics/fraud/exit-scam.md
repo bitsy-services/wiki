@@ -11,7 +11,7 @@ The history is the distinction. A [rug pull](/wiki/economics/fraud/rug-pull) is 
 
 An exit scam requires the operator to hold assets that are not theirs, and that requirement bounds the category. Non-custodial designs foreclose it outright: where withdrawals are executed by the holder's own key against a contract with no privileged withdrawal path, there is no float to leave with. The guarantee is narrow: it removes the exit scam, not the upgradeable proxy or the privileged role that quietly reintroduces one ([hidden admin controls](/wiki/economics/fraud/hidden-admin-controls) covers that surface).
 
-Between full custody and none sit the attempts to make custody checkable from outside. [Full reserve backing](/wiki/economics/defi/full-reserve-backing) is the claim that every unit of liability is matched one-for-one by an asset held; proof-of-reserve schemes try to demonstrate that without opening the books. Both exist to answer the question a depositor otherwise cannot: is the money still there this morning.
+Between full custody and none sit the attempts to make custody checkable from outside. [Full reserve backing](/wiki/economics/defi/par-token/full-reserve-backing) is the claim that every unit of liability is matched one-for-one by an asset held; proof-of-reserve schemes try to demonstrate that without opening the books. Both exist to answer the question a depositor otherwise cannot: is the money still there this morning.
 
 ## The "hack" cover story
 

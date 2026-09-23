@@ -41,4 +41,4 @@ The bullish counterpart is the [bull bet](/wiki/economics/defi/options/bull-bet)
 
 ## DeFi Context
 
-Bear bets illustrate one approach to packaging options strategies as tradeable on-chain tokens on [Ethereum](/wiki/economics/defi/ethereum/) and other [blockchains](/wiki/economics/defi/blockchain). Similar exposure can be constructed manually using options protocols like Lyra, Hegic, or Opyn, or approximated through [liquidity pool](/wiki/economics/defi/liquidity-pool) positions -- see [emulating option strategies](/wiki/economics/defi/options/emulating-option-strategies) for more on that approach.
+Bear bets illustrate one approach to packaging options strategies as tradeable on-chain tokens on [Ethereum](/wiki/economics/defi/chains/ethereum/) and other [blockchains](/wiki/economics/defi/blockchain). Similar exposure can be constructed manually using options protocols like Lyra, Hegic, or Opyn, or approximated through [liquidity pool](/wiki/economics/defi/markets/liquidity-pool) positions -- see [emulating option strategies](/wiki/economics/defi/options/emulating-option-strategies) for more on that approach.

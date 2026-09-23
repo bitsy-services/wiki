@@ -65,7 +65,7 @@ Bitswap has no payment layer and no enforced accounting. Early designs included
 a tit-for-tat ledger to punish leeching; what shipped serves whoever asks. That
 choice is why IPFS has no native incentive to store anything for anyone, and why
 [pinning](/wiki/cs/ipfs/pinning) is a commercial arrangement rather than a
-protocol feature — the gap that [Filecoin](/wiki/economics/defi/filecoin)
+protocol feature — the gap that [Filecoin](/wiki/economics/defi/chains/filecoin)
 was built to fill.
 
 ## Delegated routing

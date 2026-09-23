@@ -3,7 +3,7 @@ title: Risk-Defined Strategy
 weight: 59
 ---
 
-A risk-defined strategy is any position where the maximum possible loss is known before the trade is entered. The trader accepts a capped upside in exchange for a hard floor on downside. In traditional finance this usually means option spreads; in DeFi it extends to collateralized vault positions, bounded [liquidity-pool](/wiki/economics/defi/liquidity-pool) ranges, and on-chain binary payoffs enforced by [smart contracts](/wiki/economics/defi/smart-contract).
+A risk-defined strategy is any position where the maximum possible loss is known before the trade is entered. The trader accepts a capped upside in exchange for a hard floor on downside. In traditional finance this usually means option spreads; in DeFi it extends to collateralized vault positions, bounded [liquidity-pool](/wiki/economics/defi/markets/liquidity-pool) ranges, and on-chain binary payoffs enforced by [smart contracts](/wiki/economics/defi/smart-contract).
 
 ## What a loss cap buys
 
@@ -11,7 +11,7 @@ Undefined-risk positions -- selling a naked [call](/wiki/economics/defi/options/
 
 - **Easier to size** -- a trader can allocate a fixed dollar amount knowing the worst-case outcome.
 - **Margin-efficient** -- protocols can require only the maximum loss as collateral, rather than demanding large buffers against theoretically unlimited loss.
-- **Better suited to volatile markets** -- [volatility](/wiki/economics/defi/volatility) increases the chance of extreme moves; a hard loss cap prevents catastrophic drawdowns.
+- **Better suited to volatile markets** -- [volatility](/wiki/economics/defi/markets/volatility) increases the chance of extreme moves; a hard loss cap prevents catastrophic drawdowns.
 
 ## Common Risk-Defined Structures
 
@@ -28,14 +28,14 @@ A [vertical spread](/wiki/economics/defi/options/vertical-spread) combines a lon
 
 ### Iron Condor
 
-An iron condor sells an out-of-the-money [call](/wiki/economics/defi/options/call-option) spread and an out-of-the-money [put](/wiki/economics/defi/options/put-option) spread simultaneously. Maximum loss is the wider of the two wing widths minus the total credit received. It profits when the underlying stays within a range -- a bet on low [volatility](/wiki/economics/defi/volatility).
+An iron condor sells an out-of-the-money [call](/wiki/economics/defi/options/call-option) spread and an out-of-the-money [put](/wiki/economics/defi/options/put-option) spread simultaneously. Maximum loss is the wider of the two wing widths minus the total credit received. It profits when the underlying stays within a range -- a bet on low [volatility](/wiki/economics/defi/markets/volatility).
 
 ### Collateralized On-Chain Positions
 
 DeFi protocols often enforce risk definition at the contract level:
 
 - **Fully collateralized [option spreads](/wiki/economics/defi/options/option-spread)** -- protocols that tokenize options can lock the maximum loss as collateral in a [smart contract](/wiki/economics/defi/smart-contract) at the time the position is opened. Neither party can lose more than the locked amount.
-- **Bounded [LP](/wiki/economics/defi/liquidity-pool) ranges** -- a concentrated [liquidity-pool](/wiki/economics/defi/liquidity-pool) position in a Uniswap v3-style [AMM](/wiki/economics/defi/amm) has a defined worst case: full conversion from one asset to the other across the range, plus [impermanent loss](/wiki/economics/defi/impermanent-loss). The loss is bounded by the value of the deposited capital.
+- **Bounded [LP](/wiki/economics/defi/markets/liquidity-pool) ranges** -- a concentrated [liquidity-pool](/wiki/economics/defi/markets/liquidity-pool) position in a Uniswap v3-style [AMM](/wiki/economics/defi/markets/amm) has a defined worst case: full conversion from one asset to the other across the range, plus [impermanent loss](/wiki/economics/defi/markets/impermanent-loss). The loss is bounded by the value of the deposited capital.
 - **Vault strategies** -- structured vaults that sell covered calls or cash-secured puts enforce the strategy's parameters on-chain, guaranteeing that the position cannot exceed its defined risk.
 
 ## How DeFi Enforces Risk Boundaries

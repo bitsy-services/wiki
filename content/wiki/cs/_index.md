@@ -16,7 +16,7 @@ Cryptographic *theory* lives here; the operational business of handling keys and
 
 [Citation order](/wiki/cs/citation-order) is the sequence in which the facets of a compound subject are written when they have to share one string -- `software/microsoft` or `microsoft/software` -- and a tree forces one on every path it holds. The section covers why the choice is forced, what it costs, the rules proposed for making it, [why the two orders are not symmetric](/wiki/cs/citation-order/logic-of-division), and [the mechanisms that give a reader the other facet](/wiki/cs/citation-order/escapes-from-the-tree).
 
-[IPFS](/wiki/cs/ipfs) is what content addressing looks like when it is the whole design: name data by the hash of its contents rather than by where it sits, and a [Merkle DAG](/wiki/cs/dag) follows necessarily. It sits here rather than under DeFi because the durable idea is the addressing scheme, not the storage market built on it -- though most of the pages that link here are on the DeFi side, and [Arweave](/wiki/economics/defi/arweave) is its natural sibling. The section covers the addressing scheme itself ([CIDs](/wiki/cs/ipfs/cid), [UnixFS](/wiki/cs/ipfs/unixfs), [routing](/wiki/cs/ipfs/content-routing)) and then the retention layer that had to be bolted on top of it, because a hash names bytes without obliging anyone to keep them: [pinning](/wiki/cs/ipfs/pinning) and the [services](/wiki/cs/ipfs/pinning/pinning-services) that sell it.
+[IPFS](/wiki/cs/ipfs) is what content addressing looks like when it is the whole design: name data by the hash of its contents rather than by where it sits, and a [Merkle DAG](/wiki/cs/dag) follows necessarily. It sits here rather than under DeFi because the durable idea is the addressing scheme, not the storage market built on it -- though most of the pages that link here are on the DeFi side, and [Arweave](/wiki/economics/defi/chains/arweave) is its natural sibling. The section covers the addressing scheme itself ([CIDs](/wiki/cs/ipfs/cid), [UnixFS](/wiki/cs/ipfs/unixfs), [routing](/wiki/cs/ipfs/content-routing)) and then the retention layer that had to be bolted on top of it, because a hash names bytes without obliging anyone to keep them: [pinning](/wiki/cs/ipfs/pinning) and the [services](/wiki/cs/ipfs/pinning/pinning-services) that sell it.
 
 [Stylometry](/wiki/cs/stylometry) attributes a text to an author by counting the words nobody chooses on purpose. Mosteller and Wallace settled the disputed Federalist Papers on function-word rates in 1963, and the same measurements are what a language model's [pastiche](/wiki/ai/pastiche) fails to reproduce sixty years later.
 
@@ -24,7 +24,7 @@ Cryptographic *theory* lives here; the operational business of handling keys and
 
 ## Cryptography
 
-[Zero-knowledge proofs](/wiki/cs/zero-knowledge-proofs) let a prover convince a verifier that a statement is true while revealing nothing else. This is the theory behind [Groth16](/wiki/economics/defi/groth16) and, more broadly, behind the ZK-rollups that most [Ethereum](/wiki/economics/defi/ethereum) scaling now runs through.
+[Zero-knowledge proofs](/wiki/cs/zero-knowledge-proofs) let a prover convince a verifier that a statement is true while revealing nothing else. This is the theory behind [Groth16](/wiki/economics/defi/development/groth16) and, more broadly, behind the ZK-rollups that most [Ethereum](/wiki/economics/defi/chains/ethereum) scaling now runs through.
 
 ## Canonicalization
 

@@ -51,13 +51,13 @@ A [call option](/wiki/economics/defi/options/call-option) gives the right to *bu
 
 ## On-chain options
 
-DeFi protocols like Lyra, Hegic, and Opyn implement puts as [smart contracts](/wiki/economics/defi/smart-contract) on [Ethereum](/wiki/economics/defi/ethereum/) and other chains. The seller's collateral is locked in the contract, removing counterparty risk. Settlement at expiry is automatic -- if the put is ITM, the holder receives the difference between the strike and the spot price.
+DeFi protocols like Lyra, Hegic, and Opyn implement puts as [smart contracts](/wiki/economics/defi/smart-contract) on [Ethereum](/wiki/economics/defi/chains/ethereum/) and other chains. The seller's collateral is locked in the contract, removing counterparty risk. Settlement at expiry is automatic -- if the put is ITM, the holder receives the difference between the strike and the spot price.
 
-Puts are used on-chain mostly as portfolio insurance: ETH plus an ETH put is a position whose loss stops at the strike no matter how far spot falls below it, which is worth more where [volatility](/wiki/economics/defi/volatility) is higher and costs more for the same reason.
+Puts are used on-chain mostly as portfolio insurance: ETH plus an ETH put is a position whose loss stops at the strike no matter how far spot falls below it, which is worth more where [volatility](/wiki/economics/defi/markets/volatility) is higher and costs more for the same reason.
 
 ## Risks
 
 - **Total premium loss** -- if the option expires OTM, the entire premium is lost.
 - **[Time decay](/wiki/economics/defi/options/option-greeks)** -- theta erodes the option's time value as expiry approaches, working against the buyer.
-- **[Volatility](/wiki/economics/defi/volatility) contraction** -- a drop in [implied volatility](/wiki/economics/defi/options/implied-volatility) reduces the put's price even if the spot hasn't moved upward.
+- **[Volatility](/wiki/economics/defi/markets/volatility) contraction** -- a drop in [implied volatility](/wiki/economics/defi/options/implied-volatility) reduces the put's price even if the spot hasn't moved upward.
 - **Smart contract risk** (DeFi-specific) -- exploits in the protocol can lead to loss of funds.

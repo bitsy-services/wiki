@@ -27,7 +27,7 @@ request       cheapest signature that moves the largest position
 repeat        next asset down the list, until the victim stops
 ```
 
-An asset already covered by a live allowance to a contract the attacker controls costs no signature at all. Native ether is the hardest to take, since moving it needs a transaction the wallet renders as a plain outgoing value transfer, so it comes last, after the token and [non-fungible token (NFT)](/wiki/economics/defi/nft) positions that a single signature can carry. Every refusal ends the session, so a victim who baulks at prompt three has already given up prompts one and two.
+An asset already covered by a live allowance to a contract the attacker controls costs no signature at all. Native ether is the hardest to take, since moving it needs a transaction the wallet renders as a plain outgoing value transfer, so it comes last, after the token and [non-fungible token (NFT)](/wiki/economics/defi/blockchain/nft) positions that a single signature can carry. Every refusal ends the session, so a victim who baulks at prompt three has already given up prompts one and two.
 
 ## Why the volume is high
 
@@ -44,7 +44,7 @@ Roughly in descending order of yield:
 - **Compromised project accounts.** An announcement from the project's own verified account reaches an audience already expecting a mint. In September 2023 Vitalik Buterin's X account was taken over through a [SIM swap](/wiki/economics/fraud/sim-swap) and used to post a fake commemorative NFT mint; roughly $691,000 was drained before the post came down.
 - **Paid search ads on the project's own name**, sitting above the real result, with a displayed domain that is not the one the click resolves to.
 - **Discord webhook compromise.** A stolen webhook posts into the announcements channel with the server's own branding, no account takeover required.
-- **Lookalike domains hosting cloned [dapp](/wiki/economics/defi/dapp) front ends**, typically a byte-identical copy of the real interface with one script swapped, so it survives a careful look at the page itself.
+- **Lookalike domains hosting cloned [dapp](/wiki/economics/defi/smart-contract/dapp) front ends**, typically a byte-identical copy of the real interface with one script swapped, so it survives a careful look at the page itself.
 - **Physical QR codes** on flyers, stickers, and conference material, where the destination is invisible until it loads.
 
 [Fake token](/wiki/economics/fraud/fake-token) airdrops feed the funnel from the other end, arriving unsolicited in the wallet with a claim site named in the metadata, and [giveaway and impersonation scams](/wiki/economics/fraud/giveaway-scam) supply the rest.

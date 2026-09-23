@@ -3,7 +3,7 @@ title: "Money Services Business"
 weight: 50
 ---
 
-A money services business (MSB) is the [Bank Secrecy Act](/wiki/economics/regulation/bank-secrecy-act) category for a business that moves or converts value without being a bank. It matters here because it is the box almost every [cryptocurrency](/wiki/economics/defi/cryptocurrency) business lands in, and because landing in it converts a software company into a regulated financial institution overnight.
+A money services business (MSB) is the [Bank Secrecy Act](/wiki/economics/regulation/bank-secrecy-act) category for a business that moves or converts value without being a bank. It matters here because it is the box almost every [cryptocurrency](/wiki/economics/defi/blockchain/cryptocurrency) business lands in, and because landing in it converts a software company into a regulated financial institution overnight.
 
 ## The categories
 
@@ -46,9 +46,9 @@ The question every crypto business asks is whether it is a transmitter. FinCEN a
 - **Users** who obtain virtual currency to buy goods or services are not.
 - **Custodial wallets** hold customer value and are transmitters. **Non-custodial wallets**, where the provider never holds the keys, are not — the 2019 guidance is explicit that a person who supplies only software, with no independent control, is not acting as a transmitter.
 
-That last distinction is the load-bearing one for everything on this wiki, and it is under more strain in the courts than in the guidance. Prosecutions of privacy-tool developers have proceeded on the theory that facilitating transfers is enough regardless of custody, and a [DEX](/wiki/economics/defi/dex) with an immutable [smart contract](/wiki/economics/defi/smart-contract) has no operator who could register even if the theory were accepted. [DeFi and US regulatory restrictions](/wiki/economics/defi/defi-us-regulatory-restrictions) covers the specific cases.
+That last distinction is the load-bearing one for everything on this wiki, and it is under more strain in the courts than in the guidance. Prosecutions of privacy-tool developers have proceeded on the theory that facilitating transfers is enough regardless of custody, and a [DEX](/wiki/economics/defi/markets/dex) with an immutable [smart contract](/wiki/economics/defi/smart-contract) has no operator who could register even if the theory were accepted. [DeFi and US regulatory restrictions](/wiki/economics/regulation/defi-us-regulatory-restrictions) covers the specific cases.
 
-A related structural argument is that transmission means delivery to *another person*, so a service that only moves a user's own funds between their own accounts — the design [Interbox](/wiki/economics/defi/interbox) rests on — is arguably not transmitting at all. The argument is a real one, but it is not a plain reading of the text: the definition says "to another **location or person**", and the regulation's explicit same-person carve-out covers only the *physical* transportation of currency, which implies the general case is otherwise in scope. Whether a same-person design sits outside money transmission turns on FinCEN administrative rulings and the specific facts, not on the words alone — and, either way, on the architecture genuinely enforcing the constraint.
+A related structural argument is that transmission means delivery to *another person*, so a service that only moves a user's own funds between their own accounts — the design [Interbox](/wiki/economics/defi/blockchain/interbox) rests on — is arguably not transmitting at all. The argument is a real one, but it is not a plain reading of the text: the definition says "to another **location or person**", and the regulation's explicit same-person carve-out covers only the *physical* transportation of currency, which implies the general case is otherwise in scope. Whether a same-person design sits outside money transmission turns on FinCEN administrative rulings and the specific facts, not on the words alone — and, either way, on the architecture genuinely enforcing the constraint.
 
 ## External links
 

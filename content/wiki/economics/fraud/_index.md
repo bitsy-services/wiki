@@ -10,7 +10,7 @@ Crypto fraud is not one crime repeated on a new substrate. It is a dozen separat
 
 **Settlement is final.** A confirmed transfer has no chargeback, no return window, and no arbitration body. Card networks make fraud a cost of doing business precisely because they can reverse it; a chain cannot. This is the same property that gives [Zelle](/wiki/economics/payments/zelle) its [fraud problem](/wiki/economics/payments/zelle/fraud-and-liability), applied to a rail with no bank on either end.
 
-**Issuance is permissionless.** Deploying a token costs a few dollars of gas and requires no registration, no prospectus, and no counterparty's consent. A [permissionless token factory](/wiki/economics/defi/permissionless-token-factory) will mint a convincing imitation of any asset on request, and a [decentralized exchange](/wiki/economics/defi/dex) will list it without asking who deployed it.
+**Issuance is permissionless.** Deploying a token costs a few dollars of gas and requires no registration, no prospectus, and no counterparty's consent. A [permissionless token factory](/wiki/economics/defi/par-token/permissionless-token-factory) will mint a convincing imitation of any asset on request, and a [decentralized exchange](/wiki/economics/defi/markets/dex) will list it without asking who deployed it.
 
 **Identity is thin at the edges and absent in the middle.** A regulated exchange performs [know your customer](/wiki/economics/regulation/know-your-customer) checks; the wallet that receives the stolen funds does not. Fraud concentrates in the gap, and enforcement concentrates at the two points where the gap closes — the on-ramp and the [cash-out](/wiki/economics/fraud/cashing-out).
 

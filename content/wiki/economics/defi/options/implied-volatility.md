@@ -3,13 +3,13 @@ title: Implied Volatility
 weight: 53
 ---
 
-**Implied volatility (IV)** is the market's forecast of how much an asset's price will fluctuate over the life of an option. It is extracted from the option's current market price -- given all the other known inputs (spot price, [strike price](/wiki/economics/defi/options/strike-price), time to expiry, risk-free rate), IV is the [volatility](/wiki/economics/defi/volatility) value that makes the theoretical price match the observed price.
+**Implied volatility (IV)** is the market's forecast of how much an asset's price will fluctuate over the life of an option. It is extracted from the option's current market price -- given all the other known inputs (spot price, [strike price](/wiki/economics/defi/options/strike-price), time to expiry, risk-free rate), IV is the [volatility](/wiki/economics/defi/markets/volatility) value that makes the theoretical price match the observed price.
 
 Higher IV means options are more expensive because the market expects larger price swings. Lower IV means options are cheaper.
 
 ## IV vs. historical volatility
 
-[Volatility](/wiki/economics/defi/volatility) can be measured in two directions:
+[Volatility](/wiki/economics/defi/markets/volatility) can be measured in two directions:
 
 | | Historical (realised) volatility | Implied volatility |
 |---|---|---|
@@ -56,7 +56,7 @@ IV interacts directly with the [option greeks](/wiki/economics/defi/options/opti
 
 On-chain options protocols must price options without a traditional order book, so they compute IV differently:
 
-- **Lyra** uses a Black-Scholes-based [AMM](/wiki/economics/defi/amm) that adjusts IV dynamically based on the protocol's net exposure. When the pool is net short options, IV rises; when net long, IV falls.
+- **Lyra** uses a Black-Scholes-based [AMM](/wiki/economics/defi/markets/amm) that adjusts IV dynamically based on the protocol's net exposure. When the pool is net short options, IV rises; when net long, IV falls.
 - **Hegic** historically used fixed IV inputs set by governance, though later versions moved toward market-driven pricing.
 - **Opyn** (Squeeth) sidesteps per-strike IV entirely by offering a perpetual squared-exposure instrument whose funding rate implicitly reflects volatility.
 

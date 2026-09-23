@@ -61,13 +61,13 @@ CID, not that anyone is still holding them.
 
 ## Neighbours in the same problem space
 
-[Arweave](/wiki/economics/defi/arweave) attacks retention from the other
+[Arweave](/wiki/economics/defi/chains/arweave) attacks retention from the other
 end: pay once, and an endowment is meant to fund storage indefinitely. That is a
 stronger commitment than pinning, but it is an economic forecast rather than a
 guarantee — the Arweave page is explicit that "permanent" rests on storage costs
-continuing to fall. [Filecoin](/wiki/economics/defi/filecoin) keeps
+continuing to fall. [Filecoin](/wiki/economics/defi/chains/filecoin) keeps
 IPFS's addressing and adds a market where storage is a dated contract backed by
-proofs. [Walrus](/wiki/economics/defi/sui/walrus) erasure-codes blobs
+proofs. [Walrus](/wiki/economics/defi/chains/sui/walrus) erasure-codes blobs
 across a staked node set and settles the bookkeeping on Sui.
 
 All four hash the same way. What separates them is who is on the hook for
@@ -75,15 +75,15 @@ retention, for how long, and whether anyone can check.
 
 ## Where it shows up here
 
-- [NFT](/wiki/economics/defi/nft) metadata, where the `tokenURI` should
+- [NFT](/wiki/economics/defi/blockchain/nft) metadata, where the `tokenURI` should
   be content-addressed so the issuer cannot swap the referenced asset after the
   sale.
-- [dApp](/wiki/economics/defi/dapp) frontends, hosted so they cannot be
+- [dApp](/wiki/economics/defi/smart-contract/dapp) frontends, hosted so they cannot be
   taken down by pressuring one host.
 - [Token lists](/wiki/economics/defi/token-registration/token-lists),
   published under an Ethereum Name Service (ENS) `contenthash` record so the
   name is stable and the list underneath it is not.
-- [ERC-8004](/wiki/economics/defi/ethereum/erc-8004) agent registration
+- [ERC-8004](/wiki/economics/defi/chains/ethereum/erc-8004) agent registration
   files.
 
 ## External links

@@ -3,7 +3,7 @@ title: Option Greeks
 weight: 54
 ---
 
-The **option greeks** are a set of sensitivity measures that describe how an option's price responds to changes in underlying variables -- spot price, time, [volatility](/wiki/economics/defi/volatility), and interest rates. They are the primary tools for understanding and managing risk in options positions.
+The **option greeks** are a set of sensitivity measures that describe how an option's price responds to changes in underlying variables -- spot price, time, [volatility](/wiki/economics/defi/markets/volatility), and interest rates. They are the primary tools for understanding and managing risk in options positions.
 
 ## Summary
 
@@ -53,7 +53,7 @@ Vega measures the change in an option's price for a one-percentage-point change 
 - Vega is highest for ATM options and longer-dated expirations.
 - Both calls and puts have positive vega -- rising IV benefits all option holders.
 
-In crypto markets, where [volatility](/wiki/economics/defi/volatility) can shift dramatically, vega exposure often dominates other greeks. A position can be delta-neutral but still suffer large losses from an IV contraction.
+In crypto markets, where [volatility](/wiki/economics/defi/markets/volatility) can shift dramatically, vega exposure often dominates other greeks. A position can be delta-neutral but still suffer large losses from an IV contraction.
 
 ## Rho (ρ)
 
@@ -86,6 +86,6 @@ An ETH [call option](/wiki/economics/defi/options/call-option) with a $2,000 [st
 
 ## Greeks in DeFi
 
-On-chain options protocols like Lyra, Hegic, and Opyn expose greeks either directly in their UIs or through their pricing engines. Lyra's [AMM](/wiki/economics/defi/amm), for example, dynamically adjusts pricing based on the pool's aggregate greek exposure -- when the pool accumulates too much short gamma, it widens spreads to discourage further selling.
+On-chain options protocols like Lyra, Hegic, and Opyn expose greeks either directly in their UIs or through their pricing engines. Lyra's [AMM](/wiki/economics/defi/markets/amm), for example, dynamically adjusts pricing based on the pool's aggregate greek exposure -- when the pool accumulates too much short gamma, it widens spreads to discourage further selling.
 
-A DeFi liquidity provider takes these exposures without picking them. Depositing into an options [liquidity pool](/wiki/economics/defi/liquidity-pool) means implicitly taking the other side of every user trade, and the pool manages the resulting greek exposures through hedging or pricing adjustments rather than passing the choice back to the depositor.
+A DeFi liquidity provider takes these exposures without picking them. Depositing into an options [liquidity pool](/wiki/economics/defi/markets/liquidity-pool) means implicitly taking the other side of every user trade, and the pool manages the resulting greek exposures through hedging or pricing adjustments rather than passing the choice back to the depositor.

@@ -42,8 +42,8 @@ Its bullish mirror is the [bull call spread](/wiki/economics/defi/options/bull-c
 
 1. **Capped profit** -- even a large drop in the underlying yields only the initial credit.
 2. **Assignment risk** -- the short call can be exercised early, particularly if it goes deep in-the-money or if a dividend is approaching.
-3. **[Greeks](/wiki/economics/defi/options/option-greeks) exposure** -- the position has negative delta (bearish), positive theta (benefits from time decay), and negative vega (benefits from falling [volatility](/wiki/economics/defi/volatility)).
+3. **[Greeks](/wiki/economics/defi/options/option-greeks) exposure** -- the position has negative delta (bearish), positive theta (benefits from time decay), and negative vega (benefits from falling [volatility](/wiki/economics/defi/markets/volatility)).
 
 ## DeFi Context
 
-Bear call spreads can be constructed on-chain through options protocols like Lyra, Hegic, or Opyn by combining two call positions at different strikes. They can also be approximated using concentrated [liquidity pool](/wiki/economics/defi/liquidity-pool) positions on [AMMs](/wiki/economics/defi/amm) -- see [emulating option strategies](/wiki/economics/defi/options/emulating-option-strategies) for details. The tokenized equivalent of a bearish spread is the [bear bet](/wiki/economics/defi/options/bear-bet).
+Bear call spreads can be constructed on-chain through options protocols like Lyra, Hegic, or Opyn by combining two call positions at different strikes. They can also be approximated using concentrated [liquidity pool](/wiki/economics/defi/markets/liquidity-pool) positions on [AMMs](/wiki/economics/defi/markets/amm) -- see [emulating option strategies](/wiki/economics/defi/options/emulating-option-strategies) for details. The tokenized equivalent of a bearish spread is the [bear bet](/wiki/economics/defi/options/bear-bet).

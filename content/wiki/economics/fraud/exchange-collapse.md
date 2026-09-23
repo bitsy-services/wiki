@@ -13,7 +13,7 @@ Three different failures produce that same page, and [crypto fraud](/wiki/econom
 
 On 4 January 2023, Judge Martin Glenn of the bankruptcy court for the Southern District of New York (SDNY) held that the Celsius Earn program's terms transferred all right and title in deposited assets to Celsius, so roughly $4.2 billion of Earn balances belonged to the estate and Earn depositors ranked as general unsecured creditors. Assets held under the separately worded Custody terms were treated differently. Two customers of the same company, holding the same coin, landed on opposite sides of the line because they had clicked through different contracts.
 
-Unsecured claims are also dollarized at the petition date. FTX filed on 11 November 2022 with bitcoin near $16,000, and when the estate began distributing in 2025 it paid more than the face value of those dollar claims while bitcoin traded several times higher: a creditor made whole in dollars was not made whole in coins. [Full-reserve backing](/wiki/economics/defi/full-reserve-backing) avoids the question, and no customer can verify from outside that a venue practises it.
+Unsecured claims are also dollarized at the petition date. FTX filed on 11 November 2022 with bitcoin near $16,000, and when the estate began distributing in 2025 it paid more than the face value of those dollar claims while bitcoin traded several times higher: a creditor made whole in dollars was not made whole in coins. [Full-reserve backing](/wiki/economics/defi/par-token/full-reserve-backing) avoids the question, and no customer can verify from outside that a venue practises it.
 
 ## Theft from the exchange
 

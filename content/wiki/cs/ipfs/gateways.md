@@ -65,7 +65,7 @@ convenient, because every browser follows it without extra software, and exactly
 the single point of failure the content addressing was supposed to remove. If
 that gateway goes away, the link dies although the data is fine.
 
-This is why an [NFT](/wiki/economics/defi/nft) whose `tokenURI` is a
+This is why an [NFT](/wiki/economics/defi/blockchain/nft) whose `tokenURI` is a
 gateway URL is only nominally content-addressed, and why the fix costs nothing:
 store the `ipfs://` form, and let the client pick a gateway at read time.
 

@@ -31,13 +31,13 @@ There is also a straightforward efficacy objection. KYC establishes that someone
 
 ## KYC in crypto
 
-Anything custodial inherits the full regime. A [cryptocurrency gateway](/wiki/economics/defi/cryptocurrency-gateway) or centralised exchange builds substantially what a bank builds — verified identity at onboarding, a documented risk assessment, ongoing monitoring — even though, as above, the CIP and CDD rules themselves do not reach it. The additional wrinkles are that outbound transfers may carry Travel Rule obligations and that every withdrawal address is screened against the [OFAC](/wiki/economics/regulation/ofac-sanctions) list.
+Anything custodial inherits the full regime. A [cryptocurrency gateway](/wiki/economics/defi/blockchain/cryptocurrency-gateway) or centralised exchange builds substantially what a bank builds — verified identity at onboarding, a documented risk assessment, ongoing monitoring — even though, as above, the CIP and CDD rules themselves do not reach it. The additional wrinkles are that outbound transfers may carry Travel Rule obligations and that every withdrawal address is screened against the [OFAC](/wiki/economics/regulation/ofac-sanctions) list.
 
-A [DEX](/wiki/economics/defi/dex) has no equivalent, because there is no account and no operator to open one. The contract cannot decline a caller. That is why the regulatory perimeter sits at the fiat edges rather than on-chain, and why the pressure has moved to front-ends, which *can* refuse to serve a request.
+A [DEX](/wiki/economics/defi/markets/dex) has no equivalent, because there is no account and no operator to open one. The contract cannot decline a caller. That is why the regulatory perimeter sits at the fiat edges rather than on-chain, and why the pressure has moved to front-ends, which *can* refuse to serve a request.
 
 Two directions of work try to reduce the damage rather than merely comply with it:
 
-- **Reusable verification.** [Interbox](/wiki/economics/defi/interbox) argues that a bank has already performed the diligence the statute wants, and that a cryptographic link between a verified account and a self-custodied wallet can carry the assurance without the documents being copied again.
+- **Reusable verification.** [Interbox](/wiki/economics/defi/blockchain/interbox) argues that a bank has already performed the diligence the statute wants, and that a cryptographic link between a verified account and a self-custodied wallet can carry the assurance without the documents being copied again.
 - **Proof instead of disclosure.** [Zero-knowledge proofs](/wiki/cs/zero-knowledge-proofs) can establish membership in a credentialed set — over 18, not sanctioned, verified by an accredited institution — without revealing which member. This answers the technical problem cleanly. It does not yet answer the legal one, because the regulations specify records to be retained, not facts to be established.
 
 ## External links

@@ -5,11 +5,11 @@ weight: 25
 
 A honeypot token is one that can be bought and cannot be sold. The trap sits in the transfer path from the first block, so the price history reveals nothing: buys confirm, the holder count climbs, the chart rises, and every attempt to exit reverts or returns nothing. A [rug pull](/wiki/economics/fraud/rug-pull) removes the pool after the fact and leaves a real, if worthless, market behind; a honeypot never had an exit, and the deployer is the only address that ever realises a price.
 
-Because the restriction lives in the token rather than in the [decentralized exchange](/wiki/economics/defi/dex), the pair contract behaves correctly throughout. A sale on a [constant-product](/wiki/economics/defi/constant-product-formula) pair is a transfer of the token *to* the pair address, so any condition the token places on `to == pair` is a condition on selling and on nothing else. Buys, which are transfers *from* the pair, sail through untouched. This is one instance of [hidden admin controls](/wiki/economics/fraud/hidden-admin-controls), distinguished by being hostile at deployment rather than switched on later.
+Because the restriction lives in the token rather than in the [decentralized exchange](/wiki/economics/defi/markets/dex), the pair contract behaves correctly throughout. A sale on a [constant-product](/wiki/economics/defi/markets/constant-product-formula) pair is a transfer of the token *to* the pair address, so any condition the token places on `to == pair` is a condition on selling and on nothing else. Buys, which are transfers *from* the pair, sail through untouched. This is one instance of [hidden admin controls](/wiki/economics/fraud/hidden-admin-controls), distinguished by being hostile at deployment rather than switched on later.
 
 ## Mechanisms
 
-The snippets below are illustrative and minimal: an [ERC-20](/wiki/economics/defi/ethereum/erc-20) from OpenZeppelin v5, where every transfer, mint, and burn routes through the `_update` hook, cut down to the line that does the work.
+The snippets below are illustrative and minimal: an [ERC-20](/wiki/economics/defi/chains/ethereum/erc-20) from OpenZeppelin v5, where every transfer, mint, and burn routes through the `_update` hook, cut down to the line that does the work.
 
 **An allowlist on the sell side.**
 
@@ -113,7 +113,7 @@ Simulation is also gameable directly. A token can allowlist the addresses public
 
 ## Where the law lands
 
-Honeypots are deployed pseudonymously and cheaply, often in batches from a [permissionless token factory](/wiki/economics/defi/permissionless-token-factory), with each token's take measured in thousands of dollars. Where a deployer has been identified, United States charges have followed the same pattern as other token frauds — wire fraud on the misrepresentation, plus money laundering on the proceeds — and the Securities and Exchange Commission's unregistered-offering theory under [financial regulation](/wiki/economics/regulation) applies to the sale itself. Identification is the binding constraint, and the per-token amounts are far below the threshold at which most prosecutors open a file.
+Honeypots are deployed pseudonymously and cheaply, often in batches from a [permissionless token factory](/wiki/economics/defi/par-token/permissionless-token-factory), with each token's take measured in thousands of dollars. Where a deployer has been identified, United States charges have followed the same pattern as other token frauds — wire fraud on the misrepresentation, plus money laundering on the proceeds — and the Securities and Exchange Commission's unregistered-offering theory under [financial regulation](/wiki/economics/regulation) applies to the sale itself. Identification is the binding constraint, and the per-token amounts are far below the threshold at which most prosecutors open a file.
 
 ## External links
 

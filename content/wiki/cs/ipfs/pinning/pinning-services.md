@@ -37,9 +37,9 @@ bytes can be checked against the CID that named them, and nothing checks that
 anyone still has them.
 
 The two neighbours make stronger claims.
-[Filecoin](/wiki/economics/defi/filecoin) providers post recurring
+[Filecoin](/wiki/economics/defi/chains/filecoin) providers post recurring
 cryptographic proofs against a dated deal, and
-[Arweave](/wiki/economics/defi/arweave) makes possession of stored data
+[Arweave](/wiki/economics/defi/chains/arweave) makes possession of stored data
 a precondition for mining. Both are checkable by a third party. A pinning
 invoice is not.
 

@@ -19,8 +19,8 @@ hugo server -D
 ## Adding content
 
 Pages live under `content/wiki/<section>/`, and the URL mirrors the path:
-`content/wiki/economics/defi/amm.md` serves at
-`/wiki/economics/defi/amm`.
+`content/wiki/economics/defi/markets/amm.md` serves at
+`/wiki/economics/defi/markets/amm`.
 
 ```markdown
 ---

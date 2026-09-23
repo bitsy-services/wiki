@@ -38,7 +38,7 @@ For a new token the order follows from that: a pool first, which puts the token 
 ## Before the form
 
 - **A CoinGecko account.** Every request goes through CoinGecko's partner platform at `partner.coingecko.com`, which requires a login.
-- **Trading on a tracked exchange.** The listing guide says the token "must be actively tradable on a cryptocurrency exchange tracked by CoinGecko", and a request whose token shows no active trading "will automatically fail". For a new token that means a [decentralized exchange](/wiki/economics/defi/dex) pool CoinGecko already indexes. The rejection guide adds that tokens "traded only on self-serviceable centralized/decentralized exchanges may be rejected due to security concerns and lack of liquidity", and that the evaluation weighs liquidity, team presence and maturity against "several other evaluation factors that are undisclosed". No numeric minimum is published.
+- **Trading on a tracked exchange.** The listing guide says the token "must be actively tradable on a cryptocurrency exchange tracked by CoinGecko", and a request whose token shows no active trading "will automatically fail". For a new token that means a [decentralized exchange](/wiki/economics/defi/markets/dex) pool CoinGecko already indexes. The rejection guide adds that tokens "traded only on self-serviceable centralized/decentralized exchanges may be rejected due to security concerns and lack of liquidity", and that the evaluation weighs liquidity, team presence and maturity against "several other evaluation factors that are undisclosed". No numeric minimum is published.
 - **A website the project owns**, with information on purpose, team and social accounts. CoinGecko's methodology page states that sites on website builders such as Wix "will not be accepted". CoinGecko asks that the website and documentation carry the same details as the request, including the contract address.
 - **A working block explorer** and a clearly explained circulating supply — team, foundation, vesting and locked tokens.
 
@@ -69,7 +69,7 @@ The schema keys refer to the [token property schema](/wiki/economics/defi/token-
 Three details in the help text cause rejections on their own:
 
 - **Decimals.** Decimals are entered per chain, and "submitting incorrect decimal data will result in your listing request being rejected."
-- **Market links.** Exchange rows must link "the EXACT Link to the market pairs"; for an [automated market maker](/wiki/economics/defi/amm), CoinGecko asks for the pair's analytics page, and an exchange missing from its search list is one it does not track, which ends the request.
+- **Market links.** Exchange rows must link "the EXACT Link to the market pairs"; for an [automated market maker](/wiki/economics/defi/markets/amm), CoinGecko asks for the pair's analytics page, and an exchange missing from its search list is one it does not track, which ends the request.
 - **Social links.** Facebook links must be Pages, not groups, and Discord links must be permanent vanity invitations, which a server gets only at boost level 3.
 
 If circulating supply is published through an API, CoinGecko polls it every 30 minutes and requires plain HTTPS with no authentication and a JSON response. If the site sits behind Cloudflare's firewall, the firewall must allow requests carrying CoinGecko's two headers, `X-Requested-With: com.coingecko` and `User-Agent: CoinGecko +https://coingecko.com/`.

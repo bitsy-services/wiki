@@ -23,7 +23,7 @@ Three mechanisms carry the payload past ordinary code review.
 
 ## Cases
 
-**Axie Infinity / Ronin, March 2022.** Roughly $620 million was drained from the Ronin bridge after an attacker obtained enough validator signatures to authorize withdrawals — four of Sky Mavis's own validator keys plus access to the Axie [DAO](/wiki/economics/defi/dao) validator, five of the nine required. Reporting after the incident traced the entry point to a senior engineer who had been recruited through a fake job offer and had opened a document delivered as part of it. The FBI publicly attributed the theft to the Lazarus Group in April 2022, and the [Office of Foreign Assets Control](/wiki/economics/regulation/ofac-sanctions) added the receiving address to its sanctions list.
+**Axie Infinity / Ronin, March 2022.** Roughly $620 million was drained from the Ronin bridge after an attacker obtained enough validator signatures to authorize withdrawals — four of Sky Mavis's own validator keys plus access to the Axie [DAO](/wiki/economics/defi/smart-contract/dao) validator, five of the nine required. Reporting after the incident traced the entry point to a senior engineer who had been recruited through a fake job offer and had opened a document delivered as part of it. The FBI publicly attributed the theft to the Lazarus Group in April 2022, and the [Office of Foreign Assets Control](/wiki/economics/regulation/ofac-sanctions) added the receiving address to its sanctions list.
 
 ## The inverse: real jobs, false identities
 

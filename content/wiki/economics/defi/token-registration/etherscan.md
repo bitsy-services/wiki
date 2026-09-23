@@ -5,13 +5,13 @@ weight: 80
 
 Etherscan's token page — the first search result for a contract address — shows a logo, description and project links only after someone who has proved control of the contract submits them through Etherscan's Token Update Application Form. The update is free and needs no liquidity or holder count. It has three prerequisites, in order: an Etherscan account, source code verified on the explorer, and a signed message proving ownership of the contract address. Each explorer in the Etherscan family — Basescan, Arbiscan, BscScan and the rest — takes its own submission.
 
-The ownership proof is written for a contract deployed directly from a wallet. A token deployed through a factory contract — a contract that creates other contracts, and the usual way a token gets the [same address on every chain](/wiki/economics/defi/vanity-addresses#create2-salt-mining) — falls outside the documented path; [who signs for a factory-deployed token](#who-signs-for-a-factory-deployed-token) covers what that means.
+The ownership proof is written for a contract deployed directly from a wallet. A token deployed through a factory contract — a contract that creates other contracts, and the usual way a token gets the [same address on every chain](/wiki/economics/defi/blockchain/vanity-addresses#create2-salt-mining) — falls outside the documented path; [who signs for a factory-deployed token](#who-signs-for-a-factory-deployed-token) covers what that means.
 
 ## Verify the source
 
 Verification publishes source code that recompiles to the deployed bytecode. It proves nothing about who deployed the contract, but the ownership tool refuses an address whose source is not verified, and an unverified token contract reads as a warning sign to anyone who looks.
 
-With [Foundry](/wiki/economics/defi/solidity/foundry):
+With [Foundry](/wiki/economics/defi/development/solidity/foundry):
 
 ```bash
 forge verify-contract \
@@ -29,7 +29,7 @@ The constructor arguments have to be supplied encoded per the contract applicati
 
 Etherscan's version 1 API stopped working on 15 August 2025. Version 2 takes one key and a `chainid` parameter for every chain in the family, and its documentation states that "source code and ABI endpoints are available on all chains for every API plan, including the Free Tier". The free tier does not cover everything else: Base, OP Mainnet and BNB Smart Chain are listed as paid-plan chains. Verification is per chain either way — "Verifying on one chain's explorer does not verify the contract on any other."
 
-A contract whose bytecode matches one already verified can be verified as a *similar match*, though Etherscan now restricts that to authors who have verified address ownership and asked to be included. A [minimal-proxy clone](/wiki/economics/defi/permissionless-token-factory) was checked for this page and showed "Source Code Verified" and "Minimal Proxy" with the implementation's source on its code tab. Whether that status is assigned automatically, and whether it satisfies the ownership tool's verified-source check, is not documented.
+A contract whose bytecode matches one already verified can be verified as a *similar match*, though Etherscan now restricts that to authors who have verified address ownership and asked to be included. A [minimal-proxy clone](/wiki/economics/defi/par-token/permissionless-token-factory) was checked for this page and showed "Source Code Verified" and "Minimal Proxy" with the implementation's source on its code tab. Whether that status is assigned automatically, and whether it satisfies the ownership tool's verified-source check, is not documented.
 
 ## Prove you own the address
 
@@ -65,7 +65,7 @@ Three consequences follow for a token deployed at the same address on every chai
 
 - **Keep the sending account.** On each chain, the creator Etherscan shows is whichever account sent that chain's deployment transaction. Deploy from an account you control and will still control, and record it for every chain — the schema's `deployments` key.
 - **A clone's creator is its caller.** For a token created by calling a permissionless factory, the account shown is the caller. If a stranger makes the call, the stranger is the displayed creator.
-- **Deploy early on the chains you intend to use.** A deterministic deployment can be [repeated on a new chain by anyone](/wiki/economics/defi/vanity-addresses#salt-mining-has-no-cryptographic-risk) who has the creation code, producing the same contract at the same address with the stranger as the displayed creator there. If the self-serve tool accepts the displayed creator — which is undocumented — that stranger would be the one able to claim the token page on that chain. No incident of this is reported; the protections are to deploy on every chain you plan to support before anyone else has a reason to, or to deploy through a factory that mixes the caller's address into the salt.
+- **Deploy early on the chains you intend to use.** A deterministic deployment can be [repeated on a new chain by anyone](/wiki/economics/defi/blockchain/vanity-addresses#salt-mining-has-no-cryptographic-risk) who has the creation code, producing the same contract at the same address with the stranger as the displayed creator there. If the self-serve tool accepts the displayed creator — which is undocumented — that stranger would be the one able to claim the token page on that chain. No incident of this is reported; the protections are to deploy on every chain you plan to support before anyone else has a reason to, or to deploy through a factory that mixes the caller's address into the salt.
 
 ## The form
 

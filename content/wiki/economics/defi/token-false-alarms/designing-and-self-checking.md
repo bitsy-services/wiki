@@ -11,7 +11,7 @@ What remains under a builder's control is knowing. The endpoints below are free 
 
 Closed source is the one suppressor with no upside: "When the contract is closed-source, other risk items will return null." An unverified contract does not score badly, it scores *nothing*, and the blank is read as risk by everyone downstream. Verification is also what lets a static analyser reach the deployed address at all — Slither's compilation layer can pull source from Etherscan and its alt-chain siblings, so `slither 0xADDRESS` works only once an explorer holds the source.
 
-Verify on every chain you deployed to. Etherscan's V2 API advertises "All 60+ EVM chains under one key. Set chainid to choose one" on its documentation home — every [Ethereum Virtual Machine](/wiki/economics/defi/ethereum#the-ethereum-virtual-machine-evm) chain it indexes — so verifying on mainnet alone is a choice rather than a constraint. Then check the result on Sourcify, which is one unauthenticated request:
+Verify on every chain you deployed to. Etherscan's V2 API advertises "All 60+ EVM chains under one key. Set chainid to choose one" on its documentation home — every [Ethereum Virtual Machine](/wiki/economics/defi/chains/ethereum#the-ethereum-virtual-machine-evm) chain it indexes — so verifying on mainnet alone is a choice rather than a constraint. Then check the result on Sourcify, which is one unauthenticated request:
 
 ```bash
 curl -s https://sourcify.dev/server/v2/contract/1/0xdAC17F958D2ee523a2206206994597C13D831ec7
@@ -64,7 +64,7 @@ abstract contract NoRenounce is Ownable {
 }
 ```
 
-OpenZeppelin's own guidance runs against the scanners here, and it is worth knowing which side you are choosing. Its access-control guide recommends handing ownership to a contract — "a Gnosis Safe, an Aragon DAO, or a totally custom contract", meaning a multisig or a [decentralized autonomous organization](/wiki/economics/defi/dao) — and `TimelockController`'s own NatSpec gives its purpose as "time for users of the controlled contract to exit before a potentially dangerous maintenance operation is applied." Quick Intel's first listed check is `Renounced`. Renouncing satisfies that check and permanently disables pause, blacklist and every emergency control, which is the arrangement OpenZeppelin warns about. There is no design that satisfies both.
+OpenZeppelin's own guidance runs against the scanners here, and it is worth knowing which side you are choosing. Its access-control guide recommends handing ownership to a contract — "a Gnosis Safe, an Aragon DAO, or a totally custom contract", meaning a multisig or a [decentralized autonomous organization](/wiki/economics/defi/smart-contract/dao) — and `TimelockController`'s own NatSpec gives its purpose as "time for users of the controlled contract to exit before a potentially dangerous maintenance operation is applied." Quick Intel's first listed check is `Renounced`. Renouncing satisfies that check and permanently disables pause, blacklist and every emergency control, which is the arrangement OpenZeppelin warns about. There is no design that satisfies both.
 
 ## Choose the counterparties the scanners can see
 

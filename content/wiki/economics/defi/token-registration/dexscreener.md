@@ -3,7 +3,7 @@ title: "Registering on Dexscreener"
 weight: 110
 ---
 
-Dexscreener is a chart and pair tracker for [decentralized exchanges (DEXs)](/wiki/economics/defi/dex). It lists every pool on the exchanges it supports without an application — "as soon as they are added to a [liquidity pool](/wiki/economics/defi/liquidity-pool) and have at least one transaction" — so a token's price chart appears with no involvement from its team. What a team can buy is the token's profile: the icon, header image, description, website and social links shown beside the chart. The product is called Enhanced Token Info, it costs $299, and it is processed within minutes to twelve hours. It is one of the few routes that puts a logo beside a token in its first week.
+Dexscreener is a chart and pair tracker for [decentralized exchanges (DEXs)](/wiki/economics/defi/markets/dex). It lists every pool on the exchanges it supports without an application — "as soon as they are added to a [liquidity pool](/wiki/economics/defi/markets/liquidity-pool) and have at least one transaction" — so a token's price chart appears with no involvement from its team. What a team can buy is the token's profile: the icon, header image, description, website and social links shown beside the chart. The product is called Enhanced Token Info, it costs $299, and it is processed within minutes to twelve hours. It is one of the few routes that puts a logo beside a token in its first week.
 
 ## A profile is paid for, not inherited
 
@@ -27,13 +27,13 @@ The order form sits on Dexscreener's marketplace and needs a signed-in account. 
 | Telegram | no | a public link; invite links are rejected | `links.telegram` |
 | Discord, TikTok, Instagram, Reddit, Farcaster | no | each on its own network's host | `links.*` |
 | Additional links | no | up to five, each a label and a URL | `links.*` |
-| Locked addresses | no | wallets holding locked supply — not [locked liquidity](/wiki/economics/defi/locked-liquidity), which the form warns against confusing; burn addresses are checked automatically | `locked_wallets` |
+| Locked addresses | no | wallets holding locked supply — not [locked liquidity](/wiki/economics/defi/par-token/locked-liquidity), which the form warns against confusing; burn addresses are checked automatically | `locked_wallets` |
 | Supply description | no | why and how supply is locked | — |
 | two confirmations | yes | see below | — |
 
 The schema keys refer to the [token property schema](/wiki/economics/defi/token-registration#the-token-property-schema). Telegram is the strictest: a `t.me/+…` or `joinchat` invitation fails with "Invite links are not allowed, please use a public link instead".
 
-The two required confirmations are the whole of the ownership check: "I understand that all supplied data must be verifiable through official channels such as website and socials", and that Dexscreener "reserves the right to reject or modify the provided information." Nothing asks for a signature or refers to the contract's deployer, and a factory deployment has not been an obstacle — AIXBT on Base, a [clone](/wiki/economics/defi/permissionless-token-factory) created by a factory contract, has an approved profile. What the review checks is that the website publishes the token's address and links to the same socials.
+The two required confirmations are the whole of the ownership check: "I understand that all supplied data must be verifiable through official channels such as website and socials", and that Dexscreener "reserves the right to reject or modify the provided information." Nothing asks for a signature or refers to the contract's deployer, and a factory deployment has not been an obstacle — AIXBT on Base, a [clone](/wiki/economics/defi/par-token/permissionless-token-factory) created by a factory contract, has an approved profile. What the review checks is that the website publishes the token's address and links to the same socials.
 
 ## Before and after ordering
 

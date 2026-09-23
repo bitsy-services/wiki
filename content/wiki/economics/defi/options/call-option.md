@@ -53,7 +53,7 @@ A call gives the right to *buy*; a [put option](/wiki/economics/defi/options/put
 
 ## On-chain options
 
-In DeFi, call options are implemented as [smart contracts](/wiki/economics/defi/smart-contract) on networks like [Ethereum](/wiki/economics/defi/ethereum/). Protocols such as Lyra, Hegic, and Opyn let users buy and sell calls without a traditional broker. The contract handles collateral, settlement, and exercise automatically.
+In DeFi, call options are implemented as [smart contracts](/wiki/economics/defi/smart-contract) on networks like [Ethereum](/wiki/economics/defi/chains/ethereum/). Protocols such as Lyra, Hegic, and Opyn let users buy and sell calls without a traditional broker. The contract handles collateral, settlement, and exercise automatically.
 
 Key differences from traditional options markets:
 
@@ -65,5 +65,5 @@ Key differences from traditional options markets:
 
 - **Total premium loss** -- if the option expires OTM, the entire premium is lost.
 - **[Time decay](/wiki/economics/defi/options/option-greeks)** -- as expiration approaches, the option's time value erodes (measured by *theta*). This works against the buyer.
-- **[Volatility](/wiki/economics/defi/volatility) contraction** -- a drop in [implied volatility](/wiki/economics/defi/options/implied-volatility) reduces the option's price even if the underlying hasn't moved.
+- **[Volatility](/wiki/economics/defi/markets/volatility) contraction** -- a drop in [implied volatility](/wiki/economics/defi/options/implied-volatility) reduces the option's price even if the underlying hasn't moved.
 - **Smart contract risk** (DeFi-specific) -- bugs or exploits in the options protocol can lead to loss of premium or collateral.

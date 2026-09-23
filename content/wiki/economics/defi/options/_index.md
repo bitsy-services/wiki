@@ -1,6 +1,6 @@
 ---
 title: "Options"
-weight: 49
+weight: 60
 bookCollapseSection: true
 ---
 
@@ -10,11 +10,11 @@ The pages divide into four layers, each building on the one before.
 
 ## Fundamentals
 
-The vocabulary every other page assumes: the [option type](/wiki/economics/defi/options/option-type) distinction ([call](/wiki/economics/defi/options/call-option) vs. [put](/wiki/economics/defi/options/put-option)), the [strike price](/wiki/economics/defi/options/strike-price), and the pricing sensitivities -- [implied volatility](/wiki/economics/defi/options/implied-volatility) and the [option Greeks](/wiki/economics/defi/options/option-greeks). [Volatility](/wiki/economics/defi/volatility) itself is treated as a general DeFi concept and lives at the DeFi top level.
+The vocabulary every other page assumes: the [option type](/wiki/economics/defi/options/option-type) distinction ([call](/wiki/economics/defi/options/call-option) vs. [put](/wiki/economics/defi/options/put-option)), the [strike price](/wiki/economics/defi/options/strike-price), and the pricing sensitivities -- [implied volatility](/wiki/economics/defi/options/implied-volatility) and the [option Greeks](/wiki/economics/defi/options/option-greeks). [Volatility](/wiki/economics/defi/markets/volatility) itself is a property of the underlying market and lives in [Markets](/wiki/economics/defi/markets).
 
 ## Spreads and Strategies
 
-Multi-leg structures that combine options to shape a payoff curve: the [option spread](/wiki/economics/defi/options/option-spread) in general, the [vertical spread](/wiki/economics/defi/options/vertical-spread) specifically, the expiry-free [perpetual option](/wiki/economics/defi/options/perpetual-option), the notion of a [risk-defined strategy](/wiki/economics/defi/options/risk-defined-strategy), and how all of these can be [emulated with DeFi primitives](/wiki/economics/defi/options/emulating-option-strategies) such as concentrated [liquidity-pool](/wiki/economics/defi/liquidity-pool) positions.
+Multi-leg structures that combine options to shape a payoff curve: the [option spread](/wiki/economics/defi/options/option-spread) in general, the [vertical spread](/wiki/economics/defi/options/vertical-spread) specifically, the expiry-free [perpetual option](/wiki/economics/defi/options/perpetual-option), the notion of a [risk-defined strategy](/wiki/economics/defi/options/risk-defined-strategy), and how all of these can be [emulated with DeFi primitives](/wiki/economics/defi/options/emulating-option-strategies) such as concentrated [liquidity-pool](/wiki/economics/defi/markets/liquidity-pool) positions.
 
 ## Directional Bets
 
@@ -22,7 +22,7 @@ The user-facing products: [bull bets](/wiki/economics/defi/options/bull-bet) and
 
 ## Cash-Backed Synthetic Options
 
-Bitsy's core derivative: the [cash-backed synthetic option](/wiki/economics/defi/options/cash-backed-synthetic-option) (CBSO), its [smart-contract design](/wiki/economics/defi/options/cash-backed-synthetic-options-design), and the [innovative claims](/wiki/economics/defi/options/innovative-claims-cbso) it makes -- full collateralization, no margin calls, and settlement in volatile currencies.
+Bitsy's core derivative: the [cash-backed synthetic option](/wiki/economics/defi/options/cash-backed-synthetic-option) (CBSO), its [smart-contract design](/wiki/economics/defi/options/cash-backed-synthetic-options-design), and the [innovative claims](/wiki/economics/defi/options/innovative-claims-cbso) it makes -- full collateralization, no margin calls, and settlement in volatile currencies. The revenue side is the [collateralization fee](/wiki/economics/defi/options/collateralization-fee), charged to a minter against staked collateral, and the [Fee Box](/wiki/economics/defi/options/fee-box) that collects it.
 
 ## Wiki Pages
 

@@ -18,7 +18,7 @@ blockchains/
         info.json
 ```
 
-The folder name is the contract address in [Ethereum Improvement Proposal (EIP)](/wiki/economics/defi/ethereum/eip) 55 checksummed form — the mixed-case spelling that encodes a checksum in the letter case. The repository's check compares the folder name against its own checksum computation and fails a lowercase folder. File names are compared as exact strings, so `logo.PNG` and `Info.JSON` fail too, and nothing but those two files may sit in the folder.
+The folder name is the contract address in [Ethereum Improvement Proposal (EIP)](/wiki/economics/defi/chains/ethereum/eip) 55 checksummed form — the mixed-case spelling that encodes a checksum in the letter case. The repository's check compares the folder name against its own checksum computation and fails a lowercase folder. File names are compared as exact strings, so `logo.PNG` and `Info.JSON` fail too, and nothing but those two files may sit in the folder.
 
 A token that is no longer maintained is marked `"status": "abandoned"`, and the documentation says its `logo.png` is removed; the review bot, by contrast, says files "should not be deleted in a PR" and that deprecated tokens "should be deactivated only". Expect the maintainers to handle deprecation.
 

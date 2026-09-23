@@ -30,11 +30,11 @@ A bank wire is a message *about* a value transfer, carried on a network that has
 
 **Addresses are not accounts.** The rule assumes a beneficiary institution exists and can be identified from the transfer instruction. An address on a public chain reveals nothing about whether it belongs to an exchange, an individual, or a [smart contract](/wiki/economics/defi/smart-contract). Determining the counterparty VASP from an address is a heuristic exercise performed by analytics vendors, not a lookup.
 
-**Self-custody has no counterparty.** When a customer withdraws to their own wallet, there is no receiving institution to send anything to. Jurisdictions have diverged here: some require the sending VASP to collect and verify a declaration of ownership, some require proof of control over the destination address, and some exempt the case. This is where the rule most directly touches ordinary users: it is the mechanism behind a [gateway or exchange](/wiki/economics/defi/cryptocurrency-gateway) asking a customer to sign a message from a wallet they already own.
+**Self-custody has no counterparty.** When a customer withdraws to their own wallet, there is no receiving institution to send anything to. Jurisdictions have diverged here: some require the sending VASP to collect and verify a declaration of ownership, some require proof of control over the destination address, and some exempt the case. This is where the rule most directly touches ordinary users: it is the mechanism behind a [gateway or exchange](/wiki/economics/defi/blockchain/cryptocurrency-gateway) asking a customer to sign a message from a wallet they already own.
 
 **The sunrise problem.** The rule binds a VASP only where its jurisdiction has implemented it. Until implementation is universal, a compliant VASP routinely transacts with counterparties under no obligation to reciprocate — so it collects data it cannot send and expects data that never arrives.
 
-The net effect is a rule that imposes substantial cost on regulated intermediaries and is, by construction, inapplicable to the transfers between self-custodied wallets that it would most want to observe. That gap is a recurring theme in the [DeFi regulatory picture](/wiki/economics/defi/defi-us-regulatory-restrictions).
+The net effect is a rule that imposes substantial cost on regulated intermediaries and is, by construction, inapplicable to the transfers between self-custodied wallets that it would most want to observe. That gap is a recurring theme in the [DeFi regulatory picture](/wiki/economics/regulation/defi-us-regulatory-restrictions).
 
 ## External links
 

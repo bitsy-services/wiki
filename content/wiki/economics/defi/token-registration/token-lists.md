@@ -40,7 +40,7 @@ The schema is stricter than the document looks in five places:
 
 - The list `name` is capped at 30 characters and matched against `^[\w ]+$`. Letters, digits, underscores and spaces only — an em dash, an ampersand or a hyphen in your project name fails validation.
 - A tag `description` is matched against `^[ \w\.,:]+$`, which adds period, comma and colon to that set but still allows no hyphen and no apostrophe. "Redeemable one-for-one" fails; "Redeemable 1:1" passes. The tag's own identifier is stricter again: `^[\w]+$`, ten characters at most.
-- `address` casing must stay stable between publishes. The schema itself accepts any casing, but consumers key tokens by the exact `chainId`+`address` string, so recasing an address reads as a removal plus an addition and forces a major version bump — a breaking-change warning shown to every user, for no change at all. Pick the [EIP](/wiki/economics/defi/ethereum/eip)-55 checksummed form and never touch it again.
+- `address` casing must stay stable between publishes. The schema itself accepts any casing, but consumers key tokens by the exact `chainId`+`address` string, so recasing an address reads as a removal plus an addition and forces a major version bump — a breaking-change warning shown to every user, for no change at all. Pick the [EIP](/wiki/economics/defi/chains/ethereum/eip)-55 checksummed form and never touch it again.
 - `timestamp` must be a full date-time with a zone; `2026-08-31` on its own fails. The schema describes it as the moment "this immutable version of the list was created", so each publish carries a new one.
 - Token `name` is capped at 60 characters and `symbol` at 20, and `symbol` may not contain whitespace.
 

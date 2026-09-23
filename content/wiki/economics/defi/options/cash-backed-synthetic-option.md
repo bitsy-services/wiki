@@ -21,21 +21,21 @@ The tradeoff is capital efficiency: because the full maximum payout must be lock
 
 ### Minting
 
-A *minter* creates CBSOs by depositing settlement currency (such as USDC or ETH) into the CBSO [smart contract](/wiki/economics/defi/smart-contract). The deposited amount equals the maximum payout of the option -- the width between the two [strike prices](/wiki/economics/defi/options/strike-price). In return, the minter receives [ERC-20](/wiki/economics/defi/ethereum/erc-20)-compliant tokens representing the option position.
+A *minter* creates CBSOs by depositing settlement currency (such as USDC or ETH) into the CBSO [smart contract](/wiki/economics/defi/smart-contract). The deposited amount equals the maximum payout of the option -- the width between the two [strike prices](/wiki/economics/defi/options/strike-price). In return, the minter receives [ERC-20](/wiki/economics/defi/chains/ethereum/erc-20)-compliant tokens representing the option position.
 
-The minter also pays a [collateralization fee](/wiki/economics/defi/collateralization-fee) proportional to the collateral amount and the time to expiration.
+The minter also pays a [collateralization fee](/wiki/economics/defi/options/collateralization-fee) proportional to the collateral amount and the time to expiration.
 
 ### Trading
 
-Because CBSOs are standard ERC-20 tokens, they can be traded on any [DEX](/wiki/economics/defi/dex) or transferred between wallets. No special infrastructure is needed beyond the token contract itself.
+Because CBSOs are standard ERC-20 tokens, they can be traded on any [DEX](/wiki/economics/defi/markets/dex) or transferred between wallets. No special infrastructure is needed beyond the token contract itself.
 
 ### Buy-Back and Burn
 
-A minter can exit their position early by purchasing CBSO tokens on the open market and *burning* them. Burning returns a prorated share of the locked collateral and a prorated refund of the [collateralization fee](/wiki/economics/defi/collateralization-fee) based on the time remaining until expiration.
+A minter can exit their position early by purchasing CBSO tokens on the open market and *burning* them. Burning returns a prorated share of the locked collateral and a prorated refund of the [collateralization fee](/wiki/economics/defi/options/collateralization-fee) based on the time remaining until expiration.
 
 ### Settlement
 
-At expiration, the smart contract settles each CBSO based on the final asset price reported by a decentralized [oracle](/wiki/economics/defi/oracle-node). The payout is calculated from the relationship between the [strike price](/wiki/economics/defi/options/strike-price) and the settlement price, capped at the locked collateral. Any remaining collateral is returned to the minter.
+At expiration, the smart contract settles each CBSO based on the final asset price reported by a decentralized [oracle](/wiki/economics/defi/oracles/oracle-node). The payout is calculated from the relationship between the [strike price](/wiki/economics/defi/options/strike-price) and the settlement price, capped at the locked collateral. Any remaining collateral is returned to the minter.
 
 ### Automatic Refund
 
@@ -43,7 +43,7 @@ If a CBSO is never sold before expiration, the minter receives a refund of their
 
 ## Volatile Settlement Currencies
 
-Traditional options settle in a stable currency like USD. CBSOs can also settle in a volatile [cryptocurrency](/wiki/economics/defi/cryptocurrency) like ETH, which introduces an additional dimension of risk and opportunity. A CBSO settled in ETH exposes both parties not only to the underlying asset's price movement but also to changes in the value of ETH itself.
+Traditional options settle in a stable currency like USD. CBSOs can also settle in a volatile [cryptocurrency](/wiki/economics/defi/blockchain/cryptocurrency) like ETH, which introduces an additional dimension of risk and opportunity. A CBSO settled in ETH exposes both parties not only to the underlying asset's price movement but also to changes in the value of ETH itself.
 
 This *dual volatility* property is not available in traditional options markets and enables hedging strategies that account for settlement-currency risk -- a concern unique to DeFi environments where the base currency is often a volatile asset.
 
@@ -60,4 +60,4 @@ By combining bull bets and bear bets at different strikes, traders can construct
 
 ## Technical Design
 
-The smart contract architecture behind CBSOs -- including the Option Factory, Option Settler, Asset Price Oracle, and [Fee Box](/wiki/economics/defi/fee-box) -- is covered in [CBSO Design](/wiki/economics/defi/options/cash-backed-synthetic-options-design).
+The smart contract architecture behind CBSOs -- including the Option Factory, Option Settler, Asset Price Oracle, and [Fee Box](/wiki/economics/defi/options/fee-box) -- is covered in [CBSO Design](/wiki/economics/defi/options/cash-backed-synthetic-options-design).

@@ -37,7 +37,7 @@ Four claims carry most of the pitches, and none describes anything that exists.
 
 A transfer is a state change authorized by a signature from the sending key. Once it is included in a block and finalized, the balance is at the destination, and only the key controlling that destination can move it again. There is no operator of the network holding an undo, and no party a court can order to rewrite the ledger. A court can order a *recipient* to return funds, which requires identifying them and having jurisdiction; that order runs against the person, not the chain.
 
-The single protocol-level exception in Ethereum's history was the 2016 hard fork after [The DAO](/wiki/economics/defi/dao) was drained, which required the whole network to adopt an irregular state change and split the chain in two. It has not been repeated, and no mechanism exists to do it for one person's loss.
+The single protocol-level exception in Ethereum's history was the 2016 hard fork after [The DAO](/wiki/economics/defi/smart-contract/dao) was drained, which required the whole network to adopt an irregular state change and split the chain in two. It has not been repeated, and no mechanism exists to do it for one person's loss.
 
 ## What recovery actually looks like
 

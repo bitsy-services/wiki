@@ -26,7 +26,7 @@ The permitted early withdrawal converts an abstract promise into a verified expe
 
 ## The platform
 
-The front end shows an account balance, a price chart, an order history, and a withdrawal button, all served from the operator's own database. Some are built as a plausible [decentralized application](/wiki/economics/defi/dapp) with a wallet-connect flow, so the target signs from a wallet they control and never hands over a password — and in some variants that signature is itself an [approval](/wiki/economics/fraud/approval-phishing) that lets the operator move tokens without a further deposit. Others run a "mining pool" or "liquidity mining" story that maps onto real [yield farming](/wiki/economics/defi/yield-farming) closely enough to survive a superficial check.
+The front end shows an account balance, a price chart, an order history, and a withdrawal button, all served from the operator's own database. Some are built as a plausible [decentralized application](/wiki/economics/defi/smart-contract/dapp) with a wallet-connect flow, so the target signs from a wallet they control and never hands over a password — and in some variants that signature is itself an [approval](/wiki/economics/fraud/approval-phishing) that lets the operator move tokens without a further deposit. Others run a "mining pool" or "liquidity mining" story that maps onto real [yield farming](/wiki/economics/defi/markets/yield-farming) closely enough to survive a superficial check.
 
 The deposit address is the operator's. The displayed balance is a number in a row of a database, and no position exists on any chain: no pool, no counterparty, no trade. It can show any figure, including one large enough to justify the next deposit.
 

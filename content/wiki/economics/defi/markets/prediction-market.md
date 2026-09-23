@@ -1,0 +1,90 @@
+---
+title: "Prediction Market"
+weight: 140
+aliases: ["/wiki/economics/defi/prediction-market/"]
+---
+
+A prediction market is a platform where participants trade contracts whose payout depends on the outcome of a future event. The market price of each contract reflects the crowd's estimated probability of that outcome. If a "Yes" share on "Will ETH be above $5,000 on December 31?" trades at $0.35, the market is pricing a 35% probability.
+
+In DeFi, prediction markets run on [smart contracts](/wiki/economics/defi/smart-contract) that handle market creation, trading, and settlement without intermediaries. The [blockchain](/wiki/economics/defi/blockchain) provides the settlement guarantee: once the outcome is determined, the contract pays winners automatically and irreversibly.
+
+## How they work
+
+### Outcome tokens
+
+A market starts with a question and a set of mutually exclusive outcomes. For a binary market ("Yes" / "No"), the protocol mints one token for each outcome. A complete set -- one Yes token plus one No token -- always redeems for exactly $1 (or 1 USDC, etc.) at settlement, regardless of which outcome wins.
+
+So a Yes token bought at $0.35 pays $1 if the event happens, a profit of $0.65, and $0.00 if it does not, a loss of the whole $0.35. The two prices sum to $1 because the two payouts do.
+
+Prices are free to move between $0 and $1 as new information arrives. Trading is continuous -- participants buy and sell outcome tokens on an order book or through an [AMM](/wiki/economics/defi/markets/amm).
+
+### Resolution
+
+When the event concludes, someone (or some mechanism) reports the actual outcome. The smart contract then:
+
+1. Marks the winning outcome.
+2. Allows holders of the winning token to redeem for the full payout.
+3. Makes losing tokens worthless.
+
+Resolution is the step every other guarantee rests on: the payout is only as trustworthy as whatever determines the outcome, and the contract will pay the wrong side just as irreversibly as the right one. Platforms differ mainly in how they answer this.
+
+## Major platforms
+
+### Polymarket
+
+Polymarket is the largest prediction market by volume. It runs on Polygon and uses a central limit order book (CLOB) model rather than an AMM for matching trades, giving tighter spreads and better price discovery on liquid markets. Markets cover politics, crypto prices, sports, geopolitics, and cultural events.
+
+Resolution on Polymarket uses UMA's optimistic oracle: a proposer asserts the outcome, and anyone can dispute it within a challenge window. If disputed, UMA token holders vote on the correct outcome.
+
+### Augur
+
+Augur was one of the first decentralized prediction markets, launched on [Ethereum](/wiki/economics/defi/chains/ethereum/) in 2018. It allows anyone to create a market on any event. Resolution relies on a decentralized oracle system where REP token holders report outcomes and stake tokens on their reports. Incorrect reporters lose their stake, creating an economic incentive for honest reporting.
+
+Augur pioneered the concept but struggled with low liquidity and a complex UX. Augur V2 (Augur Turbo) simplified the experience but never reached Polymarket's scale.
+
+### Gnosis (now part of the Gnosis ecosystem)
+
+Gnosis developed the **Conditional Tokens Framework**, an open standard for outcome tokens that other platforms can build on. Rather than running a consumer-facing prediction market, Gnosis focused on infrastructure: conditional token contracts, [AMM](/wiki/economics/defi/markets/amm) tooling, and the Safe multisig wallet.
+
+Gnosis's conditional tokens support combinatorial markets -- markets where outcomes can be combined across multiple events (e.g., "Party X wins *and* GDP growth exceeds 3%").
+
+## Resolution mechanisms compared
+
+| Platform | Oracle mechanism | Trust model |
+|---|---|---|
+| Polymarket | UMA optimistic oracle | Optimistic with dispute window; UMA holders vote on disputes |
+| Augur | REP staking + dispute rounds | Decentralized; reporters have economic skin in the game |
+| Gnosis conditional tokens | Pluggable (Reality.eth, Chainlink, custom) | Depends on the oracle chosen by the market creator |
+
+The choice of oracle determines the market's credibility. Centralised resolution (a single trusted reporter) is fast but introduces counterparty risk. Decentralised oracle systems are more robust but slower and more expensive to operate.
+
+## Market types
+
+**Binary.** Two outcomes: Yes or No. The most common format. Example: "Will Bitcoin reach $100k in 2026?"
+
+**Categorical.** Multiple mutually exclusive outcomes. Example: "Which team will win the World Cup?" Each outcome gets its own token; a complete set of all tokens redeems for $1.
+
+**Scalar.** The payout is proportional to where the actual value falls within a range. Example: "What will ETH's price be on June 30?" If the range is $1,000 to $5,000 and the actual price is $3,000, a Long token pays $0.50 and a Short token pays $0.50.
+
+## What the price signal is good for
+
+A forecast costs the forecaster nothing; a position costs them the position. The Iowa Electronic Markets, running since 1988, have generally landed closer to the final vote share than contemporaneous national polls, and that is the case for reading a market price as a probability estimate rather than an opinion.
+
+In DeFi specifically:
+
+- The price is a machine-readable probability for any verifiable event, which other contracts can consume as an input.
+- Settlement runs with no bookmaker, no counterparty, and no delay between the outcome and the payout.
+- Resolution is the hardest case in [oracle](/wiki/economics/defi/oracles/oracle-node) design, because the fact being reported is often a judgement rather than a number.
+
+## Risks
+
+- **Oracle manipulation.** A bribed or manipulated resolution oracle makes the contract pay the losing side, and every other guarantee in the contract holds while it does so.
+- **Regulatory uncertainty.** Prediction markets that resemble gambling or derivatives may face legal restrictions depending on jurisdiction. Polymarket restricted US users after scrutiny from the Commodity Futures Trading Commission (CFTC).
+- **Thin liquidity.** Niche markets may not attract enough participants for reliable price discovery. Prices in illiquid markets can be noisy and misleading.
+
+## External links
+
+- [Polymarket](https://polymarket.com/)
+- [Augur whitepaper](https://augur.net/whitepaper.pdf)
+- [Gnosis Conditional Tokens documentation](https://docs.gnosis.io/conditionaltokens/)
+- [UMA optimistic oracle](https://docs.uma.xyz/)

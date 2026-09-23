@@ -3,7 +3,7 @@ title: "Registering on CoinMarketCap"
 weight: 140
 ---
 
-CoinMarketCap (CMC) says "the majority of assets are now listed automatically": its DexScan service creates a page for each trading pair on a [decentralized exchange (DEX)](/wiki/economics/defi/dex) from on-chain data, without a name check, a logo or a review. What a token team applies for is a **verified listing** — one reviewed coin page with a project name, logo, links, supply figures and every chain's contract address, identified by a Unified Cryptoasset ID (UCID). The application is a request form on CoinMarketCap's support site. The free route has, in CoinMarketCap's words, outcomes that "can range from days to months/years"; the paid one, CMC Priority (CMCP), costs USD 5,000 per page with a turnaround of about a business day.
+CoinMarketCap (CMC) says "the majority of assets are now listed automatically": its DexScan service creates a page for each trading pair on a [decentralized exchange (DEX)](/wiki/economics/defi/markets/dex) from on-chain data, without a name check, a logo or a review. What a token team applies for is a **verified listing** — one reviewed coin page with a project name, logo, links, supply figures and every chain's contract address, identified by a Unified Cryptoasset ID (UCID). The application is a request form on CoinMarketCap's support site. The free route has, in CoinMarketCap's words, outcomes that "can range from days to months/years"; the paid one, CMC Priority (CMCP), costs USD 5,000 per page with a turnaround of about a business day.
 
 The verified listing matters beyond CoinMarketCap. [Trust Wallet](/wiki/economics/defi/token-registration/trust-wallet) requires one before it will accept a token, and names CoinMarketCap as its price source.
 
@@ -70,7 +70,7 @@ CoinMarketCap does not ask who deployed the contract. The form's verification st
 
 For paid requests the terms add that every requested update "must be visible on the project's official website/socials (especially contract address)", and that CoinMarketCap "will run the contract address through scanning tools".
 
-None of this depends on the deployer, and a factory deployment has not blocked a listing in the one case checked: AIXBT on Base, a minimal-proxy clone — a tiny contract that forwards every call to shared code, stamped out by a [token factory](/wiki/economics/defi/permissionless-token-factory) — holds a verified listing. The one visible effect is on DexScan, whose token record carries a creator field: for AIXBT it is empty, where for [Uniswap's](/wiki/economics/defi/uniswap) directly deployed token it holds the deploying account, so DexScan's creator-based display came up blank for AIXBT.
+None of this depends on the deployer, and a factory deployment has not blocked a listing in the one case checked: AIXBT on Base, a minimal-proxy clone — a tiny contract that forwards every call to shared code, stamped out by a [token factory](/wiki/economics/defi/par-token/permissionless-token-factory) — holds a verified listing. The one visible effect is on DexScan, whose token record carries a creator field: for AIXBT it is empty, where for [Uniswap's](/wiki/economics/defi/markets/uniswap) directly deployed token it holds the deploying account, so DexScan's creator-based display came up blank for AIXBT.
 
 ## Cost and wait
 

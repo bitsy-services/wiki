@@ -77,9 +77,9 @@ Where a central bank or public body built the system, the addressing layer becam
 
 A stablecoin transfer on a fast chain is also an irrevocable credit push to an identifier, also settles in seconds, and also leaves the sender with no recourse against a mistake.
 
-The differences reduce to two. Zelle's identifiers are backed by an institution that has performed [know your customer](/wiki/economics/regulation/know-your-customer) checks and can be compelled to say who is behind one; a [blockchain](/wiki/economics/defi/blockchain) address is backed by nothing and answers to no one. And Zelle only reaches US deposit accounts, whereas a token transfer reaches anyone with a wallet — the reach a [cryptocurrency gateway](/wiki/economics/defi/cryptocurrency-gateway) exists to connect to, and the reach regulators object to.
+The differences reduce to two. Zelle's identifiers are backed by an institution that has performed [know your customer](/wiki/economics/regulation/know-your-customer) checks and can be compelled to say who is behind one; a [blockchain](/wiki/economics/defi/blockchain) address is backed by nothing and answers to no one. And Zelle only reaches US deposit accounts, whereas a token transfer reaches anyone with a wallet — the reach a [cryptocurrency gateway](/wiki/economics/defi/blockchain/cryptocurrency-gateway) exists to connect to, and the reach regulators object to.
 
-[Interbox](/wiki/economics/defi/interbox) is a bet that these two systems are more complementary than opposed: use Zelle's identity assertion and irreversibility as the trigger, and the chain for the leg that has to reach a self-custodied wallet.
+[Interbox](/wiki/economics/defi/blockchain/interbox) is a bet that these two systems are more complementary than opposed: use Zelle's identity assertion and irreversibility as the trigger, and the chain for the leg that has to reach a self-custodied wallet.
 
 ## External links
 

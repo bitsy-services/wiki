@@ -42,8 +42,8 @@ Its bearish mirror is the [bear put spread](/wiki/economics/defi/options/bear-pu
 
 1. **Capped profit** -- even a large rally in the underlying yields only the initial credit.
 2. **Assignment risk** -- the short put can be exercised early, particularly if it goes deep in-the-money.
-3. **[Greeks](/wiki/economics/defi/options/option-greeks) exposure** -- the position has positive delta (bullish), positive theta (benefits from time decay), and negative vega (benefits from falling [volatility](/wiki/economics/defi/volatility)).
+3. **[Greeks](/wiki/economics/defi/options/option-greeks) exposure** -- the position has positive delta (bullish), positive theta (benefits from time decay), and negative vega (benefits from falling [volatility](/wiki/economics/defi/markets/volatility)).
 
 ## DeFi Context
 
-Bull put spreads can be constructed on-chain through options protocols like Lyra, Hegic, or Opyn by combining two put positions at different strikes. They can also be approximated using concentrated [liquidity pool](/wiki/economics/defi/liquidity-pool) positions on [AMMs](/wiki/economics/defi/amm) -- see [emulating option strategies](/wiki/economics/defi/options/emulating-option-strategies) for details. The tokenized equivalent of a bullish spread is the [bull bet](/wiki/economics/defi/options/bull-bet).
+Bull put spreads can be constructed on-chain through options protocols like Lyra, Hegic, or Opyn by combining two put positions at different strikes. They can also be approximated using concentrated [liquidity pool](/wiki/economics/defi/markets/liquidity-pool) positions on [AMMs](/wiki/economics/defi/markets/amm) -- see [emulating option strategies](/wiki/economics/defi/options/emulating-option-strategies) for details. The tokenized equivalent of a bullish spread is the [bull bet](/wiki/economics/defi/options/bull-bet).

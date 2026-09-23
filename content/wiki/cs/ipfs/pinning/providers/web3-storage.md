@@ -18,7 +18,7 @@ API, then not         capability auth     storage for AI workloads
 
 **web3.storage** was Protocol Labs' free-tier upload service: post a file, get a
 [content identifier (CID)](/wiki/cs/ipfs/cid), with
-[Filecoin](/wiki/economics/defi/filecoin) deals behind it. It
+[Filecoin](/wiki/economics/defi/chains/filecoin) deals behind it. It
 implemented the vendor-agnostic
 [Pinning Service API](/wiki/cs/ipfs/pinning/pinning-service-api), and then
 withdrew that interface — the first step away from portability.
@@ -51,7 +51,7 @@ exists. Anything that needs IPFS retrievability needs a different provider
 entirely, because the surviving product does not offer it.
 
 `nft.storage`, the sibling service aimed at
-[NFT](/wiki/economics/defi/nft) metadata, went the same way on its own
+[NFT](/wiki/economics/defi/blockchain/nft) metadata, went the same way on its own
 schedule: Classic uploads were decommissioned on 30 June 2024 with retrieval
 kept alive.
 
