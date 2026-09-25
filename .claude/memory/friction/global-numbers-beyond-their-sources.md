@@ -76,4 +76,29 @@ What worked: downloading the LaTeX source and code into the scratchpad once,
 then pointing each reviewer round at it, turned citation checks from recall
 into grep.
 
+**Recurrence, 2026-09-25 (`networking/` section, STUN/TURN/ICE).** This time
+every *number* survived review, because all 23 RFCs, the Ford paper and the
+Tailscale article were fetched into the scratchpad before drafting and each
+figure was grepped. What slipped instead was **conditional claims stated
+unconditionally**, the same overreach one level up:
+
+- "One hard NAT is fine, two need a relay." It depends on the other side's
+  filtering. RFC 4787's own REQ-8 justification says so, and the page had
+  quoted REQ-1 without it. Three reviewers caught it, from three directions.
+- A TCP reset "fails" hole punching. Ford calls it "not necessarily fatal".
+- "Tailscale implements this without ICE." The article calls its approach
+  ICE "with deviations".
+- A relayed ICE candidate's base described as the host socket. RFC 8445 says
+  a relayed candidate is its own base.
+
+A second new shape was a **copy-paste config that was incomplete**. The coturn
+`denied-peer-ip` list was IPv4-only, and it took two review rounds to add IPv6,
+the prefixes that embed IPv4, and `no-tcp-relay` (on by default). Nothing
+in the drafting flagged it, because each line was individually correct.
+
+How to apply: when a source states a result, check whether it attaches a
+condition anywhere else in the same document before stating it bare. Give
+security-relevant config its own adversarial review pass, and say in the prompt
+that it will be pasted onto an internet-facing server.
+
 Related: [[project-harness-invariants]].

@@ -203,6 +203,42 @@ YAML	-
 RSS	-
 MDN	-
 
+# --- Networking and NAT traversal -----------------------------------------
+NAT	network address translation
+CGNAT	carrier-grade NAT
+STUN	Session Traversal Utilities for NAT
+TURN	Traversal Using Relays around NAT
+ICE	Interactive Connectivity Establishment
+PCP	Port Control Protocol
+PMP	Port Mapping Protocol
+IGD	Internet Gateway Device
+SSDP	Simple Service Discovery Protocol
+ALG	application layer gateway
+RTO	retransmission timeout
+DTLS	Datagram Transport Layer Security
+SRTP	Secure Real-time Transport Protocol
+SCTP	Stream Control Transmission Protocol
+SDP	Session Description Protocol
+SIP	Session Initiation Protocol
+JSEP	JavaScript Session Establishment Protocol
+SFU	selective forwarding unit
+TCP	-
+UDP	-
+TLS	-
+ISP	-
+LAN	-
+WAN	-
+IETF	-
+HMAC	-
+CRC	-
+XOR	-
+SYN	-
+RST	-
+SRX	-
+DHCP	-
+IANA	-
+ASCII	-
+
 # --- Email -----------------------------------------------------------------
 MIME	Multipurpose Internet Mail Extensions
 MAPI	Messaging Application Programming Interface

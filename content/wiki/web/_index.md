@@ -16,6 +16,8 @@ The durable ideas underneath the wire live in [Computer Science](/wiki/cs): [con
 
 Keys, certificates, and credentials on the machine doing the publishing are in [Security](/wiki/security), which is about handling secrets rather than about what they authorise.
 
+The path a packet takes is in [Networking](/wiki/networking). A browser fetching a page always connects to a server with a public address, so it never meets the problem that section starts from: two hosts, each behind a network address translation (NAT) device, that cannot open a connection to each other. [WebRTC](/wiki/networking/webrtc) lives there for that reason, even though it is a browser API.
+
 [Git](/wiki/git) is the step before this one: it gets content into the repository that a build then turns into a site.
 
 ## Wiki Pages

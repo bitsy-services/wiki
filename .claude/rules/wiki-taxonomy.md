@@ -25,6 +25,7 @@ Directly under `/wiki/`, in sidebar order:
 | `social` | building and moderating communities on social platforms |
 | `cs` | the durable ideas underneath the rest — theory, not tools |
 | `git` | an opinionated version-control workflow |
+| `networking` | how packets get between hosts — NAT traversal, and the real-time stacks built on it |
 | `web` | publishing and serving documents: building a site, and getting it to a browser |
 | `microsoft` | programming against Microsoft's platforms |
 
