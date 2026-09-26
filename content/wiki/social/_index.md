@@ -8,6 +8,8 @@ Building and running communities on social platforms — the operational side ra
 
 [Reddit](/wiki/social/reddit) is the only platform covered so far. The section is scoped to grow as others are set up.
 
+The protocol underneath one decentralised platform, [Nostr](/wiki/networking/nostr), is in Networking, since the page is about how its relays and signed events work rather than about running a community on it.
+
 ## Wiki Pages
 
 {{< section >}}

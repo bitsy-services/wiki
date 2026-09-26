@@ -223,6 +223,11 @@ SIP	Session Initiation Protocol
 JSEP	JavaScript Session Establishment Protocol
 SFU	selective forwarding unit
 PAC	Patiently Awaiting Connectivity
+NIP	Nostr Implementation Possibilities
+BIP	Bitcoin Improvement Proposal
+AES	Advanced Encryption Standard
+GCM	Galois/Counter Mode
+MQTT	-
 TCP	-
 UDP	-
 TLS	-

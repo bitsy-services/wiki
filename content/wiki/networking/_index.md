@@ -10,11 +10,15 @@ The first subsection is [NAT traversal](/wiki/networking/nat-traversal). Most ho
 
 [WebRTC](/wiki/networking/webrtc) puts those tools in every browser. It is the browser stack for audio, video and data sent directly between two users, and every call it places runs the whole NAT traversal procedure before the first frame of media is sent.
 
+WebRTC carries the media and data but not the setup. Before connecting, the two browsers have to swap session descriptions through some channel both can already reach, and WebRTC leaves that channel to the application. [Nostr](/wiki/networking/nostr) is a protocol for publishing signed messages through relays, servers anyone can run that forward messages between clients connecting out to them. [Trystero](/wiki/networking/trystero) is a JavaScript library that uses public relays like these as the setup channel, so that browsers can connect to each other with no server belonging to the application.
+
 ## Where the boundaries fall
 
 [Web](/wiki/web) is about publishing: building a document and serving it to a browser that asked for it. The browser always opens that connection to a server with a public address, so none of the problems in this section arise there. A browser talking to *another browser* is the point where they begin, which is why WebRTC is here rather than there.
 
 The durable ideas in [Computer Science](/wiki/cs) are not about the wire. [IPFS](/wiki/cs/ipfs) runs over a peer-to-peer network that has to traverse NATs like anything else, but it sits in Computer Science because its subject is content addressing, not connectivity.
+
+[Social](/wiki/social) is about running communities on social platforms. Nostr was designed for a social network and mostly carries one, but its page here covers the relay protocol underneath: signed events, what a relay can and cannot do, and relays used as a general message bus, which is how Trystero uses them. Running a community on Nostr would belong in Social. Nor is Nostr in Web, because a relay forwards signed messages between clients rather than serving documents to a browser.
 
 [Security](/wiki/security) handles keys and credentials on a developer machine. The credentials a relay server issues are covered here, with the relay, because they only make sense next to the protocol that checks them.
 

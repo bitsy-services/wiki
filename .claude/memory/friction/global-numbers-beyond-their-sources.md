@@ -101,4 +101,21 @@ condition anywhere else in the same document before stating it bare. Give
 security-relevant config its own adversarial review pass, and say in the prompt
 that it will be pasted onto an internet-facing server.
 
+**Recurrence, 2026-09-25 (`networking/trystero`, `networking/nostr`).** Pages
+written from the library's published code, unpacked into the scratchpad. The
+constants all survived review. What failed was **security advice built on a
+partial read of the code**: the room-secret analysis was derived from
+`strategy.mjs`, `crypto.mjs` and `signal-handler.mjs`, and never opened
+`shared-peer.mjs`, where one connection per `appId` is shared across rooms and
+a room token (without the password) is announced to every connected peer. The
+reviewer, pointed at the same unpacked code, found it; the "a random room ID
+is enough" advice and a copy-paste data-channel snippet were both wrong
+because of it. Also again: SHOULD/MAY rendered as what relays do, and a quote
+trimmed of the condition that followed it (NIP-09's same-pubkey clause).
+
+How to apply: before stating what an attacker can or cannot do with a library,
+list every module and read the ones that touch identity, connection reuse and
+admission, not only the ones on the happy path. Say "read from the code, not
+tested" on the page when that is the evidence.
+
 Related: [[project-harness-invariants]].

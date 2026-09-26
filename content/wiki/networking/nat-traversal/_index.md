@@ -33,7 +33,7 @@ Each page is one mechanism. They are listed in reading order, which is also roug
 
 One page is not a mechanism. [Running without TURN](/wiki/networking/nat-traversal/without-turn) covers what an application gives up by configuring STUN and no relay: which pairs of users then never connect, who they tend to be, and what it means for a peer-to-peer browser game. It sits after ICE because it assumes it.
 
-Two things sit outside the table because the protocols do not supply them. The peers need a **signalling channel**, usually a server both already have a connection to, to exchange addresses before any of the techniques can start. They also need something to run, and for most readers that is [WebRTC](/wiki/networking/webrtc), which runs STUN, hole punching, TURN and ICE in every browser.
+Two things sit outside the table because the protocols do not supply them. The peers need a **signalling channel**, usually a server both already have a connection to, to exchange addresses before any of the techniques can start. [Trystero](/wiki/networking/trystero) uses public [Nostr](/wiki/networking/nostr) relays for it, instead of a server of the application's own. They also need something to run, and for most readers that is [WebRTC](/wiki/networking/webrtc), which runs STUN, hole punching, TURN and ICE in every browser.
 
 ## How often a direct path exists
 
