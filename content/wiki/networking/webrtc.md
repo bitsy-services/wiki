@@ -17,7 +17,7 @@ The descriptions are Session Description Protocol (SDP) text, exchanged as an **
 
 ## Setting up a connection
 
-The configuration names the STUN and TURN servers. The TURN credentials are short-lived ones minted by the application server for this user, in the [scheme described on the TURN page](/wiki/networking/nat-traversal/turn#credentials):
+The configuration below names the STUN and TURN servers. The TURN credentials are short-lived ones minted by the application server for this user, in the [scheme described on the TURN page](/wiki/networking/nat-traversal/turn#credentials):
 
 ```javascript
 const pc = new RTCPeerConnection({
@@ -37,7 +37,9 @@ const pc = new RTCPeerConnection({
 
 const signaling = new WebSocket("wss://app.example.org/signal");
 
-// Trickle ICE: forward each candidate as soon as it is gathered.
+// Trickle ICE: forward each candidate as soon as it is gathered. A candidate
+// whose .candidate string is empty marks end-of-candidates; forward it too,
+// since the peer's connection cannot reach "failed" without it.
 pc.onicecandidate = ({ candidate }) => {
   if (candidate) signaling.send(JSON.stringify({ candidate }));
 };
@@ -64,6 +66,8 @@ async function call() {
 ```
 
 Setting the local description starts candidate gathering, and each candidate surfaces through `onicecandidate`. Once both descriptions are applied, ICE pairs the candidates and runs its checks. The rest of the connection happens without the application: DTLS, then media or data.
+
+The TURN server in the configuration is optional. What leaving it out costs, for a game in particular, is on [Running without TURN](/wiki/networking/nat-traversal/without-turn).
 
 This sketch leaves out what a production application has to handle. If both sides make an offer at once (*glare*), the collision has to be resolved, and a changing network needs an ICE restart through `restartIce()`.
 
@@ -124,7 +128,7 @@ The SFU terminates each participant's DTLS session, so it holds the SRTP keys an
 
 ## Check
 
-Chrome's `chrome://webrtc-internals` and Firefox's `about:webrtc` show every candidate a page gathered, every candidate pair, the state of each check, and which pair was selected. They are the quickest way to answer "did this call go through TURN." A call relayed through TURN shows a selected pair whose local or remote candidate type is `relay`. Local means this browser's relay, and remote means the peer's.
+Chrome's `chrome://webrtc-internals` and Firefox's `about:webrtc` show every candidate a page gathered, every candidate pair, the state of each check, and which pair was selected. They are the quickest way to answer "did this call go through TURN." A call relayed through TURN shows a selected pair whose local or remote candidate type is `relay`. Local means this browser's relay, and remote means the peer's. The peer's relay can also appear here as `prflx`, when its checks arrived before its candidate did, so the reliable reading is each browser's own local type.
 
 ## Sources
 

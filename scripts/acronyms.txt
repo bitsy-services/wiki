@@ -222,6 +222,7 @@ SDP	Session Description Protocol
 SIP	Session Initiation Protocol
 JSEP	JavaScript Session Establishment Protocol
 SFU	selective forwarding unit
+PAC	Patiently Awaiting Connectivity
 TCP	-
 UDP	-
 TLS	-
@@ -236,6 +237,7 @@ SYN	-
 RST	-
 SRX	-
 DHCP	-
+SHOULD	-
 IANA	-
 ASCII	-
 

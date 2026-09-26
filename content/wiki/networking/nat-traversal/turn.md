@@ -5,7 +5,30 @@ weight: 40
 
 Traversal Using Relays around NAT (TURN) is a protocol in which a client asks a server on the public internet for a **relayed transport address**, an IP address and port on the server itself, and the server forwards packets between that address and the client. A peer sends to the relayed address as if it were the client. The server wraps each packet and passes it down the client's own connection to the server, and passes the client's packets back out the same way. Both hosts only ever send *to* the server, so the path works through any network address translation (NAT) device and any firewall that allows the client to reach the server at all.
 
-TURN is an extension of [STUN](/wiki/networking/nat-traversal/stun), and most TURN messages are STUN messages with added methods. The current specification is RFC 8656 (2020), which replaced RFC 5766 (2010). It is the fallback in [NAT traversal](/wiki/networking/nat-traversal): the thing that works when [hole punching](/wiki/networking/nat-traversal/hole-punching) cannot, typically because at least one host is behind a NAT with [endpoint-dependent mapping](/wiki/networking/nat-traversal/mapping-and-filtering#mapping-does-the-public-port-depend-on-the-destination) and the other filters strictly.
+TURN is an extension of [STUN](/wiki/networking/nat-traversal/stun), and most TURN messages are STUN messages with added methods. The current specification is RFC 8656 (2020), which replaced RFC 5766 (2010). It is the fallback in [NAT traversal](/wiki/networking/nat-traversal): the thing that works when [hole punching](/wiki/networking/nat-traversal/hole-punching) cannot. The next section lists exactly when that is.
+
+## When TURN is required
+
+STUN reports an address and never carries a packet. So STUN is enough whenever a direct path exists between the two peers, and TURN is required exactly when none does. Whether a direct path exists depends on both peers' networks together. A player on a strict network may connect directly to one opponent and need a relay for the next, so the useful question is not "does this user need TURN" but "does this pair."
+
+Two NAT behaviours decide most cases, both defined on the [mapping and filtering](/wiki/networking/nat-traversal/mapping-and-filtering) page. A NAT with endpoint-independent **mapping**, called *easy*, uses the same public port for every destination, so the address STUN reported is the address the peer will see. A *hard* NAT, with endpoint-dependent mapping, picks a new public port for each destination. A NAT's **filtering** decides which inbound packets it admits: from anyone, from any port on an address the inside host has sent to, or only from the exact address and port.
+
+| The pair | Direct path? | Why |
+|---|---|---|
+| On the same local network | Yes, without STUN | each can reach the other's private address |
+| One has a public address that accepts inbound UDP | Yes | the other sends first, and nothing filters it |
+| Both NATs easy | Yes, with STUN | hole punching works whatever the filtering |
+| One hard, the other filtering by address only or not at all | Yes, with STUN | the easy side admits the packet from the unexpected port and replies to it; RFC 4787 says [ICE](/wiki/networking/nat-traversal/ice), the procedure that tests candidate address pairs, "will ultimately find connectivity" here |
+| One hard, the other filtering by address and port | **No** | the hard side's packets arrive from a port the other side never sent to, and are dropped |
+| Both hard | **No** | neither side can know the port the other will use |
+| Outbound UDP blocked on either side | **No**, unless the other peer has a public address that accepts TCP | only TCP leaves the network: TURN over TCP or TLS, or a direct TCP connection to a peer with a public address |
+| A browser required to send everything through an HTTP proxy | **No** | the proxy carries TCP only, so TURN over TCP or TLS is the only route (RFC 8828, "Mode 4") |
+| One peer IPv4-only, the other IPv6-only | **No** | the two have no address family in common; a TURN server with both relays between them (RFC 8835) |
+| Both behind the same [carrier-grade NAT](/wiki/networking/nat-traversal/mapping-and-filtering#carrier-grade-nat), the internet provider's shared NAT, which does not [hairpin](/wiki/networking/nat-traversal/mapping-and-filtering#hairpinning) their traffic back inside | **No** in a browser | the one other remedy, a port mapping on a home router, is not available to a web page |
+
+Outside a browser, two of the **No** rows can sometimes be rescued. An application with its own sockets can use the birthday-paradox port guessing on the [hole punching](/wiki/networking/nat-traversal/hole-punching#when-one-side-is-hard) page for one hard NAT, and a [port mapping protocol](/wiki/networking/nat-traversal/port-mapping) for a cooperative home router. A web page can do neither. The browser's ICE agent gathers one host candidate per local address and makes no attempt to guess ports. The WebRTC API gives the page no socket of its own and no port mapping call. In a browser, every **No** in the table except the UDP-blocked row is final without a relay.
+
+Most rows cannot be detected in advance. Filtering is invisible to a STUN test, so the only way to learn whether a given pair can connect directly is to let ICE try. RFC 8828, which sets how browsers expose addresses, puts its advice to applications plainly: they "SHOULD deploy a TURN server with support for both UDP and TCP connections to the server." What an application loses by not doing so, and what it looks like to its users, is on [Running without TURN](/wiki/networking/nat-traversal/without-turn).
 
 ## The allocation
 
