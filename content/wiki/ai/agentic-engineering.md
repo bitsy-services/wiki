@@ -22,7 +22,7 @@ The pages on the first three are about getting one execution right. This page is
 
 Software has had this lifecycle for decades. The agentic version differs in three places:
 
-- **Build is mostly tools and context, not code.** The model is fixed; behavior changes by changing what it sees and what it can do. Most of "building an agent" is writing tool contracts, retrieval, system prompts, and rules — work that *looks like* configuration but determines behavior more than the surrounding code does.
+- **Build is mostly tools and context, not code.** The model is fixed; behavior changes by changing what it sees and what it can do. Most of "building an agent" is writing tool contracts, retrieval, [system prompts](/wiki/ai/context-engineering/anatomy-of-a-request), and rules — work that *looks like* configuration but determines behavior more than the surrounding code does.
 - **Evaluate is empirical, not unit-testable.** There is no oracle for "the agent did the right thing." Quality is measured against rubrics, golden tasks, and human review on a sample. Eval design is part of the agent, not an afterthought.
 - **Operate is where most failures live.** The agent that passed pre-launch evals will encounter inputs they did not cover, tools whose responses shifted, and prompts users phrase in ways no one anticipated. Observability and a fast rollback path matter more than they do for deterministic code.
 

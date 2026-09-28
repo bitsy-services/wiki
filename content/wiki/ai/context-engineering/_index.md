@@ -8,7 +8,7 @@ bookCollapseSection: true
 
 Prompt engineering asks "what do I say to the model?" Context engineering asks the broader question: "what is the complete set of tokens the model sees when it generates the next response, and how did each one get there?" For a single-shot chatbot prompt the two are nearly the same. For a coding agent — a model running in a loop, reading files, calling tools, and accumulating history over dozens of turns — they are different disciplines, and the second one dominates outcomes.
 
-A coding agent's context window is a **finite, shared, and decaying** resource. Finite: every model has a hard token limit, and quality degrades well before that limit is reached. Shared: the system prompt, your instructions, the conversation history, tool definitions, tool outputs, and retrieved file contents all draw from the same budget. Decaying: a fact that was correct when it entered the window may be stale by the time the model relies on it. Context engineering is the practice of managing that resource deliberately rather than letting it fill by accident.
+A coding agent's context window is a **finite, shared, and decaying** resource. Finite: every model has a hard token limit, and quality degrades well before that limit is reached. Shared: the [system prompt](/wiki/ai/context-engineering/anatomy-of-a-request), your instructions, the conversation history, tool definitions, tool outputs, and retrieved file contents all draw from the same budget. Decaying: a fact that was correct when it entered the window may be stale by the time the model relies on it. Context engineering is the practice of managing that resource deliberately rather than letting it fill by accident.
 
 ## The context budget
 
@@ -96,6 +96,7 @@ Ordered worst-first — the early items cause wrong actions; the later ones only
 
 ## Related
 
+- [Anatomy of a request](/wiki/ai/context-engineering/anatomy-of-a-request) — the sequence itself: chat template, system prompt, tool definitions, and the messages, in the order the model receives them.
 - [Claude Code](/wiki/ai/context-engineering/claude-code) — the techniques on this page applied end-to-end in a real agentic harness.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording the instructions that context engineering decides to include.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — why context ordering and stability translate directly into latency and spend.

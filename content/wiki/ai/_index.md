@@ -9,6 +9,7 @@ Techniques for getting more out of AI coding agents and large language models, a
 The section shares one running example: **using [Claude Code](/wiki/ai/context-engineering/claude-code) to write a page for this wiki.** It is a real agentic workload over artifacts in this repository, so each topic below can point at the same concrete task instead of inventing a fresh hypothetical.
 
 - [Context engineering](/wiki/ai/context-engineering) — managing what the model sees: the context budget, curation, compaction, sub-agent isolation, and the pitfalls that cause wrong actions.
+  - [Anatomy of a request](/wiki/ai/context-engineering/anatomy-of-a-request) — what the model actually receives: one flat token sequence, and who writes each part of it.
   - [Claude Code](/wiki/ai/context-engineering/claude-code) — those techniques applied end-to-end in a real harness; the section's worked example.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording the instructions the model receives.
 - [LLM overused words](/wiki/ai/overused-words) — the *delve*/*tapestry* vocabulary, why preference training installs it, and what actually removes it.

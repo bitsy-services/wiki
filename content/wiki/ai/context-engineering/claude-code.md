@@ -21,7 +21,7 @@ Type *"write a wiki page on X"* as the first message and a specific chain fires,
 
 ## Durable instructions: CLAUDE.md and rules
 
-The highest-leverage context is the [right-altitude instruction](/wiki/ai/context-engineering#right-altitude-instructions) — small, and applied on every turn. Claude Code loads it from a four-level cascade, managed → user → project (`CLAUDE.md`) → local, and delivers it as *user* context rather than a hard system prompt: compliance is probabilistic, which is why emphatic phrasing ("IMPORTANT", "YOU MUST") measurably raises adherence instead of being redundant.
+The highest-leverage context is the [right-altitude instruction](/wiki/ai/context-engineering#right-altitude-instructions) — small, and applied on every turn. Claude Code loads it from a four-level cascade, managed → user → project (`CLAUDE.md`) → local, and delivers it as *user* context rather than a hard [system prompt](/wiki/ai/context-engineering/anatomy-of-a-request): compliance is probabilistic, which is why emphatic phrasing ("IMPORTANT", "YOU MUST") measurably raises adherence instead of being redundant.
 
 This repository is a live specimen. `CLAUDE.md` carries build commands and structure; `.claude/rules/wiki-content.md` says *"Do not add an `# H1` — Hugo renders the frontmatter title as h1."* That rule is at the right altitude: specific enough to change the output (this page starts at `##` because of it), general enough to apply to every page. Anthropic's guide supplies the pruning test — for each line, *"would removing this cause a mistake?"* — and a `CLAUDE.md` that fails it does not fail loudly. It dilutes attention across more lines until the agent silently drops the one rule that was doing work.
 
