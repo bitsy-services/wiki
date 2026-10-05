@@ -32,6 +32,8 @@ Keeping two remotes -- `origin` (your fork) and `upstream` (the source) -- lets 
 gh repo fork original-owner/project --clone
 ```
 
+Your first commit to a public fork publishes the name and email address Git is configured with, and it cannot be recalled once someone has fetched it. If the contribution should not be tied to your other accounts, set that up before you commit -- see [identity separation](/wiki/security/identity-separation).
+
 Never work on `main` in your fork. Branch for each change so you can keep your fork's `main` a clean mirror of upstream:
 
 ```bash
