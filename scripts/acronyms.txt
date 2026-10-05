@@ -582,3 +582,6 @@ DEXT	-
 ONLY	-
 ETA	-
 BEP20	-
+
+# --- Verbal tics: emphasis quoted from a published system prompt ----------
+NEVER	-

@@ -54,6 +54,8 @@ How some of that data was obtained has been litigated. In *Bartz v. Anthropic*, 
 
 That the models are transformers is a safe inference — Anthropic's own interpretability papers analyse them in terms of [residual streams](/wiki/ai/llm/residual-stream), [attention heads](/wiki/ai/llm/one-attention-head) and [MLP layers](/wiki/ai/llm/the-mlp) — but it is inference from the research literature, not an architecture statement.
 
+Anthropic also publishes the system prompts it uses in the Claude apps, dated, and states that they do not apply to the API. Several of their lines instruct against a habit of wording, such as opening a reply with *Certainly!* or using *genuinely* as an intensifier. [Claude's verbal tics](/wiki/ai/verbal-tics/anthropic-claude#what-anthropics-prompts-name) quotes those lines with their dates.
+
 ## What is distinctive
 
 **Constitutional AI.** Rather than training harmlessness from human labels on harmful outputs, Anthropic trains it from AI feedback against a written document. Claude's constitution was published in January 2026 under a Creative Commons CC0 public-domain dedication, and is used at several stages of training — including by Claude itself, to generate synthetic conversations and response rankings. This is a different mechanism from [reinforcement learning from human feedback (RLHF)](/wiki/ai/llm/rlhf), though Anthropic uses both.

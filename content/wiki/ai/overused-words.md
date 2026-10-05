@@ -39,6 +39,7 @@ Model collapse is a separate risk pointing the same way: Shumailov et al. showed
 
 ## Related
 
+- [LLM verbal tics](/wiki/ai/verbal-tics) — the same habit above the level of the word: sentence patterns, paragraph shapes and reply openers, with [their own mitigations](/wiki/ai/verbal-tics/mitigation).
 - [RLHF](/wiki/ai/llm/rlhf) — the preference-training step this vocabulary is a side effect of, and the calibration cost it charges alongside.
 - [Sampling strategies](/wiki/ai/llm/sampling-strategies) — temperature, top-k and top-p, the knobs Verbalized Sampling sits on top of.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — where a voice prompt or a banned-word list actually gets written.

@@ -11,4 +11,5 @@
 - [Numbers beyond their sources](friction/global-numbers-beyond-their-sources.md) — verify every figure against a primary source or drop it; check a quoted result for conditions stated elsewhere in the same source; a partial retraction leaves the page self-contradictory; read every relevant module before claiming what an attacker can do
 - [Workflow transcripts survive a session limit](friction/global-workflow-transcripts-survive-a-session-limit.md) — when every workflow agent dies on the limit, salvage the fetched sources from agent-*.jsonl and the scratchpad instead of re-running
 - [Forward links block the turn](friction/project-forward-links-block-the-turn.md) — run check.sh before pausing for background agents; write link targets first
+- [Verbal tics ledger](project-verbal-tics-ledger.md) — when Paul points out a tic of Claude's, add it to `content/wiki/ai/verbal-tics/anthropic-claude.md` as `caught <date>`
 - [Bulk moves: explicit git mv](friction/global-bulk-moves-explicit-git-mv.md) — the classifier denies a scratchpad script that calls git; explicit `git mv` with multiple sources goes through

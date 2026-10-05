@@ -52,7 +52,7 @@ The result is a strong prior over wording that a style instruction competes with
 
 **Pin the features that actually differ from the default, not the ones that characterize the author.** A style brief that says "short declarative sentences, concrete nouns, no adverbs" for Hemingway is describing a target the model is already near, and spending its instruction budget on distance it did not have to travel. The useful instructions are the ones aimed where the gap is: repeat the noun rather than pronominalize it, do not vary the verb, let the paragraph end without a summarizing clause.
 
-**Expect the residue to be house style, and check for it there.** The failure will not look like a bad imitation of the author. It will look like a competent imitation with the model's own habits filling the gaps — the vocabulary from [overused words](/wiki/ai/overused-words), the tidy tripartite structures, the closing sentence that appraises what just happened.
+**Expect the residue to be house style, and check for it there.** The failure will not look like a bad imitation of the author. It will look like a competent imitation with [the model's own habits](/wiki/ai/verbal-tics) filling the gaps — the vocabulary from [overused words](/wiki/ai/overused-words), the tidy tripartite structures, the closing sentence that appraises what just happened.
 
 **Measure the gap rather than the match.** A style classifier says the imitation is good; perplexity and [type-token ratio](/wiki/ai/pastiche/what-transfers#lexical-diversity-runs-backwards) say it is generated. Reporting only the first is how a 99.9% style-alignment number and a 2× perplexity gap end up in the same paper.
 

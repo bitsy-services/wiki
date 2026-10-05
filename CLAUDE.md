@@ -13,7 +13,7 @@ It is a public, general-purpose technical wiki rather than an internal one. Any 
 - `themes/hugo-book` — theme (git submodule, do not edit)
 - `static/` — static assets (images, files); the icon set is generated, see below. `static/ads.txt` carries the Google AdSense publisher ID and must keep serving from the site root
 - `layouts/` — template overrides; a file here shadows the theme's file of the same name
-- `scripts/` — the checks; `scripts/acronyms.txt` is the acronym registry they enforce
+- `scripts/` — the checks; `scripts/acronyms.txt` is the acronym registry they enforce. `scripts/count-tics.py` is a measurement, not a check: it produces the counts published on the verbal-tics pages and is not part of the gate
 - `backlog/` — harness improvement items, consumed one per session
 
 ## Site Name
@@ -77,6 +77,7 @@ produced it.
 - Start the body at `##`. `layouts/single.html` renders the frontmatter `title` as the page h1 (`layouts/list.html` for sections, `layouts/home.html` for the home page); the theme itself renders no title heading at all.
 - Code blocks must specify a language (`text` for formulas and ASCII diagrams)
 - Directory-scoped agent instructions can live in a `CLAUDE.md` inside a `content/wiki/<section>/` folder; `ignoreFiles = ['CLAUDE\.md$']` in `hugo.toml` keeps Hugo from rendering them as pages
+- Never name a page `claude.md`. Hugo folds filename case, so a `claude.md` beside a `CLAUDE.md` collides with it and is dropped from the build without a warning, while `scripts/check.sh` stays green because it resolves links against the source files. The page on Claude's verbal tics is `anthropic-claude.md` for this reason
 
 ## Self-Improvement
 

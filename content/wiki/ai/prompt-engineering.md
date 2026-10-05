@@ -5,7 +5,7 @@ weight: 20
 
 Prompt engineering is the craft of wording an instruction to a language model so it produces the desired output reliably. Where [context engineering](/wiki/ai/context-engineering) decides *what* the model sees, prompt engineering decides *how* that instruction is phrased — role and [system prompts](/wiki/ai/context-engineering/anatomy-of-a-request), few-shot examples, chain-of-thought elicitation, output-format constraints, and the failure modes that come from ambiguous or over-stuffed prompts.
 
-Some of the output is not the prompt's to fix: the vocabulary an aligned model reaches for by default is a property of its training, and [LLM overused words](/wiki/ai/overused-words) covers what a banned-word list buys and where it stops working.
+Some of the output is not the prompt's to fix: the vocabulary an aligned model reaches for by default is a property of its training, and [LLM overused words](/wiki/ai/overused-words) covers what a banned-word list buys and where it stops working. The same holds above the word, for sentence patterns and reply openers: [mitigating verbal tics](/wiki/ai/verbal-tics/mitigation) covers which prompt instructions have been measured to lower their rate.
 
 Wording an instruction to produce a *voice* is its own problem with its own measurements: [pastiche](/wiki/ai/pastiche) covers what a style prompt can and cannot reach, and [rules versus examples](/wiki/ai/pastiche/rules-versus-examples) compares showing the model prose against describing it.
 

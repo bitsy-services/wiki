@@ -13,6 +13,10 @@ The section shares one running example: **using [Claude Code](/wiki/ai/context-e
   - [Claude Code](/wiki/ai/context-engineering/claude-code) — those techniques applied end-to-end in a real harness; the section's worked example.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording the instructions the model receives.
 - [LLM overused words](/wiki/ai/overused-words) — the *delve*/*tapestry* vocabulary, why preference training installs it, and what actually removes it.
+- [LLM verbal tics](/wiki/ai/verbal-tics) — the same habit above the word: sentence patterns, paragraph shapes and reply openers that recur whatever the subject, and why each model has its own.
+  - [Mitigating verbal tics](/wiki/ai/verbal-tics/mitigation) — the four places a tic can be intercepted, and why banning the phrase fails.
+  - [Verbal tics by application](/wiki/ai/verbal-tics/by-application) — which of those a chat user, an integrator, an agent operator and a novelist can reach.
+  - [Claude's verbal tics](/wiki/ai/verbal-tics/anthropic-claude) — an open list for one model family, each entry marked by how it is known.
 - [Pastiche](/wiki/ai/pastiche) — writing in a named author's style, what actually transfers, and why the identifying features do not.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — the token economics behind latency and spend.
 - [Agentic workflows](/wiki/ai/agentic-workflows) — planning, tool use, delegation, and verification loops.
