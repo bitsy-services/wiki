@@ -134,8 +134,9 @@ slot for the node to attest on time. Per-node bandwidth scaling one-for-one with
 total throughput is what held the max at 9.
 
 EIP-7594, shipped in Fusaka on 3 December 2025, breaks that coupling with peer
-data availability sampling. Each blob is Reed-Solomon extended to twice its
-length and cut into cells; taking the cell at a given index from every blob in
+[data availability sampling](/wiki/cs/erasure-coding#data-availability-sampling).
+Each blob is [Reed-Solomon](/wiki/cs/erasure-coding#how-any-k-pieces-can-be-enough)
+extended to twice its length and cut into cells; taking the cell at a given index from every blob in
 the block gives one of 128 **columns**, and because the extension is twofold,
 any 64 columns rebuild the other 64. A node subscribes to 8 of the 128: it
 custodies 4 as a floor and samples up to a total of 8 from its peers each slot,

@@ -67,8 +67,9 @@ stronger commitment than pinning, but it is an economic forecast rather than a
 guarantee — the Arweave page is explicit that "permanent" rests on storage costs
 continuing to fall. [Filecoin](/wiki/economics/defi/chains/filecoin) keeps
 IPFS's addressing and adds a market where storage is a dated contract backed by
-proofs. [Walrus](/wiki/economics/defi/chains/sui/walrus) erasure-codes blobs
-across a staked node set and settles the bookkeeping on Sui.
+proofs. [Walrus](/wiki/economics/defi/chains/sui/walrus) spreads blobs across
+a staked node set under an [erasure code](/wiki/cs/erasure-coding) and settles
+the bookkeeping on Sui.
 
 All four hash the same way. What separates them is who is on the hook for
 retention, for how long, and whether anyone can check.

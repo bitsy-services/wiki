@@ -192,6 +192,11 @@ OIDC	OpenID Connect
 RBAC	role-based access control
 A2A	agent to agent
 PRNG	pseudo-random number generator
+FEC	forward error correction
+IDA	information dispersal algorithm
+LRC	local reconstruction code
+MDS	maximum distance separable
+RAID	redundant array of inexpensive disks
 
 # --- Web and static site generation ---------------------------------------
 SSG	static site generator

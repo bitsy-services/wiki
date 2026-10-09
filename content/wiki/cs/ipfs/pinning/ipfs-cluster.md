@@ -35,6 +35,9 @@ strategy — free disk space by default — and the cluster re-allocates it
 elsewhere if one of those peers stops responding. There is no sharding: each
 allocated peer holds the entire [Merkle DAG](/wiki/cs/dag), so the replication
 factor is literally the number of complete copies.
+[Erasure coding](/wiki/cs/erasure-coding#against-keeping-copies) is the
+alternative in which each peer holds a piece a fraction of the object's size
+and any large enough set of peers rebuilds it.
 
 ## Consensus: CRDT or Raft
 
