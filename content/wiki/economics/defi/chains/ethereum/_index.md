@@ -16,7 +16,7 @@ Smart contracts are typically written in [Solidity](/wiki/economics/defi/develop
 
 ## Consensus: From Proof of Work to Proof of Stake
 
-Ethereum originally used Proof of Work (PoW), the same consensus mechanism as Bitcoin. In September 2022, a long-planned upgrade called The Merge switched Ethereum to Proof of Stake (PoS), reducing energy consumption by roughly 99.95%.
+Ethereum originally used [Proof of Work](/wiki/economics/defi/sybil-resistance/proof-of-work) (PoW), the same consensus mechanism as Bitcoin. In September 2022, a long-planned upgrade called The Merge switched Ethereum to [Proof of Stake](/wiki/economics/defi/sybil-resistance/proof-of-stake) (PoS), with finality provided by [Casper FFG](/wiki/economics/defi/consensus/casper-ffg), reducing energy consumption by roughly 99.95%.
 
 Under PoS, validators lock up ETH as collateral ([staking](/wiki/economics/defi/markets/staking)) and are selected to propose and attest to new blocks. Validators who act honestly earn rewards; those who misbehave have their stake "slashed" (partially confiscated). This economic incentive structure secures the network without the energy cost of mining.
 

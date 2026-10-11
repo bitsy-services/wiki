@@ -21,7 +21,7 @@ A transaction that touches a **shared object** — one that anyone can mutate, l
 
 ## The Consensus Engine Lineage
 
-The protocol running the consensus path has evolved through three generations.
+The protocol running the consensus path has evolved through three generations, all of them [DAG-based BFT](/wiki/economics/defi/consensus/dag-bft) protocols, the class in which every validator proposes at once and the order is read off the graph of blocks.
 
 **Narwhal + Bullshark/Tusk.** Sui's mainnet launched on a two-component design. **Narwhal** is a mempool that structures transaction data into a [directed acyclic graph](/wiki/cs/dag/) (DAG) of blocks, guaranteeing data availability — every block references prior blocks, and the structure spreads the dissemination load across all validators. A separate ordering layer (**Bullshark**, the deterministic successor to the randomized **Tusk**) then walks that DAG and deterministically picks a total order from it. The split worked but added latency: the ordering layer had to certify the DAG before committing.
 

@@ -76,6 +76,40 @@ CMC	CoinMarketCap
 CMCP	CMC Priority
 UCID	Unified Cryptoasset ID
 
+# --- Consensus and Sybil resistance ----------------------------------------
+# IBFT and POR carry the distinctive word of their expansion only: the pages
+# write "Istanbul BFT (IBFT)" and quote the title "PORs: Proofs of
+# Retrievability", neither of which contains a longer expansion verbatim.
+ABCI	Application BlockChain Interface
+ASIC	application-specific integrated circuit
+BA	Byzantine agreement
+BABE	Blind Assignment for Blockchain Extension
+CHIP	Chia Improvement Proposal
+ECIP	Ethereum Classic Improvement Proposal
+FBA	federated Byzantine agreement
+FFG	Friendly Finality Gadget
+FIP	Filecoin Improvement Proposal
+GHOST	Greedy Heaviest-Observed Sub-Tree
+GST	global stabilization time
+IBFT	Istanbul
+KIP	Kaspa Improvement Proposal
+LMD	latest message driven
+NFS	Network File System
+PBFT	Practical Byzantine Fault Tolerance
+POR	retrievability
+POW	proof of work
+QC	quorum certificate
+SCP	Stellar Consensus Protocol
+SIMD	Solana Improvement Document
+UNL	Unique Node List
+VDF	verifiable delay function
+# Proper nouns: a protocol name, a theorem's name, a paper title, two tickers.
+CAP	-
+ETC	-
+KNIGHT	-
+QBFT	-
+XCP	-
+
 # --- Payments --------------------------------------------------------------
 ACH	automated clearing house
 APP	authorized push payment

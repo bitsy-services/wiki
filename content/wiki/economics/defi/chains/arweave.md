@@ -18,15 +18,15 @@ The model assumes [Kryder's law](https://en.wikipedia.org/wiki/Mark_Kryder#Kryde
 
 ## The Blockweave
 
-Arweave does not use a conventional [blockchain](/wiki/economics/defi/blockchain). Its data structure is the **blockweave**: each block links not only to the previous block (as in a normal chain) but also to a random earlier block, the *recall block*. To mine a new block, a miner must prove it has access to the data in that recall block.
+Arweave's original design did not use a conventional [blockchain](/wiki/economics/defi/blockchain). Its data structure was the **blockweave**: each block linked not only to the previous block (as in a normal chain) but also to a random earlier block, the *recall block*. To mine a new block, a miner had to prove it had access to the data in that recall block.
 
-That is **Proof of Access (PoA)**. In a normal [proof-of-work](/wiki/economics/defi/blockchain) chain, miners are rewarded for spending energy; they have no incentive to retain old data. Arweave instead makes possession of historical data a precondition for mining. A miner that has discarded old blocks simply cannot answer the recall challenge and is excluded from rewards. Storage replication becomes a side effect of the consensus mechanism rather than an afterthought.
+That is **Proof of Access (PoA)**. In a normal [proof-of-work](/wiki/economics/defi/sybil-resistance/proof-of-work) chain, miners are rewarded for spending energy; they have no incentive to retain old data. Arweave instead makes possession of historical data a precondition for mining. A miner that has discarded old blocks simply cannot answer the recall challenge and is excluded from rewards. Storage replication becomes a side effect of the consensus mechanism rather than an afterthought.
 
 The mechanism has evolved through several iterations:
 
 - **PoA (original)** -- prove access to a single randomly chosen recall block.
 - **SPoRA** (Succinct Proof of Random Access) -- ties hashing speed to the miner's ability to read random chunks from disk, so raw compute can't substitute for actually storing data.
-- **The 2.6+ mechanism** -- caps the hash rate per stored partition, which flattens the economics so that holding a complete, well-replicated copy of the dataset beats throwing GPUs at the problem. The intent is to push the network toward many full replicas rather than a few large miners.
+- **The 2.6+ mechanism**, which the 2023 protocol paper names Succinct Proofs of Replications -- caps the hash rate per stored partition, which flattens the economics so that holding a complete, well-replicated copy of the dataset beats throwing GPUs at the problem. The intent is to push the network toward many full replicas rather than a few large miners. [Proof of storage](/wiki/economics/defi/sybil-resistance/proof-of-storage#arweave) sets this beside Filecoin's approach.
 
 The throughput goal is not transactions-per-second in the [DeFi](/wiki/economics/defi/) sense; it is durably replicated bytes. The recall-block structure makes the blockweave a kind of graph rather than a strict linear chain, distinct from the transaction [DAG](/wiki/cs/dag/) designs used by ledgers like [IOTA's Tangle](/wiki/economics/defi/chains/iota/tangle).
 

@@ -17,8 +17,7 @@ A client and a storage provider agree a **deal**: a piece of data, a term
 measured in days, a price in FIL, and collateral the provider pledges against
 delivery. The provider takes the raw bytes and **seals** them into a sector — a
 slow, deliberately expensive encoding that produces a copy unique to that
-provider, so storing the same file twice cannot be faked by keeping one copy and
-counting it twice.
+provider, so that keeping one copy and claiming two saves the provider nothing.
 
 Deals are recorded on the Filecoin chain, which makes the arrangement auditable
 by anyone rather than only by the parties. That is the structural difference
@@ -27,14 +26,18 @@ field is a row in its own database.
 
 ## The proofs
 
-Two mechanisms run against sealed data:
+Two mechanisms run against sealed data. Both are forms of
+[proof of storage](/wiki/economics/defi/sybil-resistance/proof-of-storage),
+which covers how they work and how the storage they prove becomes weight in
+Filecoin's consensus.
 
-- **Proof of Replication** runs once at sealing and establishes that the
-  provider holds a physically distinct copy, not a deduplicated reference to
-  somebody else's.
-- **Proof of Spacetime** runs continuously afterwards, sampling sectors on a
-  schedule the provider cannot predict. Miss enough of them and the pledged
-  collateral is slashed.
+- **Proof of Replication** runs once at sealing and ties the encoded copy to
+  that provider, so that pointing at somebody else's copy, or at one copy twice,
+  gains nothing.
+- **Proof of Spacetime** runs continuously afterwards. Every sector is audited
+  once in each 24 hours, at a fixed slot, on a challenge the provider cannot
+  predict. A missed proof is a fault, and part of the pledged collateral is
+  forfeited.
 
 The pair converts "we are storing your data" into a claim that fails visibly and
 costs money. What neither proves is that anyone can *read* the data — a proof of

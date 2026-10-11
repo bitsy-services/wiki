@@ -10,7 +10,7 @@ The Tangle was IOTA's original ledger: a [directed acyclic graph](/wiki/cs/dag/)
 In a [blockchain](/wiki/economics/defi/blockchain), miners or validators batch transactions into blocks and link the blocks in a line. The Tangle had no blocks and no dedicated block producers. Each new transaction directly **approved two previous transactions** by referencing them, forming a growing mesh:
 
 - A transaction with no approvals yet is a **tip**.
-- Issuing a transaction required selecting two tips, verifying they did not conflict, and doing a small [proof-of-work](https://en.wikipedia.org/wiki/Proof_of_work) to deter spam.
+- Issuing a transaction required selecting two tips, verifying they did not conflict, and doing a small [proof-of-work](/wiki/economics/defi/sybil-resistance/proof-of-work) to deter spam.
 - Confirmation strength was measured by **cumulative weight** — how many later transactions indirectly approved a given one.
 
 Because issuing a transaction also did the work of validating two others, throughput was meant to *increase* with usage rather than contend for scarce block space.

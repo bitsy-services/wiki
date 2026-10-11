@@ -118,4 +118,30 @@ list every module and read the ones that touch identity, connection reuse and
 admission, not only the ones on the happy path. Say "read from the code, not
 tested" on the page when that is the evidence.
 
+**Recurrence, 2026-10-10 (`economics/defi/consensus/` and `sybil-resistance/`,
+26 pages).** Sources were fetched first by six research agents, each returning
+a fact sheet of verbatim quotes with `file:line`; pages were drafted from the
+sheets; five `wiki-reviewer` agents then grepped the pages against the same
+files. Every direct quotation survived. Several dozen findings did not, and
+none was a recalled number. The shapes this time:
+
+- **The drafter's own arithmetic and glosses.** Solana's vote lockout written
+  as 2^k where the source gives 2^(k+1); "the block at its first slot" where
+  the paper has a fallback; a PBFT liveness condition paraphrased into a
+  stronger one. A sentence I derive is as unsourced as one I recall.
+- **Status words.** "Approved" for a proposal whose file reads `status:
+  Review`; "the largest", "best-known", "most chains" with nothing behind them.
+- **A fix is a new claim.** A second, narrow review of only the sentences
+  written during the fixes found four more failures in 38, including a
+  correction that was itself contradicted by the paper's body (Dwork and Naor's
+  third pricing function is a hash search).
+- **Many of the research brief's premises were wrong**, and the sheets'
+  "Corrections and gaps" sections caught them (Alpenglow not live, Stacks
+  changed in July, Spacemesh apparently defunct). Stating recollections as
+  hypotheses to test, and asking for contradictions, is what made that work.
+
+How to apply: after applying review fixes, list the sentences written during
+the fixes and send exactly those back for a check against the sources. It cost
+one agent and was the cheapest round of the session.
+
 Related: [[project-harness-invariants]].

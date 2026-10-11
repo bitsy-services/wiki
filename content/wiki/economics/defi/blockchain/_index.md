@@ -12,10 +12,10 @@ No single party controls that history, and no single party has to be trusted for
 
 Every participant in a blockchain network holds a copy of the ledger. When new transactions occur, they are broadcast to the network, validated by participants, and assembled into a new block. Once the network reaches consensus that the block is valid, it is appended to the chain and propagated to all nodes.
 
-The consensus mechanism determines how agreement is reached. The two dominant approaches are:
+Two things determine how agreement is reached: a [consensus protocol](/wiki/economics/defi/consensus), which is the procedure for agreeing, and a [Sybil-resistance mechanism](/wiki/economics/defi/sybil-resistance), which decides whose voice counts in it. The two dominant mechanisms are:
 
-- **Proof of Work (PoW)**: Miners compete to solve a computationally expensive puzzle. The winner proposes the next block and earns a reward. Bitcoin uses PoW. It is secure but energy-intensive.
-- **Proof of Stake (PoS)**: Validators lock up [cryptocurrency](/wiki/economics/defi/blockchain/cryptocurrency) as collateral ("staking") and are selected to propose blocks proportionally to their stake. [Ethereum](/wiki/economics/defi/chains/ethereum/) uses PoS since its 2022 Merge upgrade. It consumes far less energy than PoW.
+- **[Proof of Work](/wiki/economics/defi/sybil-resistance/proof-of-work) (PoW)**: Miners compete to solve a computationally expensive puzzle. The winner proposes the next block and earns a reward. Bitcoin uses PoW. It is secure but energy-intensive.
+- **[Proof of Stake](/wiki/economics/defi/sybil-resistance/proof-of-stake) (PoS)**: Validators lock up [cryptocurrency](/wiki/economics/defi/blockchain/cryptocurrency) as collateral ("staking") and are selected to propose blocks proportionally to their stake. [Ethereum](/wiki/economics/defi/chains/ethereum/) uses PoS since its 2022 Merge upgrade. It consumes far less energy than PoW.
 
 ## Permissioned vs. Permissionless
 

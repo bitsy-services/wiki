@@ -10,7 +10,7 @@ Both forms make the same trade: capital is committed and illiquid for a defined 
 
 ## Network staking (Proof of Stake)
 
-In a Proof-of-Stake (PoS) blockchain, validators lock tokens as collateral and are selected to propose and attest to blocks in proportion to their stake. Honest behaviour earns rewards (newly minted tokens plus transaction fees); dishonest behaviour triggers **slashing**, where some or all of the validator's stake is destroyed.
+In a [Proof-of-Stake](/wiki/economics/defi/sybil-resistance/proof-of-stake) (PoS) blockchain, validators lock tokens as collateral and are selected to propose and attest to blocks in proportion to their stake. Honest behaviour earns rewards (newly minted tokens plus transaction fees); dishonest behaviour triggers **[slashing](/wiki/economics/defi/sybil-resistance/proof-of-stake#slashing)**, where some or all of the validator's stake is destroyed.
 
 The incentive is symmetric with the stake: the balance that determines how often a validator is selected is the same balance slashing takes from.
 

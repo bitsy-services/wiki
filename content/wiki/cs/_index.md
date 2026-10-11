@@ -6,7 +6,7 @@ bookCollapseSection: true
 
 The durable ideas underneath the rest of the wiki -- the ones that keep resurfacing in different clothes. Not a survey: each page exists because the concept turned out to matter somewhere concrete, and the theory is easier to write down once than to re-derive every time it comes up.
 
-Cryptographic *theory* lives here; the operational business of handling keys and secrets on a real machine is in [Security](/wiki/security).
+Cryptographic *theory* lives here; the operational business of handling keys and secrets on a real machine is in [Security](/wiki/security). Agreement among machines that do not trust one another is distributed-systems theory as much as anything on this page, but it is filed under DeFi, beside the ledgers that run it: [Consensus](/wiki/economics/defi/consensus) for the protocols, and [Sybil resistance](/wiki/economics/defi/sybil-resistance) for proof of work and its relatives.
 
 ## Structure and representation
 

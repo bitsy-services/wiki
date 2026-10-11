@@ -6,7 +6,7 @@ aliases: ["/wiki/economics/defi/staked-consensus-oracle/"]
 
 A staked consensus oracle is a design for decentralized data feeds in which [oracle node](/wiki/economics/defi/oracles/oracle-node) operators lock up tokens as collateral and a consensus mechanism among stakers determines the value reported to a [smart contract](/wiki/economics/defi/smart-contract). Operators who report honestly earn rewards; operators who deviate from consensus are slashed -- their [staked](/wiki/economics/defi/markets/staking) collateral is partially or fully seized.
 
-The core idea borrows from proof-of-stake consensus on [blockchains](/wiki/economics/defi/blockchain): economic skin in the game aligns incentives without requiring a trusted third party.
+The core idea borrows from [proof-of-stake](/wiki/economics/defi/sybil-resistance/proof-of-stake) consensus on [blockchains](/wiki/economics/defi/blockchain): economic skin in the game aligns incentives without requiring a trusted third party.
 
 ## Mechanism
 
@@ -17,7 +17,7 @@ The core idea borrows from proof-of-stake consensus on [blockchains](/wiki/econo
 
 ### Reputation and Sybil Resistance
 
-Some staked-consensus designs layer a reputation score on top of raw stake. New operators start with a capped effective stake that grows as they accumulate accurate submissions. This limits the impact of Sybil attacks -- spinning up many fresh identities does not immediately grant proportional voting power.
+Some staked-consensus designs layer a reputation score on top of raw stake. New operators start with a capped effective stake that grows as they accumulate accurate submissions. This limits the impact of [Sybil attacks](/wiki/economics/defi/sybil-resistance#the-attack) -- spinning up many fresh identities does not immediately grant proportional voting power.
 
 ### Escalation and Dispute
 
