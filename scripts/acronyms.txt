@@ -330,6 +330,7 @@ COMP	-
 CPM	-
 CPU	-
 CUDA	-
+CURSED	-
 CVC	-
 CWE	-
 DA	-

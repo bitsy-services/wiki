@@ -14,9 +14,10 @@ A decomposition of the discipline, smallest to largest unit of work:
 - **Prompt engineering** — one instruction to one model.
 - **Context engineering** — what one turn sees and in what order.
 - **Agentic workflow design** — what one loop does over multiple turns.
+- **[Loop engineering](/wiki/ai/loop-engineering)** — what starts that loop again, run after run, when no person types the prompt.
 - **Agentic engineering** — what one system does across many loops, users, and weeks.
 
-The pages on the first three are about getting one execution right. This page is about getting a hundred thousand of them right, and noticing within a day when they stop.
+The pages on the first three are about getting one execution right, and loop engineering about getting the same execution started again without a person. This page is about getting a hundred thousand of them right, and noticing within a day when they stop.
 
 ## The lifecycle: build, evaluate, deploy, operate
 
@@ -95,6 +96,7 @@ Ordered worst-first — the early items ship wrong behavior into production; the
 - [Context engineering](/wiki/ai/context-engineering) — managing what each turn sees; a sub-discipline of this one.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording the instructions the loop executes.
 - [Agentic workflows](/wiki/ai/agentic-workflows) — the patterns this discipline composes into a running system.
+- [Loop engineering](/wiki/ai/loop-engineering) — loops that run unattended, where the guardrails, observability and cost caps on this page stop being optional.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — the economics that make cost engineering a tractable problem.
 - [Claude Code](/wiki/ai/context-engineering/claude-code) — a real harness exhibiting the build, observe, guard, and verify properties this page argues for.
 

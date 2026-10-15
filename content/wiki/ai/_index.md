@@ -20,6 +20,9 @@ The section shares one running example: **using [Claude Code](/wiki/ai/context-e
 - [Pastiche](/wiki/ai/pastiche) — writing in a named author's style, what actually transfers, and why the identifying features do not.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — the token economics behind latency and spend.
 - [Agentic workflows](/wiki/ai/agentic-workflows) — planning, tool use, delegation, and verification loops.
+- [Loop engineering](/wiki/ai/loop-engineering) — writing the program that prompts the agent: what starts each run, what carries over between runs, and the check that replaces a person reading the output.
+  - [The Ralph loop](/wiki/ai/loop-engineering/ralph-loop) — one prompt file fed to an agent by a shell loop, with a fresh context on every pass.
+  - [Loops in Claude Code](/wiki/ai/loop-engineering/claude-code) — `/loop`, `/goal`, Stop hooks, routines and `claude -p`, sorted by what starts the next turn.
 - [Agentic engineering](/wiki/ai/agentic-engineering) — the lifecycle around the loop: evaluation, observability, guardrails, and cost engineering.
 - [AI plugins](/wiki/ai/plugins) — bundled extensions to an agentic harness: what they are, when to install one, and when to author your own.
   - [Using a Claude Code plugin](/wiki/ai/plugins/claude-code) — anatomy, install, context cost, and trust applied to Anthropic's harness.

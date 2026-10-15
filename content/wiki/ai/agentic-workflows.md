@@ -45,6 +45,8 @@ Two properties must be engineered, not assumed:
 - **A stopping condition.** The loop ends on success *or* on a guard: an iteration cap, a budget cap, or a no-progress detector. Without one, an agent that cannot find a nonexistent answer will search forever, and a confused one will burn the budget restating itself.
 - **Human checkpoints before irreversible actions.** The loop should pause for confirmation before anything it cannot undo — deleting data, sending a transaction, publishing externally — rather than trusting its own unverified reasoning at the moment of highest consequence.
 
+The goal that starts this loop usually comes from a person. When a script, a schedule or an event sends it instead, and starts the agent again each time the last run ends, that program is a second loop around this one. [Loop engineering](/wiki/ai/loop-engineering) covers the outer loop, including what happens to the human checkpoint when nobody is there.
+
 ## Planning and decomposition
 
 The reliable agentic pattern separates *planning* from *execution* rather than interleaving them turn by turn. A plan produced up front — and revised explicitly when the environment contradicts it — is debuggable and gives the model a stable spine to work against; planning rediscovered on every turn drifts and re-litigates settled decisions.
@@ -100,6 +102,7 @@ Ordered worst-first — the early items cause wrong or irreversible actions; the
 
 - [Context engineering](/wiki/ai/context-engineering) — the discipline that sub-agent delegation, tool-result hygiene, and the loop's growing window all depend on.
 - [Claude Code](/wiki/ai/context-engineering/claude-code) — the explore–plan–implement–verify loop and sub-agent delegation worked end-to-end on a real task (the section's running example).
+- [Loop engineering](/wiki/ai/loop-engineering) — the outer loop: a program that starts this one, on a timer, on an event, or each time the last run ends.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording tool descriptions and the per-step instructions the loop executes.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — why the loop's re-read-everything-each-turn cost makes a stable prefix essential.
 

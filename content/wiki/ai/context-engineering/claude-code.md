@@ -29,7 +29,7 @@ This repository is a live specimen. `CLAUDE.md` carries build commands and struc
 
 `CLAUDE.md` is loaded *every* session, so each line in it is paid for on every turn of every session, whether or not that session touches what it covers. Knowledge needed only sometimes — how to write a Solidity example, say — belongs in a [skill](/wiki/ai/context-engineering#just-in-time-retrieval) that loads on demand, not in the always-on file. The extension mechanisms stratify by exactly this context cost:
 
-- **Hooks** — zero context cost; deterministic scripts the harness runs, not text the model reads. Use them for anything that must happen every time without exception (a lint-on-save, a block on writing outside `content/`).
+- **Hooks** — zero context cost; deterministic scripts the harness runs, not text the model reads. Use them for anything that must happen every time without exception (a lint-on-save, a block on writing outside `content/`). A `Stop` hook can also refuse to let the turn end and hand the agent a reason to keep going. This repository's Stop hook runs the site's checks that way, which makes it a small [outer loop](/wiki/ai/loop-engineering/claude-code#the-stop-hook-the-loop-that-starts-when-claude-stops).
 - **Skills** — low cost; a folder of instructions loaded only when relevant. A "draft a wiki page" skill lives here.
 - **Plugins / [MCP](/wiki/ai/mcp)** — medium-to-high cost; whole tool schemas present every turn whether called or not.
 
@@ -83,6 +83,7 @@ Ordered worst-first — the early items publish wrong content; the later ones on
 
 - [Context engineering](/wiki/ai/context-engineering) — the discipline this page makes concrete; the budget, curation, compaction, and pitfalls in the abstract.
 - [Agentic workflows](/wiki/ai/agentic-workflows) — the explore–plan–implement–verify loop and sub-agent delegation that the wiki task instantiates.
+- [Loops in Claude Code](/wiki/ai/loop-engineering/claude-code) — the same harness started by something other than a person: `/loop`, `/goal`, Stop hooks, routines and `claude -p`.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording the rules and the page request that this harness then routes.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — why keeping `CLAUDE.md` and tool schemas stable at the front of the window is also what makes the session cheap.
 

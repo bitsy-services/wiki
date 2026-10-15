@@ -76,7 +76,7 @@ hugo --printPathWarnings  # warn when two pages want the same output path
 scripts/check.sh
 ```
 
-In this repository that is one command: `hugo` builds the site, then `scripts/check-content.py` resolves every internal link and every fragment against the rendered page set, and a `Stop` hook runs it whether or not anyone remembers to. A red result blocks the change rather than annotating it.
+In this repository that is one command: `hugo` builds the site, then `scripts/check-content.py` resolves every internal link and every fragment against the rendered page set, and a [`Stop` hook](/wiki/ai/loop-engineering/claude-code#the-stop-hook-the-loop-that-starts-when-claude-stops) runs it whether or not anyone remembers to. A red result blocks the change rather than annotating it.
 
 The design worth copying is not the specific script. It is that the check runs on the *page set produced by the build*, not on the content tree as written — a link is correct when Hugo will serve its target, and only the build knows what Hugo will serve.
 
