@@ -144,4 +144,27 @@ How to apply: after applying review fixes, list the sentences written during
 the fixes and send exactly those back for a check against the sources. It cost
 one agent and was the cheapest round of the session.
 
+**Recurrence, 2026-10-18 (`git/squashing`).** A page of Git commands, every
+behavioural claim backed by a scripted experiment in throwaway repositories.
+The new shape was a **fix that broke a command**: a second-round fix added
+"stash them first" before `git reset --hard ORIG_HEAD`, which reads as
+careful and is wrong, because `git stash` runs a reset of its own that
+repoints `ORIG_HEAD` at the squashed tip, so the undo silently does nothing.
+Only the third, narrow round caught it, by running the sequence. Round one
+had also found a pre-existing copy-paste block elsewhere (`--force-with-lease`
+called "the safe variant") that the session's own experiment disproved.
+
+How to apply: for a claim about what a command does, the evidence is a run,
+not a manual read; script it in the scratchpad before writing it, and run the
+fixed sequence again after a review changes it. When a page's research
+contradicts a sibling page, grep the siblings for the same command, not only
+the same sentence.
+
+The same page's undo section then took four more rounds, each finding a new
+path that silently lost work, because it was built on `ORIG_HEAD`, which is
+one per worktree and rewritten by any merge, pull, rebase, reset or stash.
+Rebuilding it on the branch's own reflog ended the churn. When a procedure
+keeps sprouting caveats across review rounds, change its foundation instead
+of adding the next caveat, and set a stopping rule before the next round.
+
 Related: [[project-harness-invariants]].

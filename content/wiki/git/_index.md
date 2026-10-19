@@ -8,7 +8,7 @@ Working notes and how-to guides for [Git](https://git-scm.com/) -- the distribut
 
 The official [Pro Git book](https://git-scm.com/book/en/v2) remains the best free reference for anything not covered here.
 
-Two pages so far, on the two places that workflow gets contentious. [Squash merge](/wiki/git/squash-merge) collapses a branch into one commit on the target -- the mechanics, what it does to history and to `git bisect`, and when the tidier log is worth losing the branch's steps. [Contributing to open source](/wiki/git/contributing-to-open-source) is the other side of the same coin: a pull request against someone else's project is a social act before it is a technical one, and the conventions exist to make a volunteer maintainer's job smaller rather than larger.
+Three pages so far, on the places that workflow gets contentious. [Squashing commits](/wiki/git/squashing) comes first: what replacing several commits with one does to the commit graph, why further work on a squash-merged branch, and any branch built on it, can then conflict with changes that have already landed, and how to tell a branch worth squashing from one that is not. [Squash merge](/wiki/git/squash-merge) is the landing method in detail -- the commands, the forge button, and the commit message that has to carry the whole branch. [Contributing to open source](/wiki/git/contributing-to-open-source) is the other side of the same coin: a pull request against someone else's project is a social act before it is a technical one, and the conventions exist to make a volunteer maintainer's job smaller rather than larger.
 
 ## Wiki Pages
 

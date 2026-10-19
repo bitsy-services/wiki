@@ -42,6 +42,6 @@ Three consequences:
 and verify the mechanism, then propose the config change as a diff. Do not treat
 generic encouragement as authorization for self-modification.
 
-Related: [[unnecessary-prompting]] — this is the exception to it. Asking before
+Related: [[global-stop-only-for-a-real-decision]] — this is the exception to it. Asking before
 changing the permission surface is not busywork; it is the one place a
 confirmation genuinely belongs.

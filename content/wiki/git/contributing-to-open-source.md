@@ -58,10 +58,10 @@ git fetch upstream
 git rebase upstream/main
 ```
 
-Because rebasing rewrites your branch's commits, you'll need to force-push -- but use the safe variant, which refuses to clobber work you haven't seen:
+Because rebasing rewrites your branch's commits, you'll need to force-push -- but use the guarded form, which refuses to overwrite commits on the remote that your branch has not taken in. The second flag needs Git 2.30 or later, and [squashing commits](/wiki/git/squashing#squashing-during-review) explains why the first alone is not enough:
 
 ```bash
-git push --force-with-lease
+git push --force-with-lease --force-if-includes
 ```
 
 Only ever force-push to *your own* PR branch. Force-pushing a branch others have based work on rewrites shared history and breaks their clones.
@@ -70,7 +70,7 @@ Only ever force-push to *your own* PR branch. Force-pushing a branch others have
 
 The commit history and the PR description are how you make the maintainer's job easy. Treat them as the deliverable, not an afterthought.
 
-- **Write meaningful commit messages**: a concise imperative summary line, a blank line, then a body explaining *why* the change is needed. See the [squash merge](squash-merge.md) page for how messages get combined when a PR is squashed.
+- **Write meaningful commit messages**: a concise imperative summary line, a blank line, then a body explaining *why* the change is needed. See the [squash merge](/wiki/git/squash-merge) page for how messages get combined when a PR is squashed.
 - **Reference the issue** the PR addresses with a [closing keyword](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) (`Closes #123`) so it auto-closes on merge.
 - **Explain the change in the PR body**: what problem it solves, the approach you took, any alternatives you rejected, and how you tested it. If the project ships a PR template, fill it out completely.
 - **Show, don't assert.** For a UI change, include before/after screenshots. For a behavioral change, paste the command output or a failing-then-passing test.
@@ -80,7 +80,7 @@ The commit history and the PR description are how you make the maintainer's job 
 Submitting is the start of a conversation, not the end of the work.
 
 - **Make CI pass.** Most projects run linting and tests on every PR. A red check is the first thing a maintainer sees; fix it before asking for review. Run the project's test and lint commands locally first so CI isn't your debugger.
-- **Respond to review graciously.** Maintainers are doing you a favor by reviewing. Address feedback, push follow-up commits (don't force-push mid-review unless asked -- it makes the reviewer re-read everything), and resolve threads as you go. If you disagree, explain your reasoning calmly; the maintainer has the final say in their own project.
+- **Respond to review graciously.** Maintainers are doing you a favor by reviewing. Address feedback, push follow-up commits (don't force-push mid-review unless asked -- it makes the reviewer re-read everything), and resolve threads as you go. If you disagree, explain your reasoning calmly; the maintainer has the final say in their own project. If the project wants a tidy series at the end, make each follow-up a [fixup commit](/wiki/git/squashing#squashing-during-review) and fold them in once the review is done.
 - **Be patient and persistent without nagging.** A polite check-in after a week or two is fine. Daily pings are not. Maintainers are busy, and many PRs simply wait.
 - **Accept that it might not be merged.** Maintainers decline changes for reasons that have nothing to do with quality -- scope, maintenance cost, project direction. A rejection isn't a verdict on your work. You can always keep the change in your own fork.
 

@@ -26,4 +26,4 @@ was briefly less accurate than what the section already said.
 section heading in the index, a short page with the facts already on hand) or
 leave the link out until the target exists. Related:
 [[project-green-check-says-nothing-about-content]],
-[[global-name-the-blocker]].
+[[global-stop-only-for-a-real-decision]].

@@ -1,15 +1,12 @@
 - [Permission and config hygiene](patterns/global-permission-and-config-hygiene.md) — explicit allow-lists, in source control, and never widen your own permissions without asking
-- [Unnecessary prompting](friction/global-unnecessary-prompting.md) — don't ask "want me to adjust?" when the task is already clear
-- [Name the blocker](friction/global-name-the-blocker.md) — when stopping, state the one thing needed in a line; defaults are announced, not asked
-- [Opening check out of context](friction/project-opening-check-out-of-context.md) — user won't review an opening in isolation; write the whole page, present it finished
+- [Stop only for a real decision](patterns/global-stop-only-for-a-real-decision.md) — finish and present; announce defaults; one-line blocker; no stopping for a fragment review (conflicts with wiki-workflow.md's opening check, which needs a yes to change)
+- [Subagent transcripts](patterns/global-subagent-transcripts.md) — never poll a running agent's transcript; salvage a dead agent's transcript and the scratchpad before re-running
 - [Harness invariants](project-harness-invariants.md) — Hugo doesn't check internal links; rules scope with `paths:` not `globs:`; the theme renders no h1
 - [AI section worked example](project-ai-section-worked-example.md) — reuse the "Claude Code writes a wiki page" example across all ai pages; don't invent new ones
 - [A green check says nothing about content](patterns/project-green-check-says-nothing-about-content.md) — check.sh validates structure, not prose; when a content rule breaks twice, make it a check
-- [TaskOutput transcript flood](friction/global-taskoutput-transcript-flood.md) — don't poll TaskOutput on a subagent; wait for the notification
 - [Attached images live in the transcript](friction/global-attached-images-are-in-the-transcript.md) — recover supplied assets from the session .jsonl; never ship a redraw instead
 - [hugo --quiet hides errors](friction/project-hugo-quiet-hides-errors.md) — probe with plain `hugo` or check `$?`; a --quiet grep reports failures as passes
-- [Numbers beyond their sources](friction/global-numbers-beyond-their-sources.md) — verify every figure against a primary source or drop it; check a quoted result for conditions stated elsewhere in the same source; a partial retraction leaves the page self-contradictory; read every relevant module before claiming what an attacker can do
-- [Workflow transcripts survive a session limit](friction/global-workflow-transcripts-survive-a-session-limit.md) — when every workflow agent dies on the limit, salvage the fetched sources from agent-*.jsonl and the scratchpad instead of re-running
+- [Numbers beyond their sources](friction/global-numbers-beyond-their-sources.md) — verify every figure against a primary source or drop it; check a quoted result for conditions stated elsewhere in the same source; a partial retraction leaves the page self-contradictory; read every relevant module before claiming what an attacker can do; verify what a command does by running it, and run it again after a review fix
 - [Forward links block the turn](friction/project-forward-links-block-the-turn.md) — run check.sh before pausing for background agents; write link targets first
 - [Verbal tics ledger](project-verbal-tics-ledger.md) — when Paul points out a tic of Claude's, add it to `content/wiki/ai/verbal-tics/anthropic-claude.md` as `caught <date>`
 - [Bulk moves: explicit git mv](friction/global-bulk-moves-explicit-git-mv.md) — the classifier denies a scratchpad script that calls git; explicit `git mv` with multiple sources goes through
