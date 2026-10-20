@@ -57,7 +57,7 @@ How long records are kept is currently inconsistent between the service's terms,
 
 ## Fees
 
-A flat **3% service fee** per transaction, signed into every Box Code and displayed before the code is issued, plus any network fees charged by the execution partner.
+A flat **1% service fee** per transaction, signed into every Box Code and displayed before the code is issued, plus any network fees charged by the execution partner.
 
 ## Regulatory position
 
