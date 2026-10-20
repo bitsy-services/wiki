@@ -6,7 +6,7 @@ aliases: ["/wiki/economics/defi/interbox/"]
 
 Interbox is a fiat-to-crypto transfer service that lets users move funds from a U.S. bank account to a self-custodied [crypto](/wiki/economics/defi/blockchain/cryptocurrency) wallet without creating an account on an exchange or repeating [KYC](/wiki/economics/regulation/know-your-customer) checks. It relies on the KYC already performed by the user's bank, and asks the user to prove only one thing directly: that they control the wallet the money is going to.
 
-Parts of it are built and parts are not. The service that issues destination codes runs at `port.inter.box`; the settlement half — receiving the [Zelle](/wiki/economics/payments/zelle) payment and delivering the stablecoin — has no execution partner and is not automated. This page marks which is which, because the difference matters to the regulatory argument at the end.
+Parts of it are built and parts are not. The service that issues destination codes runs at `inter.box`; the settlement half — receiving the [Zelle](/wiki/economics/payments/zelle) payment and delivering the stablecoin — has no execution partner and is not automated. This page marks which is which, because the difference matters to the regulatory argument at the end.
 
 ## The problem it solves
 
@@ -18,7 +18,7 @@ Interbox shortcuts this by treating the bank's existing KYC as sufficient proof 
 
 One flow, in four steps.
 
-1. Connect a crypto wallet at `port.inter.box` and choose a network and a stablecoin.
+1. Connect a crypto wallet at `inter.box` and choose a network and a stablecoin.
 2. Sign an [EIP](/wiki/economics/defi/chains/ethereum/)-712 typed-data message naming the destination account, network, currency, fee and terms. Interbox verifies the signature and derives a short content-addressed identifier from it — an **Inter Box Code**.
 3. Send the money via [Zelle](/wiki/economics/payments/zelle) — the US bank-to-bank instant payment network — to `usd@inter.box`, with the Box Code in the payment memo.
 4. The stablecoin arrives at the signed destination, minus the fee.
@@ -69,5 +69,5 @@ It also depends on the architecture genuinely enforcing the same-person constrai
 
 ## External links
 
-- [Interbox](https://inter.box) — the destination domain; the current service runs at `port.inter.box`
+- [Interbox](https://inter.box) — the service
 - [Zelle](https://www.zellepay.com/)
