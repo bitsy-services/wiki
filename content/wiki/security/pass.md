@@ -5,7 +5,7 @@ weight: 10
 
 `pass` ([passwordstore.org](https://www.passwordstore.org/)) is a thin shell wrapper over [GPG](/wiki/security/gpg) and git. It is built for exactly the problem of secrets scattered across `.env` files, exported private keys, and API tokens pasted into notes: it pulls them into one encrypted, versioned, greppable tree on disk.
 
-This guide covers one-time setup (including the WSL Ubuntu wrinkles), the daily workflow, migrating your existing secrets in, scripting against the store, and the [YubiKey](/wiki/security/yubikey) hardening path. It assumes you are comfortable on the command line.
+This guide covers one-time setup (including the [WSL](/wiki/microsoft/wsl) Ubuntu wrinkles), the daily workflow, migrating your existing secrets in, scripting against the store, and the [YubiKey](/wiki/security/yubikey) hardening path. It assumes you are comfortable on the command line.
 
 ## The mental model
 
