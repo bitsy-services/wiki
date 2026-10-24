@@ -3,9 +3,9 @@ title: "Git on WSL Ubuntu 26.04"
 weight: 2
 ---
 
-A new Ubuntu 26.04 under the [Windows Subsystem for Linux](/wiki/microsoft/wsl) (WSL), Microsoft's way of running Linux distributions on Windows, comes with Git 2.53 installed and nothing else Git needs to work with GitHub: no name or email for commits, no key, and no GitHub command-line tool. Two PowerShell commands and one bash script fill that in. Afterwards there is a Linux user named `claude` and one SSH key, which GitHub accepts both for pushes and for verifying commit signatures. Git's global configuration commits as the GitHub account and signs every commit with that key.
+A new Ubuntu 26.04 under the [Windows Subsystem for Linux](/wiki/microsoft/wsl) (WSL), Microsoft's way of running Linux distributions on Windows, comes with Git 2.53 installed and nothing else Git needs to work with GitHub: no name or email for commits, no key, and no GitHub command-line tool. Two PowerShell commands install the distribution, and one bash script fills in the rest. Afterwards there is a Linux user named `claude` and one SSH key, which GitHub accepts both for pushes and for verifying commit signatures. Git's global configuration commits as the GitHub account and signs every commit with that key.
 
-The script stops for the `sudo` password, a passphrase for the new key (typed twice), the same passphrase once more to load the key, and a press of Enter before the GitHub sign-in, which finishes in a browser on Windows. Each step checks before it changes anything, so after a failure the script can be run again without duplicating anything.
+The script stops for the `sudo` password, a passphrase for the new key (typed twice), the same passphrase once more to load the key, and a press of Enter before the GitHub sign-in, which finishes in a browser on Windows. Every step is safe to repeat, so after a failure the script can be run again without duplicating anything.
 
 The examples use the Linux user name `claude`. The script itself does not depend on it: it reads the user from `$USER` and `$HOME`.
 
@@ -47,7 +47,7 @@ nano ~/setup-github.sh     # paste, then Ctrl+O, Enter, Ctrl+X
 bash ~/setup-github.sh
 ```
 
-Run it as a file instead of pasting the lines into the prompt. The script sets `set -e`, which ends the shell at the first failed command, and pasted into the prompt, that shell is the terminal.
+Run it as a file instead of pasting the lines into the prompt. The script sets `set -e`, which ends the shell at the first failed command, and pasted into the prompt, that shell is the terminal. It also refuses to start under `sudo` or without a terminal. Under `sudo` it would set up root's home instead of `claude`'s, and with no terminal to ask in, `ssh-keygen` quietly creates a key without a passphrase.
 
 ```bash
 #!/usr/bin/env bash
@@ -58,8 +58,14 @@ KEY="$HOME/.ssh/id_ed25519"
 TITLE="$USER@$(hostname) WSL Ubuntu 26.04"
 # SHA-256 of GitHub's apt signing keyring, from cli/cli docs/install_linux.md
 GH_KEYRING_SHA256=6084d5d7bd8e288441e0e94fc6275570895da18e6751f70f057485dc2d1a811b
+SCOPES=admin:public_key,admin:ssh_signing_key
 
 step() { printf '\n==> %s\n' "$*"; }
+die() { printf '%s\n' "$*" >&2; exit 1; }
+
+[ "$(id -u)" -ne 0 ] || die "Run this as your own user, without sudo."
+[ -t 0 ] || die "Run this in a terminal: bash ~/setup-github.sh"
+[ -n "${XDG_RUNTIME_DIR:-}" ] || die "XDG_RUNTIME_DIR is not set; run this from a normal WSL terminal."
 
 step "Updating Ubuntu"
 sudo apt-get update
@@ -87,31 +93,38 @@ step "Pointing every shell at Ubuntu's ssh-agent"
 agent_block='
 # >>> ssh-agent >>>
 # Ubuntu runs an agent per user, started by systemd on first use, but WSL
-# shells are not told where it listens. The first shell after the
+# shells are not told where it listens. The first terminal after the
 # distribution starts loads the key, asking for its passphrase if it has one.
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/openssh_agent"
-ssh-add -l >/dev/null 2>&1 || ssh-add
+[ -t 0 ] && { ssh-add -T ~/.ssh/id_ed25519.pub 2>/dev/null || ssh-add ~/.ssh/id_ed25519; }
 # <<< ssh-agent <<<'
 grep -qF '# >>> ssh-agent >>>' ~/.bashrc || printf '%s\n' "$agent_block" >>~/.bashrc
-eval "$agent_block"
+eval "$agent_block" || die "The key was not loaded into the agent. Run the script again and type its passphrase."
 
 step "Signing in to GitHub"
 if ! gh auth status --hostname github.com >/dev/null 2>&1; then
-  gh auth login --hostname github.com --git-protocol ssh --web --skip-ssh-key \
-    --scopes admin:public_key,admin:ssh_signing_key
+  gh auth login --hostname github.com --git-protocol ssh --web --skip-ssh-key --scopes "$SCOPES"
+else
+  # An earlier plain `gh auth login` lacks the two scopes the key uploads need.
+  granted=$(gh api --include / 2>/dev/null | grep -i '^x-oauth-scopes:' || true)
+  if [[ $granted != *admin:public_key* || $granted != *admin:ssh_signing_key* ]]; then
+    gh auth refresh --hostname github.com --scopes "$SCOPES"
+  fi
 fi
 
 step "Trusting github.com's SSH host keys"
-if ! ssh-keygen -F github.com >/dev/null 2>&1; then
-  gh api meta --jq '.ssh_keys[] | "github.com " + .' >>~/.ssh/known_hosts
-fi
+ssh-keygen -R github.com >/dev/null 2>&1 || true
+gh api meta --jq '.ssh_keys[] | "github.com " + .' >>~/.ssh/known_hosts
 
 step "Adding the key to GitHub, for sign-in and for signing commits"
 gh ssh-key add "$KEY.pub" --type authentication --title "$TITLE"
 gh ssh-key add "$KEY.pub" --type signing --title "$TITLE"
 
 step "Configuring git"
-IFS=$'\t' read -r id login name < <(gh api user --jq '[.id, .login, .name // .login] | @tsv')
+id=$(gh api user --jq .id)
+login=$(gh api user --jq .login)
+name=$(gh api user --jq '.name // ""')
+[ -n "$name" ] || name=$login
 email="$id+$login@users.noreply.github.com"
 git config --global user.name "$name"
 git config --global user.email "$email"
@@ -121,30 +134,31 @@ git config --global push.autoSetupRemote true
 git config --global gpg.format ssh
 git config --global user.signingkey "$KEY.pub"
 git config --global commit.gpgsign true
-git config --global tag.gpgsign true
-printf '%s namespaces="git" %s\n' "$email" "$(cut -d' ' -f1-2 "$KEY.pub")" >~/.ssh/allowed_signers
+signer="$email namespaces=\"git\" $(cut -d' ' -f1-2 "$KEY.pub")"
+grep -qxF "$signer" ~/.ssh/allowed_signers 2>/dev/null || printf '%s\n' "$signer" >>~/.ssh/allowed_signers
 git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
 
 step "Checking"
-reply=$(ssh -T git@github.com 2>&1) || true
-echo "$reply"
-grep -qF "successfully authenticated" <<<"$reply"
 scratch=$(mktemp -d)
 git -C "$scratch" init -q
 git -C "$scratch" commit -q --allow-empty -m "signing test"
 signature=$(git -C "$scratch" log -1 --format='%G? %GS')
 rm -rf "$scratch"
 echo "test commit signature: $signature"
-[ "${signature%% *}" = G ]
+[ "${signature%% *}" = G ] || die "The test commit's signature did not verify."
+reply=$(ssh -o ConnectTimeout=15 -T git@github.com 2>&1) || true
+echo "$reply"
+grep -qF "successfully authenticated" <<<"$reply" || die "SSH sign-in to GitHub failed."
 
 step "Done: git commits as $name <$email>, signed, and pushes over SSH"
+echo "Open a new terminal (or run: source ~/.bashrc) so it can reach the ssh-agent."
 ```
 
 ### What it asks for
 
 1. **The `sudo` password**, the one set at the username prompt.
 2. **A passphrase for the new key**, twice. Pressing Enter both times creates a key without one; [the passphrase and the agent](#the-passphrase-and-the-agent) covers what each choice costs.
-3. **The passphrase again**, when `ssh-add` loads the key into the agent. A key without a passphrase loads without asking.
+3. **The passphrase again**, when `ssh-add` loads the key into the agent. A key without a passphrase loads without asking. Pressing Enter here stops the script with a message saying the key was not loaded, Ctrl+C stops it outright, and a rerun asks again.
 4. **Enter**, for the GitHub sign-in. `gh` 2.103.2 printed this on 26.04:
 
 ```text
@@ -157,17 +171,18 @@ Press Enter to open https://github.com/login/device in your browser...
   Please try entering the URL in your browser manually
 ```
 
-The failure is expected. `gh` opens a browser through the first of `xdg-open`, `x-www-browser`, `www-browser` and `wslview` it finds, a fresh Ubuntu 26.04 has none of them, and the `wslu` package that used to supply `wslview` is not in the 26.04 archive. The code does reach Windows: `gh` copies it by default, and its clipboard library falls back to `clip.exe`, the Windows clipboard tool, which WSL makes runnable from Linux. Open <https://github.com/login/device> in a browser on Windows, paste the code, and authorize *GitHub CLI*. From there `gh`'s source has it poll GitHub until the authorization arrives and carry on by itself; the script ends with this line:
+The failure is expected. `gh` opens a browser through the first of `xdg-open`, `x-www-browser`, `www-browser` and `wslview` it finds, a fresh Ubuntu 26.04 has none of them, and the `wslu` package that used to supply `wslview` is not in the 26.04 archive. The code does reach Windows: `gh` copies it by default, and its clipboard library falls back to `clip.exe`, the Windows clipboard tool, which WSL makes runnable from Linux. Open <https://github.com/login/device> in a browser on Windows, paste the code, and authorize *GitHub CLI*. From there `gh` polls GitHub until the authorization arrives, and the script carries on by itself, ending with these lines:
 
 ```text
 ==> Done: git commits as Your Name <12345678+your-login@users.noreply.github.com>, signed, and pushes over SSH
+Open a new terminal (or run: source ~/.bashrc) so it can reach the ssh-agent.
 ```
 
-Terminals that were already open when the script ran do not know where the agent is. Open a new one, or run `source ~/.bashrc` in the old one.
+The second line is there because terminals that were open when the script ran, including the one it ran in, do not know where the agent is, so with a passphrase-protected key every commit and push in them asks for it again.
 
 ## What the script does
 
-The script was run on 23 October 2026 in a throwaway Ubuntu 26.04 distribution, from a clean install and again on top of its own result. The calls that need a real GitHub account were stubbed: the sign-in, the key uploads, the profile lookup and the final `ssh -T`. What `gh` and GitHub do at those steps comes from `gh`'s source and GitHub's documentation.
+The script was run on 23 October 2026 in a throwaway Ubuntu 26.04 distribution: from a clean install, again on top of its own result, and through its guards and recovery paths. Those were no terminal, `sudo`, Enter at the passphrase prompt, a sign-in without the key scopes, and an `ssh -T` that GitHub refused. The calls that need a real GitHub account were stubbed: the sign-in, the key uploads, the profile lookup and the final `ssh -T`. What `gh` and GitHub do at those steps comes from `gh`'s source and GitHub's documentation.
 
 ### SSH rather than Git Credential Manager
 
@@ -181,32 +196,34 @@ Ubuntu 26.04's own archive carries `gh` 2.46.0, released in March 2024. GitHub's
 
 The key is Ed25519, at `~/.ssh/id_ed25519`. That is one of the file names `ssh` tries without being told, so no `~/.ssh/config` is needed.
 
-GitHub keeps two lists of keys for each account. A key on the authentication list lets `git push` and `git fetch` over SSH act as the account. A key on the signing list makes GitHub mark commits signed with it as *Verified*, when the commit's email address is a verified address on the account; GitHub's signing instructions offer the no-reply address for readers who want theirs kept private. The same key can sit on both lists: GitHub's documentation says "you can even upload your existing authentication key" as a signing key. `gh ssh-key add --type` picks the list. It checks the list first and reports `Public key already exists on your account` instead of failing, which is what makes the step safe to repeat.
+GitHub keeps two lists of keys for each account. A key on the authentication list lets `git push` and `git fetch` over SSH act as the account. A key on the signing list makes GitHub mark commits signed with it as *Verified*, when the commit's email address is a verified address on the account or the account's no-reply address, which GitHub's signing instructions suggest for keeping the real one private. The same key can sit on both lists: GitHub's documentation says "you can even upload your existing authentication key" as a signing key. `gh ssh-key add --type` picks the list. It checks the list first and reports `Public key already exists on your account` instead of failing, which is what makes the step safe to repeat.
 
-On the Git side, `gpg.format ssh` switches signing from [GPG](/wiki/security/gpg) to `ssh-keygen -Y sign`. GPG is the older way to sign commits, and it has expiry and revocation, which SSH keys do not. `user.signingkey` names the public key, and `commit.gpgsign` and `tag.gpgsign` sign every commit and annotated tag without `-S`. `~/.ssh/allowed_signers` maps the email address to the key, and `gpg.ssh.allowedSignersFile` tells Git where it is. Git 2.53 needs both to check a signature locally. With the setting but no file, `git log --show-signature` reports a good signature without saying whose, beside `Unable to open allowed keys file`. With no setting at all, Git refuses to check, printing `gpg.ssh.allowedSignersFile needs to be configured and exist for ssh signature verification` and `No signature`. The script's final check reads the same status, so it fails in either case.
+On the Git side, `gpg.format ssh` switches signing from [GPG](/wiki/security/gpg) to `ssh-keygen -Y sign`. GPG is the older way to sign commits, and it has expiry and revocation, which SSH keys do not. `user.signingkey` names the public key, and `commit.gpgsign` signs every commit without `-S`. Tags are left alone. `tag.gpgsign` would turn every `git tag NAME` into a signed annotated tag that opens an editor for its message, so a signed tag is made on purpose, with `git tag -s`. `~/.ssh/allowed_signers` maps the email address to the key, and `gpg.ssh.allowedSignersFile` tells Git where it is. Git 2.53 needs both to check a signature locally. With the setting but no file, `git log --show-signature` reports a good signature without saying whose, beside `Unable to open allowed keys file`. With no setting at all, Git refuses to check, printing `gpg.ssh.allowedSignersFile needs to be configured and exist for ssh signature verification` and `No signature`. The script's final check reads the same status, so it fails in either case.
 
 ### The passphrase and the agent
 
 `ssh-keygen` asks for a passphrase and accepts an empty one. The difference is what the key file is worth on its own. Without a passphrase, the file is the credential: any process running as `claude` can copy it and push as the GitHub account from another machine. With one, a copy of the file is useless without the passphrase. That protects the key and not the account: the same process can read the `gh` token the script leaves in plain text, which can push over HTTPS and, until its key scopes are dropped, register a key of its own ([signing in, and the token it leaves](#signing-in-and-the-token-it-leaves)). In return for the passphrase, something has to hold the unlocked key, or every commit and push asks for it again. On 26.04, a key without a passphrase signs commits with no agent running. A key with one, with no agent and no terminal to ask in, fails with `incorrect passphrase supplied to decrypt private key`.
 
-Ubuntu 26.04 already runs that something. Its `openssh-client` package installs `ssh-agent.socket`, a systemd user socket at `$XDG_RUNTIME_DIR/openssh_agent` (`/run/user/1000/openssh_agent` for the first user), which starts `ssh-agent` on the first connection. The socket unit announces that address only to systemd's own environment, through `systemctl --user set-environment`. A WSL shell never learns it, and `ssh-add` there reports `Could not open a connection to your authentication agent`. The block the script appends to `~/.bashrc` supplies the address and loads the key when `ssh-add -l` finds the agent empty:
+Ubuntu 26.04 already runs that something. Its `openssh-client` package installs `ssh-agent.socket`, a systemd user socket at `$XDG_RUNTIME_DIR/openssh_agent` (`/run/user/1000/openssh_agent` for the first user), which starts `ssh-agent` on the first connection. The socket unit announces that address only to systemd's own environment, through `systemctl --user set-environment`. A WSL shell never learns it, and `ssh-add` there reports `Could not open a connection to your authentication agent`. The block the script appends to `~/.bashrc` supplies the address and, in a shell with a terminal, loads the key unless the agent already holds it:
 
 ```bash
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/openssh_agent"
-ssh-add -l >/dev/null 2>&1 || ssh-add
+[ -t 0 ] && { ssh-add -T ~/.ssh/id_ed25519.pub 2>/dev/null || ssh-add ~/.ssh/id_ed25519; }
 ```
 
-The first terminal after the distribution starts asks for the passphrase, and later terminals find the key loaded and ask nothing. The key stays loaded until the distribution stops, at `wsl --shutdown` or `wsl --terminate`, or when WSL shuts down a distribution with nothing open in it. In testing, closing the last terminal and opening another straight away kept the key; after a longer gap with nothing open, the distribution had restarted and the next terminal asked again.
+`ssh-add -T` asks the agent to sign with this particular key, where `ssh-add -l` would be satisfied by any key at all. The `[ -t 0 ]` test keeps a shell without a terminal, such as `bash -i` reading commands from a pipe, from having its input consumed as passphrase attempts. In a new terminal, Enter at the prompt skips loading the key. Ctrl+C skips it too, but also skips the rest of `~/.bashrc` for that terminal.
+
+The first terminal after the distribution starts asks for the passphrase, and later terminals find the key loaded and ask nothing. The key stays loaded until the distribution stops, at `wsl --shutdown` or `wsl --terminate`, or when WSL shuts down a distribution with nothing open in it. In testing, a terminal opened a few seconds after the last one closed found the key loaded. One opened less than half a minute later found the distribution restarted, and asked again.
 
 Ubuntu's `~/.bashrc` returns early in a shell that is not interactive. A program started some other way, such as a `wsl.exe -e` command or a systemd service, has no `SSH_AUTH_SOCK`, and with a passphrase-protected key, its commits fail to sign. A tool like that needs `SSH_AUTH_SOCK` set to the same path, or a key without a passphrase.
 
 ### GitHub's host keys come from GitHub's API
 
-The first `ssh` to a host it has not seen before stops to show the host key's fingerprint and asks whether to trust it. The script skips that question. It writes GitHub's keys into `~/.ssh/known_hosts` from `https://api.github.com/meta`, the endpoint GitHub's fingerprints page points to. The list arrives over HTTPS, so the trust rests on GitHub's TLS certificate rather than on the first connection. The step runs only while `ssh-keygen -F github.com` finds no entry for GitHub.
+The first `ssh` to a host it has not seen before stops to show the host key's fingerprint and asks whether to trust it. The script skips that question. It writes GitHub's keys into `~/.ssh/known_hosts` from `https://api.github.com/meta`, the endpoint GitHub's fingerprints page points to. The list arrives over HTTPS, so the trust rests on GitHub's TLS certificate rather than on the first connection. Every run first removes any existing `github.com` entries with `ssh-keygen -R`, so an outdated entry in a `~/.ssh` copied from another machine cannot outlive a key GitHub has replaced.
 
 ### Signing in, and the token it leaves
 
-`gh auth login --web` uses GitHub's device flow: `gh` shows a code, the browser enters it, and GitHub hands `gh` an OAuth token. `--git-protocol ssh` makes `gh` use SSH addresses for the repositories it clones. `--skip-ssh-key` stops `gh` offering to make and upload a key of its own, since the script does that itself. `--scopes` adds `admin:public_key` and `admin:ssh_signing_key` to the default scopes (`repo`, `read:org` and `gist`), because adding keys to the two lists needs them.
+`gh auth login --web` uses GitHub's device flow: `gh` shows a code, the browser enters it, and GitHub hands `gh` an OAuth token. `--git-protocol ssh` makes `gh` use SSH addresses for the repositories it clones. `--skip-ssh-key` stops `gh` offering to make and upload a key of its own, since the script does that itself. `--scopes` adds `admin:public_key` and `admin:ssh_signing_key` to the default scopes (`repo`, `read:org` and `gist`), because adding keys to the two lists needs them. When `gh` is already signed in, the script reads the scopes the token carries from the `X-OAuth-Scopes` header of an API response, and runs `gh auth refresh` if either key scope is missing. Without that check, a token from an earlier plain `gh auth login` fails at the key upload.
 
 `gh` stores the token in the system credential store when there is one. A fresh WSL install has none: nothing on the session bus answers to `org.freedesktop.secrets`. So `gh` prints `Authentication credentials saved in plain text` and writes the token to `~/.config/gh/hosts.yml`. Anything that reads that file can do what the scopes allow: full access to every repository the account can reach, and adding SSH keys to the account. Once the keys are on GitHub, the two key scopes can be dropped, at the cost of one more visit to the browser:
 
@@ -214,11 +231,11 @@ The first `ssh` to a host it has not seen before stops to show the host key's fi
 gh auth refresh --hostname github.com --remove-scopes admin:public_key,admin:ssh_signing_key
 ```
 
-A later run of the script needs them back first (`gh auth refresh --scopes admin:public_key,admin:ssh_signing_key`), because its key step lists and adds keys.
+A later run of the script finds them missing and asks for them again, through the same browser step.
 
 ### The Git configuration
 
-`user.name` is the name on the GitHub profile, or the login when the profile has none. `user.email` is the account's ID-based no-reply address, `<ID>+<login>@users.noreply.github.com`, built from the account ID and login that `gh api user` returns. Commits made with it are attributed to the account, the real address stays out of every clone's history, and, unlike the older `<login>@users.noreply.github.com` form, the attribution survives a change of username. This sets up exactly one identity. Keeping two apart on one machine, with an identity per directory and a key per host, is covered in [identity separation](/wiki/security/identity-separation).
+`user.name` is the name on the GitHub profile, or the login when the profile has none. `user.email` is the account's ID-based no-reply address, `<ID>+<login>@users.noreply.github.com`, built from the account ID and login that `gh api user` returns. Commits made with it are attributed to the account, the real address stays out of every clone's history, and, unlike the older `<login>@users.noreply.github.com` form, the attribution survives a change of username. Accounts that turned on email privacy before 18 July 2017 were given the older form, and GitHub's email reference says that turning *Keep my email address private* off and on again issues the ID-based one. On an account that old, do that before relying on the address the script writes: the script's own check verifies the signature locally and cannot tell whether GitHub recognizes the address. A rerun of the script sets the name and address again from the profile, replacing any edit made since. This sets up exactly one identity. Keeping two apart on one machine, with an identity per directory and a key per host, is covered in [identity separation](/wiki/security/identity-separation).
 
 Three more settings change Git's behaviour where an unconfigured 2.53 stops or guesses:
 
@@ -234,7 +251,7 @@ ssh -T git@github.com
 git config --global --list
 ```
 
-`ssh -T` prints `Hi <login>! You've successfully authenticated, but GitHub does not provide shell access.` and exits with status 1 even then, because GitHub opens no shell. In any repository, `git log --show-signature -1` on a new commit shows `Good "git" signature for <ID>+<login>@users.noreply.github.com with ED25519 key SHA256:...`. After a push, GitHub shows the same commit as *Verified*. `ssh-keygen -lf ~/.ssh/id_ed25519.pub` prints the fingerprint to compare against both lists at <https://github.com/settings/keys>.
+`ssh -T` prints `Hi <login>! You've successfully authenticated, but GitHub does not provide shell access.` and exits with status 1 even then, because GitHub opens no shell. On a network that blocks port 22, it times out or is refused instead (the script gives up after 15 seconds). GitHub also accepts SSH on port 443 at `ssh.github.com`, which its documentation covers under *Using SSH over the HTTPS port*. That is a different host name, checked against a separate `[ssh.github.com]:443` entry that the script does not write, so the first connection there asks about the host key; GitHub's fingerprints page lists the values to compare. In any repository, `git log --show-signature -1` on a new commit shows `Good "git" signature for <ID>+<login>@users.noreply.github.com with ED25519 key SHA256:...`. After a push, GitHub shows the same commit as *Verified*. `ssh-keygen -lf ~/.ssh/id_ed25519.pub` prints the fingerprint to compare against both lists at <https://github.com/settings/keys>.
 
 ## Where repositories go
 
@@ -258,5 +275,6 @@ WSL itself has [a short page under Microsoft](/wiki/microsoft/wsl). This one sit
 - Microsoft, [Get started using Git on WSL](https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-git), the Git Credential Manager route
 - GitHub CLI, [Installing gh on Linux](https://github.com/cli/cli/blob/trunk/docs/install_linux.md), with the keyring checksums
 - GitHub Docs, [About commit signature verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification) and [GitHub's SSH key fingerprints](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints)
+- GitHub Docs, [Using SSH over the HTTPS port](https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the-https-port)
 - GitHub Docs, [email addresses reference](https://docs.github.com/en/account-and-profile/reference/email-addresses-reference), on the no-reply address
 - Git, [`gpg.ssh.allowedSignersFile`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-gpgsshallowedSignersFile) in `git-config`

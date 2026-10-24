@@ -167,4 +167,22 @@ Rebuilding it on the branch's own reflog ended the churn. When a procedure
 keeps sprouting caveats across review rounds, change its foundation instead
 of adding the next caveat, and set a stopping rule before the next round.
 
+**Recurrence, 2026-10-23 (`git/wsl-setup`).** A copy-paste setup script,
+tested end to end in a throwaway distro (`wsl.exe --install Ubuntu-26.04
+--name <throwaway> --no-launch`, unregistered afterwards) with account calls
+stubbed. The new shape was **a probe that tested a neighbouring condition**:
+`-c gpg.ssh.allowedSignersFile=` (set but empty) reported as "without the
+setting", when truly unset fails differently; a terminal transcript rebuilt
+from `gh` source that missed two lines the real binary prints, including the
+code going to the Windows clipboard; an empty agent read as "the agent dies
+with the session" when the distro had restarted in between. Harness inputs
+also hid two script bugs: `SSH_ASKPASS` answered the prompt a reader types,
+and `</dev/null` meant `[ -t 0 ]` never ran.
+
+How to apply: name the exact condition a probe sets and compare it with the
+sentence it backs. Capture real output on a pty (`TERM=dumb` stops `gh`
+querying the terminal) rather than reconstructing it. Drive typed prompts
+with a pty driver that answers on a regex, since `script </dev/null` hangs
+forever at a passphrase prompt.
+
 Related: [[project-harness-invariants]].
