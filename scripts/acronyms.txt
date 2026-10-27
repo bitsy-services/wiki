@@ -625,3 +625,11 @@ BEP20	-
 
 # --- Verbal tics: emphasis quoted from a published system prompt ----------
 NEVER	-
+
+# --- Claude accounts and plans -------------------------------------------
+# MAX appears only inside a quoted post that capitalizes the plan name; CC only
+# in the product name CC Switch.
+SSO	single sign-on
+ZDR	zero data retention
+MAX	-
+CC	-

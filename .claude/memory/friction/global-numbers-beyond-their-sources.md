@@ -185,4 +185,35 @@ querying the terminal) rather than reconstructing it. Drive typed prompts
 with a pty driver that answers on a regex, since `script </dev/null` hangs
 forever at a passphrase prompt.
 
-Related: [[project-harness-invariants]].
+**Recurrence, 2026-10-26 (`ai/claude-accounts/`, eight pages on plans,
+terms and credentials).** Sources fetched first and every price grepped; two
+reviewers still found 35 problems between them. The shapes this time:
+
+- **A cached reference was wrong.** The bundled claude-api skill's price
+  table gave Sonnet 5.5 cache reads at $0.20; the live pricing page says
+  $0.10. A cached table is a lead, not a source.
+- **Legal text read past its words.** An ellipsis dropped a clause's own
+  examples (attacks), "without prior authorization" was dropped from a
+  bypass clause, and a clause's two examples ("multiple accounts",
+  "automation designed to exploit the allowance") were merged into one the
+  text never states. The one clause literally about creating multiple
+  accounts, the page's own subject, was missed entirely.
+- **Attribution drift.** An X reply by one engineer was cited as
+  "Anthropic's statement"; his bio now says "formerly". Quotes taken from a
+  WebFetch summary (VentureBeat) had no file behind them.
+- **Copy-paste code that fails open.** An empty `ANTHROPIC_API_KEY` from a
+  failed `pass show` falls through to the subscription login, and an empty
+  `CLAUDE_CONFIG_DIR` makes Claude Code use the current directory as its
+  config directory, picking up a repo's root `settings.json`. Both passed a
+  happy-path test; both were found by a reviewer probing empty values.
+- **Two official sources that disagree** (Max API credits "can't be used in
+  Claude Code" against a FAQ saying `claude -p` with an API key is covered),
+  presented as if only one existed.
+
+How to apply: for legal text, quote whole clauses or keep the ellipsis
+honest, and check every quoted condition (*without authorization*, *for
+example*) survives the paraphrase. For copy-paste shell, test the empty and
+unset cases of every variable the snippet reads, not just the set case. When
+two first-party sources disagree, say so on the page.
+
+Related: [[project-harness-invariants]], [[global-scratchpad-lives-in-tmp]].

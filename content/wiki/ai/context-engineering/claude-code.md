@@ -86,6 +86,7 @@ Ordered worst-first — the early items publish wrong content; the later ones on
 - [Loops in Claude Code](/wiki/ai/loop-engineering/claude-code) — the same harness started by something other than a person: `/loop`, `/goal`, Stop hooks, routines and `claude -p`.
 - [Prompt engineering](/wiki/ai/prompt-engineering) — wording the rules and the page request that this harness then routes.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — why keeping `CLAUDE.md` and tool schemas stable at the front of the window is also what makes the session cheap.
+- [Multiple Claude accounts](/wiki/ai/claude-accounts) — which account a session bills, and running work and personal accounts side by side.
 
 ## Further reading
 
