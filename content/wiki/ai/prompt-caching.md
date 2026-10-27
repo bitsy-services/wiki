@@ -53,7 +53,7 @@ Two other levers move the same bill. **Batching** trades latency for price: Anth
 - [The KV cache](/wiki/ai/llm/kv-cache) — the stored object itself, and why keeping it is exact.
 - [Context engineering](/wiki/ai/context-engineering) — the ordering discipline that keeps the prefix stable.
 - [Agentic engineering](/wiki/ai/agentic-engineering) — where caching sits among an agent system's cost levers.
-- [The cost of more capacity](/wiki/ai/claude-accounts/cost-model) — cache-read prices next to Claude's subscription plans, for choosing between them.
+- [Using multiple Claude accounts cost-effectively](/wiki/ai/claude-accounts/cost-model) — cache-read prices next to Claude's subscription plans, for choosing between them.
 
 ## Sources
 

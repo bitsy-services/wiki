@@ -132,7 +132,7 @@ Then open a session in a repository of each kind and run `/status`: the email an
 ## Related
 
 - [One config directory per account](/wiki/ai/claude-accounts/config-directories): the aliases, function, helper and status line these layouts use.
-- [The cost of more capacity](/wiki/ai/claude-accounts/cost-model): choosing a plan size before choosing a layout.
+- [Using multiple accounts cost-effectively](/wiki/ai/claude-accounts/cost-model): choosing a plan size before choosing a layout.
 - [What the terms allow](/wiki/ai/claude-accounts/terms): the passages behind each layout's risk.
 - [Loops in Claude Code](/wiki/ai/loop-engineering/claude-code): the scheduled and scripted runs that the key-for-scripts layout moves off the subscription.
 

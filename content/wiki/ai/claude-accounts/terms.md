@@ -82,7 +82,7 @@ This page quotes the documents and is not legal advice. The documents change, an
 ## Related
 
 - [Multiple Claude accounts](/wiki/ai/claude-accounts): the reasons for running several accounts, and the section map.
-- [The cost of more capacity](/wiki/ai/claude-accounts/cost-model): the sanctioned routes to more usage, priced.
+- [Using multiple accounts cost-effectively](/wiki/ai/claude-accounts/cost-model): the sanctioned routes to more usage, priced.
 - [Tools for multiple accounts](/wiki/ai/claude-accounts/tools): the switchers and proxies these clauses apply to.
 
 ## Further reading

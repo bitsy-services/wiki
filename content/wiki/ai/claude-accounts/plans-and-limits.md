@@ -89,7 +89,7 @@ In a terminal, the status line is the only meter that stays on screen while Clau
 ## Related
 
 - [Multiple Claude accounts](/wiki/ai/claude-accounts): why one person runs several accounts, and the map of this section.
-- [The cost of more capacity](/wiki/ai/claude-accounts/cost-model): the prices on this page compared in one unit.
+- [Using multiple accounts cost-effectively](/wiki/ai/claude-accounts/cost-model): the prices on this page compared in one unit.
 - [Prompt caching & cost](/wiki/ai/prompt-caching): why a long session's repeated prefix costs less than its first turn.
 
 ## Further reading

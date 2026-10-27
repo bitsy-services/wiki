@@ -1,9 +1,13 @@
 ---
-title: "The Cost of More Capacity"
+title: "Using Multiple Accounts Cost-Effectively"
 weight: 50
 ---
 
-More [Claude Code](/wiki/ai/context-engineering/claude-code) capacity can be bought in four ways: a larger plan, usage credits on the plan already held, an API key billed per token, or a second subscription. Each is priced in its own unit. Plans are sold as multiples of Pro's allowance per five-hour session, while usage credits and API keys are charged in dollars per million tokens at Anthropic's list prices, less a discount for credits bought in bundles. Comparing them needs one unit, and the one used here is the API-equivalent cost: what a piece of work would have cost on an API key at list price, computed from the token counts Claude Code records for every session.
+Among the individual plans that include [Claude Code](/wiki/ai/context-engineering/claude-code), Max 20x buys the most usage per dollar. At $200 a month it allows twenty times the usage of the $20 Pro plan in each five-hour session, twice the rate of Pro and Max 5x at their monthly prices. On Anthropic's published figures, no combination of smaller subscriptions matches it: two Max 5x subscriptions cost the same $200 and allow half as much, split across two accounts. Past Max 20x, Anthropic sells two routes to more usage: [usage credits](/wiki/ai/claude-accounts/plans-and-limits#usage-credits), billed at API rates once a plan's limit is spent and up to 30% cheaper in bundles, and API keys at list price. A second subscription opened to keep working past the first one's limits is the [contested case](/wiki/ai/claude-accounts/terms#getting-past-usage-limits) under Anthropic's terms.
+
+Several accounts lower a bill in other ways. Work for an employer or a client goes on that organization's account and is billed to it, through a [Team seat](/wiki/ai/claude-accounts/layouts#a-team-on-team-seats) it pays for or an API key it issues. A script that runs Claude Code on an API key is billed per token and leaves the subscription's allowance to interactive work. Max 5x includes $100 and Max 20x $200 a month of [API credit](#scripts-on-the-included-api-credit), which Anthropic's FAQ says can pay for such runs. Each account's plan is then chosen for the work that account alone carries, by the arithmetic below. An extra credential can raise a bill as well: an [API key exported in a shell profile](/wiki/ai/claude-accounts/credentials#an-exported-api-key) is billed per token for every non-interactive `claude -p` run, ahead of a signed-in subscription and without a prompt.
+
+Choosing among a larger plan, usage credits and an API key takes arithmetic, because each is priced in its own unit: plans as multiples of Pro's allowance per five-hour session, credits and keys in dollars per million tokens. The sections below compare them in one unit, the API-equivalent cost: what a piece of work would have cost on an API key at list price, computed from the token counts Claude Code records for every session.
 
 ## Prices in one table
 
@@ -18,7 +22,7 @@ More [Claude Code](/wiki/ai/context-engineering/claude-code) capacity can be bou
 | Usage credits from a $1,000 bundle | $700 | $1,000 of tokens at list price | |
 | API key | List API price | Tokens | |
 
-Per dollar, every plan but one buys the same five-hour allowance, five times Pro's for each $100 a month, or 6.25 times on annual Team billing. Max 20x buys ten times, twice as much as the rest. A Team plan needs at least two members, with seats of either type mixed freely. That is as far as the published figures go: Anthropic gives no multiple for the weekly limits, so the comparison covers the five-hour windows only. Team seats are also the only subscriptions in the table under the Commercial Terms, which matters more than the price for client and employer code; [plans and usage limits](/wiki/ai/claude-accounts/plans-and-limits) covers the difference.
+Per dollar, every plan but one buys the same five-hour allowance, five times Pro's for each $100 a month, or 6.25 times on annual Team billing. Max 20x buys ten times, twice the rate of every other plan billed monthly. A Team plan needs at least two members, with seats of either type mixed freely. That is as far as the published figures go: Anthropic gives no multiple for the weekly limits, so the comparison covers the five-hour windows only. Team seats are also the only subscriptions in the table under the Commercial Terms, which matters more than the price for client and employer code; [plans and usage limits](/wiki/ai/claude-accounts/plans-and-limits) covers the difference.
 
 The list prices for the current models, per million tokens:
 

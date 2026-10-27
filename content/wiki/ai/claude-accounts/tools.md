@@ -24,7 +24,7 @@ Anthropic's own pieces cover the basics: `CLAUDE_CONFIG_DIR` for one directory p
 
 ## Usage trackers
 
-ccusage, run with `npx ccusage@latest`, reads the transcripts under `projects/` in a configuration directory and reports tokens and API-equivalent cost by day, week, month or session. With `CLAUDE_CONFIG_DIR` set to one directory it reports one account, and with a comma-separated list it reports several together. `ccusage blocks` groups usage into five-hour blocks counted from the first message, the tool's own reconstruction of the session window, and `ccusage statusline` prints a compact line for Claude Code's status bar. The live dashboard of earlier versions, `blocks --live`, was removed in version 18. The tool reads local files, and with `--offline` it also skips fetching current model prices. [The cost of more capacity](/wiki/ai/claude-accounts/cost-model#measure-usage-in-api-equivalent-dollars) shows how to read its figures.
+ccusage, run with `npx ccusage@latest`, reads the transcripts under `projects/` in a configuration directory and reports tokens and API-equivalent cost by day, week, month or session. With `CLAUDE_CONFIG_DIR` set to one directory it reports one account, and with a comma-separated list it reports several together. `ccusage blocks` groups usage into five-hour blocks counted from the first message, the tool's own reconstruction of the session window, and `ccusage statusline` prints a compact line for Claude Code's status bar. The live dashboard of earlier versions, `blocks --live`, was removed in version 18. The tool reads local files, and with `--offline` it also skips fetching current model prices. [Using multiple accounts cost-effectively](/wiki/ai/claude-accounts/cost-model#measure-usage-in-api-equivalent-dollars) shows how to read its figures.
 
 Claude Code Usage Monitor, installed with `uv tool install claude-monitor` and run as `claude-monitor`, is a terminal dashboard of the current five-hour window with a forecast of when it will run out. Its fourth major version can also serve as an account's status-line command (`claude-monitor --statusline`), capturing the official `rate_limits` percentages and labelling each figure as official or as a local estimate. Its plan presets carry the project's own token estimates, such as 88,000 tokens for Max 5x and 220,000 for Max 20x. Anthropic publishes no token figures for any plan, so the official percentages are the ones to trust.
 
@@ -56,7 +56,7 @@ Some services sell Claude Code access below Anthropic's prices, in the form of a
 
 - [One config directory per account](/wiki/ai/claude-accounts/config-directories): the built-in mechanism the switchers automate.
 - [What the terms allow](/wiki/ai/claude-accounts/terms): the clauses quoted on this page, in full.
-- [The cost of more capacity](/wiki/ai/claude-accounts/cost-model): what the trackers' figures mean for choosing a plan.
+- [Using multiple accounts cost-effectively](/wiki/ai/claude-accounts/cost-model): what the trackers' figures mean for choosing a plan.
 - [MCP](/wiki/ai/mcp): the Model Context Protocol, whose servers these tools copy between accounts or leave behind.
 
 ## Further reading

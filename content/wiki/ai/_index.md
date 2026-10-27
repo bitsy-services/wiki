@@ -24,7 +24,7 @@ The section shares one running example: **using [Claude Code](/wiki/ai/context-e
   - [The Ralph loop](/wiki/ai/loop-engineering/ralph-loop) — one prompt file fed to an agent by a shell loop, with a fresh context on every pass.
   - [Loops in Claude Code](/wiki/ai/loop-engineering/claude-code) — `/loop`, `/goal`, Stop hooks, routines and `claude -p`, sorted by what starts the next turn.
 - [Agentic engineering](/wiki/ai/agentic-engineering) — the lifecycle around the loop: evaluation, observability, guardrails, and cost engineering.
-- [Multiple Claude accounts](/wiki/ai/claude-accounts) — what a Claude Code account meters and bills, why one person runs several, and how: one configuration directory per account, what the terms allow, the cost of more capacity, and seven layouts.
+- [Multiple Claude accounts](/wiki/ai/claude-accounts) — what a Claude Code account meters and bills, why one person runs several, and how: one configuration directory per account, what the terms allow, using them cost-effectively, and seven layouts.
 - [AI plugins](/wiki/ai/plugins) — bundled extensions to an agentic harness: what they are, when to install one, and when to author your own.
   - [Using a Claude Code plugin](/wiki/ai/plugins/claude-code) — anatomy, install, context cost, and trust applied to Anthropic's harness.
   - [Authoring a plugin](/wiki/ai/plugins/authoring) — why packaging pays off even with one user, and the minimum scaffold to get started.

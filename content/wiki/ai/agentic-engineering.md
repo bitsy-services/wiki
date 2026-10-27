@@ -98,7 +98,7 @@ Ordered worst-first — the early items ship wrong behavior into production; the
 - [Agentic workflows](/wiki/ai/agentic-workflows) — the patterns this discipline composes into a running system.
 - [Loop engineering](/wiki/ai/loop-engineering) — loops that run unattended, where the guardrails, observability and cost caps on this page stop being optional.
 - [Prompt caching & cost](/wiki/ai/prompt-caching) — the economics that make cost engineering a tractable problem.
-- [The cost of more capacity](/wiki/ai/claude-accounts/cost-model) — the same question for one developer: subscription allowances against per-token API billing.
+- [Using multiple Claude accounts cost-effectively](/wiki/ai/claude-accounts/cost-model) — the same question for one developer: subscription allowances against per-token API billing.
 - [Claude Code](/wiki/ai/context-engineering/claude-code) — a real harness exhibiting the build, observe, guard, and verify properties this page argues for.
 
 ## Further reading
