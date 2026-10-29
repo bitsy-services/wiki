@@ -26,8 +26,6 @@ Nothing here is legal advice. It is an attempt to explain a body of law well eno
 
 ## Elsewhere in the wiki
 
-[Interbox](/wiki/economics/defi/blockchain/interbox) is the worked example of designing around this material rather than merely complying with it.
-
 [Fraud](/wiki/economics/fraud) is the other side of the same coin, and reading the two together is the point. Nearly every requirement here — [know your customer](/wiki/economics/regulation/know-your-customer), the [Travel Rule](/wiki/economics/regulation/travel-rule), suspicious activity reporting — exists to make the last stage of a fraud expensive, and [cashing out](/wiki/economics/fraud/cashing-out) and [money mules](/wiki/economics/fraud/money-mule) describe what the other side does about it.
 
 ## Wiki Pages

@@ -37,7 +37,7 @@ A [DEX](/wiki/economics/defi/markets/dex) has no equivalent, because there is no
 
 Two directions of work try to reduce the damage rather than merely comply with it:
 
-- **Reusable verification.** [Interbox](/wiki/economics/defi/blockchain/interbox) argues that a bank has already performed the diligence the statute wants, and that a cryptographic link between a verified account and a self-custodied wallet can carry the assurance without the documents being copied again.
+- **Reusable verification.** A bank has already performed the diligence the statute wants, and the argument is that a cryptographic link between a verified account and a self-custodied wallet could carry the assurance without the documents being copied again.
 - **Proof instead of disclosure.** [Zero-knowledge proofs](/wiki/cs/zero-knowledge-proofs) can establish membership in a credentialed set — over 18, not sanctioned, verified by an accredited institution — without revealing which member. This answers the technical problem cleanly. It does not yet answer the legal one, because the regulations specify records to be retained, not facts to be established.
 
 ## External links
