@@ -20,7 +20,7 @@ weight: 30
 
 On macOS, Claude Code writes the login to `.credentials.json` instead when the Keychain refuses the write, as it does when locked during an SSH session.
 
-Only the first two rows live inside the configuration directory, the folder that `CLAUDE_CONFIG_DIR` selects, and those are the logins that [one directory per account](/wiki/ai/claude-accounts/config-directories) keeps apart. A Console sign-in without a key is written to a profile outside it, the one `ANTHROPIC_PROFILE` names or else the active or `default` profile, so two such sign-ins made from two directories with no `ANTHROPIC_PROFILE` set land in the same profile. That sign-in has a wider side effect as well: in the documentation's words, "Claude Code signs you out of any claude.ai login stored on the machine." The rest come from environment variables and settings files: a variable reaches every directory used from the shell that exported it, and a setting reaches every directory that reads the file it is in.
+Only the first two rows live inside the configuration directory, the folder that `CLAUDE_CONFIG_DIR` selects, and those are the logins that [one directory per account](/wiki/ai/claude-accounts/switching#what-an-account-is-to-claude-code) keeps apart. A Console sign-in without a key is written to a profile outside it, the one `ANTHROPIC_PROFILE` names or else the active or `default` profile, so two such sign-ins made from two directories with no `ANTHROPIC_PROFILE` set land in the same profile. That sign-in has a wider side effect as well: in the documentation's words, "Claude Code signs you out of any claude.ai login stored on the machine." The rest come from environment variables and settings files: a variable reaches every directory used from the shell that exported it, and a setting reaches every directory that reads the file it is in.
 
 ## The order of precedence
 
@@ -42,7 +42,7 @@ A session signed in to a Claude apps gateway, which is Anthropic's gateway softw
 
 From then on the key's account is billed per token, which Anthropic's support article on the variable says happens "even if you're logged into Claude Code with a claude.ai subscription or a different Console account." A key exported in `~/.bashrc` for some other program reaches every terminal: each directory's interactive sessions are offered it, and every `claude -p` run started from such a shell is billed to it without a prompt.
 
-`unset ANTHROPIC_API_KEY` returns the current shell to the subscription. A key that one account needs can live in that account's settings as an `apiKeyHelper` command, where the other directories never see it; [One config directory per account](/wiki/ai/claude-accounts/config-directories#add-an-api-key-account) shows the setup.
+`unset ANTHROPIC_API_KEY` returns the current shell to the subscription. A key that one account needs can live in that account's settings as an `apiKeyHelper` command, where the other directories never see it; [Switching between Claude accounts](/wiki/ai/claude-accounts/switching#an-api-key) shows the setup.
 
 Other credentials also survive a `/login`:
 
@@ -79,7 +79,7 @@ claude auth status --text
 
 ## Related
 
-- [One config directory per account](/wiki/ai/claude-accounts/config-directories): keeping logins apart, and giving one account an API key without exposing it to the others.
+- [Switching between Claude accounts](/wiki/ai/claude-accounts/switching): keeping logins apart, and giving one account an API key without exposing it to the others.
 - [Plans and usage limits](/wiki/ai/claude-accounts/plans-and-limits): what each kind of credential is billed against.
 - [Loops in Claude Code](/wiki/ai/loop-engineering/claude-code#claude--p-any-program-can-be-the-loop): `claude -p` and `--bare`, where an exported key is used without asking.
 - [Secret management with pass](/wiki/security/pass): a store for the keys an `apiKeyHelper` prints.

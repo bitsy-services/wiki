@@ -33,6 +33,28 @@ version of the scratch-copy run was kept as a script (rsync both trees, then
 check.sh with `PATH` and `CLAUDE_PROJECT_DIR` overridden); it took a minute to
 rebuild.
 
+**Changed by 2026-10-30, late** (switching-accounts page): `jq` is now at
+`/usr/bin/jq`, Hugo and the theme are still missing. The hook therefore works
+again, and blocks every turn end once on `hugo: command not found`, then lets
+the retry through (`stop_hook_active`). The content half still runs in the real
+clone. Any session's scratchpad that kept `hugo-bin/` and `hugo-book/` can be
+reused: copy both into the new scratchpad and rewrite the `sp=` line of its
+`tools/gate.sh`.
+
+**Fixed 2026-10-31, at the user's request.** Hugo 0.159.0 extended is
+installed at `~/.local/bin/hugo` (release tarball, checksum verified against
+`hugo_0.159.0_checksums.txt`), and `git submodule update --init` checked the
+theme out at `cec082b8`. `~/.profile` puts `~/.local/bin` on `PATH` only if
+the folder exists, and it did not exist when the running VS Code server
+started, so a Claude Code process from before the install still has the old
+`PATH` and its Stop hook still reports `hugo: command not found`. Run the
+gate as `PATH="$HOME/.local/bin:$PATH" scripts/check.sh` in such a session.
+Confirmed after the user rebooted the same day: the new session's `PATH`
+starts with `~/.local/bin` and plain `scripts/check.sh` passes, so `~/.bashrc`
+needed no change. "Developer: Reload Window" would not have done it, since it
+reuses the running VS Code server and its environment. No passwordless `sudo`,
+so `/usr/local/bin` is not an option.
+
 **How to apply:** at the start of a content session run
 `command -v hugo jq` and `git submodule status`. If any is missing, tell the
 user in one line that the gate cannot build here, or that the Stop hook cannot

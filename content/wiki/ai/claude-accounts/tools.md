@@ -20,7 +20,7 @@ Public tools for running [Claude Code](/wiki/ai/context-engineering/claude-code)
 
 ## Built into Claude Code
 
-Anthropic's own pieces cover the basics: `CLAUDE_CONFIG_DIR` for one directory per account, `claude auth login` and `claude auth status` to sign each in and check it, `/usage` and the status line's `rate_limits` fields for the meters, and `apiKeyHelper` for keys. [One config directory per account](/wiki/ai/claude-accounts/config-directories) puts them together. Organizations get more: Team and Enterprise plans have per-member usage credits and spend caps, and managed settings, which an organization deploys to its machines and which users' own settings cannot override, can set `forceLoginOrgUUID`, after which Claude Code reports an error and exits at startup when the claude.ai login in use belongs to any other organization.
+Anthropic's own pieces cover the basics: `CLAUDE_CONFIG_DIR` for one directory per account, `claude auth login` and `claude auth status` to sign each in and check it, `/usage` and the status line's `rate_limits` fields for the meters, and `apiKeyHelper` for keys. [Switching between Claude accounts](/wiki/ai/claude-accounts/switching) puts them together. Organizations get more: Team and Enterprise plans have per-member usage credits and spend caps, and managed settings, which an organization deploys to its machines and which users' own settings cannot override, can set `forceLoginOrgUUID`, after which Claude Code reports an error and exits at startup when the claude.ai login in use belongs to any other organization.
 
 ## Usage trackers
 
@@ -54,7 +54,7 @@ Some services sell Claude Code access below Anthropic's prices, in the form of a
 
 ## Related
 
-- [One config directory per account](/wiki/ai/claude-accounts/config-directories): the built-in mechanism the switchers automate.
+- [Switching between Claude accounts](/wiki/ai/claude-accounts/switching): the built-in mechanism the switchers automate.
 - [What the terms allow](/wiki/ai/claude-accounts/terms): the clauses quoted on this page, in full.
 - [Using multiple accounts cost-effectively](/wiki/ai/claude-accounts/cost-model): what the trackers' figures mean for choosing a plan.
 - [MCP](/wiki/ai/mcp): the Model Context Protocol, whose servers these tools copy between accounts or leave behind.

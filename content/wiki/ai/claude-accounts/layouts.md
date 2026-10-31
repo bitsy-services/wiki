@@ -3,7 +3,7 @@ title: "Account Layouts"
 weight: 70
 ---
 
-An account layout is the set of accounts one person or one team runs [Claude Code](/wiki/ai/context-engineering/claude-code) on, together with the rule that decides which account a session uses. Each layout below meets one of the needs listed in the [section index](/wiki/ai/claude-accounts#why-one-person-runs-several): a boundary around code, a boundary around billing, a different kind of credential, or more capacity. The first, a single account, is the baseline the others add to, and each layout gives its setup, its cost and its risk.
+An account layout is the set of accounts one person or one team runs [Claude Code](/wiki/ai/context-engineering/claude-code) on, together with the rule that decides which account a session uses. Each layout below meets one of four needs. Three are listed under [why run more than one account](/wiki/ai/claude-accounts/switching#why-run-more-than-one-account): a boundary around code, a boundary around billing and a different kind of credential. The fourth is more capacity, which [the cost model](/wiki/ai/claude-accounts/cost-model) prices. The first, a single account, is the baseline the others add to, and each layout gives its setup, its cost and its risk.
 
 | Situation | Layout |
 | --- | --- |
@@ -15,7 +15,7 @@ An account layout is the set of accounts one person or one team runs [Claude Cod
 | Several people | [A team on Team seats](#a-team-on-team-seats) |
 | Two personal subscriptions | [Two subscriptions for one person](#two-subscriptions-for-one-person) |
 
-The setups use the aliases, the per-directory function and the status line script from [One config directory per account](/wiki/ai/claude-accounts/config-directories).
+The setups use the aliases, the per-directory function and the status line script from [Switching between Claude accounts](/wiki/ai/claude-accounts/switching).
 
 ## One account
 
@@ -40,7 +40,7 @@ Sign the work directory in with the work address, choosing the employer's plan w
 CLAUDE_CONFIG_DIR=~/.claude-work claude auth login --email you@company.example
 ```
 
-The per-directory function, with the employer's repositories kept under one path such as `~/work`, makes `claude` typed in a shell there use the work account. It does not reach the editor extensions, the desktop app, scripts, cron jobs or a work repository cloned elsewhere, which all start on the default account. On a machine used mostly for the employer, the reverse arrangement errs toward the employer's terms: with the work account as the default and the personal account behind the alias, a session started any other way lands on the employer's account, at the cost of personal work started from the editor, the desktop app or a script landing there too. The editor's own `CLAUDE_CONFIG_DIR` setting covers the sessions the editor starts, and on a machine the employer manages, `forceLoginOrgUUID`, described below, refuses another organization's login however a session starts. The personal account needs a personal email address: the Consumer Terms allow an account opened with an employer's address to be linked to the employer's organization, whose administrators may then "monitor and control the Account, including having access to Materials".
+The per-directory function, with the employer's repositories kept under one path such as `~/work`, makes `claude` typed in a shell there use the work account. It does not reach the editor extensions, scripts, cron jobs or a work repository cloned elsewhere, which all start on the default account; the desktop app runs on whichever account is signed in to it. On a machine used mostly for the employer, the reverse arrangement errs toward the employer's terms: with the work account as the default and the personal account behind the alias, a session started any other way lands on the employer's account, at the cost of personal work started from the editor or a script landing there too. The editor's own `CLAUDE_CONFIG_DIR` setting covers the sessions the editor starts, and on a machine the employer manages, `forceLoginOrgUUID`, described below, refuses another organization's login however a session starts. The personal account needs a personal email address: the Consumer Terms allow an account opened with an employer's address to be linked to the employer's organization, whose administrators may then "monitor and control the Account, including having access to Materials".
 
 Each side pays for its own account. On a laptop the employer manages, managed settings, which the employer deploys and the user's own settings cannot override, may set `forceLoginOrgUUID`, after which Claude Code exits at startup when the login belongs to any other organization; the personal account then belongs on a personal machine. The other failure is an employer API key exported in the shell profile, which outranks both logins, as [Which credential Claude Code uses](/wiki/ai/claude-accounts/credentials#an-exported-api-key) explains.
 
@@ -92,7 +92,7 @@ Of Claude Code usage, the included credit covers `claude -p` and Agent SDK runs 
 
 One subscription carries the work it can hold, and the rest is bought explicitly. Usage credits on the same account are the simpler form: nothing changes in Claude Code, requests continue past the limit at list price, a monthly spend limit bounds the bill, and the conversation carries on. Credits bought as bundles cost 10% to 30% less, and the [cost model](/wiki/ai/claude-accounts/cost-model#climbing-the-plan-ladder) says when a month's overflow has grown past the price of the next plan.
 
-The alternative is a separate API-key directory, set up as in [One config directory per account](/wiki/ai/claude-accounts/config-directories#add-an-api-key-account) and started with its own alias, such as `claude-api`, when the subscription runs out. It suits an organization that already buys API credit, or a person who wants overflow on a different invoice. Its cost is the same list price without the bundle discount, and a session moved to it starts a new conversation, because transcripts stay in the directory where they were recorded. Both forms are routes Anthropic sells, and the terms raise no question about either.
+The alternative is a separate API-key directory, set up as in [Switching between Claude accounts](/wiki/ai/claude-accounts/switching#an-api-key) and started with its own alias, such as `claude-api`, when the subscription runs out. It suits an organization that already buys API credit, or a person who wants overflow on a different invoice. Its cost is the same list price without the bundle discount, and a session moved to it starts a new conversation, because transcripts stay in the directory where they were recorded. Both forms are routes Anthropic sells, and the terms raise no question about either.
 
 ## A team on Team seats
 
@@ -131,7 +131,7 @@ Then open a session in a repository of each kind and run `/status`: the email an
 
 ## Related
 
-- [One config directory per account](/wiki/ai/claude-accounts/config-directories): the aliases, function, helper and status line these layouts use.
+- [Switching between Claude accounts](/wiki/ai/claude-accounts/switching): the aliases, function, helper and status line these layouts use.
 - [Using multiple accounts cost-effectively](/wiki/ai/claude-accounts/cost-model): choosing a plan size before choosing a layout.
 - [What the terms allow](/wiki/ai/claude-accounts/terms): the passages behind each layout's risk.
 - [Loops in Claude Code](/wiki/ai/loop-engineering/claude-code): the scheduled and scripted runs that the key-for-scripts layout moves off the subscription.

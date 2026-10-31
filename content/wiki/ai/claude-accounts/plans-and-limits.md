@@ -84,7 +84,7 @@ A Team's credits are pooled into one balance capped at $500 a month. The credit 
 | A custom status line | `rate_limits.five_hour` and `rate_limits.seven_day`, each with `used_percentage` and `resets_at`, after a session's first response, for Pro and Max subscribers |
 | `claude auth status` | Which credential and directory a session would use; no usage figures |
 
-In a terminal, the status line is the only meter that stays on screen while Claude works. [One config directory per account](/wiki/ai/claude-accounts/config-directories#label-each-session-with-its-account) has a script that prints the account's name beside the two percentages.
+In a terminal, the status line is the only meter that stays on screen while Claude works. [Switching between Claude accounts](/wiki/ai/claude-accounts/switching#label-each-session-with-its-account) has a script that prints the account's name beside the two percentages.
 
 ## Related
 
