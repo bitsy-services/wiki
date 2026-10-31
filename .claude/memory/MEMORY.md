@@ -11,5 +11,6 @@
 - [Verbal tics ledger](project-verbal-tics-ledger.md) — when Paul points out a tic of Claude's, add it to `content/wiki/ai/verbal-tics/anthropic-claude.md` as `caught <date>`
 - [Checks judge the visible command](patterns/global-checks-judge-the-visible-command.md) — git moves in a script and `rm` inside `bash -c` are refused; explicit `git mv` and fresh scratch folders go through
 - [The scratchpad lives in /tmp](friction/global-scratchpad-lives-in-tmp.md) — a WSL restart wipes it; after a crash, check `uptime` and the scratchpad, rebuild sources and tools, then resume agents
-- [The gate needs Hugo and the theme](friction/project-gate-needs-hugo-and-theme.md) — the WSL clone lacked both; check `command -v hugo` and `git submodule status`, else verify on a scratch copy with the CI-pinned Hugo
+- [The gate needs Hugo and the theme](friction/project-gate-needs-hugo-and-theme.md) — the WSL clone lacked both, and jq, so the Stop hook fails open; check `command -v hugo jq` and `git submodule status`, else verify on a scratch copy with the CI-pinned Hugo
+- [Mock API for gh commands](friction/global-mock-api-for-gh-commands.md) — `GH_HOST=github.localhost` plus `HTTP_PROXY` sends `gh api` to a local mock; run a page's own commands through it, empty variables included
 - [Answer the request in its own terms](friction/global-answer-the-request-in-its-own-terms.md) — each goal the request names gets a page or heading in its words with the answer first; the report maps goal to page

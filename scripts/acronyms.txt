@@ -633,3 +633,7 @@ SSO	single sign-on
 ZDR	zero data retention
 MAX	-
 CC	-
+
+# --- GitHub organizations ------------------------------------------------
+# CD appears in the predefined role name "CI/CD admin".
+CD	continuous delivery

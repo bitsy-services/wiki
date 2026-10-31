@@ -1,6 +1,6 @@
 ---
 name: project-gate-needs-hugo-and-theme
-description: The WSL clone had no hugo binary and an uninitialized theme submodule, so scripts/check.sh and the Stop hook failed regardless of content; check both before relying on the gate
+description: The WSL clone had no hugo binary, an uninitialized theme submodule and no jq, so scripts/check.sh fails regardless of content and the Stop hook fails open; check all three before relying on the gate
 metadata:
   type: feedback
 ---
@@ -24,9 +24,19 @@ real repo.
 in the session says the environment is incomplete until the build line is
 read.
 
-**How to apply:** at the start of a content session run `command -v hugo` and
-`git submodule status`. If either is missing, tell the user in one line that
-the gate cannot build here (the fix is installing Hugo extended at the CI
-version and `git submodule update --init`), and verify on a scratch copy as
-above in the meantime. Related: [[project-hugo-quiet-hides-errors]],
+**Still true on 2026-10-30** (GitHub team-access pages), with a third gap:
+`jq` is not installed either, and `.claude/hooks/verify.sh` uses it both to
+read `stop_hook_active` and to print the `block` decision. With `jq` missing
+the hook runs check.sh, fails to print anything, and exits 0, so it never
+blocks: in this clone the gate runs only when it is run by hand. A reusable
+version of the scratch-copy run was kept as a script (rsync both trees, then
+check.sh with `PATH` and `CLAUDE_PROJECT_DIR` overridden); it took a minute to
+rebuild.
+
+**How to apply:** at the start of a content session run
+`command -v hugo jq` and `git submodule status`. If any is missing, tell the
+user in one line that the gate cannot build here, or that the Stop hook cannot
+block (the fix is installing Hugo extended at the CI version and `jq`, and
+`git submodule update --init`), and verify on a scratch copy as above in the
+meantime, running it yourself before every turn end. Related: [[project-hugo-quiet-hides-errors]],
 [[project-forward-links-block-the-turn]].

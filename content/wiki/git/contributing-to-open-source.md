@@ -16,7 +16,7 @@ The most common reason a good patch gets rejected is that it was unwelcome befor
 
 ## Set up the fork
 
-You don't have push access, so the standard mechanism is the **fork-and-pull** model: you fork the repository into your own account, push a branch there, and open a PR from your fork back to the original ("upstream").
+You don't have push access (the [Write role](/wiki/git/github/repository-roles) or above), so the standard mechanism is the **fork-and-pull** model: you fork the repository into your own account, push a branch there, and open a PR from your fork back to the original ("upstream").
 
 ```bash
 # Fork on GitHub first (the "Fork" button, or `gh repo fork`), then:

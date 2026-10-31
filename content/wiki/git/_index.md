@@ -12,6 +12,8 @@ The official [Pro Git book](https://git-scm.com/book/en/v2) remains the best fre
 
 The other three pages are on the places that workflow gets contentious. [Squashing commits](/wiki/git/squashing) comes first: what replacing several commits with one does to the commit graph, why further work on a squash-merged branch, and any branch built on it, can then conflict with changes that have already landed, and how to tell a branch worth squashing from one that is not. [Squash merge](/wiki/git/squash-merge) is the landing method in detail -- the commands, the forge button, and the commit message that has to carry the whole branch. [Contributing to open source](/wiki/git/contributing-to-open-source) is the other side of the same coin: a pull request against someone else's project is a social act before it is a technical one, and the conventions exist to make a volunteer maintainer's job smaller rather than larger.
 
+[GitHub](/wiki/git/github), the service most of these repositories live on, has a subsection of its own, on the access around the workflow rather than the workflow itself: the roles that decide who in an organization may push to which repository, the teams that hold them, and [how to give one team Write on every repository](/wiki/git/github/team-write-access). Git's own commands stay on the pages above; GitHub's accounts, organizations and permissions are there.
+
 ## Wiki Pages
 
 {{< section >}}
