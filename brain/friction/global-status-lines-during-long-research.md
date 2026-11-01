@@ -23,4 +23,4 @@ tool calls: what was just confirmed or refuted, and what is being checked
 next. Findings that change the plan (a pitfall reconfirmed, a doc that
 contradicts the wiki) go in that line as they land, not only in the report.
 
-Related: [[global-stop-only-for-a-real-decision]].
+Related: `.claude/rules/kit/collaboration.md`.

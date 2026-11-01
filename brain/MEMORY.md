@@ -1,5 +1,3 @@
-- [Permission and config hygiene](patterns/global-permission-and-config-hygiene.md) — explicit allow-lists, in source control, and never widen your own permissions without asking
-- [Stop only for a real decision](patterns/global-stop-only-for-a-real-decision.md) — finish and present; announce defaults; one-line blocker; no stopping for a fragment review (conflicts with wiki-workflow.md's opening check, which needs a yes to change)
 - [Subagent transcripts](patterns/global-subagent-transcripts.md) — never poll a running agent's transcript; salvage a dead agent's transcript and the scratchpad before re-running
 - [Harness invariants](project-harness-invariants.md) — Hugo doesn't check internal links; rules scope with `paths:` not `globs:`; the theme renders no h1
 - [AI section worked example](project-ai-section-worked-example.md) — reuse the "Claude Code writes a wiki page" example across all ai pages; don't invent new ones

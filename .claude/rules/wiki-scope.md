@@ -21,5 +21,5 @@ about eligibility.
   prefer a new page and a link over another `##` on an existing page.
 - Assume the reader arrived from a search engine on that one page. That is what
   makes the per-page acronym rule in `wiki-content.md` and the stub rule in
-  `wiki-linking.md` load-bearing rather than pedantic: nothing carries over from
+  `kit/wiki-linking.md` load-bearing rather than pedantic: nothing carries over from
   a page they did not read.

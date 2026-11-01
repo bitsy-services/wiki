@@ -6,39 +6,76 @@
       "Write",
       "WebSearch",
       "WebFetch",
-      "Bash(scripts/check.sh)",
-      "Bash(./scripts/check.sh)",
-      "Bash(scripts/check-content.py *)",
-      "Bash(python3 scripts/check-content.py *)",
       "Skill(update-config)",
       "Skill(update-config:*)",
+      "Skill(fewer-permission-prompts)",
+      "Skill(fewer-permission-prompts:*)",
+      "Skill(kit)",
       "Bash(git status *)",
       "Bash(git log *)",
       "Bash(git diff *)",
       "Bash(git show *)",
       "Bash(git ls-files *)",
-      "Bash(git branch *)",
       "Bash(git rev-parse *)",
+      "Bash(git rev-list *)",
+      "Bash(git for-each-ref *)",
       "Bash(git blame *)",
-      "Bash(git remote *)",
+      "Bash(git merge-base *)",
+      "Bash(git branch --show-current)",
+      "Bash(git branch --list *)",
+      "Bash(git remote -v)",
+      "Bash(git remote get-url *)",
+      "Bash(git submodule status *)",
+      "Bash(git submodule update --init .claude/vendor/kit)",
+      "Bash(git -C .claude/vendor/kit log *)",
+      "Bash(git -C .claude/vendor/kit diff *)",
+      "Bash(git -C .claude/vendor/kit show *)",
+      "Bash(git -C .claude/vendor/kit status *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr list *)",
+      "Bash(gh pr diff *)",
+      "Bash(gh run view *)",
+      "Bash(gh run list *)",
+      "Bash(gh repo view *)",
+      "Bash(jq *)",
+      "Bash(wc *)",
+      "Bash(sort *)",
+      "Bash(ls *)",
+      "Bash(grep *)",
+      "Bash(echo *)",
+      "Bash(printf *)",
+      "Bash(mkdir *)",
+      "Bash(bash .claude/vendor/kit/bin/kit check *)",
+      "Bash(bash .claude/vendor/kit/bin/kit status *)",
+      "Bash(bash .claude/vendor/kit/bin/kit render)",
+      "Bash(bash .claude/vendor/kit/bin/kit apply)",
+      "Bash(bash .claude/vendor/kit/bin/kit edit *)",
+      "Bash(bash scripts/check.sh)",
+      "Bash(hugo)",
+      "Bash(hugo version)",
+      "Bash(hugo env)",
+      "Bash(hugo --minify *)",
+      "Bash(hugo -D *)",
+      "Bash(hugo server *)",
+      "Skill(merge-to-main)",
+      "Skill(sync-with-main)",
       "Bash(git add *)",
+      "Bash(git switch *)",
+      "Bash(git commit *)",
+      "Bash(git fetch origin)",
+      "Bash(git fetch origin main:main)",
+      "Bash(git merge --ff-only *)",
+      "Bash(git merge main)",
+      "Bash(git merge --abort)",
+      "Bash(git rebase main)",
+      "Bash(git rebase --continue)",
+      "Bash(git rebase --abort)",
+      "Bash(scripts/check.sh)",
+      "Bash(./scripts/check.sh)",
+      "Bash(scripts/check-content.py *)",
+      "Bash(python3 scripts/check-content.py *)",
       "Bash(git mv *)",
-      "Bash(git config *)",
-      "Bash(git submodule *)",
       "Bash(git format-patch *)",
-      "Bash(git -C * status *)",
-      "Bash(git -C * log *)",
-      "Bash(git -C * diff *)",
-      "Bash(git -C * show *)",
-      "Bash(git -C * ls-files *)",
-      "Bash(git -C * branch *)",
-      "Bash(git -C * rev-parse *)",
-      "Bash(git -C * blame *)",
-      "Bash(git -C * remote *)",
-      "Bash(gh *)",
-      "Bash(hugo *)",
-      "Bash(npm *)",
-      "Bash(npx *)",
       "Bash(pip3 *)",
       "Bash(bundle *)",
       "Bash(python3 *)",
@@ -49,22 +86,13 @@
       "Bash(forge coverage *)",
       "Bash(forge lint *)",
       "Bash(forge install *)",
-      "Bash(FOUNDRY_PROFILE=* forge *)",
       "Bash(cast *)",
       "Bash(curl *)",
       "Bash(tar *)",
-      "Bash(jq *)",
-      "Bash(wc *)",
-      "Bash(sort *)",
       "Bash(base64 *)",
       "Bash(xargs *)",
-      "Bash(mkdir *)",
       "Bash(ln *)",
-      "Bash(ls *)",
       "Bash(find *)",
-      "Bash(grep *)",
-      "Bash(echo *)",
-      "Bash(printf *)",
       "Bash(fc-list *)",
       "Bash(xdg-open *)",
       "Bash(magick *)",
@@ -84,8 +112,45 @@
         "hooks": [
           {
             "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/kit/guard-write.sh\""
+          },
+          {
+            "type": "command",
             "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-write.sh",
             "args": []
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/kit/guard-git.sh\""
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/kit/kit-status.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/kit/branch-context.sh\""
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r 'select(.tool_name != \"AskUserQuestion\") | select((.tool_input.file_path // \"\") | endswith(\"/friction/project-prompt-log.md\") | not) | \"- \\(now|strftime(\"%Y-%m-%d\")) | \\(.tool_name)(\\(.tool_input.command // .tool_input.file_path // \"?\")) | fix: | pending\"' >> \"$CLAUDE_PROJECT_DIR/brain/friction/project-prompt-log.md\" || true"
           }
         ]
       }
@@ -103,5 +168,7 @@
         ]
       }
     ]
-  }
+  },
+  "autoMemoryEnabled": false,
+  "disableAllHooks": false
 }

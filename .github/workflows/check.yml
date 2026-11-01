@@ -2,7 +2,7 @@ name: check
 
 # Runs the same gate as the Stop hook (scripts/check.sh), so a broken build or a
 # broken internal link fails here even if it was authored without an agent.
-# Cloudflare Pages builds from main; this catches breakage before it deploys.
+# Cloudflare Workers Builds deploys main; this catches breakage before it deploys.
 
 on:
   push:

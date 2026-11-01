@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is the wiki published at wiki.bitsy.services, a Hugo static site using the Hugo Book theme, deployed to Cloudflare Pages. The site's name lives in exactly one place — `title` in `hugo.toml` — and every rendered copy derives from it; see Site Name below.
+This is the wiki published at wiki.bitsy.services, a Hugo static site using the Hugo Book theme, deployed by Cloudflare Workers Builds from `wrangler.jsonc`. The site's name lives in exactly one place — `title` in `hugo.toml` — and every rendered copy derives from it; see Site Name below.
 
 It is a public, general-purpose technical wiki rather than an internal one. Any technical subject is in scope; which subjects get written follows the work at bitsy.services. `.claude/rules/wiki-scope.md` is the authority on what belongs, `.claude/rules/wiki-taxonomy.md` on where it goes, and the consequence for writing is that every page is read cold by someone arriving from a search engine.
 
@@ -15,6 +15,8 @@ It is a public, general-purpose technical wiki rather than an internal one. Any 
 - `layouts/` — template overrides; a file here shadows the theme's file of the same name
 - `scripts/` — the checks; `scripts/acronyms.txt` is the acronym registry they enforce. `scripts/count-tics.py` is a measurement, not a check: it produces the counts published on the verbal-tics pages and is not part of the gate
 - `backlog/` — harness improvement items, consumed one per session
+- `brain/` — memory notes; `brain/MEMORY.md` is their index, imported at the end of this file
+- `.claude/` — Claude Code config. A file stamped `kit: rendered from` comes from the shared claude-kit, a git submodule at `.claude/vendor/kit` whose slices `.claude/kit.json` selects; change it through the `kit` skill, never in place. `kit apply` also merges the kit's entries into `.claude/settings.json`. The rest is this repo's own
 
 ## Site Name
 
@@ -61,7 +63,9 @@ such links.
 
 If a page is new or substantially rewritten, follow it with the `wiki-reviewer`
 subagent — it re-reads the result in a fresh context, without the reasoning that
-produced it.
+produced it. Do not tell it which rules to ignore: it is the only reader not
+already convinced by the draft. If a rule genuinely no longer applies, change
+the rule first and let the reviewer check against the new one.
 
 ## Commands
 
@@ -79,6 +83,10 @@ produced it.
 - Directory-scoped agent instructions can live in a `CLAUDE.md` inside a `content/wiki/<section>/` folder; `ignoreFiles = ['CLAUDE\.md$']` in `hugo.toml` keeps Hugo from rendering them as pages
 - Never name a page `claude.md`. Hugo folds filename case, so a `claude.md` beside a `CLAUDE.md` collides with it and is dropped from the build without a warning, while `scripts/check.sh` stays green because it resolves links against the source files. The page on Claude's verbal tics is `anthropic-claude.md` for this reason
 
-## Self-Improvement
+## Memory and Self-Improvement
 
-See `.claude/rules/self-improvement.md` for the full framework. When working in this repo, update this file if you discover new project-level conventions (build nuances, theme customizations, shortcodes, gotchas).
+`.claude/rules/kit/memory.md` says what to record in `brain/`, and `.claude/rules/kit/self-improvement.md` how friction notes become patterns and then rules. When working in this repo, update this file if you discover new project-level conventions (build nuances, theme customizations, shortcodes, gotchas).
+
+The memory index, which every session starts with:
+
+@brain/MEMORY.md

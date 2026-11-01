@@ -1,8 +1,8 @@
 # wiki.bitsy.services
 
 A public, general-purpose technical wiki built with [Hugo](https://gohugo.io/)
-and the [Hugo Book](https://github.com/alex-shpak/hugo-book) theme, deployed to
-Cloudflare Pages at [wiki.bitsy.services](https://wiki.bitsy.services/).
+and the [Hugo Book](https://github.com/alex-shpak/hugo-book) theme, deployed by
+Cloudflare Workers Builds to [wiki.bitsy.services](https://wiki.bitsy.services/).
 
 Any technical subject is in scope, written one mechanism to a page. Which
 subjects get written follows the work at bitsy.services — so far decentralised
@@ -12,7 +12,8 @@ developer tooling.
 ## Local development
 
 ```sh
-git submodule update --init --recursive   # the theme is a submodule
+git submodule update --init --recursive   # the theme and claude-kit are submodules
+bash .claude/vendor/kit/bin/kit init      # once per clone: git push then checks submodule pins
 hugo server -D
 ```
 
@@ -38,7 +39,9 @@ weight: 20
 
 The conventions are written down in [`.claude/rules/`](.claude/rules/) — audience,
 linking, page structure, and Solidity examples. They apply to humans and agents
-alike.
+alike. Those under `.claude/rules/kit/` are rendered from the shared
+[claude-kit](https://github.com/bitsy-services/claude-kit) and are changed
+there, not here.
 
 ## Checks
 
@@ -61,10 +64,11 @@ It runs three ways, and they are the same check:
 
 ## Deployment
 
-Cloudflare Pages:
+Cloudflare Workers Builds deploys `main`, as `wrangler.jsonc` configures it:
 
-- **Build command:** `hugo`
-- **Build output directory:** `public`
+- **Build command:** `npx hugo`, which runs the Hugo that the `hugo-bin`
+  package in `package.json` provides
+- **Static assets:** `public/`
 
 ## Layout overrides
 

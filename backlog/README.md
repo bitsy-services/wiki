@@ -26,13 +26,15 @@ checked this repo against Anthropic's Claude Code best practices, Anthropic's
 | [004](004-check-relative-links.md)       | **P1** | Make the link check cover relative links | open |
 | [005](005-check-page-was-built.md)       | **P1** | Make the gate notice a page Hugo did not build | open |
 
-All three were closed in the 2026-07-12 harness session. The repo now has a
+Items 001–003 were closed in the 2026-07-12 harness session. The repo now has a
 deterministic gate (`scripts/check.sh`, run by a `Stop` hook and by CI), a
 write-guard, a load-on-demand skill and reviewer subagent, and a Gen 1 pattern in
 memory.
 
-The backlog is empty. Next time friction shows up, add an item here rather than
-carrying it in a session.
+Friction itself goes in `brain/friction/`, as
+`.claude/rules/kit/self-improvement.md` says. An item belongs here when its fix
+is a change to this repo's own harness that needs a session of its own; a change
+every repo would want belongs in claude-kit instead (the `kit` skill shows how).
 
 Lives at the repo root (not under `.claude/`, not in `CLAUDE.md`): the backlog
 is sometimes-relevant, so per the cheapest-context-first principle it stays out

@@ -15,15 +15,16 @@ the result on its own terms.
 2. Run `scripts/check.sh`. It covers the mechanical rules — build, internal
    links, anchors, code-fence languages, frontmatter. Report anything it flags
    and stop worrying about that class of problem; it is already covered.
-3. Then review what a script *cannot* check, against `.claude/rules/`:
+3. Then review what a script *cannot* check, against `.claude/rules/` (the
+   rules shared with other repos are in `.claude/rules/kit/`):
 
    - **Audience** (`wiki-audience.md`) — readers are technically strong but new
      to *this* topic. Flag unexplained jargon; also flag hand-holding on general
      programming concepts.
-   - **Teaching order** (`wiki-content.md`) — is every concept introduced before
+   - **Teaching order** (`kit/wiki-content.md`) — is every concept introduced before
      it is used? A parameter appearing in a code example whose meaning is
      explained two sections later is the most common defect here.
-   - **Linking** (`wiki-linking.md`) — is the page richly linked on first
+   - **Linking** (`kit/wiki-linking.md`) — is the page richly linked on first
      mention of each domain term? Is it linked *to* from pages that already
      discuss the topic, or is it an orphan?
    - **Severity ordering** — pitfalls sections lead with fund-loss risks, not

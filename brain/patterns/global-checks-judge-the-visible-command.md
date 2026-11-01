@@ -25,7 +25,7 @@ the worst case.
 **Why:** a check that cannot see what a script does has to assume the
 worst, and a deletion whose target is a shell variable could expand to `/`.
 Each explicit command is reviewable and matchable by a permission rule, which
-is what `.claude/rules/always.md` asks for anyway.
+is what `.claude/rules/kit/tool-use.md` asks for anyway.
 
 **How to apply:** for a restructure, run explicit `git mv` commands (several
 sources, one target directory, is one command) and keep file rewrites in an
@@ -33,4 +33,4 @@ inline heredoc; rewrite links *before* writing aliases, as
 `wiki-taxonomy.md` step 5 says. For test fixtures, create a new folder with a
 fresh name per run in place of deleting the old one, and keep `rm` out of
 `bash -c` strings and compound commands. Related:
-[[global-permission-and-config-hygiene]].
+`.claude/rules/kit/permissions.md`.

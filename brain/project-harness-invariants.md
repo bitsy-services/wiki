@@ -36,5 +36,3 @@ stubs, so it renders **no page-level `<h1>` at all** — 140 of 141 pages had no
 block to render the frontmatter title as the h1. That is why the "no `# H1` in
 the body" rule exists; before those overrides the rule's stated rationale was
 simply false.
-
-Related: [[global-permission-and-config-hygiene]].

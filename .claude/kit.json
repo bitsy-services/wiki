@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "slices": [
+    "core",
+    "hugo-wiki",
+    "self-improvement",
+    "session-branch"
+  ],
+  "params": {
+    "gate": "bash scripts/check.sh",
+    "memory_root": "brain",
+    "wiki_dir": "content/wiki"
+  },
+  "exclude": []
+}

@@ -13,7 +13,7 @@ A source-level analysis of Claude Code (≈512K lines, ~1,900 files) found that 
 
 Type *"write a wiki page on X"* as the first message and a specific chain fires, each step a context-engineering decision:
 
-1. **Intent is resolved from durable instructions, not guessed.** A project rule (`.claude/rules/wiki-workflow.md`) says to treat a first message as a page-creation request. That rule is in the window before the request is, so the agent acts on a convention instead of re-deriving it — durable context doing its job.
+1. **Intent is resolved from durable instructions, not guessed.** A project rule (`.claude/rules/kit/wiki-workflow.md`) says to treat a first message as a page-creation request. That rule is in the window before the request is, so the agent acts on a convention instead of re-deriving it — durable context doing its job.
 2. **Explore before drafting.** The agent reads two or three sibling pages and the rules files to learn the house format. This is [just-in-time retrieval](/wiki/ai/context-engineering#just-in-time-retrieval): the repository is external memory, and only the pages relevant to *this* page are pulled in, not a dump of `content/`.
 3. **Plan, then write.** A short plan (sections, path, frontmatter) precedes the draft. Separating exploration from execution keeps the draft from solving the wrong problem and gives compaction something concrete to preserve.
 4. **Write to disk early.** The draft becomes a file as soon as it exists, not a long message held in conversation — because the conversation is the volatile part (see compaction below).
@@ -23,7 +23,7 @@ Type *"write a wiki page on X"* as the first message and a specific chain fires,
 
 The highest-leverage context is the [right-altitude instruction](/wiki/ai/context-engineering#right-altitude-instructions) — small, and applied on every turn. Claude Code loads it from a four-level cascade, managed → user → project (`CLAUDE.md`) → local, and delivers it as *user* context rather than a hard [system prompt](/wiki/ai/context-engineering/anatomy-of-a-request): compliance is probabilistic, which is why emphatic phrasing ("IMPORTANT", "YOU MUST") measurably raises adherence instead of being redundant.
 
-This repository is a live specimen. `CLAUDE.md` carries build commands and structure; `.claude/rules/wiki-content.md` says *"Do not add an `# H1` — Hugo renders the frontmatter title as h1."* That rule is at the right altitude: specific enough to change the output (this page starts at `##` because of it), general enough to apply to every page. Anthropic's guide supplies the pruning test — for each line, *"would removing this cause a mistake?"* — and a `CLAUDE.md` that fails it does not fail loudly. It dilutes attention across more lines until the agent silently drops the one rule that was doing work.
+This repository is a live specimen. `CLAUDE.md` carries build commands and structure; `.claude/rules/kit/wiki-content.md` says *"Start a page body with `##` sections, never a `# H1`."* That rule is at the right altitude: specific enough to change the output (this page starts at `##` because of it), general enough to apply to every page. Anthropic's guide supplies the pruning test — for each line, *"would removing this cause a mistake?"* — and a `CLAUDE.md` that fails it does not fail loudly. It dilutes attention across more lines until the agent silently drops the one rule that was doing work.
 
 ## Pick the cheapest mechanism that works
 
@@ -41,7 +41,7 @@ Encoding a constraint as a hook before a rule, and a rule before a tool, walks t
 
 ## Memory is structured note-taking with a garbage collector
 
-Anthropic's context-engineering guidance names *structured note-taking* — an external memory file the agent maintains across sessions — as a core long-horizon technique. This repo implements it and goes further: `.claude/memory/` holds a `MEMORY.md` index plus individual fact files, and `.claude/rules/self-improvement.md` runs them through a generational collector — raw friction observations (Gen 0) consolidate into patterns (Gen 1) and, once stable, are promoted to checked-in rules (Gen 2). A decision about wiki conventions written into `.claude/memory/` outlives the session; the same decision mentioned only in chat is a conversational aside that [compaction](/wiki/ai/context-engineering#compaction-and-summarization) discards without saying so.
+Anthropic's context-engineering guidance names *structured note-taking* — an external memory file the agent maintains across sessions — as a core long-horizon technique. This repo implements it and goes further: `brain/`, a folder at the repository root, holds a `MEMORY.md` index plus individual fact files; `CLAUDE.md` imports the index, so every session starts with it, and `.claude/rules/kit/self-improvement.md` runs the files through a generational collector — raw friction observations (Gen 0) consolidate into patterns (Gen 1) and, once stable, are promoted to checked-in rules (Gen 2). A decision about wiki conventions written into `brain/` outlives the session; the same decision mentioned only in chat is a conversational aside that [compaction](/wiki/ai/context-engineering#compaction-and-summarization) discards without saying so.
 
 ## Compaction will eat your draft
 
@@ -75,7 +75,7 @@ Ordered worst-first — the early items publish wrong content; the later ones on
 - Write the draft to disk early — the file survives compaction; the conversation does not.
 - Encode constraints cheapest-context-first: hook, then rule, then tool.
 - Keep `CLAUDE.md` and rules at the right altitude; run the pruning test on every line.
-- Put decisions that must outlive the session in `.claude/memory/`, not in chat.
+- Put decisions that must outlive the session in the repository's memory folder (`brain/` here), not in chat.
 - Verify with `hugo`; don't re-read the file you just wrote.
 - One page per session context; `/clear` before the next.
 

@@ -44,4 +44,4 @@ gate nor the reviewer checks a page against the request unless told to.
   it. In the report, map each goal to its page.
 
 Related: [[project-green-check-says-nothing-about-content]],
-[[global-stop-only-for-a-real-decision]].
+`.claude/rules/kit/collaboration.md`.
