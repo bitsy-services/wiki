@@ -244,7 +244,7 @@ export OPENAI_API_KEY=$(pass api/openai)
 export DATABASE_URL=$(pass env/myapp/DATABASE_URL)
 ```
 
-Now the project's secrets are present in the shell exactly when you're working on it, and there is no plaintext `.env` on disk to leak or accidentally commit.
+Now the project's secrets are present in the shell exactly when you're working on it, and there is no plaintext `.env` on disk to leak or accidentally commit. The same mechanism can choose which Claude Code account a directory uses; [Map a Claude account to a directory or repo](/wiki/ai/claude-accounts/per-directory) has the setup.
 
 ### When a tool insists on an actual file
 

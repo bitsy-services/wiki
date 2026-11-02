@@ -3,7 +3,7 @@ title: "Map a Claude Account to a Directory or Repo"
 weight: 20
 ---
 
-Put a one-line `.envrc` file in the directory that holds an account's repos. The line names the account's configuration directory, the folder where [Claude Code](/wiki/ai/context-engineering/claude-code) keeps the account's login, settings and history. direnv, a shell extension, loads a directory's `.envrc` when you `cd` into it and unloads it when you leave. Every `claude` started inside the directory then runs on that account; anywhere else, `claude` runs on your default account in `~/.claude`.
+Put a one-line `.envrc` file in the directory that holds an account's repos. The line names the account's configuration directory, the folder where [Claude Code](/wiki/ai/context-engineering/claude-code) keeps the account's login, settings and history. [direnv](/wiki/security/pass#replace-env-files-with-direnv), a shell extension, loads a directory's `.envrc` when you enter it and unloads it when you leave. From then on, `claude` typed at a prompt inside the directory runs on that account; anywhere else, it runs on your default account in `~/.claude`.
 
 ```bash
 # ~/work/.envrc
@@ -12,14 +12,17 @@ export CLAUDE_CONFIG_DIR="$HOME/.claude-work"
 
 The steps are for Bash or Zsh on macOS, Linux or WSL. They use `~/work` for the directory of work repos and `~/.claude-work` for the work account's configuration directory; substitute your own names.
 
-## 1. Install direnv
+## 1. Install direnv and Claude Code
 
 ```bash
-sudo apt install direnv     # Debian, Ubuntu, WSL
-brew install direnv         # macOS
+sudo apt install direnv                          # Debian, Ubuntu, WSL
+brew install direnv                              # macOS
+curl -fsSL https://claude.ai/install.sh | bash   # the claude command
 ```
 
-Add its hook to the end of your shell's startup file, then open a new terminal:
+Skip the last line if `command -v claude` already prints a path. The VS Code extension's own copy of Claude Code is not on your `PATH`, so a working extension does not mean the command is installed.
+
+Then add direnv's hook to the end of your shell's startup file, and open a new terminal:
 
 ```bash
 echo 'eval "$(direnv hook bash)"' >> ~/.bashrc    # Bash
@@ -54,7 +57,7 @@ claude
 direnv prints `direnv: export +CLAUDE_CONFIG_DIR` as you enter. Claude Code creates the account's directory and walks you through setup: a theme, then a login method.
 
 - For a Pro, Max, Ultra, Team or Enterprise account, choose **Claude account with subscription**.
-- For an API key account, choose **Anthropic Console account**, then **Create an API key**. Avoid the option marked recommended, **Sign in with your Console account**: Claude Code stores it outside the account's directory, so every account shares it, and it signs out every claude.ai login on the machine.
+- For an account billed per token through the Claude Console, choose **Anthropic Console account**, then **Create an API key**, which is marked legacy. Avoid the option marked recommended, **Sign in with your Console account**: Claude Code stores that sign-in outside the account's directory, so every account shares it, and it signs out every claude.ai login on the machine. To use a client's Console organization, the client has to invite you to it first.
 
 A browser opens for the sign-in. If that browser is signed in to claude.ai as your other account, press `c` to copy the sign-in link, open it in a private window, and paste the code it shows back into the terminal.
 
@@ -66,15 +69,11 @@ From any repo in the directory:
 claude auth status
 ```
 
-`configDirectory` should end in `.claude-work`, and `loggedIn` should be `true`. Run it outside the directory and `configDirectory` ends in `.claude`.
+`configDirectory` should end in `.claude-work`, and `email` and `orgName` should be the work account's. If they belong to another account, start `claude` in the same directory, run `/login`, and sign in again from a private window.
 
 ## In VS Code
 
-**The integrated terminal** follows `.envrc` like any terminal. The extension's own copy of Claude Code is not on your `PATH`, so install the `claude` command first:
-
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
-```
+**The integrated terminal** follows `.envrc` like any terminal.
 
 **The Claude panel** does not read `.envrc`. It takes the configuration directory from the `claudeCode.environmentVariables` setting, which needs the full path, because the extension does not expand `~`:
 
@@ -93,7 +92,7 @@ VS Code accepts this setting in user settings and in Remote Settings, but not in
 
 ## Share your instructions and skills
 
-A new account starts without your personal `CLAUDE.md`, skills, settings, plugins and [Model Context Protocol (MCP)](/wiki/ai/mcp) servers. These commands give the work account the default account's `CLAUDE.md` and skills:
+A new account starts without your personal [`CLAUDE.md`](/wiki/ai/context-engineering/claude-code#durable-instructions-claudemd-and-rules), skills, settings, [plugins](/wiki/ai/plugins/claude-code) and [Model Context Protocol (MCP)](/wiki/ai/mcp) servers. These commands give the work account the default account's `CLAUDE.md` and skills:
 
 ```bash
 mkdir -p ~/.claude-work ~/.claude/skills
@@ -105,8 +104,10 @@ The work account's `CLAUDE.md` now imports the default one, and anything you add
 
 ## Pitfalls
 
-- **Anything not started from your shell uses the default account.** That covers scripts, cron jobs, the VS Code panel and the Claude desktop app, unless they set `CLAUDE_CONFIG_DIR` themselves. On a machine used mostly for work, sign `~/.claude` in to the work account and give the personal account its own directory, so whatever misses the mapping lands on work.
-- **An exported `ANTHROPIC_API_KEY` beats every account.** Claude Code uses the key instead of the account's login and bills its owner per token: an interactive session asks once whether to use it, and `claude -p` uses it without asking. Remove the export from your shell profile.
+- **In Bash, `.envrc` loads at the next prompt, not at `cd`.** `cd ~/work/app && claude` on one line starts your default account. Run `cd` first, then `claude`. Zsh loads it at `cd`.
+- **Anything not started from your shell uses the default account.** That covers scripts, cron jobs and the VS Code panel, unless they set `CLAUDE_CONFIG_DIR` themselves. On a machine used mostly for work, sign `~/.claude` in to the work account and give the personal account its own directory, so whatever misses the mapping lands on work.
+- **The Claude desktop app has its own sign-in**, separate from `~/.claude`. Sign it in to the account whose code you open there.
+- **An exported `ANTHROPIC_API_KEY` beats every account.** Claude Code uses the key instead of the account's login and bills its owner per token: an interactive session asks once whether to use it, and [`claude -p`](/wiki/ai/loop-engineering/claude-code#claude--p-any-program-can-be-the-loop) uses it without asking. Remove the export from your shell profile.
 - **A repo with its own `.envrc` replaces the directory's.** Inside it, `claude` runs on the default account. Make `source_up` the first line of the repo's `.envrc`, so that it loads the parent's file as well.
 
 ## Related

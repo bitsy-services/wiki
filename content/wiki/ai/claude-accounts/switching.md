@@ -10,7 +10,9 @@ Start [Claude Code](/wiki/ai/context-engineering/claude-code) with `CLAUDE_CONFI
 alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work claude'
 ```
 
-In a new terminal, `claude` starts your default account and `claude-work` the work account. The first `claude-work` creates the directory and walks you through signing the work account in. Each terminal stays on the account it started with, so two terminals can run two accounts side by side.
+In a new terminal, `claude` starts your default account and `claude-work` the work account. The first `claude-work` creates the directory and walks you through signing the work account in. Each session keeps the account it started with, so two terminals can run two accounts side by side.
+
+Both need the `claude` command on your `PATH`. The VS Code extension's own copy of Claude Code is not on it, so if `claude` is not found, install it with `curl -fsSL https://claude.ai/install.sh | bash`.
 
 ## Switching, wherever you are
 
@@ -19,14 +21,24 @@ In a new terminal, `claude` starts your default account and `claude-work` the wo
 | A terminal | Type `claude-work` or `claude` |
 | A directory mapped to an account | `cd` into it; [Map a Claude account to a directory or repo](/wiki/ai/claude-accounts/per-directory) sets this up |
 | A running session | Exit, then start the other account. `/login` inside the session would instead replace this directory's login, and you would have to sign in again to get it back |
-| A script or cron job | Name the directory on the command, since scripts do not load your aliases: `CLAUDE_CONFIG_DIR="$HOME/.claude-work" claude -p "your prompt"` |
+| A script or cron job | Name the account's directory on the command line, as in [scripts and cron jobs](#scripts-and-cron-jobs) |
 | The VS Code panel | Change `CLAUDE_CONFIG_DIR` in the `claudeCode.environmentVariables` setting, then run **Developer: Reload Window**, or switch to the account's VS Code profile if each account [has one](/wiki/ai/claude-accounts/per-directory#in-vs-code) |
 | The Claude desktop app or claude.ai | Sign out, then sign in as the other account |
+
+## Scripts and cron jobs
+
+Scripts and cron jobs load neither your aliases nor your `PATH`, so name the account's directory and the full path to `claude`:
+
+```bash
+CLAUDE_CONFIG_DIR="$HOME/.claude-api" "$HOME/.local/bin/claude" -p "your prompt"
+```
+
+`~/.local/bin` is where Anthropic's installer puts `claude`; `command -v claude` shows where yours is. [`claude -p`](/wiki/ai/loop-engineering/claude-code#claude--p-any-program-can-be-the-loop) runs one prompt and exits. Give scripts an account billed per token, here `~/.claude-api`, signed in with **Anthropic Console account** and then **Create an API key**, so that they never spend the usage limits your interactive sessions need.
 
 ## Which account is this?
 
 - **Inside a session**, `/status` shows the account in use. In the VS Code panel, `/usage` shows the signed-in account.
-- **From a shell**, `claude auth status` or `claude-work auth status` prints the `configDirectory` the command would use and whether it is `loggedIn`.
+- **From a shell**, `claude auth status` or `claude-work auth status` prints the `email` and `orgName` of the account that command would use, and its `configDirectory`.
 - **On screen all the time**: give each account a status line, the bar at the bottom of a session, that prints its name. Add this to `~/.claude-work/settings.json`, and the same to each other account's `settings.json` with its own name in place of `work`:
 
   ```json

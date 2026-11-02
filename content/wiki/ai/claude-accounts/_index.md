@@ -10,6 +10,8 @@ bookCollapseSection: true
 CLAUDE_CONFIG_DIR=~/.claude-work claude
 ```
 
+That needs the `claude` command on your `PATH`. The VS Code extension's own copy of Claude Code is not on it, so if `claude` is not found, install it with `curl -fsSL https://claude.ai/install.sh | bash`.
+
 Three pages turn that into a setup, one for each decision, in the order the decisions come up:
 
 - [How many Claude accounts, and what type](/wiki/ai/claude-accounts/how-many-accounts): one account for each organization whose code you work on, and which plan to buy. Decided once, and revisited when a job, a client or your usage changes.
