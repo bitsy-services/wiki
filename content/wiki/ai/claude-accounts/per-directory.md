@@ -69,7 +69,7 @@ From any repo in the directory:
 claude auth status
 ```
 
-`configDirectory` should end in `.claude-work`, and `email` and `orgName` should be the work account's. If they belong to another account, start `claude` in the same directory, run `/login`, and sign in again from a private window.
+`configDirectory` should end in `.claude-work`, and `email` and `orgName` should be the work account's. If they belong to another account, start `claude` in the same directory, run `/login`, and sign in again from a private window; if the sign-in page asks which organization to use, choose the work one.
 
 ## In VS Code
 

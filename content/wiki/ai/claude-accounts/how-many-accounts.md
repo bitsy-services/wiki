@@ -4,7 +4,7 @@ weight: 10
 aliases: ["/wiki/ai/claude-accounts/plans-and-limits/", "/wiki/ai/claude-accounts/terms/", "/wiki/ai/claude-accounts/cost-model/", "/wiki/ai/claude-accounts/layouts/"]
 ---
 
-Hold one account for each organization whose code you work on: one personal subscription for your own projects, your employer's account for its code, and each client's account for that client's code. Add an API key only for scripts and scheduled jobs. When your subscription keeps running out, move up a plan, or turn on usage credits for the gap, instead of buying a second subscription for the same work.
+Hold one account for each organization whose code you work on: one personal subscription for your own projects, your employer's account for its code, and each client's account for that client's code. Add an API key only for scripts and scheduled jobs. When your subscription keeps running out, move up a plan, or turn on usage credits for an occasional overflow, instead of buying a second subscription for the same work.
 
 ## Which account for which work
 
@@ -15,7 +15,7 @@ Hold one account for each organization whose code you work on: one personal subs
 | A client's code | A seat on the client's plan, or a login to the client's Claude Console organization | To the client |
 | Scripts, CI and scheduled jobs | An API key from the Claude Console, Anthropic's developer platform | Per token, to whoever owns the key |
 
-The type matters because of what Anthropic does with the data. Pro, Max and Ultra are consumer plans: while an account's model-improvement setting is on, Anthropic trains new models on its conversations and its [Claude Code](/wiki/ai/context-engineering/claude-code) sessions. Team, Enterprise and API accounts are commercial, and Anthropic does not train on code or prompts sent under them unless the customer opts in. The model-improvement setting is yours to change, not the code owner's, so code that belongs to someone else goes on a commercial account, under terms its owner agreed to. If a client provides none, use a commercial account of your own, such as a Claude Console account billed per token, not your personal subscription.
+The type matters because of what Anthropic does with the data. Pro, Max and Ultra are consumer plans: while an account's model-improvement setting is on, Anthropic trains new models on its conversations and its [Claude Code](/wiki/ai/context-engineering/claude-code) sessions. Team, Enterprise and API accounts are commercial, and Anthropic does not train on code or prompts sent under them unless the customer opts in. The model-improvement setting is yours to change, not the code owner's, so code that belongs to someone else goes on a commercial account, preferably its owner's. If a client provides none, use a commercial account of your own, such as a Claude Console account billed per token, not your personal subscription.
 
 Open your personal account with a personal email address. Anthropic's consumer terms say that an account using an employer's address "may be linked to the organization's Anthropic enterprise account", and that the organization's administrator "may be able to monitor and control the Account".
 
@@ -35,7 +35,7 @@ A company of 2 to 150 people buys Team seats instead. A standard seat costs $25 
 
 ## Why not a second subscription
 
-Billed monthly, each individual plan costs $20 a month for each multiple of Pro's usage: Max is five times Pro for $100, and Ultra ten times Pro's weekly usage for $200. At monthly prices, then, a second subscription buys no cheaper usage than moving up a plan. It only buys an amount between two plans, such as two Pro subscriptions for $40 instead of Max for $100, and usage credits cover that gap on the account you already have.
+Billed monthly, each individual plan costs $20 a month for each multiple of Pro's usage: Max is five times Pro for $100, and Ultra ten times Pro's weekly usage for $200. At monthly prices, then, a second subscription buys no cheaper usage than moving up a plan. It only buys an amount between two plans, such as two Pro subscriptions for $40 instead of Max for $100, and usage credits, billed at API prices, cover an occasional overflow on the account you already have.
 
 Two subscriptions for the same work also cost you in use. Each keeps its own limits and its own conversations, and when one runs out you switch accounts by hand and start a new conversation.
 

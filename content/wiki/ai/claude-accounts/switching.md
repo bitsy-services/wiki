@@ -12,7 +12,7 @@ alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work claude'
 
 In a new terminal, `claude` starts your default account and `claude-work` the work account. The first `claude-work` creates the directory and walks you through signing the work account in. Each session keeps the account it started with, so two terminals can run two accounts side by side.
 
-Both need the `claude` command on your `PATH`. The VS Code extension's own copy of Claude Code is not on it, so if `claude` is not found, install it with `curl -fsSL https://claude.ai/install.sh | bash`.
+Both commands need `claude` on your `PATH`. The VS Code extension's own copy of Claude Code is not on it, so if `claude` is not found, install it with `curl -fsSL https://claude.ai/install.sh | bash`.
 
 ## Switching, wherever you are
 
@@ -27,13 +27,13 @@ Both need the `claude` command on your `PATH`. The VS Code extension's own copy 
 
 ## Scripts and cron jobs
 
-Scripts and cron jobs load neither your aliases nor your `PATH`, so name the account's directory and the full path to `claude`:
+Scripts do not load your aliases, and cron runs them with only `/usr/bin:/bin` on the `PATH`, so name the account's directory and the full path to `claude`:
 
 ```bash
 CLAUDE_CONFIG_DIR="$HOME/.claude-api" "$HOME/.local/bin/claude" -p "your prompt"
 ```
 
-`~/.local/bin` is where Anthropic's installer puts `claude`; `command -v claude` shows where yours is. [`claude -p`](/wiki/ai/loop-engineering/claude-code#claude--p-any-program-can-be-the-loop) runs one prompt and exits. Give scripts an account billed per token, here `~/.claude-api`, signed in with **Anthropic Console account** and then **Create an API key**, so that they never spend the usage limits your interactive sessions need.
+`~/.local/bin` is where Anthropic's installer puts `claude`; `command -v claude` shows where yours is. [`claude -p`](/wiki/ai/loop-engineering/claude-code#claude--p-any-program-can-be-the-loop) runs one prompt and exits. Give scripts an account billed per token, here `~/.claude-api`, so that they never spend the usage limits your interactive sessions need. Sign it in once from a terminal with `CLAUDE_CONFIG_DIR="$HOME/.claude-api" claude`, choosing **Anthropic Console account** and then **Create an API key**. On macOS that key is kept in the Keychain, so run the job once from cron to check that it can read it.
 
 ## Which account is this?
 
