@@ -30,6 +30,22 @@ new version.
 - **Shell functions.** `timeout`, `xargs` and `env` run the binary, not a
   shell function named `claude`, so a function test must call it bare.
 - **zsh** is not installed; `apt-get download zsh zsh-common` plus `dpkg -x`
-  into the scratchpad gives a working `usr/bin/zsh` (run with `-f`).
+  into the scratchpad gives a working `usr/bin/zsh` (run with `-f`). direnv
+  comes the same way (`apt-get download direnv`).
+- **Screens a reader sees.** A small Python `pty.fork()` driver that sends
+  keystrokes on a timer and strips ANSI codes captures first-run onboarding
+  (theme, then the login-method menu), the Console sign-in sub-menu, the
+  status line and `/status`. Quote menu labels from that capture, not from
+  memory.
+- **Run the page, not a retyping of it.** Extract each fenced block from the
+  Markdown and execute it verbatim in a fresh `HOME` (an interactive
+  `bash --rcfile … -i` fed on stdin runs the direnv hook between commands).
+  Re-run after every review fix that touches a block.
+- **VS Code facts that need no editor.** Setting scopes are in the
+  extension's `package.json`; a `machine` setting cannot be per workspace.
+  In a remote window it comes from one file per machine,
+  `~/.vscode-server/data/Machine/settings.json` (see `machineSettingsResource`
+  in the server's `out/server-main.js`), so remote settings are not per
+  profile.
 
 Related: [[global-numbers-beyond-their-sources]], [[project-harness-invariants]].

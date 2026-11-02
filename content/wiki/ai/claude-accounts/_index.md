@@ -4,43 +4,18 @@ weight: 55
 bookCollapseSection: true
 ---
 
-[Claude Code](/wiki/ai/context-engineering/claude-code) keeps one saved login per configuration directory: `~/.claude` by default, or whichever directory the `CLAUDE_CONFIG_DIR` environment variable names. Running several Claude accounts on one machine, such as a work account beside a personal one, therefore means one directory per account and a way to choose one when a session starts. [Switching between Claude accounts](/wiki/ai/claude-accounts/switching) is that setup from start to finish: why to keep accounts apart, how to configure each one, how to switch in a terminal, by folder, in VS Code and in scripts, and the pitfalls.
+[Claude Code](/wiki/ai/context-engineering/claude-code) keeps each account's login, settings and history in a configuration directory, `~/.claude` by default. To use another account, start Claude Code with the `CLAUDE_CONFIG_DIR` environment variable set to that account's directory. The first run walks you through signing the account in:
 
-The account behind a session decides how its requests are paid for. A claude.ai login on a Pro, Max, Team or seat-based Enterprise plan draws on a usage allowance that refills on two clocks, one of five hours and one of a week; a Claude Console API key, or a cloud provider's credential such as Amazon Bedrock's, is billed per token instead. The rest of the section covers that side: what each plan allows, what the terms permit, which credential wins when several are present, and what each arrangement of accounts costs.
+```bash
+CLAUDE_CONFIG_DIR=~/.claude-work claude
+```
 
-## What the terms allow, in brief
+Three pages turn that into a setup, one for each decision, in the order the decisions come up:
 
-Holding more than one account is allowed. Claude Code's documentation describes a work account and a personal account signed in side by side, and Thariq Shihipar, then an engineer on Anthropic's Claude Code team, wrote in February 2026 that "it's not against terms of service to have multiple MAX accounts". Sharing a login with another person, reselling access, and signing a third-party tool in with a subscription are prohibited.
-
-Spreading one person's work across several subscriptions to keep going past their limits is the contested case. Anthropic's terms for Claude Code's wrap-up allowance, a small, capped extension that lets a response already under way continue briefly to a stopping point when the five-hour limit arrives, list "an attempt to get around usage limits (for example, through multiple accounts or automation designed to exploit the allowance)" among the grounds for withholding it. [What the terms allow](/wiki/ai/claude-accounts/terms) quotes each document.
-
-## Choosing a setup
-
-| Need | Setup | Details |
-| --- | --- | --- |
-| Employer and personal work on one machine | One configuration directory per account, with employer code only on the employer's account | [Work and personal](/wiki/ai/claude-accounts/layouts#work-and-personal) |
-| Several clients, each billed and kept apart | One directory per client, signed in to the client's organization or using its API key | [One account per client](/wiki/ai/claude-accounts/layouts#one-account-per-client) |
-| Scripts and continuous integration | An API key from a Console workspace, kept apart from the interactive account | [Sessions on a subscription, scripts on a key](/wiki/ai/claude-accounts/layouts#sessions-on-a-subscription-scripts-on-a-key) |
-| More capacity, or a smaller bill | A larger plan rather than a second subscription, usage credits past Max 20x, and scripts on an API key | [Using multiple accounts cost-effectively](/wiki/ai/claude-accounts/cost-model) |
-| A team | Team seats, one per named person | [A team on Team seats](/wiki/ai/claude-accounts/layouts#a-team-on-team-seats) |
-| Several subscriptions pooled behind a proxy | Avoid: it matches a clause the Usage Policy adds on 12 November 2026 | [Subscription-pooling proxies](/wiki/ai/claude-accounts/tools#subscription-pooling-proxies) |
-
-## In this section
-
-[Switching between Claude accounts](/wiki/ai/claude-accounts/switching) comes first, because it is the setup itself: aliases, a shell function that picks the account by folder, sharing instructions and skills, VS Code and scripts, a status line that names the account, and the pitfalls. [Plans and usage limits](/wiki/ai/claude-accounts/plans-and-limits) covers what a plan's allowance is, what draws on it, what happens when it runs out, and the paid ways past it. [What the terms allow](/wiki/ai/claude-accounts/terms) quotes the consumer and commercial terms, the Usage Policy, and statements by Anthropic and its staff on multiple accounts. [Which credential Claude Code uses](/wiki/ai/claude-accounts/credentials) covers where each kind of login is stored and which of several credentials wins, including the exported API key that bills per token while a subscription is signed in.
-
-[Using multiple accounts cost-effectively](/wiki/ai/claude-accounts/cost-model) sets a larger plan against a second subscription, usage credits and an API key, says which work each kind of account is cheapest for, and works out when to move up a plan. [Tools for multiple accounts](/wiki/ai/claude-accounts/tools) reviews what others have published, from usage trackers to proxies that pool subscriptions, with each one's standing under the terms. [Account layouts](/wiki/ai/claude-accounts/layouts) closes the section with seven arrangements, each with its setup, cost and risk.
-
-## Related
-
-- [Claude Code](/wiki/ai/context-engineering/claude-code): the harness these accounts sign in to, worked through on one real task.
-- [Loops in Claude Code](/wiki/ai/loop-engineering/claude-code): `claude -p` and the other unattended modes, which run on whatever credential their environment supplies.
-- [Prompt caching & cost](/wiki/ai/prompt-caching): the per-token economics behind API-key billing.
-- [Identity separation](/wiki/security/identity-separation): keeping identities unlinkable, a stronger property than keeping accounts apart.
+- [How many Claude accounts, and what type](/wiki/ai/claude-accounts/how-many-accounts): one account for each organization whose code you work on, and which plan to buy. Decided once, and revisited when a job, a client or your usage changes.
+- [Map a Claude account to a directory or repo](/wiki/ai/claude-accounts/per-directory): set up once per account, after which changing into a directory picks its account.
+- [Switch between Claude accounts](/wiki/ai/claude-accounts/switching): what to type day to day, in a terminal, in a running session, in scripts and in VS Code.
 
 ## Further reading
 
-- Anthropic, [Authentication](https://code.claude.com/docs/en/authentication), including the section on logging in with multiple accounts
-- Anthropic, [Use Claude Code with your Pro or Max plan](https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan)
-- Anthropic, [Legal and compliance](https://code.claude.com/docs/en/legal-and-compliance) and [Data usage](https://code.claude.com/docs/en/data-usage)
-- Thariq Shihipar, [post on X](https://x.com/trq212/status/2024230184287949207) (18 February 2026) on holding several Max accounts
+- Anthropic, [Log in with multiple accounts](https://code.claude.com/docs/en/authentication#log-in-with-multiple-accounts)
