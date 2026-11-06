@@ -3,24 +3,27 @@ title: "Persona Recovery Graph"
 weight: 20
 ---
 
-A recovery graph is a directed graph with a node for each account or credential in an [operational persona](/wiki/security/operational-persona), and an edge from A to B wherever control of A is enough to take over or regain B. A persona is closed when no edge enters it from outside. An edge that does is a crossing: whoever controls its far end can get in, and the service storing it holds a record that connects the two sides.
+A recovery graph is a directed graph with a node for each account or credential in an [operational persona](/wiki/security/operational-persona), a set of accounts, credentials, recovery methods and technical context run as one identity. An edge enters a node from each thing, or combination of things, whose control is enough to take that node over or regain it. A persona is closed when no edge enters it from outside. An edge that does is a crossing: whoever controls its far end has a way in, and the service storing it holds a record that connects the two sides.
 
 Hammann and colleagues formalized the general structure in 2019 as an account access graph. "The primary authentication method for a user account is rarely the only way to access that account," their paper opens, naming recovery methods, password managers and single sign-on as the other routes. A later study drew the graphs of 20 participants under the title "I'm Surprised So Much Is Connected".
 
 ## One persona's graph
 
-`brinewick` is the pseudonym of a developer called Ines. Here `A -> B` means control of A is enough to take B.
+`brinewick` is the pseudonym of a developer called Ines, whose employer is Acme. In this listing `A -> B` means control of A is enough to take B, and `A + C -> B` means both are needed.
 
 ```text
-registrar login               -> domain brinewick.example
-domain brinewick.example      -> mail for @brinewick.example
-mail for @brinewick.example   -> password reset at GitHub
-mail for @brinewick.example   -> password reset at the registrar
-printed codes                 -> GitHub, mail provider, registrar
-ines@acme.example             -> password reset at the registrar    (crossing)
+registrar login                 -> domain brinewick.example
+domain brinewick.example        -> mail for @brinewick.example
+mail provider login             -> mail for @brinewick.example
+mail for @brinewick.example     -> password reset at the forum and package registry
+mail for @brinewick.example     -> password reset at the registrar
+mail + security key             -> GitHub
+mail + printed code             -> GitHub
+mail + SSH key                  -> GitHub, after a wait of up to three business days
+ines@acme.example               -> password reset at the registrar    (crossing)
 ```
 
-The last line is the defect. Ines registered the domain with the address she had open at the time. GitHub's records show no trace of her, yet a path runs from Acme's mail server to the `brinewick` account: anyone administering `ines@acme.example` can reset the registrar login, repoint the domain's mail and reset GitHub.
+The last line is the defect. A registrar asks for an address before the new domain has a mailbox, and Ines typed the one she had open. GitHub's records show no trace of her, yet a path runs from Acme's mail server into the persona: anyone administering `ines@acme.example` can reset the registrar login, repoint the domain's mail and reset every account with no second factor. GitHub holds for as long as its second factor does.
 
 ## What counts as an edge
 
@@ -38,35 +41,37 @@ The support desk edge appears on no settings page. When the journalist Mat Honan
 
 ## A crossing breaks both properties
 
-Containment fails directly, as Honan's chain shows: whoever holds the far end can walk the path.
+A persona's boundary can promise containment, meaning a leak in one persona gives no control over another, and unlinkability, meaning an observer cannot tell that two personas have one operator, the person acting as them. A crossing can break both.
 
-Unlinkability fails through the service, which has to store the far end in a form it can use. "We cannot encrypt this data as we need to be able to send an email to that address," Proton's spokesperson told TechCrunch in 2024, explaining a recovery address. The occasion was a set of court documents from a Spanish investigation into a pseudonymous activist. Served through Swiss police, Wire gave the email address registered on an account, a Protonmail address. Proton gave that mailbox's recovery address, an iCloud account. Apple gave a full name, two home addresses and a linked Gmail account. TechCrunch withheld the name, noting it was unclear whether that person was behind the activity.
+Containment fails directly: whoever holds the far end can walk the path until it meets a second factor. Honan's own assessment was "Had I used two-factor authentication for my Google account, it's possible that none of this would have happened".
 
-The edge also leaks without a court. Reset forms show a masked hint so that the owner can recognize it, and Honan's attacker began by reading the masked recovery address on Google's recovery page, which showed enough characters to be useful. Martin Vigo's 2019 survey found services masking phone numbers differently, which lets the digits combine: eBay showed the first three and last two, LastPass the last four, giving seven of ten digits from an email address alone.
+Unlinkability fails through the service, which has to store the far end in a form it can use. "We cannot encrypt this data as we need to be able to send an email to that address," the spokesperson for Proton, an encrypted mail service, told TechCrunch in 2024, explaining a recovery address. The occasion was a set of court documents from a Spanish investigation into a pseudonymous activist. Served through Swiss police, Wire, an encrypted messenger, gave the email address registered on an account, a Protonmail address. Proton gave that mailbox's recovery address, an iCloud account. Apple gave a full name, two home addresses and a linked Gmail account. TechCrunch withheld the name, noting it was unclear whether that person was behind the activity.
+
+The edge also leaks without a court. Reset forms show a masked hint so that the owner can recognize it. With no second factor on Honan's Google account, the attacker could read the masked recovery address on Google's recovery page, which showed enough characters to be useful. Martin Vigo's 2019 survey found services masking phone numbers differently, and the digits combine: eBay showed the first three and last two, LastPass the last four, giving seven of ten digits from an email address alone.
 
 Bugs have gone further. From June 2021 until a report in January 2022, a flaw in Twitter's login flow told anyone who submitted a phone number or address which account held it, and Twitter's notice singled out "people with pseudonymous accounts who can be targeted by state or other actors". In 2025 Google retired a no-JavaScript username recovery form after a researcher showed it could reveal the phone number of any Google user.
 
 ## Closed is not enough
 
-A closed graph can still lock its owner out. In the example, mail can reset the registrar and the registrar controls the mail, so losing both logins at once leaves neither able to restore the other.
+A graph with no crossing can still lock its owner out. In the example, mail can reset the registrar and the registrar controls the mail. Without a printed code for one of them, losing both logins at once leaves neither able to restore the other.
 
-A root is a node no online account can reset: printed codes, a hardware key, a memorized passphrase. Every node needs a path from a root that does not pass through the node itself. The registrar is the usual place to break a cycle: give its login a second mailbox at another provider, owned by the persona, so that it does not depend on the domain it controls.
+A root is a node no online account can reset: printed codes, a hardware key, a memorized passphrase. Every node needs a path from a root that does not pass through the node itself. The registrar is the usual place to break a cycle. Create a second mailbox at another provider before registering the domain, use it as the registrar's address, and give it recovery codes of its own. The registrar login then depends on nothing it controls, and the reason for the crossing above is gone.
 
-There may be no backstop. "GitHub Support will not be able to restore access to accounts with two-factor authentication enabled if you lose your two-factor authentication credentials or lose access to your account recovery methods," GitHub's documentation says. Repeated identity proofing, the last resort elsewhere, ends a pseudonym wherever it is offered. Losing one device can be enough: in Büttner and Gruschka's 2023 survey, 17 of 91 Apple users and 10 of 94 Google users might lose access to their accounts along with their phones.
+There may be no backstop. "GitHub Support will not be able to restore access to accounts with two-factor authentication enabled if you lose your two-factor authentication credentials or lose access to your account recovery methods," GitHub's documentation says. Elsewhere the last resort is proving identity again from documents, which ends a pseudonym. Losing one device can be enough: in Büttner and Gruschka's 2023 survey, the primary phone was the access method whose loss could lock out 16 of 91 Apple accounts and 10 of 94 Google accounts.
 
 ## The weakest path sets the strength
 
 Alternatives add up to the weakest of them. An account that accepts a security key or an SMS code is as strong as the SMS code, and [the YubiKey page](/wiki/security/yubikey#webauthn-and-fido2) calls such a fallback "a second, weaker door". Büttner and Gruschka score graphs on this rule: a node reached by alternatives takes the minimum of their strengths, and a node that requires several factors together takes the maximum.
 
-The strength of a recovery address is the strength of the whole graph behind that mailbox. Their scoring assigns "low" to a recovery address when the mailbox's own graph is unknown, which is the right assumption for a mailbox you have not drawn.
+A recovery address brings in the whole graph behind that mailbox. Their scoring assigns the value "low" to such an address when the mailbox's own graph is unknown, the right assumption for a mailbox you have not drawn.
 
 ## Phone numbers
 
-A recovery phone is the edge services push hardest, and it has measured value. Google reported in 2019 that an SMS code sent to a recovery number helped block 100% of automated bots, 96% of bulk phishing attacks and 76% of targeted attacks.
+A recovery phone has measured value. Google reported in 2019 that an SMS code sent to a recovery number helped block 100% of automated bots, 96% of bulk phishing attacks and 76% of targeted attacks.
 
-It fits unlinkability poorly. A number usually sits on a contract with a legal name, it works as a [global lookup key](/wiki/security/operational-persona/isolation-failures/shared-identifiers#values-nobody-typed), and it can be [moved by a SIM swap](/wiki/economics/fraud/sim-swap) or [reassigned](/wiki/security/operational-persona/lifecycle#what-expires).
+It fits unlinkability poorly. A number usually sits on a contract with a legal name, it works as [a lookup key across services](/wiki/security/operational-persona/isolation-failures/shared-identifiers#phone-numbers), and it can be [moved by a SIM swap](/wiki/economics/fraud/sim-swap) or [reassigned](/wiki/security/operational-persona/upkeep#what-expires).
 
-A persona that needs containment alone can reasonably take that trade with a number of its own. A persona that needs unlinkability leaves the phone out wherever a service allows, and relies on hardware keys and printed codes. Where a service insists, the number is an account like any other: owned by the persona, listed in its inventory, used by no other persona.
+A persona that needs containment alone can reasonably accept those costs with a number of its own. A persona that needs unlinkability keeps the phone out of recovery wherever a service allows, and relies on hardware keys and printed codes. Where a service requires a number for recovery, the number is an account like any other: owned by the persona, listed in its inventory, used by no other persona. A phone check that exists to limit accounts per person is a different case, covered under [limits](/wiki/security/operational-persona#limits).
 
 ## Check
 
@@ -75,7 +80,7 @@ A persona that needs containment alone can reasonably take that trade with a num
 3. Write one line per edge in the `A -> B` form above.
 4. Mark every line whose left side is outside this persona's inventory. Each is a crossing. Replace it, starting with the crossing nearest the root.
 5. Confirm that every node has a path from a root that does not pass through the node.
-6. On a low-value account, use one printed code from a fresh browser profile, then regenerate the set. The drill shows that the codes work and that you can find them.
+6. On one account, use a printed code from the persona's own context, and store the new set before leaving the page. The drill shows that the codes work and that you can find them.
 
 ## Further reading
 
@@ -85,7 +90,7 @@ A persona that needs containment alone can reasonably take that trade with a num
 - Mat Honan, [How Apple and Amazon Security Flaws Led to My Epic Hacking](https://www.wired.com/2012/08/apple-amazon-mat-honan-hacking/), *Wired* (2012)
 - Lorenzo Franceschi-Bicchierai, [Encrypted services Apple, Proton and Wire helped Spanish police identify activist](https://techcrunch.com/2024/05/08/encrypted-services-apple-proton-and-wire-helped-spanish-police-identify-activist/), *TechCrunch* (2024)
 - Martin Vigo, [From email to phone number, a new OSINT approach](https://www.martinvigo.com/email2phonenumber/) (2019)
-- Twitter, [An issue affecting some anonymous accounts](https://web.archive.org/web/2024/https://privacy.twitter.com/en/blog/2022/an-issue-affecting-some-anonymous-accounts) (2022), archived copy
+- Twitter, [An incident impacting some accounts and private information on Twitter](https://web.archive.org/web/2024/https://privacy.twitter.com/en/blog/2022/an-issue-affecting-some-anonymous-accounts) (2022), archived copy
 - Brutecat, [Leaking the phone number of any Google user](https://brutecat.com/articles/leaking-google-phones) (2025)
 - GitHub Docs, [Recovering your account if you lose your 2FA credentials](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/recovering-your-account-if-you-lose-your-2fa-credentials)
 - Google Security Blog, [How effective is basic account hygiene at preventing hijacking](https://security.googleblog.com/2019/05/new-research-how-effective-is-basic.html) (2019)

@@ -642,6 +642,7 @@ NIST	National Institute of Standards and Technology
 GRU	military intelligence
 OSINT	open-source intelligence
 PII	personally identifying information
+ICANN	-
 WHOIS	-
 ATT	-
 CK	-

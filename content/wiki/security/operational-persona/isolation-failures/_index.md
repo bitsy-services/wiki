@@ -4,7 +4,7 @@ weight: 60
 bookCollapseSection: true
 ---
 
-Isolation between two [operational personas](/wiki/security/operational-persona), managed identity sets meant to stay separate, fails when something belongs to both sides of the boundary: an identifier, an acquaintance, a recovery path, a browser or device, a network address, a company's records, a payment, or the operator's own habits. Each gives an observer a way to join two sets of records that were meant to stay apart. The table orders them by what that join costs the observer, cheapest first.
+Isolation between two [operational personas](/wiki/security/operational-persona), the sets of accounts and credentials one person runs as separate identities, fails when something belongs to both sides of the boundary: an identifier, an acquaintance, a recovery path, a browser or device, a network address, a company's records, a payment, or the habits of the operator, the person acting as both. Each gives an observer a way to join two sets of records that were meant to stay apart. The table orders them by what that join costs the observer, cheapest first.
 
 | Failure | What crosses | Who can use it | Can configuration stop it? |
 | --- | --- | --- | --- |
@@ -19,19 +19,21 @@ Isolation between two [operational personas](/wiki/security/operational-persona)
 
 All of these break unlinkability, the property that an observer cannot tell two personas have one operator. Four also break containment, the property that a leak in one persona gives no control over another: a reused password, a recovery crossing, a compromised shared device, and a custodian holding credentials for both.
 
-## One crossing is enough
+These pages describe how one person's own contexts get connected. Operating accounts a service has barred, and passing as several people, [fall outside the section](/wiki/security/operational-persona#limits).
 
-An operator has to be right on every commit and every login, and an observer needs one row. [A link has to be seen only once](/wiki/security/identity-separation#cheap-early-nearly-impossible-late), and deleting the evidence does not delete what was learned. Hence the emphasis on [a context that fails closed](/wiki/security/operational-persona/technical-context#fail-closed): when a mistake produces an error, it never reaches a log.
+## One link is enough
+
+An operator has to be right on every commit and every login, and an observer needs one log entry. [A link has to be seen only once](/wiki/security/identity-separation#cheap-early-nearly-impossible-late), and deleting the evidence does not delete what was learned. [A context that fails closed](/wiki/security/operational-persona/technical-context#fail-closed) answers this directly: a mistake that produces an error never reaches a log.
 
 ## The boundary is drawn against an observer
 
 RFC 6973 defines unlinkability relative to whoever is looking: "the inability of an observer or attacker to distinguish whether two items of interest are related or not (with a high enough degree of probability to be useful to the observer or attacker)".
 
-The third column of the table is therefore the practical one. A pseudonym meant to keep strangers away from a home address needs the first rows closed and can live with a custodian that knows. A pseudonym meant to survive a legal demand cannot rest on any service that holds a row. Proton's spokesperson put the distinction this way: "Proton provides privacy by default and not anonymity by default because anonymity requires certain user actions".
+The third column of the table is therefore the practical one. A pseudonym meant to keep strangers away from a home address needs the first rows closed and can tolerate a custodian that knows. A pseudonym meant to survive a legal demand cannot rest on any service holding a record that connects it to its operator. The spokesperson for Proton, an encrypted mail service, put the distinction this way: "Proton provides privacy by default and not anonymity by default because anonymity requires certain user actions".
 
 ## Weak signals add up
 
-An observer rarely needs proof. The same RFC asks only for probability "high enough" to be useful, and evidence combines. Goga and colleagues found that matching Flickr users to Twitter accounts on location, timing and language together reached the accuracy of attacks that use usernames. Bellingcat's guide to linking websites treats a shared camera model as support for firmer evidence and a shared analytics ID as that firmer evidence. A short list of candidates lowers the bar further, as [the Romney case](/wiki/security/operational-persona/isolation-failures/social-graph) shows.
+An observer rarely needs proof. The same RFC asks only for probability "high enough" to be useful, and evidence combines. Goga and colleagues matched 63% of Flickr users to their Twitter accounts at a 1% false-positive rate from location, timing and language together, against 77% from usernames. The investigative group Bellingcat treats a shared camera model as support only, useful beside a firmer link such as a shared analytics ID. A short list of candidates lowers the bar further, as when [a reporter found Mitt Romney's secret Twitter account](/wiki/security/operational-persona/isolation-failures/social-graph) by starting from his family's follower lists.
 
 ## Wiki Pages
 
