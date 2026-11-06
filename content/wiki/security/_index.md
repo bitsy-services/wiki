@@ -16,6 +16,8 @@ The first three pages describe one stack, and read best from the top down.
 
 [Identity separation](/wiki/security/identity-separation) is the practice of keeping two sets of accounts so that nobody outside can show one person is behind both. It concerns a different property of a key, or of the email address stamped on each commit: not whether it stays secret, but which person it points to. A key can be guarded perfectly and still tie a pseudonym to a legal name by being offered to the wrong server.
 
+An [operational persona](/wiki/security/operational-persona) is what each of those sets of accounts is: accounts, credentials, recovery methods and technical context managed as one identity, with a boundary around them. Its pages cover what belongs in one, how its parts stay one unit over years, and the ways its boundary fails.
+
 ## Wiki Pages
 
 {{< section >}}

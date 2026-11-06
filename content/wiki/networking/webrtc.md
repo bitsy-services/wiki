@@ -115,7 +115,7 @@ Browsers must also verify reachability with ICE before sending anything else to 
 
 ICE works best when each agent offers its private interface addresses as host candidates, because two peers on the same network can then connect directly. But a list of private addresses, handed to any web page that asks, is a stable fingerprint of the user's machine and network. An IETF draft whose authors include engineers at Apple and Google specifies the fix. Each private address is replaced in the candidate with a random name, a version 4 universally unique identifier followed by `.local`, and the browser answers multicast DNS queries for that name on the local network only. A peer on the same network can resolve the name, and a web page on the internet learns nothing. A candidate line with a `.local` address is this mechanism at work.
 
-Server-reflexive candidates still reveal the user's public address, to the page and to the peer. A page that must keep peers from exchanging packets with the user directly can set `iceTransportPolicy: "relay"`, which uses only relayed candidates, so that every packet passes through the TURN server.
+Server-reflexive candidates still reveal the user's public address, to the page and to the peer, and [an address can link two identities](/wiki/security/operational-persona/isolation-failures/network-address). A page that must keep peers from exchanging packets with the user directly can set `iceTransportPolicy: "relay"`, which uses only relayed candidates, so that every packet passes through the TURN server.
 
 ## More than two people
 

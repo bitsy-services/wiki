@@ -59,6 +59,7 @@ Take two authors with plenty of public-domain text — Austen and Dickens will d
 - [Authorship survives imitation](/wiki/ai/pastiche/authorship-survives) — the verification question applied to model output.
 - [Entity addressing](/wiki/cs/entity-addressing) — identity established by intrinsic properties rather than by a label, the same move in a different domain.
 - [Identity separation](/wiki/security/identity-separation) — keeping a pseudonym unlinkable from a legal name, where writing style is one of the identifiers that links them.
+- [Behavioural correlation](/wiki/security/operational-persona/isolation-failures/behavioural-correlation) — writing style alongside the other habits that link two identities run by one person.
 
 ## Further reading
 

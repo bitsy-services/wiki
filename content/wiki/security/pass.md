@@ -83,7 +83,7 @@ Point `pass` at your key:
 pass init <YOUR-FINGERPRINT>
 ```
 
-This creates `~/.password-store/` with a `.gpg-id` file recording which key the store encrypts to. (To store somewhere else, set `PASSWORD_STORE_DIR`.)
+This creates `~/.password-store/` with a `.gpg-id` file recording which key the store encrypts to. (To store somewhere else, set `PASSWORD_STORE_DIR`, which is also how an [operational persona](/wiki/security/operational-persona/cohesion#one-inventory-per-persona) keeps a store of its own.)
 
 ### Turn on git
 

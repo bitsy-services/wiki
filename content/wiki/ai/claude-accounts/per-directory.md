@@ -114,6 +114,7 @@ The work account's `CLAUDE.md` now imports the default one, and anything you add
 
 - [How many Claude accounts, and what type](/wiki/ai/claude-accounts/how-many-accounts): which accounts to set up.
 - [Switch between Claude accounts](/wiki/ai/claude-accounts/switching): switching in a terminal, in a running session, in scripts and in VS Code.
+- [Persona technical context](/wiki/security/operational-persona/technical-context): the same directory-selects-the-identity approach applied to Git, SSH, `gh` and `gpg`.
 
 ## Further reading
 

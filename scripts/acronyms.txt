@@ -634,6 +634,27 @@ ZDR	zero data retention
 MAX	-
 CC	-
 
+# --- Operational personas ------------------------------------------------
+# ATT and CK appear only in the proper noun ATT&CK, MITRE's knowledge base. TOR
+# appears only in a quoted affidavit. CCS, ICISSP, IMC, NDSS, PETS and WWW are
+# conference names in citations; OSINT and PII appear only in cited titles.
+NIST	National Institute of Standards and Technology
+GRU	military intelligence
+OSINT	open-source intelligence
+PII	personally identifying information
+WHOIS	-
+ATT	-
+CK	-
+TOR	-
+PC	-
+SP	-
+CCS	-
+ICISSP	-
+IMC	-
+NDSS	-
+PETS	-
+WWW	-
+
 # --- GitHub organizations ------------------------------------------------
 # CD appears in the predefined role name "CI/CD admin".
 CD	continuous delivery

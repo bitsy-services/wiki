@@ -19,7 +19,7 @@ Two ordinary customer-service operations do it. A **port-out** moves the number 
 
 ## The chain the attacker is after
 
-The phone is not the target. The number is the first link in a reset chain that ends at a withdrawal, and every hop is a documented recovery feature working as specified.
+The phone is not the target. The number is the first link in a [reset chain](/wiki/security/operational-persona/recovery-graph) that ends at a withdrawal, and every hop is a documented recovery feature working as specified.
 
 ```text
   carrier account

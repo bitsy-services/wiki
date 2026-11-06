@@ -7,6 +7,8 @@ Identity separation is the practice of keeping two or more sets of accounts — 
 
 That is a stronger property than having separate accounts. Separate logins limit the damage when one credential leaks. Unlinkability ends when a single identifier — an email address, a public key, a handle — appears on both sides, and nothing fails or warns when it does.
 
+Each set of accounts kept apart is an [operational persona](/wiki/security/operational-persona), with its own recovery methods and technical context. This page covers the identifiers a developer publishes by accident, and [how persona isolation fails](/wiki/security/operational-persona/isolation-failures) covers the other routes.
+
 ## How identities get linked
 
 The examples use two invented identities on one laptop: `Ines Varga <ines@acme.example>` for work, and the pseudonym `brinewick` for a hobby project.
@@ -34,7 +36,7 @@ Host *
 
 **Metadata.** Most of it is values nobody typed. Each commit records the author's UTC offset beside its timestamp, such as `-0500`, which narrows the location and, across a history, shows the hours the author keeps. A pasted stack trace or log prints the home directory, `/home/ines/`. Photos and PDF files can carry the author's name, the device and the location in fields that viewers do not display. Prose is the hardest case: given enough text under both names, [stylometry](/wiki/cs/stylometry) can attribute both to one author from the rates of common words such as *upon* and *while*, which a writer does not consciously choose.
 
-None of this needs the service's cooperation: it is visible to anyone who clones the repository, runs a server Ines connects to, or searches for the handle. The service itself sees more — the IP address of each login, the recovery email and phone number, a payment card — and no setting above changes that, which matters when the service is breached or served a legal demand.
+None of this needs the service's cooperation: it is visible to anyone who clones the repository, runs a server Ines connects to, or searches for the handle. The service itself sees more — [the IP address of each login](/wiki/security/operational-persona/isolation-failures/network-address), [the recovery email and phone number](/wiki/security/operational-persona/recovery-graph), [a payment card](/wiki/security/operational-persona/isolation-failures/payment-trail) — and no setting above changes that, which matters when the service is [breached or served a legal demand](/wiki/security/operational-persona/isolation-failures/shared-custodian).
 
 ## The case for
 
