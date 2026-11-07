@@ -27,7 +27,7 @@ A private follow list hides the graph from strangers, and the platform still hol
 
 ## Check
 
-Compare what two personas follow on a service that publishes the lists. On GitHub, with `brinewick` as the pseudonym and `inesvarga` as its operator's work account:
+Compare what two personas follow on a service that publishes the lists. On GitHub, with `brinewick` as the pseudonym and `inesvarga` as its operator's paid personal account:
 
 ```bash
 curl -fsSL 'https://api.github.com/users/brinewick/following?per_page=100' | jq -r '.[].login' | sort > a.txt
@@ -36,7 +36,7 @@ wc -l a.txt b.txt
 comm -12 a.txt b.txt
 ```
 
-`wc` shows how many logins each list returned, from the first 100 of each, and a count of 0 with a `curl` error means the request failed. `comm` prints the logins on both lists. A popular project's account on both lists is common. A colleague or a relative on both is the finding.
+`wc` shows how many logins each list returned, from the first 100 of each, and a count of 0 with a `curl` error means the request failed. `comm` prints the logins on both lists. A popular project's account on both lists is common. A colleague or a relative on both is the finding. A managed work account has no public list to compare: it is visible only inside its enterprise and cannot follow anyone outside it.
 
 The two requests are themselves an entry in GitHub's logs, so against an observer who can read those logs, fetch each list from its own persona's context. Delete the files afterwards.
 
@@ -46,3 +46,4 @@ The two requests are themselves an entry in GitHub's logs, so against an observe
 - Narayanan & Shmatikov, [De-anonymizing Social Networks](https://arxiv.org/abs/0903.3276), IEEE Symposium on Security and Privacy 2009
 - Hagen, Weinert, Sendner, Dmitrienko & Schneider, [All the Numbers are US: Large-scale Abuse of Contact Discovery in Mobile Messengers](https://encrypto.de/papers/HWSDS21.pdf), NDSS 2021
 - Venkatadri, Lucherini, Sapiezynski & Mislove, [Investigating sources of PII used in Facebook's targeted advertising](https://mislove.org/publications/PII-PETS.pdf), PETS 2019
+- GitHub Docs, [Abilities and restrictions of managed user accounts](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/abilities-and-restrictions-of-managed-user-accounts)

@@ -71,7 +71,7 @@ git log --all --format='%ae %ce %G? %GK' | sort | uniq -c
       1 ines@acme.example ines@acme.example G SHA256:0O19Q+UkZpHz1a0Z3muebjbf0Q/P0K2nUBkue6lN8IQ
 ```
 
-The columns are author address, committer address, signature status and signing key. `G` is a good signature from a known key, `N` no signature, `U` a good signature from a key Git has not been told to trust, and `E` a signature Git cannot check because it lacks the key. A repository that belongs to one persona prints one address and one key.
+The columns are author address, committer address, signature status and signing key. `G` is a good signature from a known key, `N` no signature, `U` a good signature from a key Git has not been told to trust, and `E` a signature Git cannot check because it lacks the key. A repository that belongs to one persona prints one address and one key, plus `noreply@github.com` and GitHub's own key on anything merged in the web interface.
 
 The third line above shows another key signing under this persona's address, and the last two put the work address on its commits. Git reports `G` on those two because it verifies the key and does not compare addresses, so read the address columns. For SSH signatures Git needs `gpg.ssh.allowedSignersFile` set: without it, every signed commit shows `N` with an error.
 

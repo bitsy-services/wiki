@@ -29,7 +29,7 @@ The record has to be accurate. ICANN, the body that oversees domain names, tells
 
 ### Passwords
 
-A password reused on two accounts turns into an identifier once both services are breached, since services that sell breach data let investigators search by password. Partway through a 2021 investigation of a ransomware access broker, Brian Krebs read a masked backup address on Gmail's recovery form, confirmed a guess at it when Gmail accepted the address, and found that address's two passwords in breach records. Searching for those passwords surfaced further addresses, and one of those had registered an account under a person's name.
+A password reused on two accounts turns into an identifier once both services are breached, since services that sell breach data let investigators search by password. Partway through a 2021 investigation of a ransomware access broker, Brian Krebs read a masked backup address on Gmail's recovery form, saw Gmail accept a matching address, and found that address's two passwords in breach records. Searching for those passwords surfaced further addresses, and one of those had registered an account under a person's name.
 
 ### Phone numbers
 
@@ -60,7 +60,7 @@ A `curl` error means the request failed, and empty output with no error means no
 - Perito, Castelluccia, Kaafar & Manils, [How Unique and Traceable are Usernames?](https://arxiv.org/abs/1101.5578), PETS 2011
 - Bellingcat, [Unveiling Hidden Connections with Google Analytics IDs](https://www.bellingcat.com/resources/2015/07/23/unveiling-hidden-connections-with-google-analytics-ids/) (2015)
 - [RFC 6962: Certificate Transparency](https://www.rfc-editor.org/rfc/rfc6962), and [crt.sh](https://crt.sh/), a search interface to the logs
-- ICANN, [Registrant Benefits and Responsibilities](https://www.icann.org/resources/pages/benefits-2013-09-16-en)
+- ICANN, [Registrants' Benefits and Responsibilities](https://www.icann.org/resources/pages/benefits-2013-09-16-en)
 - Brian Krebs, [Who is the Network Access Broker 'Babam'?](https://krebsonsecurity.com/2021/12/who-is-the-network-access-broker-babam/) (2021)
 - Hagen, Weinert, Sendner, Dmitrienko & Schneider, [All the Numbers are US: Large-scale Abuse of Contact Discovery in Mobile Messengers](https://encrypto.de/papers/HWSDS21.pdf), NDSS 2021
 - [Criminal complaint, *United States v. Ulbricht*](https://krebsonsecurity.com/wp-content/uploads/2013/10/UlbrichtCriminalComplaint.pdf) (2013), paragraphs 34 to 39

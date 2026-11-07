@@ -53,10 +53,10 @@ export TZ=UTC
 
 Create the GnuPG directory first with `mkdir -m 700 ~/hobby/.gnupg`. `gpg` stops with `directory does not exist` if it is missing, and warns if others can read it.
 
-The file has gaps, and with the defaults empty most of them end in a refusal:
+The file has gaps. With the defaults empty, `gh`, `gpg` and `pass` refuse in most of them. `git commit` does not, as its identity comes from `includeIf`: a commit made while the file is not loaded succeeds and records the system's time zone.
 
 - direnv refuses a new or edited file until `direnv allow ~/hobby` runs again, and until then none of the variables are set.
-- [In Bash the file loads at the next prompt](/wiki/ai/claude-accounts/per-directory#pitfalls), so `cd ~/hobby/project && git commit` runs before it and records the system's time zone.
+- [In Bash the file loads at the next prompt](/wiki/ai/claude-accounts/per-directory#pitfalls), so `cd ~/hobby/project && git commit` runs before it.
 - A repository with its own `.envrc` replaces this one unless its first line is `source_up`.
 - Programs not started from that shell miss it: cron jobs, desktop applications, editor panels.
 - An exported `GH_TOKEN` or `GITHUB_TOKEN` takes precedence over `GH_CONFIG_DIR`, so neither belongs in a shell profile.

@@ -26,7 +26,7 @@ Every account publishes identifiers: a handle, an avatar, an address. Those valu
 
 Each account belongs to one persona, so two personas that need one service need two accounts, and the service's terms decide whether that is allowed. GitHub's terms say "One person or legal entity may maintain no more than one free Account". Ines stays inside that sentence because her work account is a managed account, which Acme's identity provider creates inside Acme's paid enterprise, and `brinewick` is the one free account she maintains.
 
-Without that, the options are one account and no separation at that service, a paid plan for the second, which puts [a card on file](/wiki/security/operational-persona/isolation-failures/payment-trail), or another forge for the pseudonym. Separate accounts for separate work differ from a second account that gets past a per-person limit, and the second kind [falls outside this section](/wiki/security/operational-persona#limits).
+Without that, the options are one account and no separation at that service, a paid plan for the second, which puts [a card on file](/wiki/security/operational-persona/isolation-failures/payment-trail), or another code host, such as GitLab or Codeberg, for the pseudonym. Separate accounts for separate work differ from a second account that gets past a per-person limit, and the second kind [falls outside this section](/wiki/security/operational-persona#limits).
 
 ## Credentials
 

@@ -19,7 +19,7 @@ A virtual private network (VPN) replaces the address a service sees with the pro
 
 A page in the browser can look past a tunnel as well. [WebRTC, the browser's real-time connection system](/wiki/networking/webrtc#local-addresses-and-privacy), gathers the addresses a browser can be reached on and reveals its public address to the page. RFC 8828 warns that with a split-tunnel VPN, one that routes only some traffic through the tunnel, "WebRTC can discover not only the public address for the VPN, but also the ISP public address over which the VPN is running".
 
-Setting up the route is part of the record too. The 2018 US indictment of twelve officers of Russian military intelligence (GRU), over the hacking and release of documents during the 2016 US election, alleges that a VPN account was used to log in to `@Guccifer_2`, the Twitter account of a fictitious persona that released some of those documents. It alleges that the account was opened "from the same server that was also used to register malicious domains" for the hacking. A login through a VPN would show the VPN's address, and this allegation concerns where the account was opened.
+Setting up the route is part of the record too. The 2018 US indictment of twelve officers of Russian military intelligence (GRU), over the hacking and release of documents during the 2016 US election, alleges that a VPN account was used to log in to `@Guccifer_2`, the Twitter account of a fictitious persona that released some of those documents. It alleges that this VPN account was opened "from the same server that was also used to register malicious domains" for the hacking. A login through a VPN would show the VPN's address, and this allegation concerns where the VPN account was opened.
 
 ## One route per persona
 

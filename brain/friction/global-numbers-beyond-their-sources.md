@@ -216,4 +216,36 @@ example*) survives the paraphrase. For copy-paste shell, test the empty and
 unset cases of every variable the snippet reads, not just the set case. When
 two first-party sources disagree, say so on the page.
 
+**Recurrence, 2026-11-06 (`security/operational-persona/`, 14 pages).** Sources
+fetched first and commands run in a scratch home. Two reviewers, one against the
+request and rules and one grepping the sources, still found over 50 problems,
+and a narrow round on only the changed sentences found nine more. The shapes:
+
+- **A condition lost in a definition.** The recovery graph defined an edge as
+  "control of A is enough to take B" and drew mail to GitHub, while the same
+  section's inventory gave GitHub a second factor. One definition made six
+  sentences wrong. The fix was notation that carries the condition (`A + C -> B`).
+- **A probe on a machine without the condition.** `gh auth status` passed the
+  fail-closed check here because this machine has no credential store. With one,
+  it says logged out while `gh auth token` prints the last login's token.
+- **An abstract's adjective against its table.** Goga's "37% more accounts" is
+  44% against 7%, and "comparable" is 63% against 77%.
+- **A worked example against the section's own rules.** Three GitHub accounts
+  for one person broke the one-free-account rule the section cites. The repair,
+  a managed work account, then made a Check impossible, since managed accounts
+  have no public lists.
+- **Checks that cannot fail visibly.** `curl -s` prints nothing on failure, so
+  the "connection error" a page described never appears, and empty output reads
+  as a pass. `%G?` reports `G` for a commit under the wrong address.
+- **A rewrite that moved a claim.** An edit for readability put an indictment's
+  allegation on the Twitter account where the source says the VPN account.
+- **A reviewer can be wrong too.** One said `gpg` creates a missing `GNUPGHOME`.
+  It creates only the default `~/.gnupg`; any other path is fatal.
+
+How to apply: run each check's failure case, and run it under the condition that
+would make it fail (a credential store present, a request refused). Read the
+table behind an abstract's adjective. Check a worked example against every rule
+and every command in its section. Run a reviewer's claim about a command before
+applying it. Set the stopping rule before the narrow round.
+
 Related: [[project-harness-invariants]], [[global-scratchpad-lives-in-tmp]].

@@ -33,7 +33,7 @@ The third column of the table is therefore the practical one. A pseudonym meant 
 
 ## Weak signals add up
 
-An observer rarely needs proof. The same RFC asks only for probability "high enough" to be useful, and evidence combines. Goga and colleagues matched 63% of Flickr users to their Twitter accounts at a 1% false-positive rate from location, timing and language together, against 77% from usernames. The investigative group Bellingcat treats a shared camera model as support only, useful beside a firmer link such as a shared analytics ID. A short list of candidates lowers the bar further, as when [a reporter found Mitt Romney's secret Twitter account](/wiki/security/operational-persona/isolation-failures/social-graph) by starting from his family's follower lists.
+An observer rarely needs proof. The same RFC asks only for probability "high enough" to be useful, and evidence combines. Goga and colleagues matched 63% of Flickr users to their Twitter accounts at a 1% false-positive rate from location, timing and language together, against 77% from usernames. The investigative group Bellingcat treats a shared camera model as support only, useful beside a firmer link such as a shared analytics ID. A short list of candidates lowers the bar further, as when [a reporter found Mitt Romney's secret Twitter account](/wiki/security/operational-persona/isolation-failures/social-graph) by scrolling his oldest grandchild's followers.
 
 ## Wiki Pages
 

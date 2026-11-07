@@ -19,11 +19,11 @@ mail for @brinewick.example     -> password reset at the forum and package regis
 mail for @brinewick.example     -> password reset at the registrar
 mail + security key             -> GitHub
 mail + printed code             -> GitHub
-mail + SSH key                  -> GitHub, after a wait of up to three business days
+mail + SSH key                  -> GitHub, if Support approves the request
 ines@acme.example               -> password reset at the registrar    (crossing)
 ```
 
-The last line is the defect. A registrar asks for an address before the new domain has a mailbox, and Ines typed the one she had open. GitHub's records show no trace of her, yet a path runs from Acme's mail server into the persona: anyone administering `ines@acme.example` can reset the registrar login, repoint the domain's mail and reset every account with no second factor. GitHub holds for as long as its second factor does.
+The last line is the defect. A registrar asks for an address before the new domain has a mailbox, and Ines typed the one she had open. GitHub's records show no trace of her, yet a path runs from Acme's mail server into the persona: anyone administering `ines@acme.example` can reset the registrar login, repoint the domain's mail and reset every account with no second factor. GitHub holds for as long as its second factor does. Its SSH key line is the least dependable: Support can deny the request, and GitHub removes SSH keys from accounts after a period of inactivity.
 
 ## What counts as an edge
 
